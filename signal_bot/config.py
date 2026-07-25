@@ -103,6 +103,10 @@ TICKERS = [
 DAILY_MIN_ROWS = 250
 WEEKLY_MIN_ROWS = 104
 
+# history.json 롤링 윈도우: 스파크라인(최근 30일)/백테스트엔 이 정도면 충분하고,
+# 무한정 누적되어 저장소 용량이 불어나는 걸 막는다 (PROJECT_PLAN.md 섹션 13-2).
+HISTORY_MAX_DAYS = 180
+
 TICKER_NAMES = {
     "NVDA": "NVIDIA", "AAPL": "Apple", "GOOGL": "Alphabet", "MSFT": "Microsoft",
     "AMZN": "Amazon", "META": "Meta Platforms", "AVGO": "Broadcom", "TSLA": "Tesla",

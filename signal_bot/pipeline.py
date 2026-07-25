@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 from signal_bot import alerts
-from signal_bot.config import TICKER_NAMES, TICKERS
+from signal_bot.config import HISTORY_MAX_DAYS, TICKER_NAMES, TICKERS
 from signal_bot.notifier import send_telegram_message
 from signal_bot.scoring import compute_scores
 
@@ -27,6 +27,15 @@ def load_history() -> dict:
 def save_history(history: dict) -> None:
     with open(HISTORY_PATH, "w", encoding="utf-8") as f:
         json.dump(history, f, ensure_ascii=False, indent=2)
+
+
+def trim_history(history: dict, max_days: int = HISTORY_MAX_DAYS) -> dict:
+    """최근 max_days 거래일만 남기고 그 이전 날짜는 버린다 (저장소 용량 무한증가 방지)."""
+    dates = sorted(history.keys())
+    if len(dates) <= max_days:
+        return history
+    keep = set(dates[-max_days:])
+    return {d: rec for d, rec in history.items() if d in keep}
 
 
 def _signal_summary(row: pd.Series) -> str:
@@ -122,8 +131,9 @@ def main():
     today = results[0]["date"]
     history = load_history()
     history[today] = {r["symb"]: r for r in results}
+    history = trim_history(history)
     save_history(history)
-    print(f"\nJSON 이력 저장 완료: {HISTORY_PATH} (기준일 {today})")
+    print(f"\nJSON 이력 저장 완료: {HISTORY_PATH} (기준일 {today}, 최근 {HISTORY_MAX_DAYS}거래일 유지)")
 
     new_signals = alerts.find_new_strong_signals(history, today)
     notified = alerts.load_notified()
