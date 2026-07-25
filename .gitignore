@@ -177,3 +177,6 @@ settings.local.json
 
 .serena/
 kis_devlp.yaml
+
+# ===== signal_bot (KIS 매수신호 알림 시스템) =====
+signal_bot/data/
