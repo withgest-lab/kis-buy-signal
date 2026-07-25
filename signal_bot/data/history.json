@@ -6018,7 +6018,7 @@
         "squeeze_expansion": 0.0,
         "volume_exhaustion": 0.5
       },
-      "adx": 24.9,
+      "adx": 25.3,
       "regime_penalty": false
     },
     "CNP": {
@@ -11148,7 +11148,7 @@
         "squeeze_expansion": 0.0,
         "volume_exhaustion": 1.0
       },
-      "adx": 13.8,
+      "adx": 14.0,
       "regime_penalty": false
     },
     "ICE": {
