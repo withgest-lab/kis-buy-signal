@@ -179,4 +179,7 @@ settings.local.json
 kis_devlp.yaml
 
 # ===== signal_bot (KIS 매수신호 알림 시스템) =====
-signal_bot/data/
+# 시세 캐시(CSV)/차트용 임시 JSON은 매일 재생성되므로 제외.
+# history.json / notified.json은 GitHub Actions 실행 간 상태를 유지해야 하므로 커밋 대상에 포함.
+signal_bot/data/*.csv
+signal_bot/data/nvda_step6_chart.json

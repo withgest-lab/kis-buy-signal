@@ -1,0 +1,292 @@
+{
+  "2026-07-24": {
+    "ROK": {
+      "category": "산업대장",
+      "symb": "ROK",
+      "date": "2026-07-24",
+      "close": 462.16,
+      "score": 50.0,
+      "verdict": "관찰대상",
+      "signals": "MFI선행,거래량소진"
+    },
+    "QQQ": {
+      "category": "섹터ETF",
+      "symb": "QQQ",
+      "date": "2026-07-24",
+      "close": 684.23,
+      "score": 50.0,
+      "verdict": "관찰대상",
+      "signals": "거래량소진"
+    },
+    "SPY": {
+      "category": "섹터ETF",
+      "symb": "SPY",
+      "date": "2026-07-24",
+      "close": 738.93,
+      "score": 45.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진"
+    },
+    "CIBR": {
+      "category": "섹터ETF",
+      "symb": "CIBR",
+      "date": "2026-07-24",
+      "close": 88.4,
+      "score": 45.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진"
+    },
+    "CRWD": {
+      "category": "산업대장",
+      "symb": "CRWD",
+      "date": "2026-07-24",
+      "close": 183.28,
+      "score": 40.0,
+      "verdict": "무시",
+      "signals": "MFI선행"
+    },
+    "AAPL": {
+      "category": "빅테크",
+      "symb": "AAPL",
+      "date": "2026-07-24",
+      "close": 333.02,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "AVGO": {
+      "category": "빅테크",
+      "symb": "AVGO",
+      "date": "2026-07-24",
+      "close": 381.92,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "TSM": {
+      "category": "산업대장",
+      "symb": "TSM",
+      "date": "2026-07-24",
+      "close": 403.41,
+      "score": 34.5,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "SOXX": {
+      "category": "섹터ETF",
+      "symb": "SOXX",
+      "date": "2026-07-24",
+      "close": 527.01,
+      "score": 32.9,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "VRT": {
+      "category": "산업대장",
+      "symb": "VRT",
+      "date": "2026-07-24",
+      "close": 290.36,
+      "score": 32.7,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진"
+    },
+    "META": {
+      "category": "빅테크",
+      "symb": "META",
+      "date": "2026-07-24",
+      "close": 595.19,
+      "score": 32.5,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진"
+    },
+    "NVDA": {
+      "category": "빅테크",
+      "symb": "NVDA",
+      "date": "2026-07-24",
+      "close": 206.84,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "AMZN": {
+      "category": "빅테크",
+      "symb": "AMZN",
+      "date": "2026-07-24",
+      "close": 232.11,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "PANW": {
+      "category": "산업대장",
+      "symb": "PANW",
+      "date": "2026-07-24",
+      "close": 323.79,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "GEV": {
+      "category": "산업대장",
+      "symb": "GEV",
+      "date": "2026-07-24",
+      "close": 1014.75,
+      "score": 29.4,
+      "verdict": "무시",
+      "signals": "-"
+    },
+    "COHR": {
+      "category": "산업대장",
+      "symb": "COHR",
+      "date": "2026-07-24",
+      "close": 282.39,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진"
+    },
+    "BUG": {
+      "category": "섹터ETF",
+      "symb": "BUG",
+      "date": "2026-07-24",
+      "close": 37.8,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "-"
+    },
+    "ROBO": {
+      "category": "섹터ETF",
+      "symb": "ROBO",
+      "date": "2026-07-24",
+      "close": 77.83,
+      "score": 22.0,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "GOOGL": {
+      "category": "빅테크",
+      "symb": "GOOGL",
+      "date": "2026-07-24",
+      "close": 319.74,
+      "score": 20.0,
+      "verdict": "무시",
+      "signals": "-"
+    },
+    "TSLA": {
+      "category": "빅테크",
+      "symb": "TSLA",
+      "date": "2026-07-24",
+      "close": 313.03,
+      "score": 20.0,
+      "verdict": "무시",
+      "signals": "-"
+    },
+    "ORCL": {
+      "category": "빅테크",
+      "symb": "ORCL",
+      "date": "2026-07-24",
+      "close": 114.99,
+      "score": 16.5,
+      "verdict": "무시",
+      "signals": "다이버전스,MFI선행,거래량소진"
+    },
+    "LMT": {
+      "category": "산업대장",
+      "symb": "LMT",
+      "date": "2026-07-24",
+      "close": 582.6,
+      "score": 15.0,
+      "verdict": "무시",
+      "signals": "-"
+    },
+    "QTUM": {
+      "category": "섹터ETF",
+      "symb": "QTUM",
+      "date": "2026-07-24",
+      "close": 139.56,
+      "score": 14.1,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "VOLT": {
+      "category": "섹터ETF",
+      "symb": "VOLT",
+      "date": "2026-07-24",
+      "close": 37.88,
+      "score": 12.5,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "MSFT": {
+      "category": "빅테크",
+      "symb": "MSFT",
+      "date": "2026-07-24",
+      "close": 381.7,
+      "score": 10.0,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "PLTR": {
+      "category": "빅테크",
+      "symb": "PLTR",
+      "date": "2026-07-24",
+      "close": 122.92,
+      "score": 10.0,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "AIPO": {
+      "category": "섹터ETF",
+      "symb": "AIPO",
+      "date": "2026-07-24",
+      "close": 29.33,
+      "score": 9.8,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진"
+    },
+    "ISRG": {
+      "category": "산업대장",
+      "symb": "ISRG",
+      "date": "2026-07-24",
+      "close": 337.5,
+      "score": 8.4,
+      "verdict": "무시",
+      "signals": "MFI선행"
+    },
+    "BE": {
+      "category": "산업대장",
+      "symb": "BE",
+      "date": "2026-07-24",
+      "close": 184.89,
+      "score": 7.5,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "RKLB": {
+      "category": "산업대장",
+      "symb": "RKLB",
+      "date": "2026-07-24",
+      "close": 63.91,
+      "score": 7.5,
+      "verdict": "무시",
+      "signals": "다이버전스,거래량소진"
+    },
+    "BOTZ": {
+      "category": "섹터ETF",
+      "symb": "BOTZ",
+      "date": "2026-07-24",
+      "close": 33.83,
+      "score": 6.5,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    },
+    "IONQ": {
+      "category": "산업대장",
+      "symb": "IONQ",
+      "date": "2026-07-24",
+      "close": 32.84,
+      "score": 2.7,
+      "verdict": "무시",
+      "signals": "거래량소진"
+    }
+  }
+}

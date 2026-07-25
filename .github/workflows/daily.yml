@@ -1,0 +1,72 @@
+name: KIS 매수신호 알림
+
+on:
+  schedule:
+    # UTC 22:30 = KST 07:30 (다음날)
+    - cron: "30 22 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  run-signal-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Prepare KIS config (secrets -> kis_devlp.yaml)
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          KIS_ACCT_NO: ${{ secrets.KIS_ACCT_NO }}
+        run: |
+          mkdir -p ~/KIS/config
+          cat > ~/KIS/config/kis_devlp.yaml << EOF
+          my_app: "$KIS_APP_KEY"
+          my_sec: "$KIS_APP_SECRET"
+          paper_app: ""
+          paper_sec: ""
+          my_htsid: ""
+          my_acct_stock: "$KIS_ACCT_NO"
+          my_acct_future: ""
+          my_paper_stock: ""
+          my_paper_future: ""
+          my_prod: "01"
+          prod: "https://openapi.koreainvestment.com:9443"
+          ops: "ws://ops.koreainvestment.com:21000"
+          vps: "https://openapivts.koreainvestment.com:29443"
+          vops: "ws://ops.koreainvestment.com:31000"
+          my_token: ""
+          my_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+          EOF
+
+      - name: Fetch latest prices (STEP 3)
+        run: uv run python -m signal_bot.fetch_universe
+
+      - name: Score + notify (STEP 6~8)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: uv run python main.py
+
+      - name: Commit updated history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add signal_bot/data/history.json
+          if [ -f signal_bot/data/notified.json ]; then
+            git add signal_bot/data/notified.json
+          fi
+          git diff --cached --quiet || git commit -m "chore: update signal history $(date -u +%Y-%m-%d)"
+          git push
