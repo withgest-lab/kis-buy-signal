@@ -9,9 +9,16 @@ on:
 permissions:
   contents: write
 
+# 예약 실행과 수동 실행이 겹치면 이력 파일 push가 충돌할 수 있어, 동시에 두 개가
+# 돌지 않도록 큐잉한다(취소하지 않고 순서대로 실행).
+concurrency:
+  group: kis-signal-daily
+  cancel-in-progress: false
+
 jobs:
   run-signal-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4

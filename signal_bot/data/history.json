@@ -1,5 +1,32 @@
 {
   "2026-07-24": {
+    "IWM": {
+      "category": "섹터ETF",
+      "symb": "IWM",
+      "name": "Russell 2000 ETF",
+      "date": "2026-07-24",
+      "close": 291.17,
+      "pct_chg": -0.31,
+      "score": 58.5,
+      "verdict": "관찰대상",
+      "signals": "스퀴즈확장,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": true,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.93,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 1.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 14.0,
+      "regime_penalty": false
+    },
     "ROK": {
       "category": "산업대장",
       "symb": "ROK",
@@ -27,6 +54,114 @@
       "adx": 14.2,
       "regime_penalty": false
     },
+    "KO": {
+      "category": "산업대장",
+      "symb": "KO",
+      "name": "Coca-Cola",
+      "date": "2026-07-24",
+      "close": 82.25,
+      "pct_chg": 1.33,
+      "score": 50.0,
+      "verdict": "관찰대상",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 13.6,
+      "regime_penalty": false
+    },
+    "GM": {
+      "category": "산업대장",
+      "symb": "GM",
+      "name": "General Motors",
+      "date": "2026-07-24",
+      "close": 82.64,
+      "pct_chg": 2.44,
+      "score": 50.0,
+      "verdict": "관찰대상",
+      "signals": "스퀴즈확장,MFI선행",
+      "detected": {
+        "divergence": false,
+        "squeeze": true,
+        "mfi_lead": true,
+        "vol_exhaustion": false
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 1.0,
+        "volume_exhaustion": 0.0
+      },
+      "adx": 14.2,
+      "regime_penalty": false
+    },
+    "CAT": {
+      "category": "산업대장",
+      "symb": "CAT",
+      "name": "Caterpillar",
+      "date": "2026-07-24",
+      "close": 888.73,
+      "pct_chg": -0.65,
+      "score": 50.0,
+      "verdict": "관찰대상",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 18.3,
+      "regime_penalty": false
+    },
+    "AMAT": {
+      "category": "산업대장",
+      "symb": "AMAT",
+      "name": "Applied Materials",
+      "date": "2026-07-24",
+      "close": 536.25,
+      "pct_chg": -4.72,
+      "score": 50.0,
+      "verdict": "관찰대상",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 14.8,
+      "regime_penalty": false
+    },
     "QQQ": {
       "category": "섹터ETF",
       "symb": "QQQ",
@@ -52,6 +187,87 @@
         "volume_exhaustion": 0.5
       },
       "adx": 20.9,
+      "regime_penalty": false
+    },
+    "BAC": {
+      "category": "산업대장",
+      "symb": "BAC",
+      "name": "Bank of America",
+      "date": "2026-07-24",
+      "close": 62.05,
+      "pct_chg": 1.26,
+      "score": 45.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 35.5,
+      "regime_penalty": false
+    },
+    "FCX": {
+      "category": "산업대장",
+      "symb": "FCX",
+      "name": "Freeport-McMoRan",
+      "date": "2026-07-24",
+      "close": 62.6,
+      "pct_chg": -1.42,
+      "score": 45.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 19.1,
+      "regime_penalty": false
+    },
+    "MU": {
+      "category": "산업대장",
+      "symb": "MU",
+      "name": "Micron Technology",
+      "date": "2026-07-24",
+      "close": 920.95,
+      "pct_chg": -6.99,
+      "score": 45.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 18.5,
       "regime_penalty": false
     },
     "SPY": {
@@ -108,6 +324,33 @@
       "adx": 24.4,
       "regime_penalty": false
     },
+    "XLB": {
+      "category": "섹터ETF",
+      "symb": "XLB",
+      "name": "Materials ETF",
+      "date": "2026-07-24",
+      "close": 51.26,
+      "pct_chg": 1.93,
+      "score": 45.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 8.7,
+      "regime_penalty": false
+    },
     "CRWD": {
       "category": "산업대장",
       "symb": "CRWD",
@@ -133,6 +376,141 @@
         "volume_exhaustion": 0.0
       },
       "adx": 33.1,
+      "regime_penalty": false
+    },
+    "SO": {
+      "category": "산업대장",
+      "symb": "SO",
+      "name": "Southern Company",
+      "date": "2026-07-24",
+      "close": 97.25,
+      "pct_chg": 0.67,
+      "score": 40.0,
+      "verdict": "무시",
+      "signals": "스퀴즈확장,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": true,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 1.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 18.2,
+      "regime_penalty": false
+    },
+    "VZ": {
+      "category": "산업대장",
+      "symb": "VZ",
+      "name": "Verizon",
+      "date": "2026-07-24",
+      "close": 46.38,
+      "pct_chg": 5.84,
+      "score": 40.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.6,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 22.8,
+      "regime_penalty": false
+    },
+    "DIA": {
+      "category": "섹터ETF",
+      "symb": "DIA",
+      "name": "Dow Jones ETF",
+      "date": "2026-07-24",
+      "close": 518.76,
+      "pct_chg": 0.48,
+      "score": 40.0,
+      "verdict": "무시",
+      "signals": "스퀴즈확장,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": true,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 1.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 15.7,
+      "regime_penalty": false
+    },
+    "XLU": {
+      "category": "섹터ETF",
+      "symb": "XLU",
+      "name": "Utilities ETF",
+      "date": "2026-07-24",
+      "close": 46.29,
+      "pct_chg": 0.22,
+      "score": 40.0,
+      "verdict": "무시",
+      "signals": "스퀴즈확장,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": true,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 1.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 15.7,
+      "regime_penalty": false
+    },
+    "XLRE": {
+      "category": "섹터ETF",
+      "symb": "XLRE",
+      "name": "Real Estate ETF",
+      "date": "2026-07-24",
+      "close": 45.95,
+      "pct_chg": 2.22,
+      "score": 40.0,
+      "verdict": "무시",
+      "signals": "스퀴즈확장,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": true,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 1.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 14.6,
       "regime_penalty": false
     },
     "AAPL": {
@@ -189,6 +567,249 @@
       "adx": 14.7,
       "regime_penalty": false
     },
+    "JPM": {
+      "category": "산업대장",
+      "symb": "JPM",
+      "name": "JPMorgan Chase",
+      "date": "2026-07-24",
+      "close": 353.21,
+      "pct_chg": 0.95,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 17.8,
+      "regime_penalty": false
+    },
+    "V": {
+      "category": "산업대장",
+      "symb": "V",
+      "name": "Visa",
+      "date": "2026-07-24",
+      "close": 355.74,
+      "pct_chg": 1.18,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 30.9,
+      "regime_penalty": false
+    },
+    "MA": {
+      "category": "산업대장",
+      "symb": "MA",
+      "name": "Mastercard",
+      "date": "2026-07-24",
+      "close": 539.66,
+      "pct_chg": 1.77,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 27.6,
+      "regime_penalty": false
+    },
+    "LLY": {
+      "category": "산업대장",
+      "symb": "LLY",
+      "name": "Eli Lilly",
+      "date": "2026-07-24",
+      "close": 1196.03,
+      "pct_chg": 0.86,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 19.5,
+      "regime_penalty": false
+    },
+    "VRTX": {
+      "category": "산업대장",
+      "symb": "VRTX",
+      "name": "Vertex Pharmaceuticals",
+      "date": "2026-07-24",
+      "close": 477.36,
+      "pct_chg": 0.9,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 21.2,
+      "regime_penalty": false
+    },
+    "LIN": {
+      "category": "산업대장",
+      "symb": "LIN",
+      "name": "Linde",
+      "date": "2026-07-24",
+      "close": 512.28,
+      "pct_chg": 1.18,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 12.5,
+      "regime_penalty": false
+    },
+    "ASML": {
+      "category": "산업대장",
+      "symb": "ASML",
+      "name": "ASML",
+      "date": "2026-07-24",
+      "close": 1757.09,
+      "pct_chg": -2.55,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 10.8,
+      "regime_penalty": false
+    },
+    "ANET": {
+      "category": "산업대장",
+      "symb": "ANET",
+      "name": "Arista Networks",
+      "date": "2026-07-24",
+      "close": 173.99,
+      "pct_chg": -1.48,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 13.9,
+      "regime_penalty": false
+    },
+    "XLV": {
+      "category": "섹터ETF",
+      "symb": "XLV",
+      "name": "Health Care ETF",
+      "date": "2026-07-24",
+      "close": 162.57,
+      "pct_chg": 0.7,
+      "score": 35.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 19.0,
+      "regime_penalty": false
+    },
     "TSM": {
       "category": "산업대장",
       "symb": "TSM",
@@ -214,6 +835,33 @@
         "volume_exhaustion": 0.5
       },
       "adx": 15.7,
+      "regime_penalty": false
+    },
+    "XLC": {
+      "category": "섹터ETF",
+      "symb": "XLC",
+      "name": "Communication Services ETF",
+      "date": "2026-07-24",
+      "close": 106.3,
+      "pct_chg": 0.87,
+      "score": 34.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.7,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 16.0,
       "regime_penalty": false
     },
     "SOXX": {
@@ -378,6 +1026,249 @@
       "adx": 39.6,
       "regime_penalty": false
     },
+    "JNJ": {
+      "category": "산업대장",
+      "symb": "JNJ",
+      "name": "Johnson & Johnson",
+      "date": "2026-07-24",
+      "close": 263.4,
+      "pct_chg": 1.59,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 22.5,
+      "regime_penalty": false
+    },
+    "UNH": {
+      "category": "산업대장",
+      "symb": "UNH",
+      "name": "UnitedHealth Group",
+      "date": "2026-07-24",
+      "close": 420.74,
+      "pct_chg": -0.67,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 42.1,
+      "regime_penalty": false
+    },
+    "SBUX": {
+      "category": "산업대장",
+      "symb": "SBUX",
+      "name": "Starbucks",
+      "date": "2026-07-24",
+      "close": 103.25,
+      "pct_chg": 0.04,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 11.5,
+      "regime_penalty": false
+    },
+    "XOM": {
+      "category": "산업대장",
+      "symb": "XOM",
+      "name": "ExxonMobil",
+      "date": "2026-07-24",
+      "close": 156.94,
+      "pct_chg": 0.03,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 24.6,
+      "regime_penalty": false
+    },
+    "CVX": {
+      "category": "산업대장",
+      "symb": "CVX",
+      "name": "Chevron",
+      "date": "2026-07-24",
+      "close": 194.79,
+      "pct_chg": 0.19,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 26.8,
+      "regime_penalty": false
+    },
+    "AMD": {
+      "category": "산업대장",
+      "symb": "AMD",
+      "name": "AMD",
+      "date": "2026-07-24",
+      "close": 521.95,
+      "pct_chg": -3.29,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 15.0,
+      "regime_penalty": false
+    },
+    "XLF": {
+      "category": "섹터ETF",
+      "symb": "XLF",
+      "name": "Financials ETF",
+      "date": "2026-07-24",
+      "close": 56.31,
+      "pct_chg": 0.86,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 31.5,
+      "regime_penalty": false
+    },
+    "XLE": {
+      "category": "섹터ETF",
+      "symb": "XLE",
+      "name": "Energy ETF",
+      "date": "2026-07-24",
+      "close": 59.62,
+      "pct_chg": 0.4,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 23.8,
+      "regime_penalty": false
+    },
+    "XLI": {
+      "category": "섹터ETF",
+      "symb": "XLI",
+      "name": "Industrials ETF",
+      "date": "2026-07-24",
+      "close": 182.66,
+      "pct_chg": 0.4,
+      "score": 30.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 13.4,
+      "regime_penalty": false
+    },
     "GEV": {
       "category": "산업대장",
       "symb": "GEV",
@@ -403,6 +1294,33 @@
         "volume_exhaustion": 0.0
       },
       "adx": 14.9,
+      "regime_penalty": false
+    },
+    "RIVN": {
+      "category": "산업대장",
+      "symb": "RIVN",
+      "name": "Rivian",
+      "date": "2026-07-24",
+      "close": 15.84,
+      "pct_chg": -3.77,
+      "score": 28.9,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.3,
+        "percent_b": 0.57,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 13.7,
       "regime_penalty": false
     },
     "COHR": {
@@ -432,6 +1350,114 @@
       "adx": 22.9,
       "regime_penalty": false
     },
+    "COST": {
+      "category": "산업대장",
+      "symb": "COST",
+      "name": "Costco",
+      "date": "2026-07-24",
+      "close": 935.03,
+      "pct_chg": 1.13,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "MFI선행,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 10.9,
+      "regime_penalty": false
+    },
+    "PG": {
+      "category": "산업대장",
+      "symb": "PG",
+      "name": "Procter & Gamble",
+      "date": "2026-07-24",
+      "close": 147.41,
+      "pct_chg": 1.05,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.6,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 9.8,
+      "regime_penalty": false
+    },
+    "RTX": {
+      "category": "산업대장",
+      "symb": "RTX",
+      "name": "RTX Corporation",
+      "date": "2026-07-24",
+      "close": 212.79,
+      "pct_chg": 1.74,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "-",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": false
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.0
+      },
+      "adx": 28.1,
+      "regime_penalty": false
+    },
+    "PLD": {
+      "category": "산업대장",
+      "symb": "PLD",
+      "name": "Prologis",
+      "date": "2026-07-24",
+      "close": 147.63,
+      "pct_chg": 1.73,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "-",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": false
+      },
+      "breakdown": {
+        "weekly_trend": 1.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.0
+      },
+      "adx": 15.4,
+      "regime_penalty": false
+    },
     "BUG": {
       "category": "섹터ETF",
       "symb": "BUG",
@@ -457,6 +1483,114 @@
         "volume_exhaustion": 0.0
       },
       "adx": 33.8,
+      "regime_penalty": false
+    },
+    "XLP": {
+      "category": "섹터ETF",
+      "symb": "XLP",
+      "name": "Consumer Staples ETF",
+      "date": "2026-07-24",
+      "close": 84.13,
+      "pct_chg": 1.11,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.6,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 14.4,
+      "regime_penalty": false
+    },
+    "XLY": {
+      "category": "섹터ETF",
+      "symb": "XLY",
+      "name": "Consumer Discretionary ETF",
+      "date": "2026-07-24",
+      "close": 109.41,
+      "pct_chg": 0.6,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 1.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 12.9,
+      "regime_penalty": false
+    },
+    "ARKK": {
+      "category": "섹터ETF",
+      "symb": "ARKK",
+      "name": "ARK Innovation ETF",
+      "date": "2026-07-24",
+      "close": 71.89,
+      "pct_chg": -2.63,
+      "score": 25.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 1.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 15.0,
+      "regime_penalty": false
+    },
+    "NEE": {
+      "category": "산업대장",
+      "symb": "NEE",
+      "name": "NextEra Energy",
+      "date": "2026-07-24",
+      "close": 89.78,
+      "pct_chg": -0.01,
+      "score": 22.5,
+      "verdict": "무시",
+      "signals": "스퀴즈확장,거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": true,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.3,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 1.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 15.3,
       "regime_penalty": false
     },
     "ROBO": {
@@ -540,6 +1674,33 @@
       "adx": 19.2,
       "regime_penalty": false
     },
+    "HD": {
+      "category": "산업대장",
+      "symb": "HD",
+      "name": "Home Depot",
+      "date": "2026-07-24",
+      "close": 332.98,
+      "pct_chg": 2.55,
+      "score": 20.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.6,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 14.0,
+      "regime_penalty": false
+    },
     "ORCL": {
       "category": "빅테크",
       "symb": "ORCL",
@@ -594,6 +1755,60 @@
       "adx": 15.9,
       "regime_penalty": false
     },
+    "TMUS": {
+      "category": "산업대장",
+      "symb": "TMUS",
+      "name": "T-Mobile US",
+      "date": "2026-07-24",
+      "close": 180.09,
+      "pct_chg": 5.67,
+      "score": 15.0,
+      "verdict": "무시",
+      "signals": "MFI선행",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": true,
+        "vol_exhaustion": false
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 1.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.0
+      },
+      "adx": 18.6,
+      "regime_penalty": false
+    },
+    "ASTS": {
+      "category": "산업대장",
+      "symb": "ASTS",
+      "name": "AST SpaceMobile",
+      "date": "2026-07-24",
+      "close": 56.2,
+      "pct_chg": -5.04,
+      "score": 14.5,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.23,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 23.7,
+      "regime_penalty": false
+    },
     "QTUM": {
       "category": "섹터ETF",
       "symb": "QTUM",
@@ -620,6 +1835,33 @@
       },
       "adx": 27.5,
       "regime_penalty": true
+    },
+    "CEG": {
+      "category": "산업대장",
+      "symb": "CEG",
+      "name": "Constellation Energy",
+      "date": "2026-07-24",
+      "close": 274.35,
+      "pct_chg": -0.45,
+      "score": 12.5,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.3,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 17.0,
+      "regime_penalty": false
     },
     "VOLT": {
       "category": "섹터ETF",
@@ -702,6 +1944,60 @@
       "adx": 13.1,
       "regime_penalty": false
     },
+    "NKE": {
+      "category": "산업대장",
+      "symb": "NKE",
+      "name": "Nike",
+      "date": "2026-07-24",
+      "close": 41.7,
+      "pct_chg": 1.73,
+      "score": 10.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 1.0
+      },
+      "adx": 12.7,
+      "regime_penalty": false
+    },
+    "DIS": {
+      "category": "산업대장",
+      "symb": "DIS",
+      "name": "Walt Disney",
+      "date": "2026-07-24",
+      "close": 94.85,
+      "pct_chg": 2.18,
+      "score": 10.0,
+      "verdict": "무시",
+      "signals": "스퀴즈확장",
+      "detected": {
+        "divergence": false,
+        "squeeze": true,
+        "mfi_lead": false,
+        "vol_exhaustion": false
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 1.0,
+        "volume_exhaustion": 0.0
+      },
+      "adx": 12.6,
+      "regime_penalty": false
+    },
     "AIPO": {
       "category": "섹터ETF",
       "symb": "AIPO",
@@ -728,6 +2024,33 @@
       },
       "adx": 26.0,
       "regime_penalty": true
+    },
+    "WMT": {
+      "category": "산업대장",
+      "symb": "WMT",
+      "name": "Walmart",
+      "date": "2026-07-24",
+      "close": 109.47,
+      "pct_chg": 0.99,
+      "score": 8.9,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.19,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 22.1,
+      "regime_penalty": false
     },
     "ISRG": {
       "category": "산업대장",
@@ -810,6 +2133,60 @@
       "adx": 31.9,
       "regime_penalty": true
     },
+    "NOW": {
+      "category": "산업대장",
+      "symb": "NOW",
+      "name": "ServiceNow",
+      "date": "2026-07-24",
+      "close": 98.78,
+      "pct_chg": 7.44,
+      "score": 7.5,
+      "verdict": "무시",
+      "signals": "-",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": false
+      },
+      "breakdown": {
+        "weekly_trend": 0.3,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.0
+      },
+      "adx": 16.3,
+      "regime_penalty": false
+    },
+    "ICLN": {
+      "category": "섹터ETF",
+      "symb": "ICLN",
+      "name": "Clean Energy ETF",
+      "date": "2026-07-24",
+      "close": 17.78,
+      "pct_chg": -3.21,
+      "score": 7.5,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.99,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 34.7,
+      "regime_penalty": true
+    },
     "BOTZ": {
       "category": "섹터ETF",
       "symb": "BOTZ",
@@ -837,6 +2214,114 @@
       "adx": 28.8,
       "regime_penalty": true
     },
+    "FSLR": {
+      "category": "산업대장",
+      "symb": "FSLR",
+      "name": "First Solar",
+      "date": "2026-07-24",
+      "close": 202.82,
+      "pct_chg": -1.51,
+      "score": 6.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.76,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 33.2,
+      "regime_penalty": true
+    },
+    "REGN": {
+      "category": "산업대장",
+      "symb": "REGN",
+      "name": "Regeneron",
+      "date": "2026-07-24",
+      "close": 656.01,
+      "pct_chg": 0.63,
+      "score": 5.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 27.3,
+      "regime_penalty": false
+    },
+    "MCD": {
+      "category": "산업대장",
+      "symb": "MCD",
+      "name": "McDonald's",
+      "date": "2026-07-24",
+      "close": 264.76,
+      "pct_chg": 0.75,
+      "score": 5.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 13.6,
+      "regime_penalty": false
+    },
+    "CRM": {
+      "category": "산업대장",
+      "symb": "CRM",
+      "name": "Salesforce",
+      "date": "2026-07-24",
+      "close": 163.66,
+      "pct_chg": 4.29,
+      "score": 5.0,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 11.6,
+      "regime_penalty": false
+    },
     "IONQ": {
       "category": "산업대장",
       "symb": "IONQ",
@@ -862,6 +2347,141 @@
         "volume_exhaustion": 0.5
       },
       "adx": 40.2,
+      "regime_penalty": true
+    },
+    "RGTI": {
+      "category": "산업대장",
+      "symb": "RGTI",
+      "name": "Rigetti Computing",
+      "date": "2026-07-24",
+      "close": 14.15,
+      "pct_chg": -4.71,
+      "score": 2.3,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.14,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 30.4,
+      "regime_penalty": true
+    },
+    "AMT": {
+      "category": "산업대장",
+      "symb": "AMT",
+      "name": "American Tower",
+      "date": "2026-07-24",
+      "close": 166.67,
+      "pct_chg": 1.23,
+      "score": 1.5,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 30.7,
+      "regime_penalty": true
+    },
+    "NFLX": {
+      "category": "산업대장",
+      "symb": "NFLX",
+      "name": "Netflix",
+      "date": "2026-07-24",
+      "close": 70.09,
+      "pct_chg": 1.74,
+      "score": 1.5,
+      "verdict": "무시",
+      "signals": "거래량소진",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": true
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.5
+      },
+      "adx": 34.8,
+      "regime_penalty": true
+    },
+    "SMR": {
+      "category": "산업대장",
+      "symb": "SMR",
+      "name": "NuScale Power",
+      "date": "2026-07-24",
+      "close": 8.09,
+      "pct_chg": -8.17,
+      "score": 0.0,
+      "verdict": "무시",
+      "signals": "-",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": false
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.0
+      },
+      "adx": 22.5,
+      "regime_penalty": false
+    },
+    "SKHY": {
+      "category": "산업대장",
+      "symb": "SKHY",
+      "name": "SK Hynix",
+      "date": "2026-07-24",
+      "close": 154.57,
+      "pct_chg": -8.81,
+      "score": 0.0,
+      "verdict": "무시",
+      "signals": "-",
+      "detected": {
+        "divergence": false,
+        "squeeze": false,
+        "mfi_lead": false,
+        "vol_exhaustion": false
+      },
+      "breakdown": {
+        "weekly_trend": 0.0,
+        "percent_b": 0.0,
+        "rsi_divergence": 0.0,
+        "mfi_lead": 0.0,
+        "squeeze_expansion": 0.0,
+        "volume_exhaustion": 0.0
+      },
+      "adx": 83.9,
       "regime_penalty": true
     }
   }

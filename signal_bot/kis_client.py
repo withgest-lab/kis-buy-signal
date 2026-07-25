@@ -8,6 +8,7 @@ import os
 import sys
 import time
 import logging
+import threading
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -39,14 +40,40 @@ _COLUMN_MAP = {
 _NUMERIC_COLS = ["close", "open", "high", "low", "volume"]
 
 _exchange_cache: dict[str, str] = {}
+_exchange_cache_lock = threading.Lock()
 _authed = False
+_auth_lock = threading.Lock()
+
+MAX_REQUESTS_PER_SECOND = 8  # KIS 실전투자 호출제한(대략 초당 20건선) 대비 여유있게 설정
+MAX_CONCURRENCY = 5
+
+
+class _RateLimiter:
+    """스레드 여러 개가 동시에 호출해도 전체 초당 요청 수를 상한선 아래로 유지."""
+
+    def __init__(self, max_per_second: float):
+        self._min_interval = 1.0 / max_per_second
+        self._lock = threading.Lock()
+        self._last_call = 0.0
+
+    def wait(self):
+        with self._lock:
+            now = time.monotonic()
+            sleep_for = self._min_interval - (now - self._last_call)
+            if sleep_for > 0:
+                time.sleep(sleep_for)
+            self._last_call = time.monotonic()
+
+
+_rate_limiter = _RateLimiter(MAX_REQUESTS_PER_SECOND)
 
 
 def ensure_auth(svr: str = "prod") -> None:
     global _authed
-    if not _authed:
-        ka.auth(svr=svr)
-        _authed = True
+    with _auth_lock:
+        if not _authed:
+            ka.auth(svr=svr)
+            _authed = True
 
 
 def _fetch_pages(excd: str, symb: str, gubn: str, min_rows: int) -> Optional[pd.DataFrame]:
@@ -57,6 +84,7 @@ def _fetch_pages(excd: str, symb: str, gubn: str, min_rows: int) -> Optional[pd.
     bymd = ""
     for _ in range(MAX_PAGES):
         params = {"AUTH": "", "EXCD": excd, "SYMB": symb, "GUBN": gubn, "BYMD": bymd, "MODP": "1"}
+        _rate_limiter.wait()
         res = ka._url_fetch(API_URL, TR_ID, "", params)
         if not res.isOK():
             return None
@@ -94,12 +122,16 @@ def fetch_ohlcv(symb: str, gubn: str, min_rows: int) -> pd.DataFrame:
     """gubn: '0' 일봉, '1' 주봉. 종목별로 맞는 거래소를 찾으면 캐시해서 재사용한다."""
     ensure_auth()
 
-    candidates = [_exchange_cache[symb]] if symb in _exchange_cache else EXCHANGE_CANDIDATES
+    with _exchange_cache_lock:
+        cached = _exchange_cache.get(symb)
+    candidates = [cached] if cached else EXCHANGE_CANDIDATES
+
     for excd in candidates:
         for attempt in range(2):  # 일시적 서버 오류(EGW00316 등) 대비 1회 재시도
             df = _fetch_pages(excd, symb, gubn, min_rows)
             if df is not None and not df.empty:
-                _exchange_cache[symb] = excd
+                with _exchange_cache_lock:
+                    _exchange_cache[symb] = excd
                 return _normalize(df)
             if attempt == 0:
                 time.sleep(1.0)
@@ -109,4 +141,5 @@ def fetch_ohlcv(symb: str, gubn: str, min_rows: int) -> pd.DataFrame:
 
 
 def exchange_of(symb: str) -> Optional[str]:
-    return _exchange_cache.get(symb)
+    with _exchange_cache_lock:
+        return _exchange_cache.get(symb)
