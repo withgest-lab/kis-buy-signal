@@ -5,6 +5,7 @@ examples_llm/kis_auth.py를 그대로 사용해 인증/호출한다.
 """
 
 import os
+import re
 import sys
 import time
 import logging
@@ -67,6 +68,15 @@ class _RateLimiter:
 
 _rate_limiter = _RateLimiter(MAX_REQUESTS_PER_SECOND)
 
+_CLASS_SHARE_RE = re.compile(r"^([A-Z]+)-([A-Z])$")
+
+
+def _api_symbol(symb: str) -> str:
+    """BRK-B, BF-B 같은 클래스주는 내부적으론 하이픈 표기를 쓰지만(파일명/키로 쓰기
+    안전하도록), KIS API는 슬래시 표기(BRK/B)만 인식한다. API 호출 직전에만 변환."""
+    m = _CLASS_SHARE_RE.match(symb)
+    return f"{m.group(1)}/{m.group(2)}" if m else symb
+
 
 def ensure_auth(svr: str = "prod") -> None:
     global _authed
@@ -82,8 +92,9 @@ def _fetch_pages(excd: str, symb: str, gubn: str, min_rows: int) -> Optional[pd.
     가장 오래된 날짜의 전날로 설정해서 재요청해야 한다."""
     rows = []
     bymd = ""
+    api_symb = _api_symbol(symb)
     for _ in range(MAX_PAGES):
-        params = {"AUTH": "", "EXCD": excd, "SYMB": symb, "GUBN": gubn, "BYMD": bymd, "MODP": "1"}
+        params = {"AUTH": "", "EXCD": excd, "SYMB": api_symb, "GUBN": gubn, "BYMD": bymd, "MODP": "1"}
         _rate_limiter.wait()
         res = ka._url_fetch(API_URL, TR_ID, "", params)
         if not res.isOK():
