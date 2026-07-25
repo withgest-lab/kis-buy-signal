@@ -180,6 +180,12 @@ kis_devlp.yaml
 
 # ===== signal_bot (KIS 매수신호 알림 시스템) =====
 # 시세 캐시(CSV)/차트용 임시 JSON은 매일 재생성되므로 제외.
-# history.json / notified.json은 GitHub Actions 실행 간 상태를 유지해야 하므로 커밋 대상에 포함.
+# history.json / notified.json / universe_cache.json은 GitHub Actions 실행 간
+# 상태를 유지해야 하므로 커밋 대상에 포함.
 signal_bot/data/*.csv
 signal_bot/data/nvda_step6_chart.json
+
+# STEP 12(섹션 13-3): 대시보드 데이터는 이제 main이 아니라 data 브랜치(orphan
+# commit)로만 발행하므로, main에서는 매일 재생성되는 이 파일들을 추적하지 않는다.
+docs/scores.json
+docs/detail/

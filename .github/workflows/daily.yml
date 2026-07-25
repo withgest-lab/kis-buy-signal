@@ -70,22 +70,20 @@ jobs:
       - name: Build dashboard data (STEP 11)
         run: uv run python -m signal_bot.export_dashboard
 
-      - name: Commit updated history (STEP 12 전까지 dashboard data도 함께 - main 유지)
+      - name: Commit updated history (main - 코드/이력 상태 전용, dashboard data는 제외)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add signal_bot/data/history.json docs/scores.json docs/detail/
+          git add signal_bot/data/history.json
           if [ -f signal_bot/data/notified.json ]; then
             git add signal_bot/data/notified.json
           fi
-          git diff --cached --quiet || git commit -m "chore: update signal history + dashboard $(date -u +%Y-%m-%d)"
+          git diff --cached --quiet || git commit -m "chore: update signal history $(date -u +%Y-%m-%d)"
           git push
 
       # STEP 12(섹션 13-3): docs/를 main에 영구 커밋하면 저장소 용량이 계속 불어나므로,
-      # 이력 없이 매번 덮어쓰는 data 브랜치(orphan commit + force push)에도 같은 스냅샷을 발행해둔다.
-      # 아직 main/docs 발행도 함께 유지 중(대시보드가 main/docs를 보고 있으므로 안전을 위한 과도기 조치).
-      # 사용자가 저장소 Settings > Pages에서 소스를 이 data 브랜치로 전환 확인 후,
-      # main/docs 발행 스텝(위)은 제거해서 완전히 전환하면 된다.
+      # 이력 없이 매번 덮어쓰는 data 브랜치(orphan commit + force push)에만 발행한다.
+      # GitHub Pages 소스도 이 data 브랜치로 전환 완료(사용자 확인함, 2026-07-25).
       - name: Publish dashboard snapshot to data branch (orphan, no history growth)
         run: |
           git config user.name "github-actions[bot]"
