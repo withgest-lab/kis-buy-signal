@@ -37,3 +37,16 @@ TICKERS = [
 
 DAILY_MIN_ROWS = 250
 WEEKLY_MIN_ROWS = 104
+
+TICKER_NAMES = {
+    "NVDA": "NVIDIA", "AAPL": "Apple", "GOOGL": "Alphabet", "MSFT": "Microsoft",
+    "AMZN": "Amazon", "META": "Meta Platforms", "AVGO": "Broadcom", "TSLA": "Tesla",
+    "ORCL": "Oracle", "PLTR": "Palantir",
+    "CRWD": "CrowdStrike", "PANW": "Palo Alto Networks", "TSM": "TSMC",
+    "ISRG": "Intuitive Surgical", "ROK": "Rockwell Automation", "IONQ": "IonQ",
+    "BE": "Bloom Energy", "GEV": "GE Vernova", "VRT": "Vertiv",
+    "COHR": "Coherent", "RKLB": "Rocket Lab", "LMT": "Lockheed Martin",
+    "SPY": "S&P 500 ETF", "QQQ": "Nasdaq 100 ETF", "CIBR": "Cybersecurity ETF",
+    "BUG": "Cybersecurity ETF(BUG)", "SOXX": "Semiconductor ETF", "BOTZ": "Robotics&AI ETF",
+    "ROBO": "Robotics ETF", "AIPO": "AI Infra ETF", "QTUM": "Quantum ETF", "VOLT": "Electrification ETF",
+}

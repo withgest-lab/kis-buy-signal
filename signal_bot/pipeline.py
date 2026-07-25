@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 from signal_bot import alerts
-from signal_bot.config import TICKERS
+from signal_bot.config import TICKER_NAMES, TICKERS
 from signal_bot.notifier import send_telegram_message
 from signal_bot.scoring import compute_scores
 
@@ -60,14 +60,35 @@ def run() -> list[dict]:
             continue
 
         last = df.iloc[-1]
+        prev_close = float(df.iloc[-2]["close"]) if len(df) >= 2 else float(last["close"])
+        pct_chg = (float(last["close"]) - prev_close) / prev_close * 100 if prev_close else 0.0
+
         results.append({
             "category": category,
             "symb": symb,
+            "name": TICKER_NAMES.get(symb, symb),
             "date": last["date"].strftime("%Y-%m-%d"),
             "close": round(float(last["close"]), 2),
+            "pct_chg": round(pct_chg, 2),
             "score": round(float(last["score"]), 1),
             "verdict": str(last["verdict"]),
             "signals": _signal_summary(last),
+            "detected": {
+                "divergence": bool(last["rsi_div_detected"]),
+                "squeeze": bool(last["squeeze_exp_detected"]),
+                "mfi_lead": bool(last["mfi_lead_detected"]),
+                "vol_exhaustion": bool(last["s_volume_exhaustion"] > 0),
+            },
+            "breakdown": {
+                "weekly_trend": round(float(last["s_weekly_trend"]), 2),
+                "percent_b": round(float(last["s_percent_b"]), 2),
+                "rsi_divergence": round(float(last["s_rsi_divergence"]), 2),
+                "mfi_lead": round(float(last["s_mfi_lead"]), 2),
+                "squeeze_expansion": round(float(last["s_squeeze_expansion"]), 2),
+                "volume_exhaustion": round(float(last["s_volume_exhaustion"]), 2),
+            },
+            "adx": round(float(last["adx"]), 1),
+            "regime_penalty": bool(last["regime_penalty_applied"]),
         })
 
     results.sort(key=lambda r: r["score"], reverse=True)

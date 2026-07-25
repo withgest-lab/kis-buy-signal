@@ -1,6 +1,8 @@
 {
-  "2026-07-24": {
-    "ROK": {
+  "generated_at": "2026-07-25T21:09:41+09:00",
+  "as_of_date": "2026-07-24",
+  "tickers": [
+    {
       "category": "산업대장",
       "symb": "ROK",
       "name": "Rockwell Automation",
@@ -25,9 +27,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 14.2,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 50.0
+        }
+      ]
     },
-    "QQQ": {
+    {
       "category": "섹터ETF",
       "symb": "QQQ",
       "name": "Nasdaq 100 ETF",
@@ -52,9 +61,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 20.9,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 50.0
+        }
+      ]
     },
-    "SPY": {
+    {
       "category": "섹터ETF",
       "symb": "SPY",
       "name": "S&P 500 ETF",
@@ -79,9 +95,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 19.4,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 45.0
+        }
+      ]
     },
-    "CIBR": {
+    {
       "category": "섹터ETF",
       "symb": "CIBR",
       "name": "Cybersecurity ETF",
@@ -106,9 +129,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 24.4,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 45.0
+        }
+      ]
     },
-    "CRWD": {
+    {
       "category": "산업대장",
       "symb": "CRWD",
       "name": "CrowdStrike",
@@ -133,9 +163,16 @@
         "volume_exhaustion": 0.0
       },
       "adx": 33.1,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 40.0
+        }
+      ]
     },
-    "AAPL": {
+    {
       "category": "빅테크",
       "symb": "AAPL",
       "name": "Apple",
@@ -160,9 +197,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 26.9,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 35.0
+        }
+      ]
     },
-    "AVGO": {
+    {
       "category": "빅테크",
       "symb": "AVGO",
       "name": "Broadcom",
@@ -187,9 +231,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 14.7,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 35.0
+        }
+      ]
     },
-    "TSM": {
+    {
       "category": "산업대장",
       "symb": "TSM",
       "name": "TSMC",
@@ -214,9 +265,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 15.7,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 34.5
+        }
+      ]
     },
-    "SOXX": {
+    {
       "category": "섹터ETF",
       "symb": "SOXX",
       "name": "Semiconductor ETF",
@@ -241,9 +299,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 20.9,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 32.9
+        }
+      ]
     },
-    "VRT": {
+    {
       "category": "산업대장",
       "symb": "VRT",
       "name": "Vertiv",
@@ -268,9 +333,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 9.8,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 32.7
+        }
+      ]
     },
-    "META": {
+    {
       "category": "빅테크",
       "symb": "META",
       "name": "Meta Platforms",
@@ -295,9 +367,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 15.5,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 32.5
+        }
+      ]
     },
-    "NVDA": {
+    {
       "category": "빅테크",
       "symb": "NVDA",
       "name": "NVIDIA",
@@ -322,9 +401,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 12.9,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 30.0
+        }
+      ]
     },
-    "AMZN": {
+    {
       "category": "빅테크",
       "symb": "AMZN",
       "name": "Amazon",
@@ -349,9 +435,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 19.9,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 30.0
+        }
+      ]
     },
-    "PANW": {
+    {
       "category": "산업대장",
       "symb": "PANW",
       "name": "Palo Alto Networks",
@@ -376,9 +469,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 39.6,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 30.0
+        }
+      ]
     },
-    "GEV": {
+    {
       "category": "산업대장",
       "symb": "GEV",
       "name": "GE Vernova",
@@ -403,9 +503,16 @@
         "volume_exhaustion": 0.0
       },
       "adx": 14.9,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 29.4
+        }
+      ]
     },
-    "COHR": {
+    {
       "category": "산업대장",
       "symb": "COHR",
       "name": "Coherent",
@@ -430,9 +537,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 22.9,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 25.0
+        }
+      ]
     },
-    "BUG": {
+    {
       "category": "섹터ETF",
       "symb": "BUG",
       "name": "Cybersecurity ETF(BUG)",
@@ -457,9 +571,16 @@
         "volume_exhaustion": 0.0
       },
       "adx": 33.8,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 25.0
+        }
+      ]
     },
-    "ROBO": {
+    {
       "category": "섹터ETF",
       "symb": "ROBO",
       "name": "Robotics ETF",
@@ -484,9 +605,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 24.7,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 22.0
+        }
+      ]
     },
-    "GOOGL": {
+    {
       "category": "빅테크",
       "symb": "GOOGL",
       "name": "Alphabet",
@@ -511,9 +639,16 @@
         "volume_exhaustion": 0.0
       },
       "adx": 14.3,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 20.0
+        }
+      ]
     },
-    "TSLA": {
+    {
       "category": "빅테크",
       "symb": "TSLA",
       "name": "Tesla",
@@ -538,9 +673,16 @@
         "volume_exhaustion": 0.0
       },
       "adx": 19.2,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 20.0
+        }
+      ]
     },
-    "ORCL": {
+    {
       "category": "빅테크",
       "symb": "ORCL",
       "name": "Oracle",
@@ -565,9 +707,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 40.3,
-      "regime_penalty": true
+      "regime_penalty": true,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 16.5
+        }
+      ]
     },
-    "LMT": {
+    {
       "category": "산업대장",
       "symb": "LMT",
       "name": "Lockheed Martin",
@@ -592,9 +741,16 @@
         "volume_exhaustion": 0.0
       },
       "adx": 15.9,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 15.0
+        }
+      ]
     },
-    "QTUM": {
+    {
       "category": "섹터ETF",
       "symb": "QTUM",
       "name": "Quantum ETF",
@@ -619,9 +775,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 27.5,
-      "regime_penalty": true
+      "regime_penalty": true,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 14.1
+        }
+      ]
     },
-    "VOLT": {
+    {
       "category": "섹터ETF",
       "symb": "VOLT",
       "name": "Electrification ETF",
@@ -646,9 +809,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 19.3,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 12.5
+        }
+      ]
     },
-    "MSFT": {
+    {
       "category": "빅테크",
       "symb": "MSFT",
       "name": "Microsoft",
@@ -673,9 +843,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 12.5,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 10.0
+        }
+      ]
     },
-    "PLTR": {
+    {
       "category": "빅테크",
       "symb": "PLTR",
       "name": "Palantir",
@@ -700,9 +877,16 @@
         "volume_exhaustion": 1.0
       },
       "adx": 13.1,
-      "regime_penalty": false
+      "regime_penalty": false,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 10.0
+        }
+      ]
     },
-    "AIPO": {
+    {
       "category": "섹터ETF",
       "symb": "AIPO",
       "name": "AI Infra ETF",
@@ -727,9 +911,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 26.0,
-      "regime_penalty": true
+      "regime_penalty": true,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 9.8
+        }
+      ]
     },
-    "ISRG": {
+    {
       "category": "산업대장",
       "symb": "ISRG",
       "name": "Intuitive Surgical",
@@ -754,9 +945,16 @@
         "volume_exhaustion": 0.0
       },
       "adx": 27.2,
-      "regime_penalty": true
+      "regime_penalty": true,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 8.4
+        }
+      ]
     },
-    "BE": {
+    {
       "category": "산업대장",
       "symb": "BE",
       "name": "Bloom Energy",
@@ -781,9 +979,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 25.1,
-      "regime_penalty": true
+      "regime_penalty": true,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 7.5
+        }
+      ]
     },
-    "RKLB": {
+    {
       "category": "산업대장",
       "symb": "RKLB",
       "name": "Rocket Lab",
@@ -808,9 +1013,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 31.9,
-      "regime_penalty": true
+      "regime_penalty": true,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 7.5
+        }
+      ]
     },
-    "BOTZ": {
+    {
       "category": "섹터ETF",
       "symb": "BOTZ",
       "name": "Robotics&AI ETF",
@@ -835,9 +1047,16 @@
         "volume_exhaustion": 0.5
       },
       "adx": 28.8,
-      "regime_penalty": true
+      "regime_penalty": true,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 6.5
+        }
+      ]
     },
-    "IONQ": {
+    {
       "category": "산업대장",
       "symb": "IONQ",
       "name": "IonQ",
@@ -862,7 +1081,14 @@
         "volume_exhaustion": 0.5
       },
       "adx": 40.2,
-      "regime_penalty": true
+      "regime_penalty": true,
+      "is_new": false,
+      "sparkline": [
+        {
+          "date": "2026-07-24",
+          "score": 2.7
+        }
+      ]
     }
-  }
+  ]
 }

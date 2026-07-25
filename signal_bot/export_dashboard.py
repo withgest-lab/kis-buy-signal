@@ -1,0 +1,110 @@
+"""STEP 11: 대시보드용 scores.json 생성 (PROJECT_PLAN.md 섹션 10).
+
+history.json(전체 이력)에는 계좌/키 정보가 없지만, 혹시 모를 확장에 대비해
+scores.json에는 섹션 10 스펙대로 종목코드/점수/세부신호/현재가/타임스탬프만 담는다.
+"""
+
+import json
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+import pandas as pd
+
+from signal_bot import alerts
+from signal_bot.config import TICKERS
+from signal_bot.pipeline import DATA_DIR, load_history
+from signal_bot.scoring import compute_scores
+
+OUTPUT_PATH = Path("docs/scores.json")
+DETAIL_DIR = Path("docs/detail")
+SPARKLINE_DAYS = 30
+DETAIL_CHART_DAYS = 150
+KST = timezone(timedelta(hours=9))
+
+
+def _build_sparkline(history: dict, symb: str, dates: list[str]) -> list[dict]:
+    points = []
+    for d in dates:
+        rec = history.get(d, {}).get(symb)
+        if rec:
+            points.append({"date": d, "score": rec["score"]})
+    return points
+
+
+def _build_detail(symb: str) -> list[dict] | None:
+    """카드 상세뷰용 가격+볼린저밴드+RSI+MFI 시계열. 필요할 때만 프론트에서 lazy fetch."""
+    daily_path = DATA_DIR / f"{symb}_daily.csv"
+    weekly_path = DATA_DIR / f"{symb}_weekly.csv"
+    if not daily_path.exists() or not weekly_path.exists():
+        return None
+
+    daily = pd.read_csv(daily_path, parse_dates=["date"])
+    weekly = pd.read_csv(weekly_path, parse_dates=["date"])
+    df = compute_scores(daily, weekly).tail(DETAIL_CHART_DAYS)
+
+    records = []
+    for _, r in df.iterrows():
+        records.append({
+            "date": r["date"].strftime("%Y-%m-%d"),
+            "close": round(float(r["close"]), 2),
+            "bb_upper": None if pd.isna(r["bb_upper"]) else round(float(r["bb_upper"]), 2),
+            "bb_mid": None if pd.isna(r["bb_mid"]) else round(float(r["bb_mid"]), 2),
+            "bb_lower": None if pd.isna(r["bb_lower"]) else round(float(r["bb_lower"]), 2),
+            "rsi": None if pd.isna(r["rsi"]) else round(float(r["rsi"]), 1),
+            "mfi": None if pd.isna(r["mfi"]) else round(float(r["mfi"]), 1),
+        })
+    return records
+
+
+def export_details() -> int:
+    DETAIL_DIR.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for _category, symb in TICKERS:
+        records = _build_detail(symb)
+        if records is None:
+            continue
+        with open(DETAIL_DIR / f"{symb}.json", "w", encoding="utf-8") as f:
+            json.dump(records, f, ensure_ascii=False)
+        count += 1
+    return count
+
+
+def main():
+    history = load_history()
+    if not history:
+        raise RuntimeError("history.json이 비어있습니다. main.py를 먼저 실행해서 이력을 만들어주세요.")
+
+    dates = sorted(history.keys())
+    today = dates[-1]
+    sparkline_dates = dates[-SPARKLINE_DAYS:]
+
+    new_signals = alerts.find_new_strong_signals(history, today)
+    new_symbs = {r["symb"] for r in new_signals}
+
+    tickers = []
+    for symb, rec in history[today].items():
+        entry = dict(rec)
+        entry["is_new"] = symb in new_symbs
+        entry["sparkline"] = _build_sparkline(history, symb, sparkline_dates)
+        tickers.append(entry)
+
+    tickers.sort(key=lambda r: r["score"], reverse=True)
+
+    payload = {
+        "generated_at": datetime.now(KST).strftime("%Y-%m-%dT%H:%M:%S+09:00"),
+        "as_of_date": today,
+        "tickers": tickers,
+    }
+
+    OUTPUT_PATH.parent.mkdir(exist_ok=True)
+    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+
+    print(f"대시보드 데이터 저장 완료: {OUTPUT_PATH} ({len(tickers)}종목, 신규 신호 {len(new_symbs)}개)")
+
+    detail_count = export_details()
+    print(f"상세 차트 데이터 저장 완료: {DETAIL_DIR}/ ({detail_count}개 종목)")
+
+
+if __name__ == "__main__":
+    main()
