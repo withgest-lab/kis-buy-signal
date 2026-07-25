@@ -1,0 +1,2431 @@
+{
+  "updated_at": "2026-07-25",
+  "sp500": [
+    {
+      "symb": "MMM",
+      "name": "3M"
+    },
+    {
+      "symb": "AOS",
+      "name": "A. O. Smith"
+    },
+    {
+      "symb": "ABT",
+      "name": "Abbott Laboratories"
+    },
+    {
+      "symb": "ABBV",
+      "name": "AbbVie"
+    },
+    {
+      "symb": "ACN",
+      "name": "Accenture"
+    },
+    {
+      "symb": "ADBE",
+      "name": "Adobe Inc."
+    },
+    {
+      "symb": "AMD",
+      "name": "Advanced Micro Devices"
+    },
+    {
+      "symb": "AES",
+      "name": "AES Corporation"
+    },
+    {
+      "symb": "AFL",
+      "name": "Aflac"
+    },
+    {
+      "symb": "A",
+      "name": "Agilent Technologies"
+    },
+    {
+      "symb": "APD",
+      "name": "Air Products"
+    },
+    {
+      "symb": "ABNB",
+      "name": "Airbnb"
+    },
+    {
+      "symb": "AKAM",
+      "name": "Akamai Technologies"
+    },
+    {
+      "symb": "ALB",
+      "name": "Albemarle Corporation"
+    },
+    {
+      "symb": "ARE",
+      "name": "Alexandria Real Estate Equities"
+    },
+    {
+      "symb": "ALGN",
+      "name": "Align Technology"
+    },
+    {
+      "symb": "ALLE",
+      "name": "Allegion"
+    },
+    {
+      "symb": "LNT",
+      "name": "Alliant Energy"
+    },
+    {
+      "symb": "ALL",
+      "name": "Allstate"
+    },
+    {
+      "symb": "GOOGL",
+      "name": "Alphabet Inc. (Class A)"
+    },
+    {
+      "symb": "GOOG",
+      "name": "Alphabet Inc. (Class C)"
+    },
+    {
+      "symb": "MO",
+      "name": "Altria"
+    },
+    {
+      "symb": "AMZN",
+      "name": "Amazon"
+    },
+    {
+      "symb": "AMCR",
+      "name": "Amcor"
+    },
+    {
+      "symb": "AEE",
+      "name": "Ameren"
+    },
+    {
+      "symb": "AEP",
+      "name": "American Electric Power"
+    },
+    {
+      "symb": "AXP",
+      "name": "American Express"
+    },
+    {
+      "symb": "AIG",
+      "name": "American International Group"
+    },
+    {
+      "symb": "AMT",
+      "name": "American Tower"
+    },
+    {
+      "symb": "AWK",
+      "name": "American Water Works"
+    },
+    {
+      "symb": "AMP",
+      "name": "Ameriprise Financial"
+    },
+    {
+      "symb": "AME",
+      "name": "Ametek"
+    },
+    {
+      "symb": "AMGN",
+      "name": "Amgen"
+    },
+    {
+      "symb": "APH",
+      "name": "Amphenol"
+    },
+    {
+      "symb": "ADI",
+      "name": "Analog Devices"
+    },
+    {
+      "symb": "AON",
+      "name": "Aon plc"
+    },
+    {
+      "symb": "APA",
+      "name": "APA Corporation"
+    },
+    {
+      "symb": "APO",
+      "name": "Apollo Global Management"
+    },
+    {
+      "symb": "AAPL",
+      "name": "Apple Inc."
+    },
+    {
+      "symb": "AMAT",
+      "name": "Applied Materials"
+    },
+    {
+      "symb": "APP",
+      "name": "AppLovin"
+    },
+    {
+      "symb": "APTV",
+      "name": "Aptiv"
+    },
+    {
+      "symb": "ACGL",
+      "name": "Arch Capital Group"
+    },
+    {
+      "symb": "ADM",
+      "name": "Archer Daniels Midland"
+    },
+    {
+      "symb": "ARES",
+      "name": "Ares Management"
+    },
+    {
+      "symb": "ANET",
+      "name": "Arista Networks"
+    },
+    {
+      "symb": "AJG",
+      "name": "Arthur J. Gallagher & Co."
+    },
+    {
+      "symb": "AIZ",
+      "name": "Assurant"
+    },
+    {
+      "symb": "T",
+      "name": "AT&T"
+    },
+    {
+      "symb": "ATO",
+      "name": "Atmos Energy"
+    },
+    {
+      "symb": "ADSK",
+      "name": "Autodesk"
+    },
+    {
+      "symb": "ADP",
+      "name": "Automatic Data Processing"
+    },
+    {
+      "symb": "AZO",
+      "name": "AutoZone"
+    },
+    {
+      "symb": "AVB",
+      "name": "AvalonBay Communities"
+    },
+    {
+      "symb": "AVY",
+      "name": "Avery Dennison"
+    },
+    {
+      "symb": "AXON",
+      "name": "Axon Enterprise"
+    },
+    {
+      "symb": "BKR",
+      "name": "Baker Hughes"
+    },
+    {
+      "symb": "BALL",
+      "name": "Ball Corporation"
+    },
+    {
+      "symb": "BAC",
+      "name": "Bank of America"
+    },
+    {
+      "symb": "BAX",
+      "name": "Baxter International"
+    },
+    {
+      "symb": "BDX",
+      "name": "Becton Dickinson"
+    },
+    {
+      "symb": "BRK-B",
+      "name": "Berkshire Hathaway"
+    },
+    {
+      "symb": "BBY",
+      "name": "Best Buy"
+    },
+    {
+      "symb": "TECH",
+      "name": "Bio-Techne"
+    },
+    {
+      "symb": "BIIB",
+      "name": "Biogen"
+    },
+    {
+      "symb": "BLK",
+      "name": "BlackRock"
+    },
+    {
+      "symb": "BX",
+      "name": "Blackstone Inc."
+    },
+    {
+      "symb": "XYZ",
+      "name": "Block, Inc."
+    },
+    {
+      "symb": "BNY",
+      "name": "BNY Mellon"
+    },
+    {
+      "symb": "BA",
+      "name": "Boeing"
+    },
+    {
+      "symb": "BKNG",
+      "name": "Booking Holdings"
+    },
+    {
+      "symb": "BSX",
+      "name": "Boston Scientific"
+    },
+    {
+      "symb": "BMY",
+      "name": "Bristol Myers Squibb"
+    },
+    {
+      "symb": "AVGO",
+      "name": "Broadcom"
+    },
+    {
+      "symb": "BR",
+      "name": "Broadridge Financial Solutions"
+    },
+    {
+      "symb": "BRO",
+      "name": "Brown & Brown"
+    },
+    {
+      "symb": "BF-B",
+      "name": "Brown–Forman"
+    },
+    {
+      "symb": "BLDR",
+      "name": "Builders FirstSource"
+    },
+    {
+      "symb": "BG",
+      "name": "Bunge Global"
+    },
+    {
+      "symb": "BXP",
+      "name": "BXP, Inc."
+    },
+    {
+      "symb": "CHRW",
+      "name": "C.H. Robinson"
+    },
+    {
+      "symb": "CDNS",
+      "name": "Cadence Design Systems"
+    },
+    {
+      "symb": "CPT",
+      "name": "Camden Property Trust"
+    },
+    {
+      "symb": "COF",
+      "name": "Capital One"
+    },
+    {
+      "symb": "CAH",
+      "name": "Cardinal Health"
+    },
+    {
+      "symb": "CCL",
+      "name": "Carnival Corporation"
+    },
+    {
+      "symb": "CARR",
+      "name": "Carrier Global"
+    },
+    {
+      "symb": "CVNA",
+      "name": "Carvana"
+    },
+    {
+      "symb": "CASY",
+      "name": "Casey's"
+    },
+    {
+      "symb": "CAT",
+      "name": "Caterpillar Inc."
+    },
+    {
+      "symb": "CBOE",
+      "name": "Cboe Global Markets"
+    },
+    {
+      "symb": "CBRE",
+      "name": "CBRE Group"
+    },
+    {
+      "symb": "CDW",
+      "name": "CDW Corporation"
+    },
+    {
+      "symb": "COR",
+      "name": "Cencora"
+    },
+    {
+      "symb": "CNC",
+      "name": "Centene Corporation"
+    },
+    {
+      "symb": "CNP",
+      "name": "CenterPoint Energy"
+    },
+    {
+      "symb": "CF",
+      "name": "CF Industries"
+    },
+    {
+      "symb": "CRL",
+      "name": "Charles River Laboratories"
+    },
+    {
+      "symb": "SCHW",
+      "name": "Charles Schwab Corporation"
+    },
+    {
+      "symb": "CHTR",
+      "name": "Charter Communications"
+    },
+    {
+      "symb": "CVX",
+      "name": "Chevron Corporation"
+    },
+    {
+      "symb": "CMG",
+      "name": "Chipotle Mexican Grill"
+    },
+    {
+      "symb": "CB",
+      "name": "Chubb Limited"
+    },
+    {
+      "symb": "CHD",
+      "name": "Church & Dwight"
+    },
+    {
+      "symb": "CIEN",
+      "name": "Ciena"
+    },
+    {
+      "symb": "CI",
+      "name": "Cigna"
+    },
+    {
+      "symb": "CINF",
+      "name": "Cincinnati Financial"
+    },
+    {
+      "symb": "CTAS",
+      "name": "Cintas"
+    },
+    {
+      "symb": "CSCO",
+      "name": "Cisco"
+    },
+    {
+      "symb": "C",
+      "name": "Citigroup"
+    },
+    {
+      "symb": "CFG",
+      "name": "Citizens Financial Group"
+    },
+    {
+      "symb": "CLX",
+      "name": "Clorox"
+    },
+    {
+      "symb": "CME",
+      "name": "CME Group"
+    },
+    {
+      "symb": "CMS",
+      "name": "CMS Energy"
+    },
+    {
+      "symb": "KO",
+      "name": "Coca-Cola Company (The)"
+    },
+    {
+      "symb": "CTSH",
+      "name": "Cognizant"
+    },
+    {
+      "symb": "COHR",
+      "name": "Coherent Corp."
+    },
+    {
+      "symb": "COIN",
+      "name": "Coinbase"
+    },
+    {
+      "symb": "CL",
+      "name": "Colgate-Palmolive"
+    },
+    {
+      "symb": "CMCSA",
+      "name": "Comcast"
+    },
+    {
+      "symb": "FIX",
+      "name": "Comfort Systems USA"
+    },
+    {
+      "symb": "COP",
+      "name": "ConocoPhillips"
+    },
+    {
+      "symb": "ED",
+      "name": "Consolidated Edison"
+    },
+    {
+      "symb": "STZ",
+      "name": "Constellation Brands"
+    },
+    {
+      "symb": "CEG",
+      "name": "Constellation Energy"
+    },
+    {
+      "symb": "COO",
+      "name": "Cooper Companies (The)"
+    },
+    {
+      "symb": "CPRT",
+      "name": "Copart"
+    },
+    {
+      "symb": "GLW",
+      "name": "Corning Inc."
+    },
+    {
+      "symb": "CPAY",
+      "name": "Corpay"
+    },
+    {
+      "symb": "CTVA",
+      "name": "Corteva"
+    },
+    {
+      "symb": "CSGP",
+      "name": "CoStar Group"
+    },
+    {
+      "symb": "COST",
+      "name": "Costco"
+    },
+    {
+      "symb": "CRH",
+      "name": "CRH plc"
+    },
+    {
+      "symb": "CRWD",
+      "name": "CrowdStrike"
+    },
+    {
+      "symb": "CCI",
+      "name": "Crown Castle"
+    },
+    {
+      "symb": "CSX",
+      "name": "CSX Corporation"
+    },
+    {
+      "symb": "CMI",
+      "name": "Cummins"
+    },
+    {
+      "symb": "CVS",
+      "name": "CVS Health"
+    },
+    {
+      "symb": "DHR",
+      "name": "Danaher Corporation"
+    },
+    {
+      "symb": "DRI",
+      "name": "Darden Restaurants"
+    },
+    {
+      "symb": "DDOG",
+      "name": "Datadog"
+    },
+    {
+      "symb": "DVA",
+      "name": "DaVita"
+    },
+    {
+      "symb": "DECK",
+      "name": "Deckers Brands"
+    },
+    {
+      "symb": "DE",
+      "name": "Deere & Company"
+    },
+    {
+      "symb": "DELL",
+      "name": "Dell Technologies"
+    },
+    {
+      "symb": "DAL",
+      "name": "Delta Air Lines"
+    },
+    {
+      "symb": "DVN",
+      "name": "Devon Energy"
+    },
+    {
+      "symb": "DXCM",
+      "name": "Dexcom"
+    },
+    {
+      "symb": "FANG",
+      "name": "Diamondback Energy"
+    },
+    {
+      "symb": "DLR",
+      "name": "Digital Realty"
+    },
+    {
+      "symb": "DG",
+      "name": "Dollar General"
+    },
+    {
+      "symb": "DLTR",
+      "name": "Dollar Tree"
+    },
+    {
+      "symb": "D",
+      "name": "Dominion Energy"
+    },
+    {
+      "symb": "DPZ",
+      "name": "Domino's"
+    },
+    {
+      "symb": "DASH",
+      "name": "DoorDash"
+    },
+    {
+      "symb": "DOV",
+      "name": "Dover Corporation"
+    },
+    {
+      "symb": "DOW",
+      "name": "Dow Inc."
+    },
+    {
+      "symb": "DHI",
+      "name": "D. R. Horton"
+    },
+    {
+      "symb": "DTE",
+      "name": "DTE Energy"
+    },
+    {
+      "symb": "DUK",
+      "name": "Duke Energy"
+    },
+    {
+      "symb": "DD",
+      "name": "DuPont"
+    },
+    {
+      "symb": "ETN",
+      "name": "Eaton Corporation"
+    },
+    {
+      "symb": "EBAY",
+      "name": "eBay Inc."
+    },
+    {
+      "symb": "ECHO",
+      "name": "EchoStar"
+    },
+    {
+      "symb": "ECL",
+      "name": "Ecolab"
+    },
+    {
+      "symb": "EIX",
+      "name": "Edison International"
+    },
+    {
+      "symb": "EW",
+      "name": "Edwards Lifesciences"
+    },
+    {
+      "symb": "EA",
+      "name": "Electronic Arts"
+    },
+    {
+      "symb": "ELV",
+      "name": "Elevance Health"
+    },
+    {
+      "symb": "EME",
+      "name": "Emcor"
+    },
+    {
+      "symb": "EMR",
+      "name": "Emerson Electric"
+    },
+    {
+      "symb": "ETR",
+      "name": "Entergy"
+    },
+    {
+      "symb": "EOG",
+      "name": "EOG Resources"
+    },
+    {
+      "symb": "EQT",
+      "name": "EQT Corporation"
+    },
+    {
+      "symb": "EFX",
+      "name": "Equifax"
+    },
+    {
+      "symb": "EQIX",
+      "name": "Equinix"
+    },
+    {
+      "symb": "EQR",
+      "name": "Equity Residential"
+    },
+    {
+      "symb": "ERIE",
+      "name": "Erie Indemnity"
+    },
+    {
+      "symb": "ESS",
+      "name": "Essex Property Trust"
+    },
+    {
+      "symb": "EL",
+      "name": "Estée Lauder Companies (The)"
+    },
+    {
+      "symb": "EG",
+      "name": "Everest Group"
+    },
+    {
+      "symb": "EVRG",
+      "name": "Evergy"
+    },
+    {
+      "symb": "ES",
+      "name": "Eversource Energy"
+    },
+    {
+      "symb": "EXC",
+      "name": "Exelon"
+    },
+    {
+      "symb": "EXE",
+      "name": "Expand Energy"
+    },
+    {
+      "symb": "EXPE",
+      "name": "Expedia Group"
+    },
+    {
+      "symb": "EXPD",
+      "name": "Expeditors International"
+    },
+    {
+      "symb": "EXR",
+      "name": "Extra Space Storage"
+    },
+    {
+      "symb": "XOM",
+      "name": "ExxonMobil"
+    },
+    {
+      "symb": "FFIV",
+      "name": "F5, Inc."
+    },
+    {
+      "symb": "FDS",
+      "name": "FactSet"
+    },
+    {
+      "symb": "FICO",
+      "name": "Fair Isaac"
+    },
+    {
+      "symb": "FAST",
+      "name": "Fastenal"
+    },
+    {
+      "symb": "FRT",
+      "name": "Federal Realty Investment Trust"
+    },
+    {
+      "symb": "FDX",
+      "name": "FedEx"
+    },
+    {
+      "symb": "FDXF",
+      "name": "FedEx Freight"
+    },
+    {
+      "symb": "FIS",
+      "name": "Fidelity National Information Services"
+    },
+    {
+      "symb": "FITB",
+      "name": "Fifth Third Bancorp"
+    },
+    {
+      "symb": "FSLR",
+      "name": "First Solar"
+    },
+    {
+      "symb": "FE",
+      "name": "FirstEnergy"
+    },
+    {
+      "symb": "FISV",
+      "name": "Fiserv"
+    },
+    {
+      "symb": "FLEX",
+      "name": "Flex Ltd."
+    },
+    {
+      "symb": "F",
+      "name": "Ford Motor Company"
+    },
+    {
+      "symb": "FTNT",
+      "name": "Fortinet"
+    },
+    {
+      "symb": "FTV",
+      "name": "Fortive"
+    },
+    {
+      "symb": "FOXA",
+      "name": "Fox Corporation (Class A)"
+    },
+    {
+      "symb": "FOX",
+      "name": "Fox Corporation (Class B)"
+    },
+    {
+      "symb": "BEN",
+      "name": "Franklin Resources"
+    },
+    {
+      "symb": "FCX",
+      "name": "Freeport-McMoRan"
+    },
+    {
+      "symb": "GRMN",
+      "name": "Garmin"
+    },
+    {
+      "symb": "IT",
+      "name": "Gartner"
+    },
+    {
+      "symb": "GE",
+      "name": "GE Aerospace"
+    },
+    {
+      "symb": "GEHC",
+      "name": "GE HealthCare"
+    },
+    {
+      "symb": "GEV",
+      "name": "GE Vernova"
+    },
+    {
+      "symb": "GEN",
+      "name": "Gen Digital"
+    },
+    {
+      "symb": "GNRC",
+      "name": "Generac"
+    },
+    {
+      "symb": "GD",
+      "name": "General Dynamics"
+    },
+    {
+      "symb": "GIS",
+      "name": "General Mills"
+    },
+    {
+      "symb": "GM",
+      "name": "General Motors"
+    },
+    {
+      "symb": "GPC",
+      "name": "Genuine Parts Company"
+    },
+    {
+      "symb": "GILD",
+      "name": "Gilead Sciences"
+    },
+    {
+      "symb": "GPN",
+      "name": "Global Payments"
+    },
+    {
+      "symb": "GL",
+      "name": "Globe Life"
+    },
+    {
+      "symb": "GDDY",
+      "name": "GoDaddy"
+    },
+    {
+      "symb": "GS",
+      "name": "Goldman Sachs"
+    },
+    {
+      "symb": "HAL",
+      "name": "Halliburton"
+    },
+    {
+      "symb": "HIG",
+      "name": "Hartford (The)"
+    },
+    {
+      "symb": "HAS",
+      "name": "Hasbro"
+    },
+    {
+      "symb": "HCA",
+      "name": "HCA Healthcare"
+    },
+    {
+      "symb": "DOC",
+      "name": "Healthpeak Properties"
+    },
+    {
+      "symb": "HSIC",
+      "name": "Henry Schein"
+    },
+    {
+      "symb": "HSY",
+      "name": "Hershey Company (The)"
+    },
+    {
+      "symb": "HPE",
+      "name": "Hewlett Packard Enterprise"
+    },
+    {
+      "symb": "HLT",
+      "name": "Hilton Worldwide"
+    },
+    {
+      "symb": "HD",
+      "name": "Home Depot (The)"
+    },
+    {
+      "symb": "HONA",
+      "name": "Honeywell Aerospace"
+    },
+    {
+      "symb": "HON",
+      "name": "Honeywell Technologies"
+    },
+    {
+      "symb": "HRL",
+      "name": "Hormel Foods"
+    },
+    {
+      "symb": "HST",
+      "name": "Host Hotels & Resorts"
+    },
+    {
+      "symb": "HWM",
+      "name": "Howmet Aerospace"
+    },
+    {
+      "symb": "HPQ",
+      "name": "HP Inc."
+    },
+    {
+      "symb": "HUBB",
+      "name": "Hubbell Incorporated"
+    },
+    {
+      "symb": "HUM",
+      "name": "Humana"
+    },
+    {
+      "symb": "HBAN",
+      "name": "Huntington Bancshares"
+    },
+    {
+      "symb": "HII",
+      "name": "Huntington Ingalls Industries"
+    },
+    {
+      "symb": "IBM",
+      "name": "IBM"
+    },
+    {
+      "symb": "IEX",
+      "name": "IDEX Corporation"
+    },
+    {
+      "symb": "IDXX",
+      "name": "Idexx Laboratories"
+    },
+    {
+      "symb": "ITW",
+      "name": "Illinois Tool Works"
+    },
+    {
+      "symb": "INCY",
+      "name": "Incyte"
+    },
+    {
+      "symb": "IR",
+      "name": "Ingersoll Rand"
+    },
+    {
+      "symb": "PODD",
+      "name": "Insulet Corporation"
+    },
+    {
+      "symb": "INTC",
+      "name": "Intel"
+    },
+    {
+      "symb": "IBKR",
+      "name": "Interactive Brokers"
+    },
+    {
+      "symb": "ICE",
+      "name": "Intercontinental Exchange"
+    },
+    {
+      "symb": "IFF",
+      "name": "International Flavors & Fragrances"
+    },
+    {
+      "symb": "IP",
+      "name": "International Paper"
+    },
+    {
+      "symb": "INTU",
+      "name": "Intuit"
+    },
+    {
+      "symb": "ISRG",
+      "name": "Intuitive Surgical"
+    },
+    {
+      "symb": "IVZ",
+      "name": "Invesco"
+    },
+    {
+      "symb": "INVH",
+      "name": "Invitation Homes"
+    },
+    {
+      "symb": "IQV",
+      "name": "IQVIA"
+    },
+    {
+      "symb": "IRM",
+      "name": "Iron Mountain"
+    },
+    {
+      "symb": "JBHT",
+      "name": "J.B. Hunt"
+    },
+    {
+      "symb": "JBL",
+      "name": "Jabil"
+    },
+    {
+      "symb": "JKHY",
+      "name": "Jack Henry & Associates"
+    },
+    {
+      "symb": "J",
+      "name": "Jacobs Solutions"
+    },
+    {
+      "symb": "JNJ",
+      "name": "Johnson & Johnson"
+    },
+    {
+      "symb": "JCI",
+      "name": "Johnson Controls"
+    },
+    {
+      "symb": "JPM",
+      "name": "JPMorgan Chase"
+    },
+    {
+      "symb": "KVUE",
+      "name": "Kenvue"
+    },
+    {
+      "symb": "KDP",
+      "name": "Keurig Dr Pepper"
+    },
+    {
+      "symb": "KEY",
+      "name": "KeyCorp"
+    },
+    {
+      "symb": "KEYS",
+      "name": "Keysight Technologies"
+    },
+    {
+      "symb": "KMB",
+      "name": "Kimberly-Clark"
+    },
+    {
+      "symb": "KIM",
+      "name": "Kimco Realty"
+    },
+    {
+      "symb": "KMI",
+      "name": "Kinder Morgan"
+    },
+    {
+      "symb": "KKR",
+      "name": "KKR & Co."
+    },
+    {
+      "symb": "KLAC",
+      "name": "KLA Corporation"
+    },
+    {
+      "symb": "KHC",
+      "name": "Kraft Heinz"
+    },
+    {
+      "symb": "KR",
+      "name": "Kroger"
+    },
+    {
+      "symb": "LHX",
+      "name": "L3Harris"
+    },
+    {
+      "symb": "LH",
+      "name": "Labcorp"
+    },
+    {
+      "symb": "LRCX",
+      "name": "Lam Research"
+    },
+    {
+      "symb": "LVS",
+      "name": "Las Vegas Sands"
+    },
+    {
+      "symb": "LDOS",
+      "name": "Leidos"
+    },
+    {
+      "symb": "LEN",
+      "name": "Lennar"
+    },
+    {
+      "symb": "LII",
+      "name": "Lennox International"
+    },
+    {
+      "symb": "LLY",
+      "name": "Lilly (Eli)"
+    },
+    {
+      "symb": "LIN",
+      "name": "Linde plc"
+    },
+    {
+      "symb": "LYV",
+      "name": "Live Nation Entertainment"
+    },
+    {
+      "symb": "LMT",
+      "name": "Lockheed Martin"
+    },
+    {
+      "symb": "L",
+      "name": "Loews Corporation"
+    },
+    {
+      "symb": "LOW",
+      "name": "Lowe's"
+    },
+    {
+      "symb": "LULU",
+      "name": "Lululemon Athletica"
+    },
+    {
+      "symb": "LITE",
+      "name": "Lumentum"
+    },
+    {
+      "symb": "LYB",
+      "name": "LyondellBasell"
+    },
+    {
+      "symb": "MTB",
+      "name": "M&T Bank"
+    },
+    {
+      "symb": "MPC",
+      "name": "Marathon Petroleum"
+    },
+    {
+      "symb": "MAR",
+      "name": "Marriott International"
+    },
+    {
+      "symb": "MRSH",
+      "name": "Marsh McLennan"
+    },
+    {
+      "symb": "MLM",
+      "name": "Martin Marietta Materials"
+    },
+    {
+      "symb": "MRVL",
+      "name": "Marvell Technology"
+    },
+    {
+      "symb": "MAS",
+      "name": "Masco"
+    },
+    {
+      "symb": "MA",
+      "name": "Mastercard"
+    },
+    {
+      "symb": "MKC",
+      "name": "McCormick & Company"
+    },
+    {
+      "symb": "MCD",
+      "name": "McDonald's"
+    },
+    {
+      "symb": "MCK",
+      "name": "McKesson Corporation"
+    },
+    {
+      "symb": "MDT",
+      "name": "Medtronic"
+    },
+    {
+      "symb": "MRK",
+      "name": "Merck & Co."
+    },
+    {
+      "symb": "META",
+      "name": "Meta Platforms"
+    },
+    {
+      "symb": "MET",
+      "name": "MetLife"
+    },
+    {
+      "symb": "MTD",
+      "name": "Mettler Toledo"
+    },
+    {
+      "symb": "MGM",
+      "name": "MGM Resorts"
+    },
+    {
+      "symb": "MCHP",
+      "name": "Microchip Technology"
+    },
+    {
+      "symb": "MU",
+      "name": "Micron Technology"
+    },
+    {
+      "symb": "MSFT",
+      "name": "Microsoft"
+    },
+    {
+      "symb": "MAA",
+      "name": "Mid-America Apartment Communities"
+    },
+    {
+      "symb": "MRNA",
+      "name": "Moderna"
+    },
+    {
+      "symb": "TAP",
+      "name": "Molson Coors Beverage Company"
+    },
+    {
+      "symb": "MDLZ",
+      "name": "Mondelez International"
+    },
+    {
+      "symb": "MPWR",
+      "name": "Monolithic Power Systems"
+    },
+    {
+      "symb": "MNST",
+      "name": "Monster Beverage"
+    },
+    {
+      "symb": "MCO",
+      "name": "Moody's Corporation"
+    },
+    {
+      "symb": "MS",
+      "name": "Morgan Stanley"
+    },
+    {
+      "symb": "MOS",
+      "name": "Mosaic Company (The)"
+    },
+    {
+      "symb": "MSI",
+      "name": "Motorola Solutions"
+    },
+    {
+      "symb": "MSCI",
+      "name": "MSCI Inc."
+    },
+    {
+      "symb": "NDAQ",
+      "name": "Nasdaq, Inc."
+    },
+    {
+      "symb": "NTAP",
+      "name": "NetApp"
+    },
+    {
+      "symb": "NFLX",
+      "name": "Netflix"
+    },
+    {
+      "symb": "NEM",
+      "name": "Newmont"
+    },
+    {
+      "symb": "NWSA",
+      "name": "News Corp (Class A)"
+    },
+    {
+      "symb": "NWS",
+      "name": "News Corp (Class B)"
+    },
+    {
+      "symb": "NEE",
+      "name": "NextEra Energy"
+    },
+    {
+      "symb": "NKE",
+      "name": "Nike, Inc."
+    },
+    {
+      "symb": "NI",
+      "name": "NiSource"
+    },
+    {
+      "symb": "NDSN",
+      "name": "Nordson Corporation"
+    },
+    {
+      "symb": "NSC",
+      "name": "Norfolk Southern"
+    },
+    {
+      "symb": "NTRS",
+      "name": "Northern Trust"
+    },
+    {
+      "symb": "NOC",
+      "name": "Northrop Grumman"
+    },
+    {
+      "symb": "NCLH",
+      "name": "Norwegian Cruise Line Holdings"
+    },
+    {
+      "symb": "NRG",
+      "name": "NRG Energy"
+    },
+    {
+      "symb": "NUE",
+      "name": "Nucor"
+    },
+    {
+      "symb": "NVDA",
+      "name": "Nvidia"
+    },
+    {
+      "symb": "NVR",
+      "name": "NVR, Inc."
+    },
+    {
+      "symb": "NXPI",
+      "name": "NXP Semiconductors"
+    },
+    {
+      "symb": "ORLY",
+      "name": "O’Reilly Automotive"
+    },
+    {
+      "symb": "OXY",
+      "name": "Occidental Petroleum"
+    },
+    {
+      "symb": "ODFL",
+      "name": "Old Dominion"
+    },
+    {
+      "symb": "OMC",
+      "name": "Omnicom Group"
+    },
+    {
+      "symb": "ON",
+      "name": "ON Semiconductor"
+    },
+    {
+      "symb": "OKE",
+      "name": "Oneok"
+    },
+    {
+      "symb": "ORCL",
+      "name": "Oracle Corporation"
+    },
+    {
+      "symb": "OTIS",
+      "name": "Otis Worldwide"
+    },
+    {
+      "symb": "PCAR",
+      "name": "Paccar"
+    },
+    {
+      "symb": "PKG",
+      "name": "Packaging Corporation of America"
+    },
+    {
+      "symb": "PLTR",
+      "name": "Palantir Technologies"
+    },
+    {
+      "symb": "PANW",
+      "name": "Palo Alto Networks"
+    },
+    {
+      "symb": "PSKY",
+      "name": "Paramount Skydance Corporation"
+    },
+    {
+      "symb": "PH",
+      "name": "Parker Hannifin"
+    },
+    {
+      "symb": "PAYX",
+      "name": "Paychex"
+    },
+    {
+      "symb": "PYPL",
+      "name": "PayPal"
+    },
+    {
+      "symb": "PNR",
+      "name": "Pentair"
+    },
+    {
+      "symb": "PEP",
+      "name": "PepsiCo"
+    },
+    {
+      "symb": "PFE",
+      "name": "Pfizer"
+    },
+    {
+      "symb": "PCG",
+      "name": "PG&E Corporation"
+    },
+    {
+      "symb": "PM",
+      "name": "Philip Morris International"
+    },
+    {
+      "symb": "PSX",
+      "name": "Phillips 66"
+    },
+    {
+      "symb": "PNW",
+      "name": "Pinnacle West Capital"
+    },
+    {
+      "symb": "PNC",
+      "name": "PNC Financial Services"
+    },
+    {
+      "symb": "PPG",
+      "name": "PPG Industries"
+    },
+    {
+      "symb": "PPL",
+      "name": "PPL Corporation"
+    },
+    {
+      "symb": "PFG",
+      "name": "Principal Financial Group"
+    },
+    {
+      "symb": "PG",
+      "name": "Procter & Gamble"
+    },
+    {
+      "symb": "PGR",
+      "name": "Progressive Corporation"
+    },
+    {
+      "symb": "PLD",
+      "name": "Prologis"
+    },
+    {
+      "symb": "PRU",
+      "name": "Prudential Financial"
+    },
+    {
+      "symb": "PEG",
+      "name": "Public Service Enterprise Group"
+    },
+    {
+      "symb": "PTC",
+      "name": "PTC Inc."
+    },
+    {
+      "symb": "PSA",
+      "name": "Public Storage"
+    },
+    {
+      "symb": "PHM",
+      "name": "PulteGroup"
+    },
+    {
+      "symb": "PWR",
+      "name": "Quanta Services"
+    },
+    {
+      "symb": "QCOM",
+      "name": "Qualcomm"
+    },
+    {
+      "symb": "DGX",
+      "name": "Quest Diagnostics"
+    },
+    {
+      "symb": "Q",
+      "name": "Qnity Electronics"
+    },
+    {
+      "symb": "RL",
+      "name": "Ralph Lauren Corporation"
+    },
+    {
+      "symb": "RJF",
+      "name": "Raymond James Financial"
+    },
+    {
+      "symb": "RTX",
+      "name": "RTX Corporation"
+    },
+    {
+      "symb": "O",
+      "name": "Realty Income"
+    },
+    {
+      "symb": "REG",
+      "name": "Regency Centers"
+    },
+    {
+      "symb": "REGN",
+      "name": "Regeneron Pharmaceuticals"
+    },
+    {
+      "symb": "RF",
+      "name": "Regions Financial Corporation"
+    },
+    {
+      "symb": "RSG",
+      "name": "Republic Services"
+    },
+    {
+      "symb": "RMD",
+      "name": "ResMed"
+    },
+    {
+      "symb": "RVTY",
+      "name": "Revvity"
+    },
+    {
+      "symb": "HOOD",
+      "name": "Robinhood Markets"
+    },
+    {
+      "symb": "ROK",
+      "name": "Rockwell Automation"
+    },
+    {
+      "symb": "ROL",
+      "name": "Rollins, Inc."
+    },
+    {
+      "symb": "ROP",
+      "name": "Roper Technologies"
+    },
+    {
+      "symb": "ROST",
+      "name": "Ross Stores"
+    },
+    {
+      "symb": "RCL",
+      "name": "Royal Caribbean Group"
+    },
+    {
+      "symb": "SPGI",
+      "name": "S&P Global"
+    },
+    {
+      "symb": "CRM",
+      "name": "Salesforce"
+    },
+    {
+      "symb": "SNDK",
+      "name": "Sandisk"
+    },
+    {
+      "symb": "SBAC",
+      "name": "SBA Communications"
+    },
+    {
+      "symb": "SLB",
+      "name": "Schlumberger"
+    },
+    {
+      "symb": "STX",
+      "name": "Seagate Technology"
+    },
+    {
+      "symb": "SRE",
+      "name": "Sempra"
+    },
+    {
+      "symb": "NOW",
+      "name": "ServiceNow"
+    },
+    {
+      "symb": "SHW",
+      "name": "Sherwin-Williams"
+    },
+    {
+      "symb": "SPG",
+      "name": "Simon Property Group"
+    },
+    {
+      "symb": "SWKS",
+      "name": "Skyworks Solutions"
+    },
+    {
+      "symb": "SJM",
+      "name": "J.M. Smucker Company (The)"
+    },
+    {
+      "symb": "SW",
+      "name": "Smurfit Westrock"
+    },
+    {
+      "symb": "SNA",
+      "name": "Snap-on"
+    },
+    {
+      "symb": "SOLV",
+      "name": "Solventum"
+    },
+    {
+      "symb": "SO",
+      "name": "Southern Company"
+    },
+    {
+      "symb": "LUV",
+      "name": "Southwest Airlines"
+    },
+    {
+      "symb": "SWK",
+      "name": "Stanley Black & Decker"
+    },
+    {
+      "symb": "SBUX",
+      "name": "Starbucks"
+    },
+    {
+      "symb": "STT",
+      "name": "State Street Corporation"
+    },
+    {
+      "symb": "STLD",
+      "name": "Steel Dynamics"
+    },
+    {
+      "symb": "STE",
+      "name": "Steris"
+    },
+    {
+      "symb": "SYK",
+      "name": "Stryker Corporation"
+    },
+    {
+      "symb": "SMCI",
+      "name": "Supermicro"
+    },
+    {
+      "symb": "SYF",
+      "name": "Synchrony Financial"
+    },
+    {
+      "symb": "SNPS",
+      "name": "Synopsys"
+    },
+    {
+      "symb": "SYY",
+      "name": "Sysco"
+    },
+    {
+      "symb": "TMUS",
+      "name": "T-Mobile US"
+    },
+    {
+      "symb": "TROW",
+      "name": "T. Rowe Price"
+    },
+    {
+      "symb": "TTWO",
+      "name": "Take-Two Interactive"
+    },
+    {
+      "symb": "TPR",
+      "name": "Tapestry, Inc."
+    },
+    {
+      "symb": "TRGP",
+      "name": "Targa Resources"
+    },
+    {
+      "symb": "TGT",
+      "name": "Target Corporation"
+    },
+    {
+      "symb": "TEL",
+      "name": "TE Connectivity"
+    },
+    {
+      "symb": "TDY",
+      "name": "Teledyne Technologies"
+    },
+    {
+      "symb": "TER",
+      "name": "Teradyne"
+    },
+    {
+      "symb": "TSLA",
+      "name": "Tesla, Inc."
+    },
+    {
+      "symb": "TXN",
+      "name": "Texas Instruments"
+    },
+    {
+      "symb": "TPL",
+      "name": "Texas Pacific Land Corporation"
+    },
+    {
+      "symb": "TXT",
+      "name": "Textron"
+    },
+    {
+      "symb": "TMO",
+      "name": "Thermo Fisher Scientific"
+    },
+    {
+      "symb": "TJX",
+      "name": "TJX Companies"
+    },
+    {
+      "symb": "TKO",
+      "name": "TKO Group Holdings"
+    },
+    {
+      "symb": "TTD",
+      "name": "Trade Desk (The)"
+    },
+    {
+      "symb": "TSCO",
+      "name": "Tractor Supply"
+    },
+    {
+      "symb": "TT",
+      "name": "Trane Technologies"
+    },
+    {
+      "symb": "TDG",
+      "name": "TransDigm Group"
+    },
+    {
+      "symb": "TRV",
+      "name": "Travelers Companies (The)"
+    },
+    {
+      "symb": "TRMB",
+      "name": "Trimble Inc."
+    },
+    {
+      "symb": "TFC",
+      "name": "Truist Financial"
+    },
+    {
+      "symb": "TYL",
+      "name": "Tyler Technologies"
+    },
+    {
+      "symb": "TSN",
+      "name": "Tyson Foods"
+    },
+    {
+      "symb": "USB",
+      "name": "U.S. Bancorp"
+    },
+    {
+      "symb": "UBER",
+      "name": "Uber"
+    },
+    {
+      "symb": "UDR",
+      "name": "UDR, Inc."
+    },
+    {
+      "symb": "ULTA",
+      "name": "Ulta Beauty"
+    },
+    {
+      "symb": "UNP",
+      "name": "Union Pacific Corporation"
+    },
+    {
+      "symb": "UAL",
+      "name": "United Airlines Holdings"
+    },
+    {
+      "symb": "UPS",
+      "name": "United Parcel Service"
+    },
+    {
+      "symb": "URI",
+      "name": "United Rentals"
+    },
+    {
+      "symb": "UNH",
+      "name": "UnitedHealth Group"
+    },
+    {
+      "symb": "UHS",
+      "name": "Universal Health Services"
+    },
+    {
+      "symb": "VLO",
+      "name": "Valero Energy"
+    },
+    {
+      "symb": "VEEV",
+      "name": "Veeva Systems"
+    },
+    {
+      "symb": "VTR",
+      "name": "Ventas"
+    },
+    {
+      "symb": "VLTO",
+      "name": "Veralto"
+    },
+    {
+      "symb": "VRSN",
+      "name": "Verisign"
+    },
+    {
+      "symb": "VRSK",
+      "name": "Verisk Analytics"
+    },
+    {
+      "symb": "VZ",
+      "name": "Verizon"
+    },
+    {
+      "symb": "VRTX",
+      "name": "Vertex Pharmaceuticals"
+    },
+    {
+      "symb": "VRT",
+      "name": "Vertiv"
+    },
+    {
+      "symb": "VTRS",
+      "name": "Viatris"
+    },
+    {
+      "symb": "VICI",
+      "name": "Vici Properties"
+    },
+    {
+      "symb": "V",
+      "name": "Visa Inc."
+    },
+    {
+      "symb": "VST",
+      "name": "Vistra Corp."
+    },
+    {
+      "symb": "VMC",
+      "name": "Vulcan Materials Company"
+    },
+    {
+      "symb": "WRB",
+      "name": "W. R. Berkley Corporation"
+    },
+    {
+      "symb": "GWW",
+      "name": "W. W. Grainger"
+    },
+    {
+      "symb": "WAB",
+      "name": "Wabtec"
+    },
+    {
+      "symb": "WMT",
+      "name": "Walmart"
+    },
+    {
+      "symb": "DIS",
+      "name": "Walt Disney Company (The)"
+    },
+    {
+      "symb": "WBD",
+      "name": "Warner Bros. Discovery"
+    },
+    {
+      "symb": "WM",
+      "name": "Waste Management"
+    },
+    {
+      "symb": "WAT",
+      "name": "Waters Corporation"
+    },
+    {
+      "symb": "WEC",
+      "name": "WEC Energy Group"
+    },
+    {
+      "symb": "WFC",
+      "name": "Wells Fargo"
+    },
+    {
+      "symb": "WELL",
+      "name": "Welltower"
+    },
+    {
+      "symb": "WST",
+      "name": "West Pharmaceutical Services"
+    },
+    {
+      "symb": "WDC",
+      "name": "Western Digital"
+    },
+    {
+      "symb": "WY",
+      "name": "Weyerhaeuser"
+    },
+    {
+      "symb": "WSM",
+      "name": "Williams-Sonoma, Inc."
+    },
+    {
+      "symb": "WMB",
+      "name": "Williams Companies"
+    },
+    {
+      "symb": "WTW",
+      "name": "Willis Towers Watson"
+    },
+    {
+      "symb": "WDAY",
+      "name": "Workday, Inc."
+    },
+    {
+      "symb": "WYNN",
+      "name": "Wynn Resorts"
+    },
+    {
+      "symb": "XEL",
+      "name": "Xcel Energy"
+    },
+    {
+      "symb": "XYL",
+      "name": "Xylem Inc."
+    },
+    {
+      "symb": "YUM",
+      "name": "Yum! Brands"
+    },
+    {
+      "symb": "ZBRA",
+      "name": "Zebra Technologies"
+    },
+    {
+      "symb": "ZBH",
+      "name": "Zimmer Biomet"
+    },
+    {
+      "symb": "ZTS",
+      "name": "Zoetis"
+    }
+  ],
+  "nasdaq100": [
+    {
+      "symb": "NVDA",
+      "name": "Nvidia Corp"
+    },
+    {
+      "symb": "AAPL",
+      "name": "Apple Inc."
+    },
+    {
+      "symb": "MSFT",
+      "name": "Microsoft Corp"
+    },
+    {
+      "symb": "AMZN",
+      "name": "Amazon.Com Inc"
+    },
+    {
+      "symb": "GOOGL",
+      "name": "Alphabet Inc. Class A Common Stock"
+    },
+    {
+      "symb": "GOOG",
+      "name": "Alphabet Inc. Class C Capital Stock"
+    },
+    {
+      "symb": "AVGO",
+      "name": "Broadcom Inc. Common Stock"
+    },
+    {
+      "symb": "SPCX",
+      "name": "Space Exploration Technologies Corp. Class A Common Stock"
+    },
+    {
+      "symb": "META",
+      "name": "Meta Platforms, Inc. Class A Common Stock"
+    },
+    {
+      "symb": "TSLA",
+      "name": "Tesla, Inc. Common Stock"
+    },
+    {
+      "symb": "MU",
+      "name": "Micron Technology, Inc."
+    },
+    {
+      "symb": "WMT",
+      "name": "Walmart Inc. Common Stock"
+    },
+    {
+      "symb": "AMD",
+      "name": "Advanced Micro Devices"
+    },
+    {
+      "symb": "ASML",
+      "name": "ASML Holding NV"
+    },
+    {
+      "symb": "INTC",
+      "name": "Intel Corp"
+    },
+    {
+      "symb": "CSCO",
+      "name": "Cisco Systems, Inc. Common Stock (DE)"
+    },
+    {
+      "symb": "AMAT",
+      "name": "Applied Materials Inc"
+    },
+    {
+      "symb": "COST",
+      "name": "Costco Wholesale Corp"
+    },
+    {
+      "symb": "LRCX",
+      "name": "Lam Research Corp"
+    },
+    {
+      "symb": "PLTR",
+      "name": "Palantir Technologies Inc. Class A Common Stock"
+    },
+    {
+      "symb": "NFLX",
+      "name": "NetFlix Inc"
+    },
+    {
+      "symb": "ARM",
+      "name": "Arm Holdings plc American Depositary Shares"
+    },
+    {
+      "symb": "KLAC",
+      "name": "KLA Corporation Common Stock"
+    },
+    {
+      "symb": "PANW",
+      "name": "Palo Alto Networks, Inc. Common Stock"
+    },
+    {
+      "symb": "TXN",
+      "name": "Texas Instruments Incorporated"
+    },
+    {
+      "symb": "LIN",
+      "name": "Linde plc Ordinary Share"
+    },
+    {
+      "symb": "SNDK",
+      "name": "Sandisk Corporation Common Stock"
+    },
+    {
+      "symb": "AMGN",
+      "name": "Amgen Inc"
+    },
+    {
+      "symb": "TMUS",
+      "name": "T-Mobile US, Inc."
+    },
+    {
+      "symb": "STX",
+      "name": "Seagate Technology Holdings PLC Ordinary Shares (Ireland)"
+    },
+    {
+      "symb": "CRWD",
+      "name": "CrowdStrike Holdings, Inc. Class A Common Stock"
+    },
+    {
+      "symb": "PEP",
+      "name": "PepsiCo, Inc."
+    },
+    {
+      "symb": "ADI",
+      "name": "Analog Devices, Inc."
+    },
+    {
+      "symb": "WDC",
+      "name": "Western Digital Corp."
+    },
+    {
+      "symb": "QCOM",
+      "name": "Qualcomm Inc"
+    },
+    {
+      "symb": "MRVL",
+      "name": "Marvell Technology, Inc. Common Stock"
+    },
+    {
+      "symb": "GILD",
+      "name": "Gilead Sciences Inc"
+    },
+    {
+      "symb": "SHOP",
+      "name": "Shopify Inc. Class A subordinate voting shares"
+    },
+    {
+      "symb": "BKNG",
+      "name": "Booking Holdings Inc. Common Stock"
+    },
+    {
+      "symb": "APP",
+      "name": "Applovin Corporation Class A Common Stock"
+    },
+    {
+      "symb": "VRTX",
+      "name": "Vertex Pharmaceuticals Inc"
+    },
+    {
+      "symb": "ISRG",
+      "name": "Intuitive Surgical Inc."
+    },
+    {
+      "symb": "SBUX",
+      "name": "Starbucks Corp"
+    },
+    {
+      "symb": "PDD",
+      "name": "PDD Holdings Inc. American Depositary Shares"
+    },
+    {
+      "symb": "FTNT",
+      "name": "Fortinet, Inc."
+    },
+    {
+      "symb": "ADP",
+      "name": "Automatic Data Processing"
+    },
+    {
+      "symb": "CSX",
+      "name": "CSX Corporation"
+    },
+    {
+      "symb": "MAR",
+      "name": "Marriott International Class A Common Stock"
+    },
+    {
+      "symb": "CEG",
+      "name": "Constellation Energy Corporation Common Stock"
+    },
+    {
+      "symb": "MNST",
+      "name": "Monster Beverage Corporation"
+    },
+    {
+      "symb": "MELI",
+      "name": "Mercado Libre, Inc"
+    },
+    {
+      "symb": "CDNS",
+      "name": "Cadence Design Systems"
+    },
+    {
+      "symb": "ADBE",
+      "name": "Adobe Inc."
+    },
+    {
+      "symb": "DDOG",
+      "name": "Datadog, Inc. Class A Common Stock"
+    },
+    {
+      "symb": "ABNB",
+      "name": "Airbnb, Inc. Class A Common Stock"
+    },
+    {
+      "symb": "CTAS",
+      "name": "Cintas Corp"
+    },
+    {
+      "symb": "INTU",
+      "name": "Intuit Inc"
+    },
+    {
+      "symb": "CMCSA",
+      "name": "Comcast Corp"
+    },
+    {
+      "symb": "MDLZ",
+      "name": "Mondelez International, Inc. Class A"
+    },
+    {
+      "symb": "HON",
+      "name": "Honeywell International, Inc."
+    },
+    {
+      "symb": "ROST",
+      "name": "Ross Stores Inc"
+    },
+    {
+      "symb": "DASH",
+      "name": "DoorDash, Inc. Class A Common Stock"
+    },
+    {
+      "symb": "AEP",
+      "name": "American Electric Power Company, Inc."
+    },
+    {
+      "symb": "ORLY",
+      "name": "O'Reilly Automotive, Inc."
+    },
+    {
+      "symb": "SNPS",
+      "name": "Synopsys Inc"
+    },
+    {
+      "symb": "PCAR",
+      "name": "Paccar Inc"
+    },
+    {
+      "symb": "REGN",
+      "name": "Regeneron Pharmaceuticals Inc"
+    },
+    {
+      "symb": "NXPI",
+      "name": "NXP Semiconductors N.V."
+    },
+    {
+      "symb": "MPWR",
+      "name": "Monolithic Power Systems, Inc."
+    },
+    {
+      "symb": "HONA",
+      "name": "Honeywell Aerospace Inc. Common Stock"
+    },
+    {
+      "symb": "WBD",
+      "name": "Warner Bros. Discovery, Inc. Series A Common Stock"
+    },
+    {
+      "symb": "LITE",
+      "name": "Lumentum Holdings Inc. Common Stock"
+    },
+    {
+      "symb": "FANG",
+      "name": "Diamondback Energy, Inc."
+    },
+    {
+      "symb": "BKR",
+      "name": "Baker Hughes Company"
+    },
+    {
+      "symb": "TER",
+      "name": "Teradyne, Inc. Common Stock"
+    },
+    {
+      "symb": "FAST",
+      "name": "Fastenal Co"
+    },
+    {
+      "symb": "EA",
+      "name": "Electronic Arts Inc"
+    },
+    {
+      "symb": "XEL",
+      "name": "Xcel Energy, Inc."
+    },
+    {
+      "symb": "ALAB",
+      "name": "Astera Labs, Inc. Common Stock"
+    },
+    {
+      "symb": "PYPL",
+      "name": "PayPal Holdings, Inc. Common Stock"
+    },
+    {
+      "symb": "EXC",
+      "name": "Exelon Corporation"
+    },
+    {
+      "symb": "ODFL",
+      "name": "Old Dominion Freight Line"
+    },
+    {
+      "symb": "NBIS",
+      "name": "Nebius Group N.V. Class A Ordinary Shares"
+    },
+    {
+      "symb": "CCEP",
+      "name": "Coca-Cola Europacific Partners plc Ordinary Shares"
+    },
+    {
+      "symb": "FER",
+      "name": "Ferrovial N.V. Ordinary Shares"
+    },
+    {
+      "symb": "ADSK",
+      "name": "Autodesk Inc"
+    },
+    {
+      "symb": "TTWO",
+      "name": "Take-Two Interactive Software Inc"
+    },
+    {
+      "symb": "IDXX",
+      "name": "Idexx Laboratories Inc"
+    },
+    {
+      "symb": "MCHP",
+      "name": "Microchip Technology Inc"
+    },
+    {
+      "symb": "AXON",
+      "name": "Axon Enterprise, Inc. Common Stock"
+    },
+    {
+      "symb": "PAYX",
+      "name": "Paychex Inc"
+    },
+    {
+      "symb": "KDP",
+      "name": "Keurig Dr Pepper Inc."
+    },
+    {
+      "symb": "RKLB",
+      "name": "Rocket Lab Corporation Common Stock"
+    },
+    {
+      "symb": "TRI",
+      "name": "Thomson Reuters Corporation Common Shares"
+    },
+    {
+      "symb": "CRWV",
+      "name": "CoreWeave, Inc. Class A Common Stock"
+    },
+    {
+      "symb": "ROP",
+      "name": "Roper Technologies, Inc. Common Stock"
+    },
+    {
+      "symb": "ALNY",
+      "name": "Alnylam Pharmaceuticals, Inc."
+    },
+    {
+      "symb": "WDAY",
+      "name": "Workday, Inc. Class A Common Stock"
+    },
+    {
+      "symb": "MSTR",
+      "name": "Strategy Inc Common Stock Class A"
+    },
+    {
+      "symb": "KHC",
+      "name": "The Kraft Heinz Company Common Stock"
+    },
+    {
+      "symb": "DXCM",
+      "name": "DexCom, Inc."
+    },
+    {
+      "symb": "GEHC",
+      "name": "GE HealthCare Technologies Inc. Common Stock"
+    },
+    {
+      "symb": "CPRT",
+      "name": "Copart Inc"
+    }
+  ]
+}
