@@ -8,7 +8,9 @@ from pathlib import Path
 
 import pandas as pd
 
+from signal_bot import alerts
 from signal_bot.config import TICKERS
+from signal_bot.notifier import send_telegram_message
 from signal_bot.scoring import compute_scores
 
 DATA_DIR = Path("signal_bot/data")
@@ -93,12 +95,28 @@ def main():
     results, errors = run()
     print_report(results, errors)
 
-    if results:
-        today = results[0]["date"]
-        history = load_history()
-        history[today] = {r["symb"]: r for r in results}
-        save_history(history)
-        print(f"\nJSON 이력 저장 완료: {HISTORY_PATH} (기준일 {today})")
+    if not results:
+        return
+
+    today = results[0]["date"]
+    history = load_history()
+    history[today] = {r["symb"]: r for r in results}
+    save_history(history)
+    print(f"\nJSON 이력 저장 완료: {HISTORY_PATH} (기준일 {today})")
+
+    new_signals = alerts.find_new_strong_signals(history, today)
+    notified = alerts.load_notified()
+    to_send = alerts.filter_unnotified(new_signals, today, notified)
+
+    if not to_send:
+        print("신규 70점 진입 종목 없음 (알림 발송 안 함)")
+        return
+
+    message = alerts.format_alert_message(to_send, today)
+    send_telegram_message(message)
+    alerts.mark_notified(notified, today, [r["symb"] for r in to_send])
+    alerts.save_notified(notified)
+    print(f"\n텔레그램 알림 발송 완료: {[r['symb'] for r in to_send]}")
 
 
 if __name__ == "__main__":
