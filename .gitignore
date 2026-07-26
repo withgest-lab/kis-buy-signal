@@ -189,3 +189,7 @@ signal_bot/data/nvda_step6_chart.json
 # commit)로만 발행하므로, main에서는 매일 재생성되는 이 파일들을 추적하지 않는다.
 docs/scores.json
 docs/detail/
+
+# STEP 10 백테스트용 장기(10~13년치) 데이터 - 약 200MB+, signal_bot/backtest_fetch.py로
+# 언제든 재생성 가능한 1회성 연구용 데이터라 커밋 대상에서 제외.
+signal_bot/data/backtest/
