@@ -11,7 +11,7 @@ import pandas as pd
 from signal_bot import alerts
 from signal_bot.config import HISTORY_MAX_DAYS, TICKER_NAMES, TICKERS
 from signal_bot.notifier import send_telegram_message
-from signal_bot.scoring import compute_scores
+from signal_bot.scoring import apply_market_filter, compute_scores, market_regime
 
 DATA_DIR = Path("signal_bot/data")
 HISTORY_PATH = DATA_DIR / "history.json"
@@ -51,7 +51,16 @@ def _signal_summary(row: pd.Series) -> str:
     return ",".join(tags) if tags else "-"
 
 
+def _today_market_regime() -> str:
+    spy_path = DATA_DIR / "SPY_daily.csv"
+    if not spy_path.exists():
+        return "판정불가"
+    spy = pd.read_csv(spy_path, parse_dates=["date"])
+    return market_regime(spy["close"])
+
+
 def run() -> list[dict]:
+    regime = _today_market_regime()
     results = []
     errors = []
     for category, symb in TICKERS:
@@ -64,6 +73,7 @@ def run() -> list[dict]:
             daily = pd.read_csv(daily_path, parse_dates=["date"])
             weekly = pd.read_csv(weekly_path, parse_dates=["date"])
             df = compute_scores(daily, weekly)
+            df = apply_market_filter(df, regime)
         except Exception as e:
             errors.append((symb, str(e)))
             continue
@@ -98,6 +108,7 @@ def run() -> list[dict]:
             },
             "adx": round(float(last["adx"]), 1),
             "regime_penalty": bool(last["regime_penalty_applied"]),
+            "market_regime": regime,
         })
 
     results.sort(key=lambda r: r["score"], reverse=True)
@@ -105,6 +116,10 @@ def run() -> list[dict]:
 
 
 def print_report(results: list[dict], errors: list[tuple]) -> None:
+    if results:
+        print(f"오늘의 시장(SPY) 국면: {results[0]['market_regime']}"
+              + (" - 신규 강한매수후보 진입 차단 중" if results[0]["market_regime"] == "하락장" else ""))
+        print()
     print(f"{'종목':6s} {'분류':8s} {'점수':>6s} {'판정':10s} {'현재가':>10s}  세부신호")
     print("-" * 72)
     for r in results:

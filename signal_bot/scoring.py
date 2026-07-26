@@ -6,12 +6,16 @@ import pandas as pd
 from signal_bot import indicators as ind
 from signal_bot import signals as sig
 
+# STEP 10 백테스트(13년치, 인샘플/아웃오브샘플 교차검증 + Bollinger/Cardwell/
+# Faber·Siegel 등 문헌 대조)로 재조정한 가중치. 추세/밴드위치(구조적 상태
+# 신호)보다 다이버전스/MFI선행/스퀴즈확장(확인성 신호) 비중을 높였다 —
+# ablation 결과 이 조합이 아웃오브샘플에서 일관되게 더 나았음(2026-07-26).
 WEIGHTS = {
-    "weekly_trend": 25,
-    "percent_b": 20,
-    "rsi_divergence": 20,
-    "mfi_lead": 15,
-    "squeeze_expansion": 10,
+    "weekly_trend": 15,
+    "percent_b": 15,
+    "rsi_divergence": 25,
+    "mfi_lead": 20,
+    "squeeze_expansion": 15,
     "volume_exhaustion": 10,
 }
 
@@ -48,9 +52,12 @@ def _score_volume_exhaustion(ratio: pd.Series) -> pd.Series:
     return score
 
 
-def compute_scores(daily: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
-    """daily/weekly: date 오름차순 정렬된 OHLCV DataFrame (kis_client.fetch_ohlcv 형식).
-    Returns: daily에 지표/신호/점수 컬럼이 추가된 DataFrame."""
+def compute_components(daily: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
+    """지표/파생신호/항목별 0~1 점수까지 계산 (가중치를 곱하기 전 단계).
+
+    가중치·하락추세 페널티는 combine_score()에서 적용한다 — 백테스트에서
+    같은 지표 계산을 반복하지 않고 가중치 조합만 바꿔가며 빠르게 실험하기
+    위해 분리했다 (PROJECT_PLAN.md 섹션 3-4 백테스트/기여도 검증)."""
     df = daily.copy().reset_index(drop=True)
 
     df["rsi"] = ind.rsi(df["close"])
@@ -81,18 +88,31 @@ def compute_scores(daily: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
     df["s_squeeze_expansion"] = df["squeeze_exp_detected"].astype(float)
     df["s_volume_exhaustion"] = _score_volume_exhaustion(df["vol_ratio"])
 
+    return df
+
+
+def combine_score(df: pd.DataFrame, weights: dict = None,
+                   apply_regime_penalty: bool = True,
+                   regime_penalty_factor: float = 0.3) -> pd.DataFrame:
+    """compute_components() 결과에 가중치를 곱해 최종 score/verdict를 만든다."""
+    w = weights or WEIGHTS
+    df = df.copy()
+
     df["raw_score"] = (
-        df["s_weekly_trend"] * WEIGHTS["weekly_trend"]
-        + df["s_percent_b"] * WEIGHTS["percent_b"]
-        + df["s_rsi_divergence"] * WEIGHTS["rsi_divergence"]
-        + df["s_mfi_lead"] * WEIGHTS["mfi_lead"]
-        + df["s_squeeze_expansion"] * WEIGHTS["squeeze_expansion"]
-        + df["s_volume_exhaustion"] * WEIGHTS["volume_exhaustion"]
+        df["s_weekly_trend"] * w["weekly_trend"]
+        + df["s_percent_b"] * w["percent_b"]
+        + df["s_rsi_divergence"] * w["rsi_divergence"]
+        + df["s_mfi_lead"] * w["mfi_lead"]
+        + df["s_squeeze_expansion"] * w["squeeze_expansion"]
+        + df["s_volume_exhaustion"] * w["volume_exhaustion"]
     )
 
     downtrend_regime = (df["adx"] >= 25) & (df["minus_di"] > df["plus_di"])
     df["regime_penalty_applied"] = downtrend_regime
-    df["score"] = df["raw_score"].where(~downtrend_regime, df["raw_score"] * 0.3)
+    if apply_regime_penalty:
+        df["score"] = df["raw_score"].where(~downtrend_regime, df["raw_score"] * regime_penalty_factor)
+    else:
+        df["score"] = df["raw_score"]
     df["score"] = df["score"].clip(lower=0, upper=100)
 
     df["verdict"] = np.select(
@@ -100,5 +120,42 @@ def compute_scores(daily: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
         ["강한매수후보", "관찰대상"],
         default="무시",
     )
+    return df
 
+
+def compute_scores(daily: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
+    """daily/weekly: date 오름차순 정렬된 OHLCV DataFrame (kis_client.fetch_ohlcv 형식).
+    Returns: daily에 지표/신호/점수 컬럼이 추가된 DataFrame. (운영 파이프라인은 이 함수만 씀)"""
+    return combine_score(compute_components(daily, weekly))
+
+
+# 시장(SPY) 전체가 하락 국면일 때 신규 진입 자체를 막는 필터. 개별종목 ADX
+# 페널티(위)는 "그 종목 자체"만 보지만, 이건 시장 전체를 본다 — 백테스트에서
+# 개별종목 지표(특히 %B·다이버전스)가 하락장에서 기준 대비 1.6~2.2배 과다
+# 출현하는 걸 확인했고, Bollinger 본인("밴드 터치는 확인이 필요")과
+# Faber(2007)/Siegel(1886~2006)의 200일선 시장타이밍 연구가 이 필터를
+# 뒷받침한다 (PROJECT_PLAN.md 섹션 13, 2026-07-26).
+MARKET_REGIME_BAND = 0.03
+
+
+def market_regime(spy_close: pd.Series) -> str:
+    """SPY 종가 시계열(오름차순)의 마지막 값 기준 오늘의 시장 국면 판정."""
+    sma200 = spy_close.rolling(200).mean()
+    if pd.isna(sma200.iloc[-1]):
+        return "판정불가"
+    ratio = spy_close.iloc[-1] / sma200.iloc[-1]
+    if ratio >= 1 + MARKET_REGIME_BAND:
+        return "상승장"
+    if ratio <= 1 - MARKET_REGIME_BAND:
+        return "하락장"
+    return "횡보장"
+
+
+def apply_market_filter(df: pd.DataFrame, regime: str) -> pd.DataFrame:
+    """시장 전체가 하락장이면 이 종목의 오늘 점수를 0으로 눌러 신규 진입을 막는다."""
+    if regime != "하락장":
+        return df
+    df = df.copy()
+    df.loc[df.index[-1], "score"] = 0.0
+    df.loc[df.index[-1], "verdict"] = "무시"
     return df
