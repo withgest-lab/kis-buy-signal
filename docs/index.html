@@ -299,6 +299,15 @@
 let DATA = null;
 let state = { verdict: "all", category: "all", sort: "score" };
 
+function escapeHtml(s) {
+  // 종목명 등은 위키피디아/slickcharts 등 외부(제3자 편집 가능) 소스에서 온다.
+  // innerHTML로 꽂아 넣기 전에 반드시 이스케이프해서, 소스가 훼손되더라도
+  // 대시보드에서 스크립트가 실행되지 않도록 한다.
+  return String(s).replace(/[&<>"']/g, c => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
 function scoreClass(score) {
   if (score >= 70) return "score-strong";
   if (score >= 50) return "score-watch";
@@ -468,9 +477,9 @@ function cardHtml(t) {
     ${t.is_new ? '<div class="new-flag">NEW 70+</div><br>' : ""}
     <div class="card-top">
       <div class="ticker-block">
-        <div class="symb">${t.symb}</div>
-        <div class="name">${t.name}</div>
-        <div class="cat-tag">${t.category}</div>
+        <div class="symb">${escapeHtml(t.symb)}</div>
+        <div class="name">${escapeHtml(t.name)}</div>
+        <div class="cat-tag">${escapeHtml(t.category)}</div>
       </div>
       <div class="score-badge ${scoreClass(t.score)}">${t.score.toFixed(1)}</div>
     </div>
@@ -509,9 +518,9 @@ function bannerHtml(newOnes) {
     <div class="banner-grid">
       ${newOnes.map(t => `
         <div class="banner-card">
-          <div class="symb" style="font-weight:700">${t.symb} <span style="color:var(--text-muted);font-weight:400">${t.name}</span></div>
+          <div class="symb" style="font-weight:700">${escapeHtml(t.symb)} <span style="color:var(--text-muted);font-weight:400">${escapeHtml(t.name)}</span></div>
           <div style="font-size:20px;font-weight:700;color:var(--status-crit)">${t.score.toFixed(1)}점</div>
-          <div style="font-size:12px;color:var(--text-secondary)">$${t.close.toFixed(2)} · ${t.signals}</div>
+          <div style="font-size:12px;color:var(--text-secondary)">$${t.close.toFixed(2)} · ${escapeHtml(t.signals)}</div>
         </div>
       `).join("")}
     </div>
@@ -541,7 +550,7 @@ function render() {
     grid.innerHTML = '<div class="empty-state">조건에 맞는 종목이 없습니다.</div>';
     return;
   }
-  grid.innerHTML = list.map(t => `<div class="card" data-symb="${t.symb}">${cardHtml(t)}</div>`).join("");
+  grid.innerHTML = list.map(t => `<div class="card" data-symb="${escapeHtml(t.symb)}">${cardHtml(t)}</div>`).join("");
 
   grid.querySelectorAll(".card").forEach(el => {
     el.addEventListener("click", () => {
