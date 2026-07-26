@@ -24,6 +24,20 @@ WEEKLY_CHART_WEEKS = 156  # 약 3년치 - 3~6개월 이상 보유 관점에서 �
 KST = timezone(timedelta(hours=9))
 
 
+def _compute_volatility(symb: str) -> float | None:
+    """연율화 일간수익률 변동성(표준편차x sqrt(252)). 낮을수록 '우량주다움'에
+    가깝다는 프록시로 대시보드 "우량주 우선" 정렬 2차 기준에 쓴다
+    (STEP 10 백테스트의 변동성 3등분 로직과 같은 방식, PROJECT_PLAN.md 섹션 14)."""
+    daily_path = DATA_DIR / f"{symb}_daily.csv"
+    if not daily_path.exists():
+        return None
+    daily = pd.read_csv(daily_path)
+    rets = daily["close"].pct_change().dropna()
+    if len(rets) < 20:
+        return None
+    return round(float(rets.std() * (252 ** 0.5)), 4)
+
+
 def _build_sparkline(history: dict, symb: str, dates: list[str]) -> list[dict]:
     points = []
     for d in dates:
@@ -99,6 +113,7 @@ def main():
         entry = dict(rec)
         entry["is_new"] = symb in new_symbs
         entry["sparkline"] = _build_sparkline(history, symb, sparkline_dates)
+        entry["volatility"] = _compute_volatility(symb)
         tickers.append(entry)
 
     tickers.sort(key=lambda r: r["score"], reverse=True)

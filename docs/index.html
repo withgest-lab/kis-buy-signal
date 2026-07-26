@@ -231,7 +231,7 @@
       <option value="score">점수순</option>
       <option value="pct_chg">등락률순</option>
       <option value="symb">알파벳순</option>
-      <option value="bluechip">우량주 우선(빅테크 포함)</option>
+      <option value="bluechip" selected>우량주 우선(빅테크 포함)</option>
     </select>
   </div>
 
@@ -298,7 +298,7 @@
 
 <script>
 let DATA = null;
-let state = { verdict: "all", category: "all", sort: "score" };
+let state = { verdict: "all", category: "all", sort: "bluechip" };
 
 // "우량주 우선" 정렬용 고정 순서 - 지수ETF(SPY/QQQ/SOXX) + 빅테크10을 항상
 // 맨 위에, 이 안에서는 아래 나열 순서 그대로 고정. 나머지 종목은 그 뒤에
@@ -551,7 +551,12 @@ function applyFilters(tickers) {
       const ra = BLUECHIP_RANK.has(a.symb) ? BLUECHIP_RANK.get(a.symb) : Infinity;
       const rb = BLUECHIP_RANK.has(b.symb) ? BLUECHIP_RANK.get(b.symb) : Infinity;
       if (ra !== rb) return ra - rb;
-      return b.score - a.score; // 고정 종목 밖에서는 점수순
+      // 고정 종목 밖에서는 변동성(낮을수록 우량주에 가깝다는 프록시) 오름차순.
+      // 변동성 값이 없는 종목(신규 상장 등 데이터 부족)은 맨 뒤로.
+      const va = a.volatility != null ? a.volatility : Infinity;
+      const vb = b.volatility != null ? b.volatility : Infinity;
+      if (va !== vb) return va - vb;
+      return b.score - a.score;
     });
   }
   return list;
