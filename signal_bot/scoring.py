@@ -19,7 +19,10 @@ WEIGHTS = {
     "volume_exhaustion": 10,
 }
 
-STRONG_BUY_THRESHOLD = 70
+# 2026-07-26: 65점이 70점과 거의 동일한 우위(OOS 126일 +2.36%p vs +2.45%p)를
+# 유지하면서 신호를 1.8배 더 잡아서(조기 감지 목적) 65로 낮춤. alerts.py의
+# 알림 발동 기준과 동일하게 맞춰서 "강한매수후보" 라벨=알림 기준 불일치를 방지.
+STRONG_BUY_THRESHOLD = 65
 WATCHLIST_THRESHOLD = 50
 
 
@@ -52,12 +55,27 @@ def _score_volume_exhaustion(ratio: pd.Series) -> pd.Series:
     return score
 
 
-def compute_components(daily: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
+def _persist(detected: pd.Series, days: int) -> pd.Series:
+    """단발성(하루만 감지되는) 신호를 최근 N일 내 감지된 적 있으면 계속
+    켜진 걸로 본다. 예: 급락 당일 다이버전스가 잡혔는데 다음날 살짝만
+    반등해도 "오늘이 국지적 저점"이라는 조건이 깨져서 신호가 바로 꺼지는
+    문제를 완화 (2026-07-26, 실제 GOOGL 사례에서 하루 만에 53.8->15.0점으로
+    바뀌는 걸 발견해서 도입)."""
+    if days <= 1:
+        return detected
+    return detected.rolling(days, min_periods=1).max().astype(bool)
+
+
+def compute_components(daily: pd.DataFrame, weekly: pd.DataFrame,
+                        signal_persistence_days: int = 1) -> pd.DataFrame:
     """지표/파생신호/항목별 0~1 점수까지 계산 (가중치를 곱하기 전 단계).
 
     가중치·하락추세 페널티는 combine_score()에서 적용한다 — 백테스트에서
     같은 지표 계산을 반복하지 않고 가중치 조합만 바꿔가며 빠르게 실험하기
-    위해 분리했다 (PROJECT_PLAN.md 섹션 3-4 백테스트/기여도 검증)."""
+    위해 분리했다 (PROJECT_PLAN.md 섹션 3-4 백테스트/기여도 검증).
+
+    signal_persistence_days: 다이버전스/스퀴즈확장/MFI선행처럼 "오늘 하루만"
+    감지되는 신호를 최근 N일 내 감지 이력으로 완화할지(1=완화 없음, 기존 동작)."""
     df = daily.copy().reset_index(drop=True)
 
     df["rsi"] = ind.rsi(df["close"])
@@ -74,11 +92,19 @@ def compute_components(daily: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFram
 
     div_rsi = sig.bullish_divergence(df["close"], df["rsi"])
     div_mfi = sig.bullish_divergence(df["close"], df["mfi"])
-    df["rsi_div_detected"] = div_rsi["detected"] | div_mfi["detected"]
-    df["rsi_div_strength"] = pd.concat([div_rsi["strength"], div_mfi["strength"]], axis=1).max(axis=1)
+    raw_div_detected = div_rsi["detected"] | div_mfi["detected"]
+    raw_div_strength = pd.concat([div_rsi["strength"], div_mfi["strength"]], axis=1).max(axis=1)
+    raw_squeeze_detected = sig.bollinger_squeeze_expansion(df["bandwidth"])
+    raw_mfi_lead_detected = sig.mfi_leads_rsi_rebound(df["rsi"], df["mfi"])
 
-    df["squeeze_exp_detected"] = sig.bollinger_squeeze_expansion(df["bandwidth"])
-    df["mfi_lead_detected"] = sig.mfi_leads_rsi_rebound(df["rsi"], df["mfi"])
+    df["rsi_div_detected"] = _persist(raw_div_detected, signal_persistence_days)
+    # 강도(strength)는 감지 당일 값을 최근 N일 창에서 최대값으로 이어받는다.
+    if signal_persistence_days > 1:
+        df["rsi_div_strength"] = raw_div_strength.rolling(signal_persistence_days, min_periods=1).max()
+    else:
+        df["rsi_div_strength"] = raw_div_strength
+    df["squeeze_exp_detected"] = _persist(raw_squeeze_detected, signal_persistence_days)
+    df["mfi_lead_detected"] = _persist(raw_mfi_lead_detected, signal_persistence_days)
     df["vol_ratio"] = sig.volume_exhaustion_ratio(df["volume"])
 
     df["s_weekly_trend"] = _score_weekly_trend(df["close"], df["ma20w"], df["ma20w_slope"])
@@ -123,10 +149,13 @@ def combine_score(df: pd.DataFrame, weights: dict = None,
     return df
 
 
+SIGNAL_PERSISTENCE_DAYS = 1  # 백테스트로 검증 후 확정값으로 교체 예정 (2026-07-26 검토 중)
+
+
 def compute_scores(daily: pd.DataFrame, weekly: pd.DataFrame) -> pd.DataFrame:
     """daily/weekly: date 오름차순 정렬된 OHLCV DataFrame (kis_client.fetch_ohlcv 형식).
     Returns: daily에 지표/신호/점수 컬럼이 추가된 DataFrame. (운영 파이프라인은 이 함수만 씀)"""
-    return combine_score(compute_components(daily, weekly))
+    return combine_score(compute_components(daily, weekly, signal_persistence_days=SIGNAL_PERSISTENCE_DAYS))
 
 
 # 시장(SPY) 전체가 하락 국면일 때 신규 진입 자체를 막는 필터. 개별종목 ADX

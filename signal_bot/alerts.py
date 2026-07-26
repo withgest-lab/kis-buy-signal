@@ -6,7 +6,10 @@ from pathlib import Path
 DATA_DIR = Path("signal_bot/data")
 NOTIFIED_PATH = DATA_DIR / "notified.json"
 
-STRONG_BUY_THRESHOLD = 70
+# 2026-07-26 백테스트 검증: 65점은 70점과 거의 동일한 우위(OOS 126일 기준
+# +2.36%p vs +2.45%p)를 유지하면서 신호 건수는 1.8배 더 잡음(조기 감지 목적에
+# 부합). 60점은 우위가 절반 수준(+1.21%p)으로 희석돼서 기각.
+STRONG_BUY_THRESHOLD = 65
 
 
 def find_new_strong_signals(history: dict, today: str,

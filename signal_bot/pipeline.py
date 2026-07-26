@@ -155,7 +155,7 @@ def main():
     to_send = alerts.filter_unnotified(new_signals, today, notified)
 
     if not to_send:
-        print("신규 70점 진입 종목 없음 (알림 발송 안 함)")
+        print("신규 65점 진입 종목 없음 (알림 발송 안 함)")
         return
 
     message = alerts.format_alert_message(to_send, today)

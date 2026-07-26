@@ -175,6 +175,8 @@
     color: var(--text-muted); background: var(--surface-2);
   }
   .badge.on { color: var(--series-1); border-color: var(--series-1); background: color-mix(in srgb, var(--series-1) 12%, var(--surface-1)); font-weight: 600; }
+  .badge.recent { color: var(--series-1); border-color: var(--series-1); border-style: dashed; opacity: 0.6; }
+  .recent-note { margin-top: 6px; font-size: 10.5px; color: var(--text-muted); }
 
   .spark { margin-top: 10px; }
   .spark svg { display: block; width: 100%; height: 32px; }
@@ -219,8 +221,8 @@
   <div class="toolbar">
     <div class="chip-group" id="filter-verdict">
       <span class="chip active" data-verdict="all">전체</span>
-      <span class="chip" data-verdict="강한매수후보">강한후보(70+)</span>
-      <span class="chip" data-verdict="관찰대상">관찰대상(50~70)</span>
+      <span class="chip" data-verdict="강한매수후보">강한후보(65+)</span>
+      <span class="chip" data-verdict="관찰대상">관찰대상(50~65)</span>
     </div>
     <div class="chip-group" id="filter-category">
       <span class="chip active" data-cat="all">모든분류</span>
@@ -249,8 +251,8 @@
     <div class="help-body">
       <section>
         <h3>점수 색깔이 뭘 뜻하나요?</h3>
-        <p><span class="dot" style="background:var(--status-crit)"></span> <b>70점 이상 (빨강)</b> — "지금 사볼 만하다"는 신호가 강하게 켜진 상태</p>
-        <p><span class="dot" style="background:var(--status-warn)"></span> <b>50~70점 (주황)</b> — 아직 확신은 아니지만 지켜볼 만한 상태</p>
+        <p><span class="dot" style="background:var(--status-crit)"></span> <b>65점 이상 (빨강)</b> — "지금 사볼 만하다"는 신호가 강하게 켜진 상태</p>
+        <p><span class="dot" style="background:var(--status-warn)"></span> <b>50~65점 (주황)</b> — 아직 확신은 아니지만 지켜볼 만한 상태</p>
         <p><span class="dot" style="background:var(--text-muted)"></span> <b>50점 미만 (회색)</b> — 특별한 신호 없음, 신경 안 써도 됨</p>
         <p class="note">이 빨강/파랑은 "주가가 올랐다/내렸다"의 그 색과는 다릅니다. 여기서 색은 오직 "신호가 얼마나 세게 켜졌는지"만 나타내요.</p>
       </section>
@@ -308,6 +310,7 @@ const BLUECHIP_PINNED = [
   "NVDA", "AAPL", "GOOGL", "MSFT", "AMZN", "META", "AVGO", "TSLA", "ORCL", "PLTR",
 ];
 const BLUECHIP_RANK = new Map(BLUECHIP_PINNED.map((s, i) => [s, i]));
+const RECENT_SIGNAL_DAYS = 3;
 
 function escapeHtml(s) {
   // 종목명 등은 위키피디아/slickcharts 등 외부(제3자 편집 가능) 소스에서 온다.
@@ -319,7 +322,7 @@ function escapeHtml(s) {
 }
 
 function scoreClass(score) {
-  if (score >= 70) return "score-strong";
+  if (score >= 65) return "score-strong";
   if (score >= 50) return "score-watch";
   return "score-ignore";
 }
@@ -479,12 +482,18 @@ function breakdownRow(label, value, weight) {
   </div>`;
 }
 
+function badgeClass(key, d, recent) {
+  if (d[key]) return "on";
+  if (recent && recent[key]) return "recent";
+  return "";
+}
+
 function cardHtml(t) {
   const pctClass = t.pct_chg >= 0 ? "up" : "down";
   const pctSign = t.pct_chg >= 0 ? "+" : "";
-  const b = t.breakdown, d = t.detected;
+  const b = t.breakdown, d = t.detected, recent = t.recent_detected;
   return `
-    ${t.is_new ? '<div class="new-flag">NEW 70+</div><br>' : ""}
+    ${t.is_new ? '<div class="new-flag">NEW 65+</div><br>' : ""}
     <div class="card-top">
       <div class="ticker-block">
         <div class="symb">${escapeHtml(t.symb)}</div>
@@ -498,11 +507,15 @@ function cardHtml(t) {
       <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
     </div>
     <div class="badges">
-      <span class="badge ${d.divergence ? "on" : ""}">다이버전스</span>
-      <span class="badge ${d.squeeze ? "on" : ""}">스퀴즈확장</span>
-      <span class="badge ${d.mfi_lead ? "on" : ""}">MFI선행</span>
+      <span class="badge ${badgeClass("divergence", d, recent)}">다이버전스</span>
+      <span class="badge ${badgeClass("squeeze", d, recent)}">스퀴즈확장</span>
+      <span class="badge ${badgeClass("mfi_lead", d, recent)}">MFI선행</span>
       <span class="badge ${d.vol_exhaustion ? "on" : ""}">거래량소진</span>
     </div>
+    ${recent && (recent.divergence || recent.squeeze || recent.mfi_lead) &&
+      !(d.divergence || d.squeeze || d.mfi_lead)
+      ? `<div class="recent-note">💡 최근 ${RECENT_SIGNAL_DAYS}일 내 감지된 신호가 있었습니다(오늘은 아님) — 옅은 배지 참고</div>`
+      : ""}
     <div class="spark">${sparklineSvg(t.sparkline)}</div>
     <div class="detail">
       <div class="charts-holder"><div class="chart-loading">카드를 펼치면 차트를 불러옵니다...</div></div>
@@ -521,7 +534,7 @@ function cardHtml(t) {
 
 function bannerHtml(newOnes) {
   if (!newOnes.length) {
-    return '<div class="banner-empty">오늘 신규 70점 진입 종목 없음</div>';
+    return '<div class="banner-empty">오늘 신규 65점 진입 종목 없음</div>';
   }
   return `
     <div class="banner-title">오늘의 신규 매수신호 (${newOnes.length}개)</div>
