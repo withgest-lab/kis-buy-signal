@@ -230,10 +230,11 @@
       <span class="chip" data-cat="섹터ETF">섹터ETF</span>
     </div>
     <select class="sort-select" id="sort-select">
-      <option value="score">점수순</option>
+      <option value="score" selected>점수순</option>
+      <option value="early_sensing">얼리센싱 우선(참고용)</option>
       <option value="pct_chg">등락률순</option>
       <option value="symb">알파벳순</option>
-      <option value="bluechip" selected>우량주 우선(빅테크 포함)</option>
+      <option value="bluechip">우량주 우선(빅테크 포함)</option>
     </select>
   </div>
 
@@ -300,7 +301,7 @@
 
 <script>
 let DATA = null;
-let state = { verdict: "all", category: "all", sort: "bluechip" };
+let state = { verdict: "all", category: "all", sort: "score" };
 
 // "우량주 우선" 정렬용 고정 순서 - 지수ETF(SPY/QQQ/SOXX) + 빅테크10을 항상
 // 맨 위에, 이 안에서는 아래 나열 순서 그대로 고정. 나머지 종목은 그 뒤에
@@ -559,6 +560,22 @@ function applyFilters(tickers) {
   if (state.sort === "score") list.sort((a, b) => b.score - a.score);
   else if (state.sort === "pct_chg") list.sort((a, b) => b.pct_chg - a.pct_chg);
   else if (state.sort === "symb") list.sort((a, b) => a.symb.localeCompare(b.symb));
+  else if (state.sort === "early_sensing") {
+    // 참고용 정렬 - 백테스트로 검증된 건 아니고, "아직 65점 안 됐지만 먼저
+    // 살펴볼 후보"를 위로 올려주는 용도. 우선순위: 오늘 신규 65+ 진입
+    // > 최근 3일 내 신호 감지 이력 있음(아직 65 미만) > 나머지 점수순.
+    const tier = t => {
+      if (t.is_new) return 0;
+      const r = t.recent_detected;
+      if (r && (r.divergence || r.squeeze || r.mfi_lead) && t.verdict !== "강한매수후보") return 1;
+      return 2;
+    };
+    list.sort((a, b) => {
+      const ta = tier(a), tb = tier(b);
+      if (ta !== tb) return ta - tb;
+      return b.score - a.score;
+    });
+  }
   else if (state.sort === "bluechip") {
     list.sort((a, b) => {
       const ra = BLUECHIP_RANK.has(a.symb) ? BLUECHIP_RANK.get(a.symb) : Infinity;
