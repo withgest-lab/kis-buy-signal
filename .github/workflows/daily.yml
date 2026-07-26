@@ -90,7 +90,10 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           TMP_INDEX="$(mktemp -u)"
           rm -f "$TMP_INDEX"
-          GIT_INDEX_FILE="$TMP_INDEX" git add docs
+          # docs/scores.json, docs/detail/ 은 main에서는 안 쌓이게 .gitignore
+          # 처리해뒀는데, 그 규칙이 이 스냅샷용 add에도 그대로 적용돼서 정작
+          # 발행돼야 할 파일들이 계속 빠지고 있었다(-f로 강제 포함, 2026-07-26 수정).
+          GIT_INDEX_FILE="$TMP_INDEX" git add -f docs
           TREE_SHA=$(GIT_INDEX_FILE="$TMP_INDEX" git write-tree)
           COMMIT_SHA=$(git commit-tree "$TREE_SHA" -m "data: dashboard snapshot $(date -u +%Y-%m-%d)")
           git push origin "$COMMIT_SHA:refs/heads/data" --force
