@@ -11,6 +11,7 @@ from pathlib import Path
 import pandas as pd
 
 from signal_bot import alerts
+from signal_bot import indicators as ind
 from signal_bot.config import TICKERS
 from signal_bot.pipeline import DATA_DIR, load_history
 from signal_bot.scoring import compute_scores
@@ -19,6 +20,7 @@ OUTPUT_PATH = Path("docs/scores.json")
 DETAIL_DIR = Path("docs/detail")
 SPARKLINE_DAYS = 30
 DETAIL_CHART_DAYS = 150
+WEEKLY_CHART_WEEKS = 156  # 약 3년치 - 3~6개월 이상 보유 관점에서 큰 흐름을 보기 위함
 KST = timezone(timedelta(hours=9))
 
 
@@ -31,17 +33,7 @@ def _build_sparkline(history: dict, symb: str, dates: list[str]) -> list[dict]:
     return points
 
 
-def _build_detail(symb: str) -> list[dict] | None:
-    """카드 상세뷰용 가격+볼린저밴드+RSI+MFI 시계열. 필요할 때만 프론트에서 lazy fetch."""
-    daily_path = DATA_DIR / f"{symb}_daily.csv"
-    weekly_path = DATA_DIR / f"{symb}_weekly.csv"
-    if not daily_path.exists() or not weekly_path.exists():
-        return None
-
-    daily = pd.read_csv(daily_path, parse_dates=["date"])
-    weekly = pd.read_csv(weekly_path, parse_dates=["date"])
-    df = compute_scores(daily, weekly).tail(DETAIL_CHART_DAYS)
-
+def _series_records(df: pd.DataFrame) -> list[dict]:
     records = []
     for _, r in df.iterrows():
         records.append({
@@ -56,15 +48,36 @@ def _build_detail(symb: str) -> list[dict] | None:
     return records
 
 
+def _build_detail(symb: str) -> dict | None:
+    """카드 상세뷰용 가격+볼린저밴드+RSI+MFI 시계열(일봉+주봉). 필요할 때만 프론트에서 lazy fetch."""
+    daily_path = DATA_DIR / f"{symb}_daily.csv"
+    weekly_path = DATA_DIR / f"{symb}_weekly.csv"
+    if not daily_path.exists() or not weekly_path.exists():
+        return None
+
+    daily = pd.read_csv(daily_path, parse_dates=["date"])
+    weekly = pd.read_csv(weekly_path, parse_dates=["date"])
+
+    daily_df = compute_scores(daily, weekly).tail(DETAIL_CHART_DAYS)
+
+    weekly_df = weekly.copy()
+    weekly_df["rsi"] = ind.rsi(weekly_df["close"])
+    weekly_df["mfi"] = ind.mfi(weekly_df["high"], weekly_df["low"], weekly_df["close"], weekly_df["volume"])
+    weekly_df = pd.concat([weekly_df, ind.bollinger(weekly_df["close"])], axis=1)
+    weekly_df = weekly_df.tail(WEEKLY_CHART_WEEKS)
+
+    return {"daily": _series_records(daily_df), "weekly": _series_records(weekly_df)}
+
+
 def export_details() -> int:
     DETAIL_DIR.mkdir(parents=True, exist_ok=True)
     count = 0
     for _category, symb in TICKERS:
-        records = _build_detail(symb)
-        if records is None:
+        detail = _build_detail(symb)
+        if detail is None:
             continue
         with open(DETAIL_DIR / f"{symb}.json", "w", encoding="utf-8") as f:
-            json.dump(records, f, ensure_ascii=False)
+            json.dump(detail, f, ensure_ascii=False)
         count += 1
     return count
 
@@ -93,6 +106,7 @@ def main():
     payload = {
         "generated_at": datetime.now(KST).strftime("%Y-%m-%dT%H:%M:%S+09:00"),
         "as_of_date": today,
+        "market_regime": tickers[0].get("market_regime", "판정불가") if tickers else "판정불가",
         "tickers": tickers,
     }
 
