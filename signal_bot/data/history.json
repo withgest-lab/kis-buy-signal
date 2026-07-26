@@ -8,7 +8,7 @@
       "close": 279.58,
       "pct_chg": -1.9,
       "score": 67.9,
-      "verdict": "관찰대상",
+      "verdict": "강한매수후보",
       "signals": "스퀴즈확장,MFI선행,거래량소진",
       "detected": {
         "divergence": false,
@@ -36,7 +36,7 @@
       "close": 118.51,
       "pct_chg": -7.37,
       "score": 67.8,
-      "verdict": "관찰대상",
+      "verdict": "강한매수후보",
       "signals": "다이버전스,MFI선행,거래량소진",
       "detected": {
         "divergence": true,
@@ -64,7 +64,7 @@
       "close": 166.97,
       "pct_chg": -2.42,
       "score": 67.3,
-      "verdict": "관찰대상",
+      "verdict": "강한매수후보",
       "signals": "다이버전스,MFI선행,거래량소진",
       "detected": {
         "divergence": true,
@@ -92,7 +92,7 @@
       "close": 45.08,
       "pct_chg": 0.83,
       "score": 65.0,
-      "verdict": "관찰대상",
+      "verdict": "강한매수후보",
       "signals": "스퀴즈확장,MFI선행",
       "detected": {
         "divergence": false,
