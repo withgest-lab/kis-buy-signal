@@ -20,18 +20,19 @@ HORIZONS = [5, 10, 20, 63, 126]  # 63거래일≈3개월, 126거래일≈6개월
 MEGA_CAP_TECH = {"NVDA", "AAPL", "GOOGL", "MSFT", "AMZN", "META", "AVGO", "TSLA", "ORCL", "PLTR"}
 USER_MENTIONED = {"AAPL", "TSLA", "GOOGL", "MSFT"}
 
-_cache: dict[str, pd.DataFrame] = {}
+_cache: dict[tuple, pd.DataFrame] = {}
 _regime_by_date: dict = None
 
 
-def _load_components(symb: str) -> pd.DataFrame:
-    if symb not in _cache:
-        path = COMPONENTS_DIR / f"{symb}.csv"
+def _load_components(symb: str, components_dir: Path = COMPONENTS_DIR) -> pd.DataFrame:
+    key = (str(components_dir), symb)
+    if key not in _cache:
+        path = components_dir / f"{symb}.csv"
         if not path.exists():
-            _cache[symb] = None
+            _cache[key] = None
         else:
-            _cache[symb] = pd.read_csv(path, parse_dates=["date"])
-    return _cache[symb]
+            _cache[key] = pd.read_csv(path, parse_dates=["date"])
+    return _cache[key]
 
 
 def build_regime_series() -> pd.Series:
@@ -68,7 +69,8 @@ def run_experiment(weights: dict = None, apply_regime_penalty: bool = True,
                     market_filter: str = None,
                     market_filter_factor: float = 0.0,
                     date_range: tuple = None,
-                    symb_filter: set = None) -> dict:
+                    symb_filter: set = None,
+                    components_dir: Path = COMPONENTS_DIR) -> dict:
     """주어진 가중치/설정으로 전체 유니버스를 다시 채점하고, 국면별 신호우위(edge)를 반환.
 
     market_filter: None이면 미적용. "block"이면 SPY 자체가 하락장인 날은 그
@@ -81,7 +83,7 @@ def run_experiment(weights: dict = None, apply_regime_penalty: bool = True,
 
     universe = TICKERS if symb_filter is None else [(c, s) for c, s in TICKERS if s in symb_filter]
     for _cat, symb in universe:
-        comp = _load_components(symb)
+        comp = _load_components(symb, components_dir)
         if comp is None:
             continue
         df = combine_score(comp, weights=weights, apply_regime_penalty=apply_regime_penalty,
