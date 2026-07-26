@@ -9,12 +9,33 @@ from pathlib import Path
 import pandas as pd
 
 from signal_bot import alerts
+from signal_bot import indicators as ind
 from signal_bot.config import HISTORY_MAX_DAYS, TICKER_NAMES, TICKERS
 from signal_bot.notifier import send_telegram_message
 from signal_bot.scoring import apply_market_filter, compute_scores, market_regime
 
 DATA_DIR = Path("signal_bot/data")
 HISTORY_PATH = DATA_DIR / "history.json"
+
+# "일봉+주봉 둘 다 볼린저 하단터치 + RSI/MFI 과매도" 필터 기준 (사용자 요청,
+# 2026-07-26). %B<=0.1은 기존 오버솔드 백테스트(PROJECT_PLAN.md 섹션 14)와
+# 동일 기준, RSI/MFI<=35도 마찬가지.
+PULLBACK_PERCENT_B_MAX = 0.1
+PULLBACK_RSI_MFI_MAX = 35
+
+
+def _is_oversold(percent_b: float, rsi: float, mfi: float) -> bool:
+    return percent_b <= PULLBACK_PERCENT_B_MAX and (rsi <= PULLBACK_RSI_MFI_MAX or mfi <= PULLBACK_RSI_MFI_MAX)
+
+
+def _weekly_indicators(weekly: pd.DataFrame) -> pd.Series:
+    """주봉 자체의 RSI/MFI/%B (compute_scores는 주봉추세 필터용 20주선만 쓰고
+    주봉 자체 RSI/MFI/볼린저는 계산 안 해서 별도 계산)."""
+    w = weekly.copy()
+    w["rsi"] = ind.rsi(w["close"])
+    w["mfi"] = ind.mfi(w["high"], w["low"], w["close"], w["volume"])
+    w = pd.concat([w, ind.bollinger(w["close"])], axis=1)
+    return w.iloc[-1]
 
 
 def load_history() -> dict:
@@ -82,6 +103,13 @@ def run() -> list[dict]:
         prev_close = float(df.iloc[-2]["close"]) if len(df) >= 2 else float(last["close"])
         pct_chg = (float(last["close"]) - prev_close) / prev_close * 100 if prev_close else 0.0
 
+        last_w = _weekly_indicators(weekly)
+        daily_oversold = _is_oversold(last["percent_b"], last["rsi"], last["mfi"])
+        weekly_oversold = (
+            pd.notna(last_w["percent_b"]) and pd.notna(last_w["rsi"]) and pd.notna(last_w["mfi"])
+            and _is_oversold(last_w["percent_b"], last_w["rsi"], last_w["mfi"])
+        )
+
         results.append({
             "category": category,
             "symb": symb,
@@ -109,6 +137,15 @@ def run() -> list[dict]:
             "adx": round(float(last["adx"]), 1),
             "regime_penalty": bool(last["regime_penalty_applied"]),
             "market_regime": regime,
+            "pullback_raw": {
+                "daily_percent_b": None if pd.isna(last["percent_b"]) else round(float(last["percent_b"]), 3),
+                "daily_rsi": None if pd.isna(last["rsi"]) else round(float(last["rsi"]), 1),
+                "daily_mfi": None if pd.isna(last["mfi"]) else round(float(last["mfi"]), 1),
+                "weekly_percent_b": None if pd.isna(last_w["percent_b"]) else round(float(last_w["percent_b"]), 3),
+                "weekly_rsi": None if pd.isna(last_w["rsi"]) else round(float(last_w["rsi"]), 1),
+                "weekly_mfi": None if pd.isna(last_w["mfi"]) else round(float(last_w["mfi"]), 1),
+            },
+            "pullback_candidate": bool(daily_oversold and weekly_oversold),
         })
 
     results.sort(key=lambda r: r["score"], reverse=True)
@@ -132,8 +169,10 @@ def print_report(results: list[dict], errors: list[tuple]) -> None:
 
     strong = [r for r in results if r["verdict"] == "강한매수후보"]
     watch = [r for r in results if r["verdict"] == "관찰대상"]
+    pullback = [r for r in results if r["pullback_candidate"]]
     print(f"\n{len(results)}/{len(TICKERS)} 종목 점수 산출 완료 "
-          f"(강한매수후보 {len(strong)}개, 관찰대상 {len(watch)}개)")
+          f"(강한매수후보 {len(strong)}개, 관찰대상 {len(watch)}개, "
+          f"일봉+주봉 과매도 후보 {len(pullback)}개)")
 
 
 def main():

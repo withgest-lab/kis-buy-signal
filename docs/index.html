@@ -229,6 +229,9 @@
       <span class="chip" data-cat="개별종목">개별종목</span>
       <span class="chip" data-cat="섹터ETF">섹터ETF</span>
     </div>
+    <div class="chip-group" id="filter-pullback">
+      <span class="chip" id="pullback-toggle" title="일봉·주봉 둘 다 볼린저 하단터치(%B<=0.1) + RSI 또는 MFI 과매도(<=35)인 종목만 보기">📉 일봉+주봉 과매도만</span>
+    </div>
     <select class="sort-select" id="sort-select">
       <option value="score" selected>점수순</option>
       <option value="early_sensing">얼리센싱 우선(참고용)</option>
@@ -292,6 +295,11 @@
         <p class="note">시장(SPY) 전체가 하락 국면일 때는 신규 강한매수후보 신호 자체가 뜨지 않도록 막아뒀습니다(falling knife 방지, Faber·Siegel의 200일선 시장타이밍 연구 근거).</p>
       </section>
       <section>
+        <h3>"📉 일봉+주봉 과매도만" 필터는 뭔가요?</h3>
+        <p>종합점수(위 여섯 항목 가중합)와는 별개로, <b>일봉과 주봉 둘 다</b> 볼린저 하단 터치(%B 0.1 이하) + RSI 또는 MFI 과매도(35 이하)인 종목만 따로 걸러줍니다. 미국 지수(S&P500·나스닥)가 장기적으로 우상향한다는 가정 하에 "짧게든 길게든 눌린 상태"를 놓치지 않고 모니터링하기 위한 보조 필터입니다.</p>
+        <p class="note">이 조합 자체의 과거 예측력은 아직 별도로 백테스트하지 않았습니다 — 종합점수처럼 검증된 게 아니라 "눈여겨볼 후보를 넓게 걸러주는" 참고용입니다.</p>
+      </section>
+      <section>
         <h3>참고해주세요</h3>
         <p>이 시스템은 <b>종목을 조회하고 알림만 보내주는 용도</b>입니다. 실제로 사고파는 주문은 절대 하지 않으며, 신호를 참고해서 최종 판단과 매매는 사용자가 직접 MTS 앱으로 합니다.</p>
       </section>
@@ -301,7 +309,7 @@
 
 <script>
 let DATA = null;
-let state = { verdict: "all", category: "all", sort: "score" };
+let state = { verdict: "all", category: "all", sort: "score", pullbackOnly: false };
 
 // "우량주 우선" 정렬용 고정 순서 - 지수ETF(SPY/QQQ/SOXX) + 빅테크10을 항상
 // 맨 위에, 이 안에서는 아래 나열 순서 그대로 고정. 나머지 종목은 그 뒤에
@@ -555,6 +563,7 @@ function applyFilters(tickers) {
   let list = tickers.filter(t => {
     if (state.verdict !== "all" && t.verdict !== state.verdict) return false;
     if (state.category !== "all" && t.category !== state.category) return false;
+    if (state.pullbackOnly && !t.pullback_candidate) return false;
     return true;
   });
   if (state.sort === "score") list.sort((a, b) => b.score - a.score);
@@ -641,6 +650,11 @@ function wireToolbar() {
   });
   document.getElementById("sort-select").addEventListener("change", (e) => {
     state.sort = e.target.value;
+    render();
+  });
+  document.getElementById("pullback-toggle").addEventListener("click", (e) => {
+    state.pullbackOnly = !state.pullbackOnly;
+    e.target.classList.toggle("active", state.pullbackOnly);
     render();
   });
 }
