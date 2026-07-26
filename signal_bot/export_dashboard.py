@@ -14,14 +14,34 @@ from signal_bot import alerts
 from signal_bot import indicators as ind
 from signal_bot.config import TICKERS
 from signal_bot.pipeline import DATA_DIR, load_history
-from signal_bot.scoring import compute_scores
+from signal_bot.scoring import compute_components, compute_scores
 
 OUTPUT_PATH = Path("docs/scores.json")
 DETAIL_DIR = Path("docs/detail")
 SPARKLINE_DAYS = 30
 DETAIL_CHART_DAYS = 150
 WEEKLY_CHART_WEEKS = 156  # 약 3년치 - 3~6개월 이상 보유 관점에서 큰 흐름을 보기 위함
+RECENT_SIGNAL_DAYS = 3  # "최근 감지 이력" 배지용 - 점수 자체엔 영향 없음(정보 표시 전용)
 KST = timezone(timedelta(hours=9))
+
+
+def _recent_signal_flags(symb: str) -> dict | None:
+    """오늘은 꺼졌지만 최근 며칠 내 감지된 적 있는 신호를 정보용으로 표시하기
+    위한 값. 백테스트 결과 점수 계산 자체에 지속성을 넣으면 오히려 우위가
+    희석돼서(2026-07-26 검증), 점수/알림 로직은 그대로 두고 화면에만 참고
+    표시를 추가한다."""
+    daily_path = DATA_DIR / f"{symb}_daily.csv"
+    weekly_path = DATA_DIR / f"{symb}_weekly.csv"
+    if not daily_path.exists() or not weekly_path.exists():
+        return None
+    daily = pd.read_csv(daily_path, parse_dates=["date"])
+    weekly = pd.read_csv(weekly_path, parse_dates=["date"])
+    df = compute_components(daily, weekly, signal_persistence_days=1).tail(RECENT_SIGNAL_DAYS)
+    return {
+        "divergence": bool(df["rsi_div_detected"].any()),
+        "squeeze": bool(df["squeeze_exp_detected"].any()),
+        "mfi_lead": bool(df["mfi_lead_detected"].any()),
+    }
 
 
 def _compute_volatility(symb: str) -> float | None:
@@ -114,6 +134,7 @@ def main():
         entry["is_new"] = symb in new_symbs
         entry["sparkline"] = _build_sparkline(history, symb, sparkline_dates)
         entry["volatility"] = _compute_volatility(symb)
+        entry["recent_detected"] = _recent_signal_flags(symb)
         tickers.append(entry)
 
     tickers.sort(key=lambda r: r["score"], reverse=True)
