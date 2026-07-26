@@ -231,6 +231,7 @@
       <option value="score">점수순</option>
       <option value="pct_chg">등락률순</option>
       <option value="symb">알파벳순</option>
+      <option value="bluechip">우량주 우선(빅테크 포함)</option>
     </select>
   </div>
 
@@ -298,6 +299,15 @@
 <script>
 let DATA = null;
 let state = { verdict: "all", category: "all", sort: "score" };
+
+// "우량주 우선" 정렬용 고정 순서 - 지수ETF(SPY/QQQ/SOXX) + 빅테크10을 항상
+// 맨 위에, 이 안에서는 아래 나열 순서 그대로 고정. 나머지 종목은 그 뒤에
+// 점수순으로 이어짐 (이 모드를 선택했을 때만 적용, 다른 정렬엔 영향 없음).
+const BLUECHIP_PINNED = [
+  "SPY", "QQQ", "SOXX",
+  "NVDA", "AAPL", "GOOGL", "MSFT", "AMZN", "META", "AVGO", "TSLA", "ORCL", "PLTR",
+];
+const BLUECHIP_RANK = new Map(BLUECHIP_PINNED.map((s, i) => [s, i]));
 
 function escapeHtml(s) {
   // 종목명 등은 위키피디아/slickcharts 등 외부(제3자 편집 가능) 소스에서 온다.
@@ -536,6 +546,14 @@ function applyFilters(tickers) {
   if (state.sort === "score") list.sort((a, b) => b.score - a.score);
   else if (state.sort === "pct_chg") list.sort((a, b) => b.pct_chg - a.pct_chg);
   else if (state.sort === "symb") list.sort((a, b) => a.symb.localeCompare(b.symb));
+  else if (state.sort === "bluechip") {
+    list.sort((a, b) => {
+      const ra = BLUECHIP_RANK.has(a.symb) ? BLUECHIP_RANK.get(a.symb) : Infinity;
+      const rb = BLUECHIP_RANK.has(b.symb) ? BLUECHIP_RANK.get(b.symb) : Infinity;
+      if (ra !== rb) return ra - rb;
+      return b.score - a.score; // 고정 종목 밖에서는 점수순
+    });
+  }
   return list;
 }
 
