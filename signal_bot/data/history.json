@@ -201324,12 +201324,12 @@
         "squeeze_expansion": 1.0,
         "volume_exhaustion": 0.0
       },
-      "adx": 21.1,
+      "adx": 21.3,
       "regime_penalty": false,
       "market_regime": "상승장",
       "pullback_raw": {
         "daily_percent_b": 0.04,
-        "daily_rsi": 42.3,
+        "daily_rsi": 42.4,
         "daily_mfi": 34.8,
         "weekly_percent_b": 0.386,
         "weekly_rsi": 51.8,
@@ -218085,15 +218085,15 @@
         "squeeze_expansion": 0.0,
         "volume_exhaustion": 0.0
       },
-      "adx": 23.9,
+      "adx": 24.1,
       "regime_penalty": false,
       "market_regime": "상승장",
       "pullback_raw": {
         "daily_percent_b": 0.928,
-        "daily_rsi": 65.4,
+        "daily_rsi": 65.5,
         "daily_mfi": 58.5,
-        "weekly_percent_b": 1.032,
-        "weekly_rsi": 52.1,
+        "weekly_percent_b": 1.061,
+        "weekly_rsi": 52.4,
         "weekly_mfi": 53.5
       },
       "pullback_candidate": false
