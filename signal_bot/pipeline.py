@@ -9,6 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 from signal_bot import alerts
+from signal_bot import company_info
 from signal_bot import indicators as ind
 from signal_bot.config import HISTORY_MAX_DAYS, TICKER_NAMES, TICKERS
 from signal_bot.notifier import send_telegram_message
@@ -196,6 +197,9 @@ def main():
     if not to_send:
         print("신규 65점 진입 종목 없음 (알림 발송 안 함)")
         return
+
+    for r in to_send:
+        r["business_summary"] = company_info.get_business_summary(r["symb"], r["name"])
 
     message = alerts.format_alert_message(to_send, today)
     send_telegram_message(message)

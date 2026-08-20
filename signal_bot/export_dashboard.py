@@ -11,6 +11,7 @@ from pathlib import Path
 import pandas as pd
 
 from signal_bot import alerts
+from signal_bot import company_info
 from signal_bot import indicators as ind
 from signal_bot.config import TICKERS
 from signal_bot.pipeline import DATA_DIR, load_history
@@ -135,6 +136,8 @@ def main():
         entry["sparkline"] = _build_sparkline(history, symb, sparkline_dates)
         entry["volatility"] = _compute_volatility(symb)
         entry["recent_detected"] = _recent_signal_flags(symb)
+        if entry["is_new"]:
+            entry["business_summary"] = company_info.get_business_summary(symb, entry["name"])
         tickers.append(entry)
 
     tickers.sort(key=lambda r: r["score"], reverse=True)

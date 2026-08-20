@@ -68,8 +68,11 @@ def format_alert_message(new_signals: list[dict], today: str) -> str:
     ]
 
     for r in new_signals:
-        lines.append(f"• *{r['symb']}* ({r['category']}) - {r['score']}점")
-        lines.append(f"  현재가 ${r['close']}  |  {r['signals']}")
+        pct_chg = r.get("pct_chg", 0.0)
+        summary = r.get("business_summary", "").strip()
+        lines.append(f"• *{r['symb']}* ({r['name']}) - {r['verdict']}, {pct_chg:+.2f}%")
+        if summary:
+            lines.append(f"  {summary}")
     lines.append("")
 
     # 이번 알림에 실제로 등장한 세부신호만 골라서 설명 (없는 건 생략해서 메시지 간결하게)
@@ -86,20 +89,6 @@ def format_alert_message(new_signals: list[dict], today: str) -> str:
         if explain:
             lines.append(f"· {name}: {explain}")
 
-    lines += [
-        "",
-        "🔎 *이 결론의 근거* (2026-07 13년치 데이터 검증): 5~20일 단기 반등 "
-        "기준으로는 거래비용(수수료+환전 스프레드)을 반영하면 우위가 사라졌지만, "
-        "*3~6개월 이상 보유 기준으로는 거래비용 반영 후에도 통계적으로 유의미한 "
-        "우위*가 확인됐습니다(13년 중 12년 플러스, 소수 종목에 쏠린 결과 아님). "
-        "이는 재무학에서 가장 널리 재현된 발견 중 하나인 \"모멘텀 효과\" "
-        "(Jegadeesh-Titman, 1993 — 3~12개월간 잘 나가던 종목이 그 이후도 계속 "
-        "잘 나가는 경향)와 방향이 일치합니다.",
-        "",
-        "⚠️ \"사면 오른다\"는 보장이 아닙니다. 최악의 하락장 타이밍을 피하게 "
-        "도와주는 참고 지표로 활용하시고, 최종 매수 판단과 보유기간은 직접 "
-        "결정하세요.",
-    ]
     return "\n".join(lines)
 
 
