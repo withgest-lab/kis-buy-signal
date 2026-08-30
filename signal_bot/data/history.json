@@ -503940,7 +503940,7 @@
         "squeeze_expansion": 0.0,
         "volume_exhaustion": 1.0
       },
-      "adx": 36.6,
+      "adx": 36.7,
       "regime_penalty": false,
       "market_regime": "상승장",
       "pullback_raw": {
@@ -513930,16 +513930,16 @@
         "squeeze_expansion": 0.0,
         "volume_exhaustion": 0.5
       },
-      "adx": 16.2,
+      "adx": 16.3,
       "regime_penalty": false,
       "market_regime": "상승장",
       "pullback_raw": {
         "daily_percent_b": 0.754,
         "daily_rsi": 57.4,
         "daily_mfi": 51.3,
-        "weekly_percent_b": 0.811,
-        "weekly_rsi": 58.2,
-        "weekly_mfi": 57.2
+        "weekly_percent_b": 0.827,
+        "weekly_rsi": 58.5,
+        "weekly_mfi": 63.6
       },
       "pullback_candidate": false
     },
@@ -518740,12 +518740,12 @@
         "squeeze_expansion": 0.0,
         "volume_exhaustion": 1.0
       },
-      "adx": 12.3,
+      "adx": 12.5,
       "regime_penalty": false,
       "market_regime": "상승장",
       "pullback_raw": {
         "daily_percent_b": 0.169,
-        "daily_rsi": 43.8,
+        "daily_rsi": 43.7,
         "daily_mfi": 48.5,
         "weekly_percent_b": 0.182,
         "weekly_rsi": 46.4,
