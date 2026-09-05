@@ -90,6 +90,11 @@
     background: var(--surface-2); color: var(--text-secondary); font-size: 13px; font-weight: 700;
     cursor: pointer; line-height: 1; flex-shrink: 0;
   }
+  .glossary-btn {
+    height: 24px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-secondary); font-size: 12px; font-weight: 600;
+    cursor: pointer; line-height: 24px; flex-shrink: 0; white-space: nowrap;
+  }
 
   /* 도움말 패널 */
   .help-overlay {
@@ -207,6 +212,7 @@
   .detail-chart { display: block; width: 100%; }
   .chart-loading { font-size: 11px; color: var(--text-muted); padding: 8px 0; }
   .recovery-line { font-size: 11px; color: var(--text-secondary); margin: 4px 0; }
+  .pctile-note { font-size: 10.5px; color: var(--text-muted); margin-top: 4px; }
   .regime-note { margin-top: 8px; font-size: 11px; color: var(--text-muted); }
 
   .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
@@ -218,7 +224,8 @@
   <header>
     <div class="header-row">
       <h1>MDD 매수신호 대시보드</h1>
-      <button id="help-btn" class="help-btn" aria-label="용어 설명 열기">?</button>
+      <button id="help-btn" class="help-btn" aria-label="방법론 설명 열기">?</button>
+      <button id="glossary-btn" class="glossary-btn" aria-label="용어사전 열기">📖 용어사전</button>
     </div>
     <div class="meta" id="meta-line">불러오는 중...</div>
   </header>
@@ -294,6 +301,43 @@
       <section>
         <h3>참고해주세요</h3>
         <p>이 시스템은 <b>종목을 조회하고 알림만 보내주는 용도</b>입니다. 실제로 사고파는 주문은 절대 하지 않으며, 신호를 참고해서 최종 판단과 매매는 사용자가 직접 합니다. 개별종목의 낙폭은 반드시 회복된다는 보장이 없습니다(지수와 달리 개별기업은 구조적으로 재기하지 못하는 경우도 있습니다) - 회복기간 통계와 사상최대낙폭 배지를 참고해서 직접 판단해주세요.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div id="glossary-overlay" class="help-overlay">
+  <div class="help-panel">
+    <div class="help-panel-head">
+      <h2>용어사전 - 화면에 나오는 모든 용어</h2>
+      <button id="glossary-close" class="help-close" aria-label="닫기">✕</button>
+    </div>
+    <div class="help-body">
+      <section>
+        <h3>MDD · 낙폭 관련</h3>
+        <p><b>MDD(최대낙폭)</b> — 이 종목이 과거 최고점(신고가) 대비 얼마나 떨어졌는지를 보는 지표. "Maximum Drawdown"의 줄임말.</p>
+        <p><b>낙폭(depth)</b> — 지금 가격이 "지금까지의 최고가" 대비 몇 % 낮은지. 0%면 신고가, -30%면 최고가보다 30% 싸다는 뜻.</p>
+        <p><b>롤링 신고가</b> — 오늘까지 이 종목이 찍은 적 있는 가장 높은 가격. 새로 최고가를 찍으면 계속 갱신됨.</p>
+        <p><b>낙폭국면(episode)</b> — 신고가를 찍은 시점부터, 떨어졌다가 다시 신고가로 돌아오기까지의 한 구간. "한 번의 하락→회복 사이클"이라고 보면 됩니다.</p>
+        <p><b>완결</b> — 그 낙폭국면이 신고가로 완전히 회복돼서 끝난 경우. <b>진행중</b> — 아직 신고가를 회복하지 못해서 끝나지 않은 경우(보통 "지금"이 바로 이 상태).</p>
+        <p><b>회복기간</b> — 국면이 시작(고점 이탈)해서 신고가로 돌아오기까지 걸린 기간. 최소/중간/최장은 과거 여러 국면들 중 가장 짧았던/평균적인/가장 길었던 값.</p>
+        <p><b>P50 · P25 · P10 (백분위)</b> — 이 종목의 과거 낙폭국면들을 깊이 순으로 줄 세웠을 때, <b>P50</b>은 중간(평소 수준), <b>P25</b>는 상위 25%로 깊은 편, <b>P10</b>은 상위 10%로 역사상 드물게 깊은 수준을 뜻합니다. 평균값 대신 이걸 쓰는 이유는 2008년·2020년 같은 극단적인 사례 한두 개가 평균을 크게 왜곡시킬 수 있어서입니다.</p>
+        <p><b>MDD 단계(0~3)</b> — 오늘의 낙폭이 위 백분위 중 어디에 해당하는지의 신호 강도. 0=평소 수준, 1=P50 수준(관찰), 2=P25 수준(깊은낙폭), 3=P10 수준(극단).</p>
+        <p><b>사상 최대 낙폭</b> — 오늘의 낙폭이 과거 20년 어떤 국면보다도 더 깊다는 뜻. "참고할 과거 기록이 없는 영역"이라 특히 유의해서 보라는 표시입니다.</p>
+        <p><b>Underwater(낙폭 추이) 차트</b> — 낙폭%을 시간 흐름에 따라 그린 그래프. 0%(신고가) 아래로 얼마나, 얼마나 오래 내려가 있었는지를 한눈에 보여줍니다.</p>
+      </section>
+      <section>
+        <h3>RSI · MFI · 다이버전스</h3>
+        <p><b>RSI(14)</b> — 최근 14거래일(또는 14주/14개월)간 오른 폭과 내린 폭을 비교해서 "사자/팔자 힘의 세기"를 0~100으로 나타낸 지표. <b>30 이하면 과매도</b>(많이 팔려서 반등 가능성 있음)로 봅니다.</p>
+        <p><b>MFI(14)</b> — RSI와 비슷하지만 거래량까지 반영한 지표. <b>20 이하면 과매도</b>로 봅니다.</p>
+        <p><b>과매도</b> — 가격이 단기간에 많이 팔려서, 통상적인 기준(RSI 30·MFI 20)보다 낮아진 상태. 반드시 반등한다는 뜻은 아니고, 참고 신호입니다.</p>
+        <p><b>다이버전스</b> — 가격은 새로 더 낮은 저점을 찍었는데, RSI나 MFI는 오히려 그 전 저점보다 덜 떨어진(또는 더 높은) 경우. "가격은 떨어지는데 팔자 힘은 약해지고 있다"는 신호로 해석합니다.</p>
+        <p><b>일봉 · 주봉 · 월봉</b> — 같은 지표를 하루/한 주/한 달 단위 가격으로 각각 계산한 것. 일봉은 단기, 월봉은 장기 흐름을 봅니다. 이 대시보드는 셋을 판정 없이 그냥 같이 보여줘서, 판단은 직접 하도록 합니다.</p>
+      </section>
+      <section>
+        <h3>기타</h3>
+        <p><b>시장국면(참고용)</b> — SPY(미국)/KOSPI200(한국) 지수가 200일 이동평균선 대비 어디에 있는지로 판정한 상승장/횡보장/하락장. <b>이 신호를 이유로 매수신호를 막지는 않습니다</b> — MDD 전략 자체가 하락장에서 기회를 찾는 게 목적이라서, 참고 정보로만 표시합니다.</p>
+        <p><b>단계 배지 색(회색/주황/빨강/진한빨강)</b> — MDD 0~3단계를 색으로 구분한 것. 색이 진할수록 역사적으로 드문 수준의 낙폭이라는 뜻입니다.</p>
       </section>
     </div>
   </div>
@@ -439,8 +483,15 @@ function lineChartSvg(records, opts) {
 
   svg += `<text x="${margin.left - 4}" y="${margin.top + 8}" text-anchor="end" font-size="9" fill="var(--text-muted)">${Math.round(yMax)}</text>`;
   svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="9" fill="var(--text-muted)">${Math.round(yMin)}</text>`;
-  svg += `<text x="${margin.left}" y="${H - 2}" font-size="9" fill="var(--text-muted)">${records[0].date.slice(2)}</text>`;
-  svg += `<text x="${W - margin.right}" y="${H - 2}" text-anchor="end" font-size="9" fill="var(--text-muted)">${records[n - 1].date.slice(2)}</text>`;
+
+  // 기간이 길어질수록(수년치) 양끝 날짜만으로는 "지금이 그 흐름 어디쯤인지" 감이
+  // 안 잡혀서, 중간에도 날짜 라벨을 몇 개 더 찍어준다(대략 80px당 1개꼴).
+  const tickCount = Math.max(2, Math.min(5, Math.round(innerW / 80)));
+  for (let k = 0; k < tickCount; k++) {
+    const idx = Math.round((k / (tickCount - 1)) * (n - 1));
+    const anchor = k === 0 ? "start" : (k === tickCount - 1 ? "end" : "middle");
+    svg += `<text x="${xAt(idx)}" y="${H - 2}" text-anchor="${anchor}" font-size="9" fill="var(--text-muted)">${records[idx].date.slice(2)}</text>`;
+  }
   svg += `</svg>`;
   return svg;
 }
@@ -481,18 +532,29 @@ function underwaterDetailBlock(records) {
   return `<div class="chart-block"><div class="chart-label">낙폭(depth%) 추이 - 0%가 신고가</div>${chart}</div>`;
 }
 
-function episodeHistogramSvg(episodes, percentiles) {
+function episodeHistogramSvg(episodes, percentiles, asOfDate) {
   if (!episodes || !episodes.length) return '<div class="chart-loading">낙폭 국면 데이터가 없습니다.</div>';
-  const W = 320, H = 130, margin = { top: 8, right: 6, bottom: 18, left: 28 };
+  const W = 320, H = 140, margin = { top: 8, right: 6, bottom: 28, left: 28 };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
-  const n = episodes.length;
+
+  // 국면을 index로 균등배치하면 "언제 있었던 일인지"가 안 보여서, 실제 날짜
+  // 비례로 x좌표를 계산한다(첫 국면 시작일 ~ 오늘 기준).
+  const toTime = s => new Date(s + "T00:00:00").getTime();
+  const startTime = toTime(episodes[0].start_date);
+  const nowDate = asOfDate || episodes[episodes.length - 1].trough_date;
+  const span = Math.max(1, toTime(nowDate) - startTime);
+  const xAt = dateStr => margin.left + ((toTime(dateStr) - startTime) / span) * innerW;
+
   const depths = episodes.map(e => e.depth);
   let yMin = Math.min(...depths, percentiles ? percentiles.p10 : 0) * 1.1;
   if (yMin >= 0) yMin = -0.1;
   const yAtFixed = v => (v / yMin) * innerH; // v<=0, yMin<0 -> 0..innerH
-  const barW = innerW / n * 0.7;
-  const gap = innerW / n;
+
+  const xs = episodes.map(e => xAt(e.start_date)).sort((a, b) => a - b);
+  let minGap = innerW;
+  for (let i = 1; i < xs.length; i++) minGap = Math.min(minGap, xs[i] - xs[i - 1]);
+  const barW = Math.max(3, Math.min(14, minGap * 0.7 || 14));
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
   if (percentiles) {
@@ -502,27 +564,47 @@ function episodeHistogramSvg(episodes, percentiles) {
       svg += `<text x="${W - margin.right}" y="${y - 2}" text-anchor="end" font-size="8" fill="${color}">${k.toUpperCase()}</text>`;
     });
   }
-  episodes.forEach((e, i) => {
+  episodes.forEach(e => {
     const barH = yAtFixed(e.depth);
-    const x = margin.left + i * gap + (gap - barW) / 2;
+    const x = xAt(e.start_date) - barW / 2;
     const color = e.is_complete ? "var(--series-1)" : "var(--status-crit)";
-    const title = `${e.start_date} ~ ${e.recovery_date || "진행중"} · ${(e.depth * 100).toFixed(1)}%`;
+    const title = `${e.start_date} ~ ${e.recovery_date || "진행중(아직 회복 전)"} · 낙폭 ${(e.depth * 100).toFixed(1)}%`;
     svg += `<rect x="${x}" y="${margin.top}" width="${barW}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.85"><title>${title}</title></rect>`;
   });
+
+  // "지금" 위치 - 가장 최근(진행중 국면이 있으면 그 지점)을 세로선+라벨로 표시
+  const nowX = xAt(nowDate);
+  svg += `<line x1="${nowX}" x2="${nowX}" y1="${margin.top}" y2="${margin.top + innerH + 4}" stroke="var(--status-crit)" stroke-width="1" stroke-dasharray="2 2"/>`;
+  svg += `<text x="${nowX}" y="${margin.top + innerH + 13}" text-anchor="middle" font-size="8" fill="var(--status-crit)">지금</text>`;
+
   svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${margin.top}" y2="${margin.top}" stroke="var(--grid)" stroke-width="1"/>`;
   svg += `<text x="${margin.left - 2}" y="${margin.top + innerH}" text-anchor="end" font-size="8" fill="var(--text-muted)">${(yMin * 100).toFixed(0)}%</text>`;
+
+  // 실제 시간 비례축이라 중간 날짜도 몇 개 찍어줘야 "언제쯔음"인지 감이 잡힘.
+  // 맨 끝(오늘)은 이미 위의 "지금" 라벨이 표시하므로 시작~중간까지만 찍는다.
+  const fmtTime = t => new Date(t).toISOString().slice(2, 10);
+  const axisTicks = 3;
+  for (let k = 0; k < axisTicks; k++) {
+    const t = startTime + (k / axisTicks) * span;
+    const x = margin.left + (k / axisTicks) * innerW;
+    svg += `<text x="${x}" y="${H - 3}" text-anchor="${k === 0 ? "start" : "middle"}" font-size="8" fill="var(--text-muted)">${fmtTime(t)}</text>`;
+  }
   svg += `</svg>`;
   return svg;
 }
 
 function renderDetail(container, detail) {
   const completeCount = (detail.episodes || []).filter(e => e.is_complete).length;
+  const incompleteCount = (detail.episodes || []).length - completeCount;
+  const underwater = detail.underwater || [];
+  const asOfDate = underwater.length ? underwater[underwater.length - 1].date : null;
   container.innerHTML = `
     ${priceChartBlock(detail.daily)}
-    <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭(underwater) 추이 (최근 약 2년)</div>
+    <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭(underwater) 추이 (최근 약 12년 - 지금이 역사적으로 어느 위치인지 참고)</div>
     ${underwaterDetailBlock(detail.underwater)}
-    <div class="chart-label" style="font-weight:600;margin-top:6px">과거 낙폭국면 히스토그램 (완결 ${completeCount}회, 파랑=완결/빨강=진행중)</div>
-    ${episodeHistogramSvg(detail.episodes, detail.percentiles)}
+    <div class="chart-label" style="font-weight:600;margin-top:6px">과거 낙폭국면 히스토그램</div>
+    <div class="chart-label">🔵완결(신고가로 회복됨) ${completeCount}회 · 🔴진행중(아직 회복 전, "지금"이 여기) ${incompleteCount}회</div>
+    ${episodeHistogramSvg(detail.episodes, detail.percentiles, asOfDate)}
     <div class="chart-label" style="font-weight:600;margin-top:6px">RSI · MFI (일/주/월)</div>
     ${oscillatorChartBlock(detail.daily, "일봉")}
     ${oscillatorChartBlock(detail.weekly, "주봉")}
@@ -575,6 +657,7 @@ function cardHtml(t) {
     <div class="mini-chart-block">
       <div class="chart-label">낙폭 위치 (P50/P25/P10 대비)</div>
       ${depthGaugeSvg(t.depth, t.percentiles)}
+      <div class="pctile-note">P50=평소 · P25=깊음 · P10=매우 깊음 (자세한 설명은 📖 용어사전)</div>
     </div>
     ${recoveryLineHtml(t.percentiles)}
     ${t.is_record_drawdown ? '<div class="record-badge">⚠️ 사상 최대 낙폭</div>' : ""}
@@ -633,11 +716,16 @@ function render() {
   });
 }
 
-function wireHelp() {
-  const overlay = document.getElementById("help-overlay");
-  document.getElementById("help-btn").addEventListener("click", () => overlay.classList.add("open"));
-  document.getElementById("help-close").addEventListener("click", () => overlay.classList.remove("open"));
+function wireOverlay(btnId, overlayId, closeId) {
+  const overlay = document.getElementById(overlayId);
+  document.getElementById(btnId).addEventListener("click", () => overlay.classList.add("open"));
+  document.getElementById(closeId).addEventListener("click", () => overlay.classList.remove("open"));
   overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.classList.remove("open"); });
+}
+
+function wireHelp() {
+  wireOverlay("help-btn", "help-overlay", "help-close");
+  wireOverlay("glossary-btn", "glossary-overlay", "glossary-close");
 }
 
 function wireToolbar() {
