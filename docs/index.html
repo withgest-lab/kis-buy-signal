@@ -158,7 +158,9 @@
   .card.banner-card { border: 2px solid var(--status-crit); }
 
   /* 종목 그리드 */
-  .grid-count { font-size: 12px; color: var(--text-muted); margin: 4px 2px 10px; }
+  .grid-count { font-size: 12px; color: var(--text-muted); margin: 4px 2px 10px; transition: color .15s, font-weight .15s; }
+  .grid-count.flash { color: var(--series-1); font-weight: 700; animation: gridCountFade 900ms ease-out; }
+  @keyframes gridCountFade { 0% { color: var(--series-1); } 100% { color: var(--text-muted); } }
   .grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
   @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
@@ -343,6 +345,11 @@
         <h3>기타</h3>
         <p><b>시장국면(참고용)</b> — SPY(미국)/KOSPI200(한국) 지수가 200일 이동평균선 대비 어디에 있는지로 판정한 상승장/횡보장/하락장. <b>이 신호를 이유로 매수신호를 막지는 않습니다</b> — MDD 전략 자체가 하락장에서 기회를 찾는 게 목적이라서, 참고 정보로만 표시합니다.</p>
         <p><b>단계 배지 색(회색/주황/빨강/진한빨강)</b> — MDD 0~3단계를 색으로 구분한 것. 색이 진할수록 역사적으로 드문 수준의 낙폭이라는 뜻입니다.</p>
+        <p><b>NEW 신호</b> — 오늘 새로 이 종목에 알림이 발생했다는 표시(MDD 단계가 올라갔거나, RSI/MFI 과매도·다이버전스가 새로 감지된 경우). 텔레그램으로도 같은 내용이 발송됩니다.</p>
+        <p><b>베이스라인 데이터 부족</b> — 최근 상장 등의 이유로 과거 낙폭국면이 5개 미만이라, MDD 백분위(P50/P25/P10)를 믿을 만하게 계산할 수 없는 상태. 이 경우 MDD 신호 계산을 생략합니다.</p>
+        <p><b>차트의 "지금" 표시</b> — 그래프에서 가장 최근(오늘) 데이터 지점을 강조점과 값 라벨로 표시한 것. 이 지점이 매수/매도 판단의 기준이 되는 "현재 위치"입니다.</p>
+        <p><b>낙폭 차트의 주황 점선(시장충격 시기)</b> — 코로나19 급락, 2022 금리인상 하락장처럼 널리 알려진 시장 전체 충격 시기와 겹치는 깊은 낙폭 지점을 참고로 표시한 것입니다. 그 종목만의 개별 사정(실적 발표 등)일 수도 있어서 "이 시기와 겹친다"는 참고 정보일 뿐, 원인을 단정하는 건 아닙니다.</p>
+        <p><b>1단계+ / 2단계+ / 3단계 필터</b> — 툴바에서 "1단계+"를 고르면 1단계 이상(1·2·3단계)인 종목만, "3단계"를 고르면 가장 극단적인 3단계 종목만 걸러서 보여줍니다.</p>
       </section>
     </div>
   </div>
@@ -400,7 +407,7 @@ function underwaterSparkSvg(points, height) {
 }
 
 function depthGaugeSvg(depth, percentiles) {
-  const W = 280, H = 42, margin = { left: 6, right: 6, top: 15, bottom: 13 };
+  const W = 280, H = 50, margin = { left: 6, right: 6, top: 22, bottom: 13 };
   const innerW = W - margin.left - margin.right;
   const candidates = [depth, -0.05];
   if (percentiles) candidates.push(percentiles.p10);
@@ -415,14 +422,27 @@ function depthGaugeSvg(depth, percentiles) {
   svg += `<rect x="${margin.left}" y="${barY}" width="${Math.max(0, curX - margin.left)}" height="${barH}" fill="var(--price-down)" rx="4" opacity="0.75"/>`;
 
   if (percentiles) {
-    [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]].forEach(([k, color]) => {
-      const px = x(percentiles[k]);
-      svg += `<line x1="${px}" x2="${px}" y1="${barY - 3}" y2="${barY + barH + 3}" stroke="${color}" stroke-width="2"/>`;
-      svg += `<text x="${px}" y="${barY - 5}" font-size="8" text-anchor="middle" fill="${color}">${k.toUpperCase()}</text>`;
+    // P10/P25/P50 값이 서로 가까우면(예: -24%/-26%) 라벨 글자가 겹쳐서
+    // "P25P50"처럼 붙어보이던 문제 - x좌표가 가까운 라벨은 위/아래로
+    // 번갈아 띄워서(2단 지그재그) 겹치지 않게 한다.
+    const items = [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]]
+      .map(([k, color]) => ({ k, color, x: x(percentiles[k]) }))
+      .sort((a, b) => a.x - b.x);
+    const MIN_GAP = 24;
+    let prevX = -Infinity, row = 0;
+    items.forEach(it => {
+      row = (it.x - prevX < MIN_GAP) ? (row === 0 ? 1 : 0) : 0;
+      prevX = it.x;
+      it.row = row;
+    });
+    items.forEach(it => {
+      svg += `<line x1="${it.x}" x2="${it.x}" y1="${barY - 3}" y2="${barY + barH + 3}" stroke="${it.color}" stroke-width="2"/>`;
+      const ty = it.row === 1 ? barY - 13 : barY - 5;
+      svg += `<text x="${it.x}" y="${ty}" font-size="8" text-anchor="middle" fill="${it.color}">${it.k.toUpperCase()}(${(percentiles[it.k] * 100).toFixed(0)}%)</text>`;
     });
   }
   svg += `<text x="${margin.left}" y="${H - 2}" font-size="9" fill="var(--text-muted)">${(domainMin * 100).toFixed(0)}%</text>`;
-  svg += `<text x="${W - margin.right}" y="${H - 2}" font-size="9" text-anchor="end" fill="var(--text-muted)">0%</text>`;
+  svg += `<text x="${W - margin.right}" y="${H - 2}" font-size="9" text-anchor="end" fill="var(--text-muted)">0%(신고가)</text>`;
   svg += `</svg>`;
   return svg;
 }
@@ -440,27 +460,79 @@ function timeframeBadgesHtml(timeframes) {
 
 // ---- 상세뷰 차트 (lazy load) ----
 
+// 널리 알려진 시장 전체 충격 시기 - 특정 종목의 낙폭 "원인"을 안다고 단정할
+// 수는 없지만(개별 기업 사정일 수도 있음), 이 시기와 겹치면 참고 정보로
+// 표시한다. 차트에 실제로 표시되는 데이터 구간에 들어있을 때만 노출됨.
+const MACRO_EVENTS = [
+  ["2000-03-01", "2002-10-01", "닷컴버블 붕괴"],
+  ["2008-09-01", "2009-03-01", "글로벌 금융위기"],
+  ["2011-08-01", "2011-10-01", "미 신용등급 강등"],
+  ["2015-08-01", "2016-02-01", "차이나 쇼크"],
+  ["2018-10-01", "2018-12-25", "2018 금리인상 발작"],
+  ["2020-02-15", "2020-04-01", "코로나19 급락"],
+  ["2022-01-01", "2022-10-15", "2022 금리인상 하락장"],
+];
+
+function findMacroEventMarkers(records, valueKey, worstThreshold) {
+  const markers = [];
+  MACRO_EVENTS.forEach(([start, end, label]) => {
+    let best = null;
+    records.forEach((r, i) => {
+      if (r.date < start || r.date > end || r[valueKey] == null) return;
+      if (!best || r[valueKey] < best.val) best = { i, val: r[valueKey] };
+    });
+    if (best && best.val <= worstThreshold) markers.push({ index: best.i, label, val: best.val });
+  });
+  return markers;
+}
+
+// 라벨들이 x좌표상 서로 가까우면(minGapPx 이내) 겹치지 않게 여러 줄(최대
+// maxRows)로 번갈아 배치한다 - 이벤트 라벨이 여러 개 몰릴 때 뭉개져
+// 안 보이는 문제 방지.
+function layoutLabelsNoOverlap(itemsWithX, minGapPx, maxRows) {
+  const sorted = [...itemsWithX].sort((a, b) => a.x - b.x);
+  const rowLastX = new Array(maxRows).fill(-Infinity);
+  return sorted.map(it => {
+    let row = 0;
+    while (row < maxRows - 1 && it.x - rowLastX[row] < minGapPx) row++;
+    rowLastX[row] = it.x;
+    return { ...it, row };
+  });
+}
+
 function lineChartSvg(records, opts) {
   const W = 320, H = opts.height || 110;
-  const margin = { top: 8, right: 6, bottom: 16, left: 26 };
+  const EVENT_ROWS = 3;
+  const margin = { top: opts.markEvents ? 12 + EVENT_ROWS * 9 : 14, right: 6, bottom: 16, left: 32 };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
   const n = records.length;
   if (!n) return '<div class="chart-loading">표시할 데이터가 없습니다.</div>';
   const xAt = i => margin.left + (n <= 1 ? 0 : (i / (n - 1)) * innerW);
+  const yFmt = opts.yFormat || (v => Math.round(v));
 
   let vals = [];
   opts.series.forEach(s => records.forEach(r => { if (r[s.key] != null) vals.push(r[s.key]); }));
   if (opts.thresholds) vals.push(...opts.thresholds.map(t => t.value));
   if (!vals.length) return '<div class="chart-loading">표시할 데이터가 없습니다.</div>';
 
+  // yMin/yMax를 명시적으로 지정한 경우(RSI/MFI의 0~100 같은 정해진 척도)는
+  // 그 값 그대로 축 경계로 쓴다 - 예전엔 여기에 자동 패딩(8%)을 또 더해서
+  // "108"/"-8" 같은 척도 밖의 숫자가 축에 찍히는 문제가 있었음.
+  const explicitBounds = opts.yMin != null && opts.yMax != null;
   let yMin = opts.yMin != null ? opts.yMin : Math.min(...vals);
   let yMax = opts.yMax != null ? opts.yMax : Math.max(...vals);
-  const pad = (yMax - yMin) * 0.08 || 1;
-  yMin -= pad; yMax += pad;
+  if (!explicitBounds) {
+    const pad = (yMax - yMin) * 0.08 || 1;
+    yMin -= pad; yMax += pad;
+  }
   const yAt = v => margin.top + innerH - ((v - yMin) / (yMax - yMin)) * innerH;
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
+
+  if (opts.yAxisTitle && !opts.markEvents) {
+    svg += `<text x="${margin.left}" y="9" font-size="8" fill="var(--text-secondary)">${opts.yAxisTitle}</text>`;
+  }
 
   (opts.thresholds || []).forEach(t => {
     const y = yAt(t.value);
@@ -486,8 +558,40 @@ function lineChartSvg(records, opts) {
     });
   }
 
-  svg += `<text x="${margin.left - 4}" y="${margin.top + 8}" text-anchor="end" font-size="9" fill="var(--text-muted)">${Math.round(yMax)}</text>`;
-  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="9" fill="var(--text-muted)">${Math.round(yMin)}</text>`;
+  // 잘 알려진 시장 충격 시기(코로나19, 2022 금리인상 등)와 겹치는 깊은
+  // 낙폭 지점에 점선+짧은 이름을 표시 - "이때는 왜 떨어졌는지" 참고용.
+  // (그 종목만의 개별 사정일 수도 있어 단정하지 않고 "이 시기와 겹침" 정도로만.)
+  if (opts.markEvents) {
+    let events = findMacroEventMarkers(records, opts.series[0].key, opts.eventThreshold != null ? opts.eventThreshold : -0.1);
+    events.sort((a, b) => a.val - b.val);           // 깊은(심한) 이벤트 우선
+    events = events.slice(0, EVENT_ROWS).map(ev => ({ ...ev, x: xAt(ev.index) }));
+    const laidOut = layoutLabelsNoOverlap(events, 74, EVENT_ROWS);
+    laidOut.forEach(ev => {
+      const labelY = 10 + ev.row * 9;
+      svg += `<line x1="${ev.x}" x2="${ev.x}" y1="${labelY + 4}" y2="${margin.top + innerH}" stroke="var(--stage-1)" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/>`;
+      svg += `<text x="${ev.x}" y="${labelY}" text-anchor="middle" font-size="8" fill="var(--stage-1)"><title>${ev.label} 시기와 겹침</title>${ev.label}</text>`;
+    });
+  }
+
+  // y축: 위/중간/아래 3곳에 값을 찍는다 - 양끝만으로는 지금 값이 그 사이
+  // 어디쯔음인지 가늠하기 어려워서.
+  const yMid = (yMax + yMin) / 2;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${yFmt(yMax)}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH / 2 + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${yFmt(yMid)}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="9" fill="var(--text-muted)">${yFmt(yMin)}</text>`;
+
+  // "지금"(마지막 데이터) 값을 강조점+라벨로 표시 - 지금이 매수/매도 판단에
+  // 참고할 값인지 바로 인지할 수 있게.
+  const mainKey = opts.series[0].key;
+  let lastIdx = n - 1;
+  while (lastIdx >= 0 && records[lastIdx][mainKey] == null) lastIdx--;
+  if (lastIdx >= 0) {
+    const lv = records[lastIdx][mainKey];
+    const lx = xAt(lastIdx), ly = yAt(lv);
+    svg += `<circle cx="${lx}" cy="${ly}" r="3.2" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="1"/>`;
+    const labelAboveOk = ly - margin.top > 10;
+    svg += `<text x="${lx - 4}" y="${labelAboveOk ? ly - 6 : ly + 12}" text-anchor="end" font-size="9" font-weight="700" fill="var(--status-crit)">지금 ${yFmt(lv)}</text>`;
+  }
 
   // 기간이 길어질수록(수년치) 양끝 날짜만으로는 "지금이 그 흐름 어디쯤인지" 감이
   // 안 잡혀서, 중간에도 날짜 라벨을 몇 개 더 찍어준다(대략 80px당 1개꼴).
@@ -501,9 +605,12 @@ function lineChartSvg(records, opts) {
   return svg;
 }
 
-function priceChartBlock(records) {
+function priceChartBlock(records, currency) {
+  const cur = currency === "KRW" ? "₩" : "$";
   const chart = lineChartSvg(records, {
     height: 130,
+    yAxisTitle: `가격(${cur})`,
+    yFormat: v => cur + Math.round(v).toLocaleString(),
     series: [
       { key: "rolling_high", color: "var(--text-muted)", width: 1, dashed: true },
       { key: "close", color: "var(--series-1)", width: 2 },
@@ -516,6 +623,7 @@ function priceChartBlock(records) {
 function oscillatorChartBlock(records, label) {
   const chart = lineChartSvg(records, {
     height: 100, yMin: 0, yMax: 100,
+    yAxisTitle: "RSI·MFI (0~100)",
     thresholds: [
       { value: 30, label: "RSI30", color: "var(--series-2)" },
       { value: 20, label: "MFI20", color: "var(--series-3)" },
@@ -531,10 +639,14 @@ function oscillatorChartBlock(records, label) {
 function underwaterDetailBlock(records) {
   const chart = lineChartSvg(records, {
     height: 110,
+    yAxisTitle: "낙폭(%, 최고가 대비)",
+    yFormat: v => Math.round(v * 100) + "%",
     series: [{ key: "depth", color: "var(--price-down)", width: 2 }],
     thresholds: [{ value: 0, label: "신고가", color: "var(--text-muted)" }],
+    markEvents: true,
+    eventThreshold: -0.1,
   });
-  return `<div class="chart-block"><div class="chart-label">낙폭(depth%) 추이 - 0%가 신고가</div>${chart}</div>`;
+  return `<div class="chart-block"><div class="chart-label">낙폭(depth%) 추이 - 0%가 신고가 · 주황 점선=널리 알려진 시장충격 시기와 겹침(참고용)</div>${chart}</div>`;
 }
 
 function episodeHistogramSvg(episodes, percentiles, asOfDate) {
@@ -563,10 +675,21 @@ function episodeHistogramSvg(episodes, percentiles, asOfDate) {
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
   if (percentiles) {
-    [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]].forEach(([k, color]) => {
-      const y = margin.top + yAtFixed(percentiles[k]);
-      svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${y}" y2="${y}" stroke="${color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.8"/>`;
-      svg += `<text x="${W - margin.right}" y="${y - 2}" text-anchor="end" font-size="8" fill="${color}">${k.toUpperCase()}</text>`;
+    // 값이 서로 가까우면(예: P25/P50 낙폭이 비슷) 라벨이 세로로 겹치므로
+    // y가 가까운 라벨은 좌우로 살짝 엇갈려 붙인다.
+    const pItems = [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]]
+      .map(([k, color]) => ({ k, color, y: margin.top + yAtFixed(percentiles[k]) }))
+      .sort((a, b) => a.y - b.y);
+    let prevY = -Infinity, row = 0;
+    pItems.forEach(it => {
+      row = (it.y - prevY < 9) ? (row === 0 ? 1 : 0) : 0;
+      prevY = it.y;
+      it.row = row;
+    });
+    pItems.forEach(it => {
+      svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${it.y}" y2="${it.y}" stroke="${it.color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.8"/>`;
+      const tx = it.row === 1 ? W - margin.right - 34 : W - margin.right;
+      svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="8" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
     });
   }
   episodes.forEach(e => {
@@ -583,6 +706,7 @@ function episodeHistogramSvg(episodes, percentiles, asOfDate) {
   svg += `<text x="${nowX}" y="${margin.top + innerH + 13}" text-anchor="middle" font-size="8" fill="var(--status-crit)">지금</text>`;
 
   svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${margin.top}" y2="${margin.top}" stroke="var(--grid)" stroke-width="1"/>`;
+  svg += `<text x="${margin.left - 2}" y="${margin.top + 7}" text-anchor="end" font-size="8" fill="var(--text-muted)">0%</text>`;
   svg += `<text x="${margin.left - 2}" y="${margin.top + innerH}" text-anchor="end" font-size="8" fill="var(--text-muted)">${(yMin * 100).toFixed(0)}%</text>`;
 
   // 실제 시간 비례축이라 중간 날짜도 몇 개 찍어줘야 "언제쯔음"인지 감이 잡힘.
@@ -598,13 +722,13 @@ function episodeHistogramSvg(episodes, percentiles, asOfDate) {
   return svg;
 }
 
-function renderDetail(container, detail) {
+function renderDetail(container, detail, currency) {
   const completeCount = (detail.episodes || []).filter(e => e.is_complete).length;
   const incompleteCount = (detail.episodes || []).length - completeCount;
   const underwater = detail.underwater || [];
   const asOfDate = underwater.length ? underwater[underwater.length - 1].date : null;
   container.innerHTML = `
-    ${priceChartBlock(detail.daily)}
+    ${priceChartBlock(detail.daily, currency)}
     <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭(underwater) 추이 (최근 약 12년 - 지금이 역사적으로 어느 위치인지 참고)</div>
     ${underwaterDetailBlock(detail.underwater)}
     <div class="chart-label" style="font-weight:600;margin-top:6px">과거 낙폭국면 히스토그램</div>
@@ -620,14 +744,15 @@ function renderDetail(container, detail) {
 async function ensureDetailCharts(symb, cardEl) {
   const holder = cardEl.querySelector(".charts-holder");
   if (!holder) return;
-  if (detailCache[symb]) { renderDetail(holder, detailCache[symb]); return; }
+  const t = (DATA && DATA.tickers.find(x => x.symb === symb)) || {};
+  if (detailCache[symb]) { renderDetail(holder, detailCache[symb], t.currency); return; }
   holder.innerHTML = '<div class="chart-loading">차트 불러오는 중...</div>';
   try {
     const res = await fetch(`detail/${symb}.json`, { cache: "no-store" });
     if (!res.ok) throw new Error("상세 데이터 없음 (" + res.status + ")");
     const detail = await res.json();
     detailCache[symb] = detail;
-    renderDetail(holder, detail);
+    renderDetail(holder, detail, t.currency);
   } catch (e) {
     holder.innerHTML = `<div class="chart-loading">차트를 불러오지 못했습니다: ${e.message}</div>`;
   }
@@ -710,10 +835,15 @@ function render() {
   const newOnes = list.filter(t => t.is_new);
   document.getElementById("banner").innerHTML = bannerHtml(newOnes);
 
+  const SORT_LABELS = { stage: "MDD단계순", depth: "낙폭깊은순", pct_chg: "등락률순", symb: "알파벳순" };
   const filterActive = state.stage !== "all" || state.category !== "all";
-  document.getElementById("grid-count").textContent = filterActive
-    ? `필터 적용됨 - ${list.length}종목 표시 중 (전체 ${DATA.tickers.length}종목)`
-    : `전체 ${list.length}종목`;
+  const countEl = document.getElementById("grid-count");
+  countEl.textContent = (filterActive
+    ? `✅ 필터 적용됨 - ${list.length}종목 표시 중 (전체 ${DATA.tickers.length}종목)`
+    : `전체 ${list.length}종목`) + ` · 정렬: ${SORT_LABELS[state.sort] || state.sort}`;
+  // 뭔가 바뀔 때마다 잠깐 강조색으로 반짝여서 "적용됐다"는 걸 눈에 띄게 함.
+  countEl.classList.remove("flash");
+  requestAnimationFrame(() => countEl.classList.add("flash"));
 
   const grid = document.getElementById("grid");
   if (!list.length) {
