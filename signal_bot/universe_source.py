@@ -1,10 +1,16 @@
-"""STEP 12 전제조건 1: S&P500 + 나스닥100 구성종목 리스트 확보 (PROJECT_PLAN.md 섹션 13).
+"""S&P500 + 나스닥100 시가총액 상위 N종목 랭킹 확보 (MDD 우량주 유니버스용).
 
 외부 페이지 구조가 바뀌면 파이프라인이 깨질 위험이 있으므로:
   - 지수당 소스를 2개씩 순서대로 시도(1차 실패 시 2차)
   - 성공하면 결과를 signal_bot/data/universe_cache.json에 캐시
   - 캐시가 REFRESH_INTERVAL_DAYS(기본 30일)보다 새것이면 재조회 없이 캐시 사용
   - 갱신 시도가 모두 실패해도 기존 캐시가 있으면 그걸 그대로 사용(자동 fallback)
+
+랭킹(시가총액 상위 N) 추출을 위해서는 소스 테이블이 시가총액/지수비중 순으로
+정렬돼 있어야 한다. 위키피디아 S&P500 표는 알파벳(Symbol)순이라 랭킹 정보가
+없어서 제외했고, slickcharts.com(sp500/nasdaq100)은 지수 내 비중(Weight) 순
+= 시가총액 순이라 1차 소스로 쓴다. stockanalysis.com도 시가총액 내림차순
+정렬이라 2차 fallback으로 쓴다.
 """
 
 import json
@@ -35,25 +41,25 @@ def _normalize_symbol(raw: str) -> str:
     return raw.strip().upper().replace(".", "-")
 
 
-def _fetch_wikipedia_sp500() -> list[dict]:
-    url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-    resp = requests.get(url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
-    resp.raise_for_status()
-    table = pd.read_html(StringIO(resp.text))[0]
-    return [
-        {"symb": _normalize_symbol(r["Symbol"]), "name": str(r["Security"]).strip()}
-        for _, r in table.iterrows()
-    ]
-
-
 def _fetch_slickcharts_sp500() -> list[dict]:
     url = "https://www.slickcharts.com/sp500"
     resp = requests.get(url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
     resp.raise_for_status()
     table = pd.read_html(StringIO(resp.text))[0]
     return [
-        {"symb": _normalize_symbol(r["Symbol"]), "name": str(r["Company"]).strip()}
-        for _, r in table.iterrows()
+        {"symb": _normalize_symbol(r["Symbol"]), "name": str(r["Company"]).strip(), "rank": i + 1}
+        for i, (_, r) in enumerate(table.iterrows())
+    ]
+
+
+def _fetch_stockanalysis_sp500() -> list[dict]:
+    url = "https://stockanalysis.com/list/sp500-stocks/"
+    resp = requests.get(url, headers=REQUEST_HEADERS, timeout=REQUEST_TIMEOUT)
+    resp.raise_for_status()
+    table = pd.read_html(StringIO(resp.text))[0]
+    return [
+        {"symb": _normalize_symbol(r["Symbol"]), "name": str(r["Company Name"]).strip(), "rank": i + 1}
+        for i, (_, r) in enumerate(table.iterrows())
     ]
 
 
@@ -63,8 +69,8 @@ def _fetch_slickcharts_nasdaq100() -> list[dict]:
     resp.raise_for_status()
     table = pd.read_html(StringIO(resp.text))[0]
     return [
-        {"symb": _normalize_symbol(r["Symbol"]), "name": str(r["Company"]).strip()}
-        for _, r in table.iterrows()
+        {"symb": _normalize_symbol(r["Symbol"]), "name": str(r["Company"]).strip(), "rank": i + 1}
+        for i, (_, r) in enumerate(table.iterrows())
     ]
 
 
@@ -74,15 +80,15 @@ def _fetch_stockanalysis_nasdaq100() -> list[dict]:
     resp.raise_for_status()
     table = pd.read_html(StringIO(resp.text))[0]
     return [
-        {"symb": _normalize_symbol(r["Symbol"]), "name": str(r["Company Name"]).strip()}
-        for _, r in table.iterrows()
+        {"symb": _normalize_symbol(r["Symbol"]), "name": str(r["Company Name"]).strip(), "rank": i + 1}
+        for i, (_, r) in enumerate(table.iterrows())
     ]
 
 
-# 지수별로 시도할 소스(1차 실패 시 다음 소스로) - 위키피디아는 나스닥100 구성종목
-# 테이블을 더 이상 제공하지 않아(2026-07 확인) 나스닥100은 slickcharts를 1차로 둔다.
+# 지수별로 시도할 소스(1차 실패 시 다음 소스로) - 랭킹(시가총액 상위 N) 추출이
+# 목적이라 둘 다 시가총액/비중 순 정렬 소스만 사용(위키피디아는 알파벳순이라 제외).
 _SOURCES: dict[str, list[Callable[[], list[dict]]]] = {
-    "sp500": [_fetch_wikipedia_sp500, _fetch_slickcharts_sp500],
+    "sp500": [_fetch_slickcharts_sp500, _fetch_stockanalysis_sp500],
     "nasdaq100": [_fetch_slickcharts_nasdaq100, _fetch_stockanalysis_nasdaq100],
 }
 
@@ -150,29 +156,34 @@ def refresh(force: bool = False) -> dict:
     return new_cache
 
 
-def get_combined_universe(force_refresh: bool = False) -> list[dict]:
-    """S&P500 ∪ 나스닥100, 중복 제거. 반환: [{"symb", "name", "category"}, ...]"""
+def get_top_n_targets(sp500_n: int = 30, ndx100_n: int = 20,
+                       force_refresh: bool = False) -> list[dict]:
+    """S&P500 시가총액 상위 sp500_n + 나스닥100 상위 ndx100_n, 중복 제거.
+    반환: [{"symb", "name", "category", "rank"}, ...] (rank는 소속 지수 내 순위,
+    두 지수에 모두 있으면 더 높은(작은) 랭크를 우선)."""
     cache = refresh(force=force_refresh)
-    sp500_symbs = {r["symb"]: r["name"] for r in cache["sp500"]}
-    ndx_symbs = {r["symb"]: r["name"] for r in cache["nasdaq100"]}
+    sp_top = sorted(cache["sp500"], key=lambda r: r["rank"])[:sp500_n]
+    ndx_top = sorted(cache["nasdaq100"], key=lambda r: r["rank"])[:ndx100_n]
 
     merged: dict[str, dict] = {}
-    for symb, name in sp500_symbs.items():
-        merged[symb] = {"symb": symb, "name": name, "category": "S&P500"}
-    for symb, name in ndx_symbs.items():
-        if symb in merged:
-            merged[symb]["category"] = "S&P500+나스닥100"
+    for r in sp_top:
+        merged[r["symb"]] = {**r, "category": "S&P500"}
+    for r in ndx_top:
+        if r["symb"] in merged:
+            merged[r["symb"]]["category"] = "S&P500+나스닥100"
+            merged[r["symb"]]["rank"] = min(merged[r["symb"]]["rank"], r["rank"])
         else:
-            merged[symb] = {"symb": symb, "name": name, "category": "나스닥100"}
+            merged[r["symb"]] = {**r, "category": "나스닥100"}
 
-    return sorted(merged.values(), key=lambda r: r["symb"])
+    return sorted(merged.values(), key=lambda r: r["rank"])
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(levelname)s - %(message)s")
-    universe = get_combined_universe(force_refresh=True)
+    targets = get_top_n_targets(force_refresh=True)
     cache = load_cache()
-    overlap = sum(1 for r in universe if r["category"] == "S&P500+나스닥100")
-    print(f"S&P500 {len(cache['sp500'])}개 + 나스닥100 {len(cache['nasdaq100'])}개 "
-          f"-> 중복제거 후 {len(universe)}개 (중복 {overlap}개)")
+    overlap = sum(1 for r in targets if r["category"] == "S&P500+나스닥100")
+    print(f"S&P500 상위30 + 나스닥100 상위20 -> 중복제거 후 {len(targets)}개 (중복 {overlap}개)")
+    for r in targets:
+        print(f"  {r['rank']:>3d}  {r['symb']:6s} {r['category']:14s} {r['name']}")
     print(f"캐시 저장 위치: {CACHE_PATH} (기준일 {cache['updated_at']})")

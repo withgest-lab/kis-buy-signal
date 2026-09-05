@@ -1,10 +1,9 @@
-"""타겟 종목 리스트 (PROJECT_PLAN.md 섹션 13, STEP 12-5: S&P500+나스닥100 전체 확장).
+"""타겟 종목 리스트 - MDD 우량주 매수신호 유니버스.
 
-개별 종목은 더 이상 손으로 고른 리스트가 아니라 signal_bot.universe_source가
-관리하는 S&P500+나스닥100 중복제거 유니버스(캐시, 월 1회 갱신)를 그대로 쓴다.
-섹터ETF는 계속 손으로 고른 리스트를 유지한다(지수 구성종목이 아니라서 자동
-소스가 없고, 개수가 적어 유지 부담도 낮음). GICS 11개 대표 섹터 SPDR ETF를
-전부 포함하도록 XLK(기술)를 추가해서 11개 섹터 커버리지를 완성했다.
+개별종목은 S&P500 시가총액 상위30 + 나스닥100 상위20(중복제거, signal_bot.
+universe_source가 매월 갱신). 섹터ETF는 계속 손으로 고른 리스트를 유지한다
+(지수 구성종목이 아니라서 자동 소스가 없고, 개수가 적어 유지 부담도 낮음).
+한국 KOSPI200·삼성전자·SK하이닉스는 KR_TARGETS로 별도 추가.
 """
 
 from signal_bot import universe_source as _us
@@ -83,15 +82,43 @@ CURATED_ETF_DESCRIPTIONS = {
 }
 
 DAILY_MIN_ROWS = 250
-WEEKLY_MIN_ROWS = 104
 
-# history.json 롤링 윈도우: 스파크라인(최근 30일)/백테스트엔 이 정도면 충분하고,
-# 무한정 누적되어 저장소 용량이 불어나는 걸 막는다 (PROJECT_PLAN.md 섹션 13-2).
+# history.json 롤링 윈도우: 무한정 누적되어 저장소 용량이 불어나는 걸 막는다.
 HISTORY_MAX_DAYS = 180
 
-_universe = _us.get_combined_universe()
+# RSI/MFI 오버솔드(과매도) 판정 임계값 - 볼린저 %B를 없앤 지금은 RSI/MFI
+# 단독으로 쓰이므로, 기존 %B 결합용 35 대신 고전적인 임계값을 채택.
+RSI_OVERSOLD = 30
+MFI_OVERSOLD = 20
 
-TICKERS = CURATED_ETFS + [("개별종목", entry["symb"]) for entry in _universe]
+SP500_TOP_N = 30
+NASDAQ100_TOP_N = 20
+
+# 한국 종목 - KOSPI200(지수), 삼성전자·SK하이닉스(개별종목). KIS 국내주식
+# API(signal_bot/kis_client_kr.py)로 조회하며, 이 두 카테고리 문자열로
+# 미국/한국 API 분기를 판단한다(fetch_universe.py/baseline_fetch.py 참고).
+KR_INDEX_CATEGORY = "한국지수"
+KR_STOCK_CATEGORY = "한국개별종목"
+KR_TARGETS = [
+    (KR_INDEX_CATEGORY, "KOSPI200"),
+    (KR_STOCK_CATEGORY, "005930"),   # 삼성전자
+    (KR_STOCK_CATEGORY, "000660"),   # SK하이닉스
+]
+KR_NAMES = {"KOSPI200": "코스피200", "005930": "삼성전자", "000660": "SK하이닉스"}
+
+_ranked = _us.get_top_n_targets(SP500_TOP_N, NASDAQ100_TOP_N)
+
+TICKERS = CURATED_ETFS + [("개별종목", r["symb"]) for r in _ranked] + KR_TARGETS
 
 TICKER_NAMES = dict(CURATED_ETF_NAMES)
-TICKER_NAMES.update({entry["symb"]: entry["name"] for entry in _universe})
+TICKER_NAMES.update({r["symb"]: r["name"] for r in _ranked})
+TICKER_NAMES.update(KR_NAMES)
+
+
+def is_kr(category: str) -> bool:
+    return category in (KR_INDEX_CATEGORY, KR_STOCK_CATEGORY)
+
+
+def kr_kind(category: str) -> str:
+    """KIS 국내 API 호출 종류: "index"(지수) 또는 "item"(개별종목)."""
+    return "index" if category == KR_INDEX_CATEGORY else "item"

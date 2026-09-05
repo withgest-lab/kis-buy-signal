@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KIS 매수신호 대시보드</title>
+<title>MDD 매수신호 대시보드</title>
 <style>
   :root {
     color-scheme: light;
@@ -18,6 +18,9 @@
     --series-1:       #2a78d6;
     --series-2:       #eb6834;
     --series-3:       #1baf7a;
+    --stage-1:        #fab219;
+    --stage-2:        #e0692f;
+    --stage-3:        #d03b3b;
     --status-good:    #0ca30c;
     --status-warn:    #fab219;
     --status-crit:    #d03b3b;
@@ -38,6 +41,9 @@
       --series-1:       #3987e5;
       --series-2:       #d95926;
       --series-3:       #199e70;
+      --stage-1:        #fab219;
+      --stage-2:        #e0692f;
+      --stage-3:        #e66767;
       --status-good:    #0ca30c;
       --status-warn:    #fab219;
       --status-crit:    #e66767;
@@ -58,6 +64,9 @@
     --series-1:       #3987e5;
     --series-2:       #d95926;
     --series-3:       #199e70;
+    --stage-1:        #fab219;
+    --stage-2:        #e0692f;
+    --stage-3:        #e66767;
     --status-good:    #0ca30c;
     --status-warn:    #fab219;
     --status-crit:    #e66767;
@@ -137,10 +146,8 @@
     border-radius: 10px; color: var(--text-muted); font-size: 13px; text-align: center;
   }
   .banner-title { font-size: 13px; font-weight: 600; color: var(--status-crit); margin-bottom: 8px; }
-  .banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-  .card.banner-card {
-    border: 2px solid var(--status-crit);
-  }
+  .banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+  .card.banner-card { border: 2px solid var(--status-crit); }
 
   /* 종목 그리드 */
   .grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
@@ -156,13 +163,14 @@
   .ticker-block .name { font-size: 11px; color: var(--text-muted); }
   .cat-tag { font-size: 10px; color: var(--text-muted); }
 
-  .score-badge {
-    font-size: 20px; font-weight: 700; padding: 2px 10px; border-radius: 8px;
-    color: white; line-height: 1.3;
+  .stage-badge {
+    font-size: 13px; font-weight: 700; padding: 3px 9px; border-radius: 8px;
+    color: white; line-height: 1.4; text-align: center; white-space: nowrap;
   }
-  .score-strong { background: var(--status-crit); }
-  .score-watch { background: var(--status-warn); color: #241a00; }
-  .score-ignore { background: var(--surface-2); color: var(--text-muted); }
+  .stage-0 { background: var(--surface-2); color: var(--text-muted); }
+  .stage-1 { background: var(--stage-1); color: #241a00; }
+  .stage-2 { background: var(--stage-2); }
+  .stage-3 { background: var(--stage-3); box-shadow: 0 0 0 2px color-mix(in srgb, var(--stage-3) 40%, transparent); }
 
   .price-row { margin-top: 8px; font-size: 13px; display: flex; gap: 8px; align-items: baseline; }
   .price-row .pct.up { color: var(--price-up); }
@@ -170,18 +178,21 @@
 
   .biz-summary { margin-top: 8px; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
 
-  .badges { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
-  .badge {
-    font-size: 10px; padding: 3px 7px; border-radius: 999px; border: 1px solid var(--border);
-    color: var(--text-muted); background: var(--surface-2);
-  }
-  .badge.on { color: var(--series-1); border-color: var(--series-1); background: color-mix(in srgb, var(--series-1) 12%, var(--surface-1)); font-weight: 600; }
-  .badge.recent { color: var(--series-1); border-color: var(--series-1); border-style: dashed; opacity: 0.6; }
-  .recent-note { margin-top: 6px; font-size: 10.5px; color: var(--text-muted); }
-
-  .spark { margin-top: 10px; }
-  .spark svg { display: block; width: 100%; height: 32px; }
+  .chart-label { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
+  .mini-chart-block { margin-top: 10px; }
+  .mini-chart-block svg { display: block; width: 100%; height: 40px; }
   .spark-note { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+  .tf-badges { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .tf-badge {
+    font-size: 10.5px; padding: 3px 7px; border-radius: 999px; border: 1px solid var(--border);
+    color: var(--text-secondary); background: var(--surface-2);
+  }
+  .tf-badge.on { color: white; background: var(--status-warn); border-color: var(--status-warn); font-weight: 600; }
+  .record-badge {
+    display: inline-block; margin-top: 8px; font-size: 10.5px; font-weight: 700; color: white;
+    background: var(--status-crit); border-radius: 6px; padding: 3px 7px;
+  }
 
   .new-flag {
     display: inline-block; font-size: 10px; font-weight: 700; color: white;
@@ -192,18 +203,11 @@
   .detail { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--grid); display: none; }
   .card.expanded .detail { display: block; }
 
-  .charts-holder { margin-bottom: 12px; }
-  .chart-block { margin-bottom: 8px; }
-  .chart-label { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
+  .chart-block { margin-bottom: 10px; }
   .detail-chart { display: block; width: 100%; }
   .chart-loading { font-size: 11px; color: var(--text-muted); padding: 8px 0; }
-  .breakdown-row { display: flex; align-items: center; gap: 8px; font-size: 11px; margin-bottom: 6px; }
-  .breakdown-label { width: 84px; color: var(--text-secondary); flex-shrink: 0; }
-  .breakdown-track { flex: 1; height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
-  .breakdown-fill { height: 100%; background: var(--series-1); border-radius: 4px; }
-  .breakdown-val { width: 34px; text-align: right; color: var(--text-muted); flex-shrink: 0; }
-  .regime-note { margin-top: 8px; font-size: 11px; color: var(--status-warn); }
-  .regime-note.ok { color: var(--text-muted); }
+  .recovery-line { font-size: 11px; color: var(--text-secondary); margin: 4px 0; }
+  .regime-note { margin-top: 8px; font-size: 11px; color: var(--text-muted); }
 
   .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
   footer { text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 24px; }
@@ -213,32 +217,31 @@
 <div class="wrap">
   <header>
     <div class="header-row">
-      <h1>KIS 매수신호 대시보드</h1>
+      <h1>MDD 매수신호 대시보드</h1>
       <button id="help-btn" class="help-btn" aria-label="용어 설명 열기">?</button>
     </div>
     <div class="meta" id="meta-line">불러오는 중...</div>
   </header>
 
   <div class="toolbar">
-    <div class="chip-group" id="filter-verdict">
-      <span class="chip active" data-verdict="all">전체</span>
-      <span class="chip" data-verdict="강한매수후보">강한후보(65+)</span>
-      <span class="chip" data-verdict="관찰대상">관찰대상(50~65)</span>
+    <div class="chip-group" id="filter-stage">
+      <span class="chip active" data-stage="all">전체</span>
+      <span class="chip" data-stage="1">1단계+</span>
+      <span class="chip" data-stage="2">2단계+</span>
+      <span class="chip" data-stage="3">3단계</span>
     </div>
     <div class="chip-group" id="filter-category">
       <span class="chip active" data-cat="all">모든분류</span>
-      <span class="chip" data-cat="개별종목">개별종목</span>
+      <span class="chip" data-cat="개별종목">미국개별종목</span>
       <span class="chip" data-cat="섹터ETF">섹터ETF</span>
-    </div>
-    <div class="chip-group" id="filter-pullback">
-      <span class="chip" id="pullback-toggle" title="일봉·주봉 둘 다 볼린저 하단터치(%B<=0.1) + RSI 또는 MFI 과매도(<=35)인 종목만 보기">📉 일봉+주봉 과매도만</span>
+      <span class="chip" data-cat="한국지수">한국지수</span>
+      <span class="chip" data-cat="한국개별종목">한국개별종목</span>
     </div>
     <select class="sort-select" id="sort-select">
-      <option value="score" selected>점수순</option>
-      <option value="early_sensing">얼리센싱 우선(참고용)</option>
+      <option value="stage" selected>MDD단계순</option>
+      <option value="depth">낙폭깊은순</option>
       <option value="pct_chg">등락률순</option>
       <option value="symb">알파벳순</option>
-      <option value="bluechip">우량주 우선(빅테크 포함)</option>
     </select>
   </div>
 
@@ -255,54 +258,42 @@
     </div>
     <div class="help-body">
       <section>
-        <h3>점수 색깔이 뭘 뜻하나요?</h3>
-        <p><span class="dot" style="background:var(--status-crit)"></span> <b>65점 이상 (빨강)</b> — "지금 사볼 만하다"는 신호가 강하게 켜진 상태</p>
-        <p><span class="dot" style="background:var(--status-warn)"></span> <b>50~65점 (주황)</b> — 아직 확신은 아니지만 지켜볼 만한 상태</p>
-        <p><span class="dot" style="background:var(--text-muted)"></span> <b>50점 미만 (회색)</b> — 특별한 신호 없음, 신경 안 써도 됨</p>
-        <p class="note">이 빨강/파랑은 "주가가 올랐다/내렸다"의 그 색과는 다릅니다. 여기서 색은 오직 "신호가 얼마나 세게 켜졌는지"만 나타내요.</p>
+        <h3>MDD 단계는 뭘 의미하나요?</h3>
+        <p>각 종목의 최근 20년치(가능한 만큼) 낙폭 국면(고점→저점→신고가 복귀)을 모두 뽑아서, 그 깊이(depth)들의 분포를 계산합니다. 오늘의 낙폭이 그 분포에서 어디쯯 있는지로 단계를 매깁니다.</p>
+        <p><span class="dot" style="background:var(--stage-3)"></span> <b>3단계(극단)</b> — 과거 국면 중 가장 깊었던 하위 10% 수준까지 낙폭이 도달</p>
+        <p><span class="dot" style="background:var(--stage-2)"></span> <b>2단계(깊은낙폭)</b> — 과거 국면 하위 25% 수준</p>
+        <p><span class="dot" style="background:var(--stage-1)"></span> <b>1단계(관찰)</b> — 과거 국면 중간값(중간 정도 낙폭) 수준</p>
+        <p><span class="dot" style="background:var(--text-muted)"></span> <b>0(신호없음)</b> — 아직 평소 수준의 낙폭</p>
+        <p class="note">평균/표준편차 대신 실제 발생했던 국면들의 순위(백분위)를 그대로 쓰는 방식입니다 - 낙폭은 소수의 극단치(2008, 2020 등)가 평균을 왜곡시키기 쉬워서, 이 방식이 더 왜곡이 적습니다.</p>
       </section>
       <section>
-        <h3>카드에 붙는 4개 배지는 각각 무슨 뜻인가요?</h3>
-        <p><b>다이버전스</b> — 주가는 계속 떨어지는데, "사고파는 힘"을 나타내는 지표(RSI/MFI)는 오히려 덜 떨어지거나 살아나는 중. 흔히 "떨어질 힘이 다 빠졌다"는 신호로 봅니다.</p>
-        <p><b>스퀴즈확장</b> — 한동안 가격이 좁은 범위에서 조용히 움직이다가, 다시 크게 움직이기 시작한 상태. "폭풍 전 고요함이 끝나가는 중"이라고 보시면 됩니다.</p>
-        <p><b>MFI선행</b> — 실제 거래(돈)가 먼저 살아나는 신호. 사람들 심리보다 돈의 움직임이 한발 먼저 방향을 트는 경우라, 신뢰도가 조금 더 높다고 여겨집니다.</p>
-        <p><b>거래량소진</b> — 최근 거래량이 눈에 띄게 줄었다는 뜻. "팔 사람은 이제 거의 다 팔았다"는 신호로 해석합니다.</p>
+        <h3>낙폭 게이지 차트는 어떻게 읽나요?</h3>
+        <p>가로 막대가 "0%(신고가)"에서 왼쪽으로 갈수록 더 깊은 낙폭입니다. 채워진 빨간 막대가 오늘의 낙폭 위치, 3개의 세로선이 그 종목의 과거 중간값(P50)/하위25%(P25)/하위10%(P10) 지점입니다.</p>
       </section>
       <section>
-        <h3>카드를 펼치면 나오는 차트 3개는요?</h3>
-        <p><b>가격 + 볼린저밴드</b> — 최근 20일 평균 가격을 기준으로, 위아래로 "평소 이 정도는 움직인다"는 범위(밴드)를 그린 것. 가격이 아래쪽 선에 붙을수록 "요즘 흐름 대비 많이 싸진 상태"라고 봅니다.</p>
-        <p><b>RSI</b> — 최근 며칠간 오른 폭과 내린 폭을 비교해서 "사자/팔자 힘의 세기"를 0~100 숫자로 표현한 것. <b>30 이하</b>면 많이 팔려서 반등 가능성, <b>70 이상</b>이면 많이 사서 조정 가능성으로 봅니다.</p>
-        <p><b>MFI</b> — RSI와 비슷한데, 가격 움직임뿐 아니라 "실제로 얼마나 많이 거래됐는지(거래량)"까지 같이 봐서 계산합니다. <b>20 이하</b> 과매도, <b>80 이상</b> 과매수로 봅니다.</p>
+        <h3>"사상 최대 낙폭" 배지는요?</h3>
+        <p>오늘의 낙폭이 그 종목의 과거 20년 국면 중 가장 깊었던 것보다도 더 깊다는 뜻입니다. "과거엔 항상 돌아왔다"는 근거가 가장 약해지는 지점이라 별도로 표시합니다 - 매수를 권장하거나 만류하는 신호는 아니고, 판단에 참고할 정보입니다.</p>
       </section>
       <section>
-        <h3>점수는 어떻게 100점을 채우나요?</h3>
-        <p>여섯 가지 항목을 각각 점수화해서 더합니다 — 아래 숫자는 "이 항목이 만점이면 최대 몇 점까지 받는지"입니다. 2026-07 재검증 이후 다이버전스·MFI선행·스퀴즈확장(확인성 신호) 비중을 높이고 추세/밴드위치(구조적 신호) 비중은 낮췄습니다.</p>
-        <p><b>RSI 다이버전스 (최대 25점)</b> — 위에서 설명한 다이버전스 신호의 세기</p>
-        <p><b>MFI선행 (최대 20점)</b> — 거래(돈)가 먼저 살아났는지 여부</p>
-        <p><b>주봉추세 (최대 15점)</b> — 몇 달 단위의 큰 흐름이 상승 방향인지</p>
-        <p><b>밴드 하단 근접 (최대 15점)</b> — 볼린저밴드 아래쪽에 얼마나 붙어있는지 (쌀수록 높은 점수)</p>
-        <p><b>스퀴즈확장 (최대 15점)</b> — 변동성이 다시 커지기 시작했는지 여부</p>
-        <p><b>거래량소진 (최대 10점)</b> — 팔자 압력이 얼마나 줄었는지</p>
+        <h3>회복기간 통계는 뭔가요?</h3>
+        <p>과거에 이 정도(또는 비슷한) 낙폭 국면이 신고가로 다시 복귀하기까지 걸린 기간의 최소/중간/최장 값입니다. 이번 낙폭이 얼마나 걸릴지 보장하진 않지만, 기다릴 각오를 얼마나 해야 할지 감을 잡는 데 참고할 수 있습니다.</p>
       </section>
       <section>
-        <h3>ADX랑 "감점"은 뭔가요?</h3>
-        <p><b>ADX</b> — 지금 시장이 (오르든 내리든) 한 방향으로 세게 밀어붙이고 있는지, 아니면 방향 없이 오락가락하는지를 나타내는 숫자입니다. 25 이상이면 "뚜렷한 흐름이 진행 중"이라는 뜻이에요.</p>
-        <p>만약 ADX가 25 이상이면서 그 흐름이 <b>하락 방향</b>이면 — 즉 한창 떨어지는 중인데 반짝 반등 신호만 보고 성급하게 들어가는 걸 막기 위해, 최종 점수를 70% 깎습니다 (완전히 0으로 만들진 않아요, 그래도 참고는 하도록).</p>
+        <h3>일/주/월 RSI·MFI 배지는요?</h3>
+        <p><b>RSI</b> — 최근 오른 폭과 내린 폭을 비교해 사자/팔자 힘의 세기를 0~100으로 나타냅니다. <b>30 이하면 과매도</b>로 봅니다.</p>
+        <p><b>MFI</b> — RSI와 비슷한데 거래량까지 반영합니다. <b>20 이하면 과매도</b>로 봅니다.</p>
+        <p><b>다이버전스(●)</b> — 가격은 신저점을 찍었는데 RSI/MFI는 오히려 덜 떨어진 경우입니다. 흔히 "떨어질 힘이 다 빠졌다"는 신호로 해석합니다.</p>
+        <p class="note">이 시스템은 사용자가 실제로 주간/월간 기준으로 RSI/MFI를 참고했을 때 타율이 좋았다고 밝혀서, 일봉 지표 외에 주봉/월봉도 함께 계산해서 보여줍니다. MDD와 마찬가지로 판정/점수 합산 없이 값 그대로만 보여드립니다 - 최종 판단은 사용자의 몫입니다.</p>
       </section>
       <section>
-        <h3>이 점수, 믿을 만한가요? (2026-07 재검증 결과)</h3>
-        <p>13년치 데이터로 검증한 결과, <b>5~20일 단기 반등 기준으로는 뚜렷한 우위를 찾지 못했습니다</b>(거래비용 반영하면 오히려 사라짐). 대신 <b>3~6개월 이상 보유했을 때는 거래비용을 반영하고도 통계적으로 의미 있는 우위</b>가 확인됐습니다(과거 12년 중 11년이 플러스, 소수 종목에 쏠린 결과도 아님).</p>
-        <p>이건 재무학에서 가장 널리 재현된 발견 중 하나인 "모멘텀 효과"(3~12개월 동안 잘 나가던 종목이 그 이후도 계속 잘 나가는 경향)와 맞닿아 있습니다. 즉 이 시스템은 <b>"짧은 반등을 노리는 도구"가 아니라 "몇 달 이상 들고 갈 후보를 골라주는 도구"</b>로 보시는 게 맞습니다.</p>
-        <p class="note">시장(SPY) 전체가 하락 국면일 때는 신규 강한매수후보 신호 자체가 뜨지 않도록 막아뒀습니다(falling knife 방지, Faber·Siegel의 200일선 시장타이밍 연구 근거).</p>
-      </section>
-      <section>
-        <h3>"📉 일봉+주봉 과매도만" 필터는 뭔가요?</h3>
-        <p>종합점수(위 여섯 항목 가중합)와는 별개로, <b>일봉과 주봉 둘 다</b> 볼린저 하단 터치(%B 0.1 이하) + RSI 또는 MFI 과매도(35 이하)인 종목만 따로 걸러줍니다. 미국 지수(S&P500·나스닥)가 장기적으로 우상향한다는 가정 하에 "짧게든 길게든 눌린 상태"를 놓치지 않고 모니터링하기 위한 보조 필터입니다.</p>
-        <p class="note">이 조합 자체의 과거 예측력은 아직 별도로 백테스트하지 않았습니다 — 종합점수처럼 검증된 게 아니라 "눈여겨볼 후보를 넓게 걸러주는" 참고용입니다.</p>
+        <h3>카드를 펼치면 나오는 차트들은요?</h3>
+        <p><b>가격 + 롤링 신고가</b> — 가격 위에 지금까지의 최고가선을 겹쳐서, 지금이 그 선에서 얼마나 떨어져 있는지 한눈에 보여줍니다.</p>
+        <p><b>낙폭국면 히스토그램</b> — 과거 20년의 낙폭 국면들을 막대로 나열합니다. 막대가 길수록 더 깊었던 국면이고, 점선은 P50/P25/P10 기준선입니다.</p>
+        <p><b>RSI/MFI 라인차트</b> — 일/주/월 탭으로 전환해서 볼 수 있습니다. 오버솔드 기준선(RSI 30, MFI 20)을 넘어가면 과매도 구간입니다.</p>
       </section>
       <section>
         <h3>참고해주세요</h3>
-        <p>이 시스템은 <b>종목을 조회하고 알림만 보내주는 용도</b>입니다. 실제로 사고파는 주문은 절대 하지 않으며, 신호를 참고해서 최종 판단과 매매는 사용자가 직접 MTS 앱으로 합니다.</p>
+        <p>이 시스템은 <b>종목을 조회하고 알림만 보내주는 용도</b>입니다. 실제로 사고파는 주문은 절대 하지 않으며, 신호를 참고해서 최종 판단과 매매는 사용자가 직접 합니다. 개별종목의 낙폭은 반드시 회복된다는 보장이 없습니다(지수와 달리 개별기업은 구조적으로 재기하지 못하는 경우도 있습니다) - 회복기간 통계와 사상최대낙폭 배지를 참고해서 직접 판단해주세요.</p>
       </section>
     </div>
   </div>
@@ -310,61 +301,103 @@
 
 <script>
 let DATA = null;
-let state = { verdict: "all", category: "all", sort: "score", pullbackOnly: false };
-
-// "우량주 우선" 정렬용 고정 순서 - 지수ETF(SPY/QQQ/SOXX) + 빅테크10을 항상
-// 맨 위에, 이 안에서는 아래 나열 순서 그대로 고정. 나머지 종목은 그 뒤에
-// 점수순으로 이어짐 (이 모드를 선택했을 때만 적용, 다른 정렬엔 영향 없음).
-const BLUECHIP_PINNED = [
-  "SPY", "QQQ", "SOXX",
-  "NVDA", "AAPL", "GOOGL", "MSFT", "AMZN", "META", "AVGO", "TSLA", "ORCL", "PLTR",
-];
-const BLUECHIP_RANK = new Map(BLUECHIP_PINNED.map((s, i) => [s, i]));
-const RECENT_SIGNAL_DAYS = 3;
+let state = { stage: "all", category: "all", sort: "stage" };
+const detailCache = {};
 
 function escapeHtml(s) {
-  // 종목명 등은 위키피디아/slickcharts 등 외부(제3자 편집 가능) 소스에서 온다.
-  // innerHTML로 꽂아 넣기 전에 반드시 이스케이프해서, 소스가 훼손되더라도
-  // 대시보드에서 스크립트가 실행되지 않도록 한다.
   return String(s).replace(/[&<>"']/g, c => (
     { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
   ));
 }
 
-function scoreClass(score) {
-  if (score >= 65) return "score-strong";
-  if (score >= 50) return "score-watch";
-  return "score-ignore";
+function fmtPrice(t) {
+  const cur = t.currency === "KRW" ? "₩" : "$";
+  const val = t.currency === "KRW" ? t.close.toLocaleString("ko-KR", { maximumFractionDigits: 0 }) : t.close.toFixed(2);
+  return `${cur}${val}`;
 }
 
-function sparklineSvg(points) {
-  if (!points || points.length < 2) {
-    return '<div class="spark-note">데이터 누적 중 (최소 2일 필요)</div>';
-  }
-  const w = 200, h = 32, pad = 3;
-  const scores = points.map(p => p.score);
-  const min = Math.min(...scores, 0), max = Math.max(...scores, 100);
+function fmtDays(days) {
+  if (days == null) return "-";
+  const years = days / 252;
+  if (years >= 1) return `약 ${years.toFixed(1)}년`;
+  return `약 ${(days / 21).toFixed(1)}개월`;
+}
+
+function stageLabel(stage) {
+  return { 0: "신호없음", 1: "1단계·관찰", 2: "2단계·깊은낙폭", 3: "3단계·극단" }[stage] || "신호없음";
+}
+
+// ---- 미니 차트 ----
+
+function underwaterSparkSvg(points, height) {
+  const h = height || 40;
+  if (!points || points.length < 2) return '<div class="spark-note">데이터 누적 중</div>';
+  const w = 280, pad = 2;
+  const vals = points.map(p => p.depth).filter(v => v != null);
+  if (!vals.length) return '<div class="spark-note">데이터 없음</div>';
+  const min = Math.min(...vals, 0), max = 0;
+  const range = (max - min) || 1;
   const x = i => pad + (i / (points.length - 1)) * (w - pad * 2);
-  const y = v => h - pad - ((v - min) / (max - min || 1)) * (h - pad * 2);
-  let d = "";
-  points.forEach((p, i) => { d += (i === 0 ? "M" : "L") + x(i) + "," + y(p.score) + " "; });
-  const lastX = x(points.length - 1), lastY = y(points[points.length - 1].score);
+  const y = v => pad + ((max - v) / range) * (h - pad * 2);
+  const y0 = y(0);
+  let top = "", bottom = "";
+  points.forEach((p, i) => { top += (i === 0 ? "M" : "L") + x(i) + "," + y(p.depth == null ? 0 : p.depth) + " "; });
+  for (let i = points.length - 1; i >= 0; i--) bottom += "L" + x(i) + "," + y0 + " ";
   return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
-    <path d="${d}" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="${lastX}" cy="${lastY}" r="3" fill="var(--series-1)"/>
+    <line x1="0" x2="${w}" y1="${y0}" y2="${y0}" stroke="var(--grid)" stroke-width="1"/>
+    <path d="${top}${bottom}Z" fill="var(--price-down)" opacity="0.16" stroke="none"/>
+    <path d="${top}" fill="none" stroke="var(--price-down)" stroke-width="1.5"/>
   </svg>`;
 }
 
-const detailCache = {};
+function depthGaugeSvg(depth, percentiles) {
+  const W = 280, H = 42, margin = { left: 6, right: 6, top: 15, bottom: 13 };
+  const innerW = W - margin.left - margin.right;
+  const candidates = [depth, -0.05];
+  if (percentiles) candidates.push(percentiles.p10);
+  let domainMin = Math.min(...candidates) * 1.15;
+  if (domainMin >= 0) domainMin = -0.1;
+  const x = v => margin.left + ((v - domainMin) / (0 - domainMin)) * innerW;
+  const barY = margin.top, barH = H - margin.top - margin.bottom;
 
-function miniChartSvg(records, opts) {
-  // viewBox 폭을 실제 카드 최소폭(폴드 접힘 상태 기준 약 300~340px)에 맞춰뒀다.
-  // viewBox를 크게 잡고 CSS로 축소하면 글자가 실제 화면에서 너무 작아지기 때문.
+  let svg = `<svg viewBox="0 0 ${W} ${H}">`;
+  svg += `<rect x="${margin.left}" y="${barY}" width="${innerW}" height="${barH}" fill="var(--surface-2)" rx="4"/>`;
+  const curX = x(depth);
+  svg += `<rect x="${margin.left}" y="${barY}" width="${Math.max(0, curX - margin.left)}" height="${barH}" fill="var(--price-down)" rx="4" opacity="0.75"/>`;
+
+  if (percentiles) {
+    [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]].forEach(([k, color]) => {
+      const px = x(percentiles[k]);
+      svg += `<line x1="${px}" x2="${px}" y1="${barY - 3}" y2="${barY + barH + 3}" stroke="${color}" stroke-width="2"/>`;
+      svg += `<text x="${px}" y="${barY - 5}" font-size="8" text-anchor="middle" fill="${color}">${k.toUpperCase()}</text>`;
+    });
+  }
+  svg += `<text x="${margin.left}" y="${H - 2}" font-size="9" fill="var(--text-muted)">${(domainMin * 100).toFixed(0)}%</text>`;
+  svg += `<text x="${W - margin.right}" y="${H - 2}" font-size="9" text-anchor="end" fill="var(--text-muted)">0%</text>`;
+  svg += `</svg>`;
+  return svg;
+}
+
+function timeframeBadgesHtml(timeframes) {
+  const order = [["daily", "일봉"], ["weekly", "주봉"], ["monthly", "월봉"]];
+  return order.map(([key, label]) => {
+    const t = (timeframes && timeframes[key]) || {};
+    const rsiTxt = t.rsi == null ? "-" : t.rsi.toFixed(0);
+    const mfiTxt = t.mfi == null ? "-" : t.mfi.toFixed(0);
+    const on = (t.rsi_oversold || t.mfi_oversold || t.divergence) ? "on" : "";
+    return `<span class="tf-badge ${on}">${label} RSI ${rsiTxt} · MFI ${mfiTxt}${t.divergence ? " ●다이버전스" : ""}</span>`;
+  }).join("");
+}
+
+// ---- 상세뷰 차트 (lazy load) ----
+
+function lineChartSvg(records, opts) {
   const W = 320, H = opts.height || 110;
-  const margin = { top: 8, right: 6, bottom: 16, left: 24 };
+  const margin = { top: 8, right: 6, bottom: 16, left: 26 };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
   const n = records.length;
+  if (!n) return '<div class="chart-loading">표시할 데이터가 없습니다.</div>';
   const xAt = i => margin.left + (n <= 1 ? 0 : (i / (n - 1)) * innerW);
 
   let vals = [];
@@ -379,20 +412,6 @@ function miniChartSvg(records, opts) {
   const yAt = v => margin.top + innerH - ((v - yMin) / (yMax - yMin)) * innerH;
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
-
-  if (opts.band) {
-    const [hiKey, loKey] = opts.band;
-    let top = "", bot = "";
-    records.forEach((r, i) => {
-      if (r[hiKey] == null) return;
-      top += (top === "" ? "M" : "L") + xAt(i) + "," + yAt(r[hiKey]) + " ";
-    });
-    for (let i = n - 1; i >= 0; i--) {
-      if (records[i][loKey] == null) continue;
-      bot += "L" + xAt(i) + "," + yAt(records[i][loKey]) + " ";
-    }
-    if (top && bot) svg += `<path d="${top}${bot}Z" fill="var(--series-1)" opacity="0.08" stroke="none"/>`;
-  }
 
   (opts.thresholds || []).forEach(t => {
     const y = yAt(t.value);
@@ -410,34 +429,39 @@ function miniChartSvg(records, opts) {
     svg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width || 2}" ${s.dashed ? 'stroke-dasharray="3 3"' : ""} stroke-linecap="round" stroke-linejoin="round"/>`;
   });
 
+  if (opts.markerKey) {
+    records.forEach((r, i) => {
+      if (r[opts.markerKey] && r[opts.series[0].key] != null) {
+        svg += `<circle cx="${xAt(i)}" cy="${yAt(r[opts.series[0].key])}" r="3.5" fill="var(--status-crit)"/>`;
+      }
+    });
+  }
+
   svg += `<text x="${margin.left - 4}" y="${margin.top + 8}" text-anchor="end" font-size="9" fill="var(--text-muted)">${Math.round(yMax)}</text>`;
   svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="9" fill="var(--text-muted)">${Math.round(yMin)}</text>`;
-  svg += `<text x="${margin.left}" y="${H - 2}" font-size="9" fill="var(--text-muted)">${records[0].date.slice(5)}</text>`;
-  svg += `<text x="${W - margin.right}" y="${H - 2}" text-anchor="end" font-size="9" fill="var(--text-muted)">${records[n - 1].date.slice(5)}</text>`;
+  svg += `<text x="${margin.left}" y="${H - 2}" font-size="9" fill="var(--text-muted)">${records[0].date.slice(2)}</text>`;
+  svg += `<text x="${W - margin.right}" y="${H - 2}" text-anchor="end" font-size="9" fill="var(--text-muted)">${records[n - 1].date.slice(2)}</text>`;
   svg += `</svg>`;
   return svg;
 }
 
-function priceChartBlock(records, label) {
-  const chart = miniChartSvg(records, {
+function priceChartBlock(records) {
+  const chart = lineChartSvg(records, {
     height: 130,
-    band: ["bb_upper", "bb_lower"],
     series: [
-      { key: "bb_mid", color: "var(--text-muted)", width: 1, dashed: true },
+      { key: "rolling_high", color: "var(--text-muted)", width: 1, dashed: true },
       { key: "close", color: "var(--series-1)", width: 2 },
     ],
+    markerKey: "divergence",
   });
-  return `<div class="chart-block"><div class="chart-label">${label} 가격 + 볼린저밴드(20, 2σ)</div>${chart}</div>`;
+  return `<div class="chart-block"><div class="chart-label">가격(파랑) + 지금까지의 최고가(점선) · 붉은 점=다이버전스 감지일</div>${chart}</div>`;
 }
 
 function oscillatorChartBlock(records, label) {
-  // RSI/MFI는 둘 다 0~100 스케일이라 색깔만 다르게 해서 한 차트에 겹쳐 그린다.
-  const chart = miniChartSvg(records, {
+  const chart = lineChartSvg(records, {
     height: 100, yMin: 0, yMax: 100,
     thresholds: [
-      { value: 70, label: "RSI70", color: "var(--series-2)" },
       { value: 30, label: "RSI30", color: "var(--series-2)" },
-      { value: 80, label: "MFI80", color: "var(--series-3)" },
       { value: 20, label: "MFI20", color: "var(--series-3)" },
     ],
     series: [
@@ -445,110 +469,130 @@ function oscillatorChartBlock(records, label) {
       { key: "mfi", color: "var(--series-3)", width: 2 },
     ],
   });
-  return `
-    <div class="chart-block">
-      <div class="chart-label">${label} RSI(14, 주황) · MFI(14, 초록) 겹쳐보기</div>
-      ${chart}
-    </div>`;
+  return `<div class="chart-block"><div class="chart-label">${label} RSI(14, 주황) · MFI(14, 초록) - 오버솔드선 아래=과매도</div>${chart}</div>`;
 }
 
-function renderCharts(container, detail) {
+function underwaterDetailBlock(records) {
+  const chart = lineChartSvg(records, {
+    height: 110,
+    series: [{ key: "depth", color: "var(--price-down)", width: 2 }],
+    thresholds: [{ value: 0, label: "신고가", color: "var(--text-muted)" }],
+  });
+  return `<div class="chart-block"><div class="chart-label">낙폭(depth%) 추이 - 0%가 신고가</div>${chart}</div>`;
+}
+
+function episodeHistogramSvg(episodes, percentiles) {
+  if (!episodes || !episodes.length) return '<div class="chart-loading">낙폭 국면 데이터가 없습니다.</div>';
+  const W = 320, H = 130, margin = { top: 8, right: 6, bottom: 18, left: 28 };
+  const innerW = W - margin.left - margin.right;
+  const innerH = H - margin.top - margin.bottom;
+  const n = episodes.length;
+  const depths = episodes.map(e => e.depth);
+  let yMin = Math.min(...depths, percentiles ? percentiles.p10 : 0) * 1.1;
+  if (yMin >= 0) yMin = -0.1;
+  const yAtFixed = v => (v / yMin) * innerH; // v<=0, yMin<0 -> 0..innerH
+  const barW = innerW / n * 0.7;
+  const gap = innerW / n;
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
+  if (percentiles) {
+    [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]].forEach(([k, color]) => {
+      const y = margin.top + yAtFixed(percentiles[k]);
+      svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${y}" y2="${y}" stroke="${color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.8"/>`;
+      svg += `<text x="${W - margin.right}" y="${y - 2}" text-anchor="end" font-size="8" fill="${color}">${k.toUpperCase()}</text>`;
+    });
+  }
+  episodes.forEach((e, i) => {
+    const barH = yAtFixed(e.depth);
+    const x = margin.left + i * gap + (gap - barW) / 2;
+    const color = e.is_complete ? "var(--series-1)" : "var(--status-crit)";
+    const title = `${e.start_date} ~ ${e.recovery_date || "진행중"} · ${(e.depth * 100).toFixed(1)}%`;
+    svg += `<rect x="${x}" y="${margin.top}" width="${barW}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.85"><title>${title}</title></rect>`;
+  });
+  svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${margin.top}" y2="${margin.top}" stroke="var(--grid)" stroke-width="1"/>`;
+  svg += `<text x="${margin.left - 2}" y="${margin.top + innerH}" text-anchor="end" font-size="8" fill="var(--text-muted)">${(yMin * 100).toFixed(0)}%</text>`;
+  svg += `</svg>`;
+  return svg;
+}
+
+function renderDetail(container, detail) {
+  const completeCount = (detail.episodes || []).filter(e => e.is_complete).length;
   container.innerHTML = `
-    <div class="chart-label" style="font-weight:600;margin-top:4px">일봉 (최근 ${detail.daily.length}거래일)</div>
-    ${priceChartBlock(detail.daily, "일봉")}
+    ${priceChartBlock(detail.daily)}
+    <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭(underwater) 추이 (최근 약 2년)</div>
+    ${underwaterDetailBlock(detail.underwater)}
+    <div class="chart-label" style="font-weight:600;margin-top:6px">과거 낙폭국면 히스토그램 (완결 ${completeCount}회, 파랑=완결/빨강=진행중)</div>
+    ${episodeHistogramSvg(detail.episodes, detail.percentiles)}
+    <div class="chart-label" style="font-weight:600;margin-top:6px">RSI · MFI (일/주/월)</div>
     ${oscillatorChartBlock(detail.daily, "일봉")}
-    <div class="chart-label" style="font-weight:600;margin-top:10px">주봉 (최근 ${detail.weekly.length}주 · 3~6개월 이상 보유 판단용)</div>
-    ${priceChartBlock(detail.weekly, "주봉")}
     ${oscillatorChartBlock(detail.weekly, "주봉")}
+    ${oscillatorChartBlock(detail.monthly, "월봉")}
   `;
 }
 
 async function ensureDetailCharts(symb, cardEl) {
   const holder = cardEl.querySelector(".charts-holder");
   if (!holder) return;
-  if (detailCache[symb]) {
-    renderCharts(holder, detailCache[symb]);
-    return;
-  }
+  if (detailCache[symb]) { renderDetail(holder, detailCache[symb]); return; }
   holder.innerHTML = '<div class="chart-loading">차트 불러오는 중...</div>';
   try {
     const res = await fetch(`detail/${symb}.json`, { cache: "no-store" });
     if (!res.ok) throw new Error("상세 데이터 없음 (" + res.status + ")");
     const detail = await res.json();
     detailCache[symb] = detail;
-    renderCharts(holder, detail);
+    renderDetail(holder, detail);
   } catch (e) {
     holder.innerHTML = `<div class="chart-loading">차트를 불러오지 못했습니다: ${e.message}</div>`;
   }
 }
 
-function breakdownRow(label, value, weight) {
-  const pct = Math.round(value * 100);
-  const contrib = (value * weight).toFixed(1);
-  return `<div class="breakdown-row">
-    <div class="breakdown-label">${label}</div>
-    <div class="breakdown-track"><div class="breakdown-fill" style="width:${pct}%"></div></div>
-    <div class="breakdown-val">${contrib}/${weight}</div>
-  </div>`;
-}
+// ---- 카드 렌더 ----
 
-function badgeClass(key, d, recent) {
-  if (d[key]) return "on";
-  if (recent && recent[key]) return "recent";
-  return "";
+function recoveryLineHtml(p) {
+  if (!p) return `<div class="recovery-line">베이스라인 데이터 부족(과거 국면 5개 미만) - 신호 계산 생략</div>`;
+  return `<div class="recovery-line">과거 국면(총 ${p.count}회) 회복기간 - 최소 ${fmtDays(p.recovery_days_min)} · 중간 ${fmtDays(p.recovery_days_median)} · 최장 ${fmtDays(p.recovery_days_max)}</div>`;
 }
 
 function cardHtml(t) {
   const pctClass = t.pct_chg >= 0 ? "up" : "down";
   const pctSign = t.pct_chg >= 0 ? "+" : "";
-  const b = t.breakdown, d = t.detected, recent = t.recent_detected;
   return `
-    ${t.is_new ? '<div class="new-flag">NEW 65+</div><br>' : ""}
+    ${t.is_new ? '<div class="new-flag">NEW 신호</div><br>' : ""}
     <div class="card-top">
       <div class="ticker-block">
         <div class="symb">${escapeHtml(t.symb)}</div>
         <div class="name">${escapeHtml(t.name)}</div>
         <div class="cat-tag">${escapeHtml(t.category)}</div>
       </div>
-      <div class="score-badge ${scoreClass(t.score)}">${t.score.toFixed(1)}</div>
+      <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
     </div>
     <div class="price-row">
-      <span>$${t.close.toFixed(2)}</span>
+      <span>${fmtPrice(t)}</span>
       <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
+      <span style="color:var(--text-muted)">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
     </div>
     ${t.business_summary ? `<div class="biz-summary">${escapeHtml(t.business_summary)}</div>` : ""}
-    <div class="badges">
-      <span class="badge ${badgeClass("divergence", d, recent)}">다이버전스</span>
-      <span class="badge ${badgeClass("squeeze", d, recent)}">스퀴즈확장</span>
-      <span class="badge ${badgeClass("mfi_lead", d, recent)}">MFI선행</span>
-      <span class="badge ${d.vol_exhaustion ? "on" : ""}">거래량소진</span>
+    <div class="mini-chart-block">
+      <div class="chart-label">낙폭 위치 (P50/P25/P10 대비)</div>
+      ${depthGaugeSvg(t.depth, t.percentiles)}
     </div>
-    ${recent && (recent.divergence || recent.squeeze || recent.mfi_lead) &&
-      !(d.divergence || d.squeeze || d.mfi_lead)
-      ? `<div class="recent-note">💡 최근 ${RECENT_SIGNAL_DAYS}일 내 감지된 신호가 있었습니다(오늘은 아님) — 옅은 배지 참고</div>`
-      : ""}
-    <div class="spark">${sparklineSvg(t.sparkline)}</div>
+    ${recoveryLineHtml(t.percentiles)}
+    ${t.is_record_drawdown ? '<div class="record-badge">⚠️ 사상 최대 낙폭</div>' : ""}
+    <div class="mini-chart-block">
+      <div class="chart-label">최근 약 1년 낙폭(underwater) 추이</div>
+      ${underwaterSparkSvg(t.underwater_spark)}
+    </div>
+    <div class="tf-badges">${timeframeBadgesHtml(t.timeframes)}</div>
     <div class="detail">
       <div class="charts-holder"><div class="chart-loading">카드를 펼치면 차트를 불러옵니다...</div></div>
-      ${breakdownRow("주봉추세", b.weekly_trend, 15)}
-      ${breakdownRow("%B하단근접", b.percent_b, 15)}
-      ${breakdownRow("RSI다이버전스", b.rsi_divergence, 25)}
-      ${breakdownRow("MFI선행반등", b.mfi_lead, 20)}
-      ${breakdownRow("스퀴즈확장", b.squeeze_expansion, 15)}
-      ${breakdownRow("거래량소진", b.volume_exhaustion, 10)}
-      <div class="regime-note ${t.regime_penalty ? "" : "ok"}">
-        ADX ${t.adx.toFixed(1)} ${t.regime_penalty ? "— 강한 하락추세 진행 중 (점수 70% 감점 적용됨)" : "— 하락추세 감점 없음"}
-      </div>
     </div>
   `;
 }
 
 function bannerHtml(newOnes) {
-  if (!newOnes.length) {
-    return '<div class="banner-empty">오늘 신규 65점 진입 종목 없음</div>';
-  }
+  if (!newOnes.length) return '<div class="banner-empty">오늘 신규 알림 대상 없음</div>';
   return `
-    <div class="banner-title">오늘의 신규 매수신호 (${newOnes.length}개) · 카드를 눌러 자세히 보기</div>
+    <div class="banner-title">오늘의 신규 알림 (${newOnes.length}개) · 카드를 눌러 자세히 보기</div>
     <div class="banner-grid">
       ${newOnes.map(t => `<div class="card banner-card" data-symb="${escapeHtml(t.symb)}">${cardHtml(t)}</div>`).join("")}
     </div>
@@ -557,43 +601,14 @@ function bannerHtml(newOnes) {
 
 function applyFilters(tickers) {
   let list = tickers.filter(t => {
-    if (state.verdict !== "all" && t.verdict !== state.verdict) return false;
+    if (state.stage !== "all" && t.stage < Number(state.stage)) return false;
     if (state.category !== "all" && t.category !== state.category) return false;
-    if (state.pullbackOnly && !t.pullback_candidate) return false;
     return true;
   });
-  if (state.sort === "score") list.sort((a, b) => b.score - a.score);
+  if (state.sort === "stage") list.sort((a, b) => (b.stage - a.stage) || (a.depth - b.depth));
+  else if (state.sort === "depth") list.sort((a, b) => a.depth - b.depth);
   else if (state.sort === "pct_chg") list.sort((a, b) => b.pct_chg - a.pct_chg);
   else if (state.sort === "symb") list.sort((a, b) => a.symb.localeCompare(b.symb));
-  else if (state.sort === "early_sensing") {
-    // 참고용 정렬 - 백테스트로 검증된 건 아니고, "아직 65점 안 됐지만 먼저
-    // 살펴볼 후보"를 위로 올려주는 용도. 우선순위: 오늘 신규 65+ 진입
-    // > 최근 3일 내 신호 감지 이력 있음(아직 65 미만) > 나머지 점수순.
-    const tier = t => {
-      if (t.is_new) return 0;
-      const r = t.recent_detected;
-      if (r && (r.divergence || r.squeeze || r.mfi_lead) && t.verdict !== "강한매수후보") return 1;
-      return 2;
-    };
-    list.sort((a, b) => {
-      const ta = tier(a), tb = tier(b);
-      if (ta !== tb) return ta - tb;
-      return b.score - a.score;
-    });
-  }
-  else if (state.sort === "bluechip") {
-    list.sort((a, b) => {
-      const ra = BLUECHIP_RANK.has(a.symb) ? BLUECHIP_RANK.get(a.symb) : Infinity;
-      const rb = BLUECHIP_RANK.has(b.symb) ? BLUECHIP_RANK.get(b.symb) : Infinity;
-      if (ra !== rb) return ra - rb;
-      // 고정 종목 밖에서는 변동성(낮을수록 우량주에 가깝다는 프록시) 오름차순.
-      // 변동성 값이 없는 종목(신규 상장 등 데이터 부족)은 맨 뒤로.
-      const va = a.volatility != null ? a.volatility : Infinity;
-      const vb = b.volatility != null ? b.volatility : Infinity;
-      if (va !== vb) return va - vb;
-      return b.score - a.score;
-    });
-  }
   return list;
 }
 
@@ -613,9 +628,7 @@ function render() {
   document.querySelectorAll("#banner .card, #grid .card").forEach(el => {
     el.addEventListener("click", () => {
       el.classList.toggle("expanded");
-      if (el.classList.contains("expanded")) {
-        ensureDetailCharts(el.dataset.symb, el);
-      }
+      if (el.classList.contains("expanded")) ensureDetailCharts(el.dataset.symb, el);
     });
   });
 }
@@ -628,11 +641,11 @@ function wireHelp() {
 }
 
 function wireToolbar() {
-  document.querySelectorAll("#filter-verdict .chip").forEach(chip => {
+  document.querySelectorAll("#filter-stage .chip").forEach(chip => {
     chip.addEventListener("click", () => {
-      document.querySelectorAll("#filter-verdict .chip").forEach(c => c.classList.remove("active"));
+      document.querySelectorAll("#filter-stage .chip").forEach(c => c.classList.remove("active"));
       chip.classList.add("active");
-      state.verdict = chip.dataset.verdict;
+      state.stage = chip.dataset.stage;
       render();
     });
   });
@@ -648,11 +661,6 @@ function wireToolbar() {
     state.sort = e.target.value;
     render();
   });
-  document.getElementById("pullback-toggle").addEventListener("click", (e) => {
-    state.pullbackOnly = !state.pullbackOnly;
-    e.target.classList.toggle("active", state.pullbackOnly);
-    render();
-  });
 }
 
 async function init() {
@@ -662,13 +670,13 @@ async function init() {
     const res = await fetch("scores.json", { cache: "no-store" });
     if (!res.ok) throw new Error("scores.json 로드 실패: " + res.status);
     DATA = await res.json();
-    const regime = DATA.market_regime || "판정불가";
+    const regime = DATA.market_regime || {};
     document.getElementById("meta-line").textContent =
-      `기준일 ${DATA.as_of_date} · 생성 ${DATA.generated_at} · 총 ${DATA.tickers.length}종목 · 오늘 시장국면: ${regime}`;
+      `기준일 ${DATA.as_of_date} · 생성 ${DATA.generated_at} · 총 ${DATA.tickers.length}종목 · ` +
+      `시장국면(참고용) 미국 ${regime.us || "판정불가"} · 한국 ${regime.kr || "판정불가"}`;
     document.getElementById("footer").textContent =
-      "매일 한국시간 07:30 자동 갱신 · 조회/알림 전용 시스템 (자동매매 없음) · " +
-      "점수는 3~6개월 이상 보유 기준으로 검증된 참고 지표입니다";
-    localStorage.setItem("kis-dashboard-last-seen", DATA.as_of_date);
+      "매일 한국시간 07:30 자동 갱신 · 조회/알림 전용 시스템(자동매매 없음) · " +
+      "MDD/RSI/MFI/다이버전스는 참고 지표이며 최종 매수판단은 사용자가 직접 합니다";
     render();
   } catch (e) {
     document.getElementById("meta-line").textContent = "데이터 로드 실패";

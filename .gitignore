@@ -183,13 +183,17 @@ kis_devlp.yaml
 # history.json / notified.json / universe_cache.json은 GitHub Actions 실행 간
 # 상태를 유지해야 하므로 커밋 대상에 포함.
 signal_bot/data/*.csv
-signal_bot/data/nvda_step6_chart.json
 
 # STEP 12(섹션 13-3): 대시보드 데이터는 이제 main이 아니라 data 브랜치(orphan
 # commit)로만 발행하므로, main에서는 매일 재생성되는 이 파일들을 추적하지 않는다.
 docs/scores.json
 docs/detail/
 
-# STEP 10 백테스트용 장기(10~13년치) 데이터 - 약 200MB+, signal_bot/backtest_fetch.py로
-# 언제든 재생성 가능한 1회성 연구용 데이터라 커밋 대상에서 제외.
+# MDD 계산용 20년치 baseline 원본 CSV - signal_bot/baseline_fetch.py로 언제든
+# 재생성 가능한 데이터라 커밋 대상에서 제외(mdd_baseline.json 집계 결과만 커밋).
+signal_bot/data/baseline/
+
+# 구 전략(삭제된 backtest_fetch.py)이 만들었던 10~13년치 연구용 데이터(약 1.1GB) -
+# 생성 스크립트 자체가 삭제되어 더 이상 재생성 불가하지만, 원본 데이터라 커밋
+# 대상에선 계속 제외. 필요 없으면 수동으로 삭제해도 됨.
 signal_bot/data/backtest/

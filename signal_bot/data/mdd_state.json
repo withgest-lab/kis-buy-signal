@@ -1,0 +1,246 @@
+{
+  "AIPO": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 3
+  },
+  "ARKK": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 3
+  },
+  "ORCL": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 3
+  },
+  "000660": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 3
+  },
+  "SOXX": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "VOLT": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "AVGO": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "META": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "WMT": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "INTC": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "CSCO": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "COST": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "LRCX": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "AMAT": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "KOSPI200": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "005930": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 2
+  },
+  "BOTZ": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "ROBO": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "QTUM": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "GOOGL": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "GOOG": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "TSLA": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "MU": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "AMD": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "ASML": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "PLTR": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "CAT": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 1
+  },
+  "SPY": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "QQQ": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "DIA": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "IWM": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLK": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLF": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLE": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLV": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLI": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLP": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLY": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLU": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLB": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLRE": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XLC": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "CIBR": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "BUG": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "ICLN": {
+    "episode_start_date": null,
+    "last_stage_notified": 0
+  },
+  "NVDA": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "AAPL": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "MSFT": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "AMZN": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "SPCX": {
+    "episode_start_date": null,
+    "last_stage_notified": 0
+  },
+  "BRK-B": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "LLY": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "JPM": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "V": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "JNJ": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "XOM": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "MA": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "ABBV": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "BAC": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "CVX": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  },
+  "KO": {
+    "episode_start_date": "2026-09-04",
+    "last_stage_notified": 0
+  }
+}

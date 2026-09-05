@@ -1,112 +1,155 @@
-"""상태 변화 감지(어제 미만 -> 오늘 이상) + 중복 알림 방지 (PROJECT_PLAN.md 섹션 4)."""
+"""알림 트리거 감지(상태변화) + 메시지 포맷 + 발송 중복방지.
+
+두 종류의 독립 트리거가 있고, 하나라도 발생하면 알림 대상이 된다:
+  1. MDD 국면 단계 상승(1->2->3단계, 국면별 1회) - mdd_state.json
+  2. RSI/MFI 과매도 신규진입 또는 다이버전스 감지(일/주/월 중 하나라도) - indicator_state.json
+발송 자체의 당일 중복방지는 notified.json(기존 패턴 그대로)이 담당한다.
+"""
 
 import json
 from pathlib import Path
 
 DATA_DIR = Path("signal_bot/data")
 NOTIFIED_PATH = DATA_DIR / "notified.json"
+MDD_STATE_PATH = DATA_DIR / "mdd_state.json"
+INDICATOR_STATE_PATH = DATA_DIR / "indicator_state.json"
 
-# 2026-07-26 백테스트 검증: 65점은 70점과 거의 동일한 우위(OOS 126일 기준
-# +2.36%p vs +2.45%p)를 유지하면서 신호 건수는 1.8배 더 잡음(조기 감지 목적에
-# 부합). 60점은 우위가 절반 수준(+1.21%p)으로 희석돼서 기각.
-STRONG_BUY_THRESHOLD = 65
+_TIMEFRAMES = ["daily", "weekly", "monthly"]
+_TIMEFRAME_LABELS = {"daily": "일봉", "weekly": "주봉", "monthly": "월봉"}
+_METRICS = ["rsi_oversold", "mfi_oversold", "divergence"]
 
+_STAGE_LABELS = {1: "1단계(관찰)", 2: "2단계(깊은낙폭)", 3: "3단계(극단)"}
 
-def find_new_strong_signals(history: dict, today: str,
-                             threshold: float = STRONG_BUY_THRESHOLD) -> list[dict]:
-    """history: {date: {symb: {score, verdict, ...}}}. today가 첫 기록이면(전날 데이터 없음)
-    비교 대상이 없으므로 빈 리스트를 반환한다 (오탐 방지)."""
-    dates = sorted(history.keys())
-    if today not in dates:
-        return []
-    idx = dates.index(today)
-    if idx == 0:
-        return []
-
-    prev_date = dates[idx - 1]
-    today_data = history[today]
-    prev_data = history[prev_date]
-
-    new_signals = []
-    for symb, rec in today_data.items():
-        prev_score = prev_data.get(symb, {}).get("score", 0)
-        if prev_score < threshold and rec["score"] >= threshold:
-            new_signals.append(rec)
-    return new_signals
+# 국면 종료(신고가 복귀) 판정 여유값 - depth가 이보다 0에 가까우면 신고가로
+# 본다(부동소수 오차 방지).
+EPISODE_CLOSE_BAND = -0.005
 
 
-# 세부신호별 쉬운 설명 (detected 딕셔너리 키 -> (표시이름, 쉬운 설명))
-_SIGNAL_EXPLAINS = {
-    "divergence": ("다이버전스", "가격은 신저점을 찍었는데 RSI/MFI(매수·매도 힘을 나타내는 지표)는 "
-                                  "오히려 덜 떨어졌습니다 → 하락시키는 힘이 약해지고 있다는 신호"),
-    "squeeze": ("스퀴즈확장", "변동성이 한동안 좁게 움직이다가 다시 커지기 시작했습니다 → "
-                              "조만간 큰 방향성 움직임이 나올 가능성"),
-    "mfi_lead": ("MFI선행", "거래(돈)의 흐름을 보는 지표(MFI)가 가격보다 먼저 반등 조짐을 보였습니다 "
-                            "→ 사람 심리보다 실제 돈의 움직임이 한발 먼저 방향을 튼 경우"),
-    "vol_exhaustion": ("거래량소진", "최근 거래량이 눈에 띄게 줄었습니다 → 팔 사람은 이제 얼추 다 팔았다는 신호"),
-}
+# ---------------------------------------------------------------------------
+# 상태 파일 로드/저장
+# ---------------------------------------------------------------------------
 
-
-def format_alert_message(new_signals: list[dict], today: str) -> str:
-    regime = new_signals[0].get("market_regime", "판정불가") if new_signals else "판정불가"
-    regime_note = {
-        "상승장": "과거 검증상 이런 신호가 상대적으로 더 잘 맞았던 국면입니다.",
-        "횡보장": "과거 검증상 눌림목 신호가 특히 잘 맞았던 국면입니다.",
-        "하락장": "시장 전체가 하락 국면이라 신규 강한매수 신호는 자동으로 걸러집니다.",
-        "판정불가": "시장 국면 판정에 필요한 데이터가 부족합니다.",
-    }.get(regime, "")
-
-    n = len(new_signals)
-    lines = [
-        f"📈 *KIS 매수신호 알림* ({today})",
-        "",
-        f"💡 *요약*: 오늘 {n}개 종목이 걸러졌습니다. 543종목을 사람이 매일 다 "
-        "훑어보긴 불가능해서, 그중 \"한 번 볼 만한 후보\"만 골라드리는 겁니다. "
-        "*3~6개월 이상 보유를 전제로 검증된 참고 지표*이며, 며칠~몇 주 내 "
-        "단기 반등을 노리는 용도는 아닙니다.",
-        "",
-    ]
-
-    for r in new_signals:
-        pct_chg = r.get("pct_chg", 0.0)
-        summary = r.get("business_summary", "").strip()
-        lines.append(f"• *{r['symb']}* ({r['name']}) - {r['verdict']}, {pct_chg:+.2f}%")
-        if summary:
-            lines.append(f"  {summary}")
-    lines.append("")
-
-    # 이번 알림에 실제로 등장한 세부신호만 골라서 설명 (없는 건 생략해서 메시지 간결하게)
-    present_keys = []
-    for r in new_signals:
-        for key in r.get("detected", {}):
-            if r["detected"].get(key) and key not in present_keys:
-                present_keys.append(key)
-
-    lines.append("📋 *왜 이 종목들이 걸렸나* (판단 근거)")
-    lines.append(f"오늘 시장 국면: {regime}. {regime_note}")
-    for key in present_keys:
-        name, explain = _SIGNAL_EXPLAINS.get(key, (key, ""))
-        if explain:
-            lines.append(f"· {name}: {explain}")
-
-    return "\n".join(lines)
-
-
-def load_notified() -> dict:
-    if NOTIFIED_PATH.exists():
-        with open(NOTIFIED_PATH, encoding="utf-8") as f:
+def _load_json(path: Path) -> dict:
+    if path.exists():
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
     return {}
 
 
+def _save_json(path: Path, data: dict) -> None:
+    DATA_DIR.mkdir(exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_mdd_state() -> dict:
+    return _load_json(MDD_STATE_PATH)
+
+
+def save_mdd_state(state: dict) -> None:
+    _save_json(MDD_STATE_PATH, state)
+
+
+def load_indicator_state() -> dict:
+    return _load_json(INDICATOR_STATE_PATH)
+
+
+def save_indicator_state(state: dict) -> None:
+    _save_json(INDICATOR_STATE_PATH, state)
+
+
+def load_notified() -> dict:
+    return _load_json(NOTIFIED_PATH)
+
+
 def save_notified(notified: dict) -> None:
-    with open(NOTIFIED_PATH, "w", encoding="utf-8") as f:
-        json.dump(notified, f, ensure_ascii=False, indent=2)
+    _save_json(NOTIFIED_PATH, notified)
 
 
-def filter_unnotified(new_signals: list[dict], today: str, notified: dict) -> list[dict]:
+# ---------------------------------------------------------------------------
+# 트리거 1: MDD 국면 단계 상승
+# ---------------------------------------------------------------------------
+
+def find_stage_upgrades(results: list[dict], mdd_state: dict) -> list[dict]:
+    """국면 내 단계가 오늘 새로 올라갔으면 이벤트로 반환하고 mdd_state를 갱신.
+    신고가 복귀(depth≈0)로 국면이 끝나면 상태를 리셋해 다음 국면에서 재알림 가능."""
+    events = []
+    for r in results:
+        symb = r["symb"]
+        depth = r["depth"]
+        stage = r["stage"]  # percentiles가 없으면 classify_stage()가 항상 0을 반환
+        state = mdd_state.setdefault(symb, {"episode_start_date": None, "last_stage_notified": 0})
+
+        if depth >= EPISODE_CLOSE_BAND:
+            if state["episode_start_date"] is not None:
+                state["episode_start_date"] = None
+                state["last_stage_notified"] = 0
+            continue
+
+        if state["episode_start_date"] is None:
+            state["episode_start_date"] = r["date"]
+            state["last_stage_notified"] = 0
+
+        if stage > state["last_stage_notified"]:
+            state["last_stage_notified"] = stage
+            events.append({**r, "trigger_reasons": [f"mdd_stage_{stage}"]})
+
+    return events
+
+
+# ---------------------------------------------------------------------------
+# 트리거 2: RSI/MFI 과매도 신규진입 또는 다이버전스 감지 (일/주/월)
+# ---------------------------------------------------------------------------
+
+def _empty_indicator_state() -> dict:
+    return {tf: {m: False for m in _METRICS} for tf in _TIMEFRAMES}
+
+
+def find_indicator_events(results: list[dict], indicator_state: dict) -> list[dict]:
+    """일/주/월 각 시간대에서 RSI/MFI 과매도가 새로 켜졌거나 다이버전스가
+    감지되면(어제는 아니었는데 오늘 그런 상태) 이벤트로 반환, indicator_state 갱신."""
+    events = []
+    for r in results:
+        if "timeframes" not in r:
+            continue
+        symb = r["symb"]
+        prev = indicator_state.setdefault(symb, _empty_indicator_state())
+        reasons = []
+
+        for tf in _TIMEFRAMES:
+            cur_tf = r["timeframes"].get(tf, {})
+            prev_tf = prev.setdefault(tf, {m: False for m in _METRICS})
+            for m in _METRICS:
+                cur_val = bool(cur_tf.get(m))
+                if cur_val and not prev_tf.get(m):
+                    reasons.append(f"{_TIMEFRAME_LABELS[tf]}_{m}")
+                prev_tf[m] = cur_val
+
+        if reasons:
+            events.append({**r, "trigger_reasons": reasons})
+
+    return events
+
+
+def find_alert_candidates(results: list[dict], mdd_state: dict, indicator_state: dict) -> list[dict]:
+    """두 트리거(MDD 단계상승, RSI/MFI/다이버전스 이벤트)를 합쳐서 종목당 1건으로
+    합침(같은 종목이 둘 다 발생하면 trigger_reasons를 합침)."""
+    mdd_events = find_stage_upgrades(results, mdd_state)
+    ind_events = find_indicator_events(results, indicator_state)
+
+    merged: dict[str, dict] = {}
+    for r in mdd_events + ind_events:
+        symb = r["symb"]
+        if symb in merged:
+            merged[symb]["trigger_reasons"] = merged[symb]["trigger_reasons"] + r["trigger_reasons"]
+        else:
+            merged[symb] = dict(r)
+    return list(merged.values())
+
+
+def filter_unnotified(candidates: list[dict], today: str, notified: dict) -> list[dict]:
     already = set(notified.get(today, []))
-    return [r for r in new_signals if r["symb"] not in already]
+    return [r for r in candidates if r["symb"] not in already]
 
 
 def mark_notified(notified: dict, today: str, symbs: list[str]) -> dict:
@@ -115,3 +158,102 @@ def mark_notified(notified: dict, today: str, symbs: list[str]) -> dict:
         if s not in notified[today]:
             notified[today].append(s)
     return notified
+
+
+# ---------------------------------------------------------------------------
+# 메시지 포맷 - 종목명/비즈니스요약/MDD/RSI·MFI·다이버전스만 (그 외는 넣지 않음)
+# ---------------------------------------------------------------------------
+
+def _fmt_days(days) -> str:
+    if days is None:
+        return "-"
+    years = days / 252
+    if years >= 1:
+        return f"약 {years:.1f}년"
+    return f"약 {days / 21:.1f}개월"
+
+
+def _format_mdd_block(r: dict) -> list[str]:
+    if r.get("percentiles") is None:
+        return ["\U0001F4C9 MDD - 베이스라인 데이터 부족(과거 국면 5개 미만)"]
+
+    p = r["percentiles"]
+    stage_label = _STAGE_LABELS.get(r["stage"], "신호없음")
+    lines = [
+        f"\U0001F4C9 MDD {stage_label} · 낙폭 {r['depth'] * 100:.1f}%",
+        f"과거 국면 기준 중간값 {p['p50'] * 100:.1f}% / 극단 {p['p10'] * 100:.1f}%",
+        f"회복기간 보통 {_fmt_days(p['recovery_days_median'])}, 길면 {_fmt_days(p['recovery_days_max'])}",
+    ]
+    if r.get("is_record_drawdown"):
+        lines.append("⚠️ 사상 최대 낙폭 - 참고할 과거 데이터 없음")
+    return lines
+
+
+def _format_indicator_block(r: dict) -> list[str]:
+    lines = ["\U0001F4C8 RSI·MFI (과매도 기준 30/20)"]
+    for tf in _TIMEFRAMES:
+        t = r.get("timeframes", {}).get(tf, {})
+        rsi_v, mfi_v = t.get("rsi"), t.get("mfi")
+        rsi_s = "-" if rsi_v is None else f"{rsi_v:.0f}" + ("(과매도)" if t.get("rsi_oversold") else "")
+        mfi_s = "-" if mfi_v is None else f"{mfi_v:.0f}" + ("(과매도)" if t.get("mfi_oversold") else "")
+        div_s = " · 다이버전스감지" if t.get("divergence") else ""
+        lines.append(f"{_TIMEFRAME_LABELS[tf]} RSI {rsi_s} · MFI {mfi_s}{div_s}")
+    return lines
+
+
+def _format_ticker_block(r: dict) -> list[str]:
+    currency = "₩" if r.get("currency") == "KRW" else "$"
+    pct = r.get("pct_chg", 0.0)
+    lines = [f"*{r['symb']}* ({r['name']}) - {currency}{r['close']:,.2f} ({pct:+.2f}%)"]
+
+    summary = (r.get("business_summary") or "").strip()
+    if summary:
+        lines.append(summary)
+
+    lines.append("")
+    lines.extend(_format_mdd_block(r))
+    lines.append("")
+    lines.extend(_format_indicator_block(r))
+    return lines
+
+
+# 텔레그램 메시지 하나당 최대 4096자 제한 - 여유를 두고 이보다 낮게 잡아서
+# 여러 종목이 한꺼번에 걸려도(예: 최초 실행일) 메시지가 잘려서 발송 자체가
+# 실패(400 Bad Request)하지 않도록 종목 블록 단위로 여러 메시지로 쪼갠다.
+TELEGRAM_MAX_LEN = 3500
+_HEADER = "\U0001F4CA *MDD·RSI/MFI 매수참고 알림*"
+
+
+def format_alert_messages(to_send: list[dict], today: str) -> list[str]:
+    """to_send를 종목 블록 단위로 나눠 텔레그램 글자수 제한 안에 들어오는
+    여러 메시지로 반환한다(발송은 호출부에서 순서대로 여러 번)."""
+    if not to_send:
+        return []
+
+    header = f"{_HEADER} ({today})"
+    divider = "─" * 16  # 종목 블록 사이 구분선(가독성용)
+    messages: list[str] = []
+    current: list[str] = [header, ""]
+
+    for i, r in enumerate(to_send):
+        block = _format_ticker_block(r)
+        block_text = "\n".join(block)
+        if len(current) > 2 and len("\n".join(current)) + len(block_text) + 1 > TELEGRAM_MAX_LEN:
+            messages.append("\n".join(current).rstrip())
+            current = [f"{header} (이어서)", ""]
+        elif len(current) > 2:
+            current.append(divider)
+            current.append("")
+        current.extend(block)
+        current.append("")
+
+    if len(current) > 2:
+        messages.append("\n".join(current).rstrip())
+
+    return messages
+
+
+def format_alert_message(to_send: list[dict], today: str) -> str:
+    """단일 문자열 버전(테스트/디버그용) - 실제 발송은 format_alert_messages()를
+    써서 글자수 제한을 넘지 않게 여러 건으로 나눠 보낸다."""
+    return "\n\n".join(format_alert_messages(to_send, today))

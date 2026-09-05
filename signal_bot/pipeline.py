@@ -1,6 +1,7 @@
-"""STEP 7: 32개 종목 전체 파이프라인 - 점수/판정/세부신호 표 출력 + JSON 이력 저장.
+"""MDD 단계 + 일/주/월 RSI/MFI/다이버전스 계산 → 이력 저장 → 텔레그램 알림.
 
-실행 전 signal_bot/fetch_universe.py로 최신 시세를 먼저 받아둬야 한다.
+실행 전 signal_bot/fetch_universe.py(운영용 일봉)와 signal_bot/baseline_fetch.py
+(20년치 베이스라인, 월 1회 정도만 실제 수집)를 먼저 실행해둬야 한다.
 """
 
 import json
@@ -10,33 +11,18 @@ import pandas as pd
 
 from signal_bot import alerts
 from signal_bot import company_info
-from signal_bot import indicators as ind
-from signal_bot.config import HISTORY_MAX_DAYS, TICKER_NAMES, TICKERS
-from signal_bot.notifier import send_telegram_message
-from signal_bot.scoring import apply_market_filter, compute_scores, market_regime
+from signal_bot import mdd
+from signal_bot import timeframe_signals as tf
+from signal_bot.config import HISTORY_MAX_DAYS, TICKER_NAMES, TICKERS, is_kr
 
 DATA_DIR = Path("signal_bot/data")
+BASELINE_DIR = DATA_DIR / "baseline"
 HISTORY_PATH = DATA_DIR / "history.json"
 
-# "일봉+주봉 둘 다 볼린저 하단터치 + RSI/MFI 과매도" 필터 기준 (사용자 요청,
-# 2026-07-26). %B<=0.1은 기존 오버솔드 백테스트(PROJECT_PLAN.md 섹션 14)와
-# 동일 기준, RSI/MFI<=35도 마찬가지.
-PULLBACK_PERCENT_B_MAX = 0.1
-PULLBACK_RSI_MFI_MAX = 35
-
-
-def _is_oversold(percent_b: float, rsi: float, mfi: float) -> bool:
-    return percent_b <= PULLBACK_PERCENT_B_MAX and (rsi <= PULLBACK_RSI_MFI_MAX or mfi <= PULLBACK_RSI_MFI_MAX)
-
-
-def _weekly_indicators(weekly: pd.DataFrame) -> pd.Series:
-    """주봉 자체의 RSI/MFI/%B (compute_scores는 주봉추세 필터용 20주선만 쓰고
-    주봉 자체 RSI/MFI/볼린저는 계산 안 해서 별도 계산)."""
-    w = weekly.copy()
-    w["rsi"] = ind.rsi(w["close"])
-    w["mfi"] = ind.mfi(w["high"], w["low"], w["close"], w["volume"])
-    w = pd.concat([w, ind.bollinger(w["close"])], axis=1)
-    return w.iloc[-1]
+# 시장국면 참고정보용 지수 - 미국은 SPY, 한국은 KOSPI200. 신호를 차단하지
+# 않고 알림/대시보드에 참고정보로만 쓴다.
+US_REGIME_TICKER = "SPY"
+KR_REGIME_TICKER = "KOSPI200"
 
 
 def load_history() -> dict:
@@ -52,7 +38,7 @@ def save_history(history: dict) -> None:
 
 
 def trim_history(history: dict, max_days: int = HISTORY_MAX_DAYS) -> dict:
-    """최근 max_days 거래일만 남기고 그 이전 날짜는 버린다 (저장소 용량 무한증가 방지)."""
+    """최근 max_days 거래일만 남기고 그 이전 날짜는 버린다(저장소 용량 무한증가 방지)."""
     dates = sorted(history.keys())
     if len(dates) <= max_days:
         return history
@@ -60,123 +46,120 @@ def trim_history(history: dict, max_days: int = HISTORY_MAX_DAYS) -> dict:
     return {d: rec for d, rec in history.items() if d in keep}
 
 
-def _signal_summary(row: pd.Series) -> str:
-    tags = []
-    if row["rsi_div_detected"]:
-        tags.append("다이버전스")
-    if row["squeeze_exp_detected"]:
-        tags.append("스퀴즈확장")
-    if row["mfi_lead_detected"]:
-        tags.append("MFI선행")
-    if row["s_volume_exhaustion"] > 0:
-        tags.append("거래량소진")
-    return ",".join(tags) if tags else "-"
+def _read_daily(symb: str) -> pd.DataFrame:
+    return pd.read_csv(DATA_DIR / f"{symb}_daily.csv", parse_dates=["date"])
 
 
-def _today_market_regime() -> str:
-    spy_path = DATA_DIR / "SPY_daily.csv"
-    if not spy_path.exists():
-        return "판정불가"
-    spy = pd.read_csv(spy_path, parse_dates=["date"])
-    return market_regime(spy["close"])
+def _read_baseline_daily(symb: str) -> pd.DataFrame | None:
+    path = BASELINE_DIR / f"{symb}_daily.csv"
+    if not path.exists():
+        return None
+    return pd.read_csv(path, parse_dates=["date"])
 
 
-def run() -> list[dict]:
-    regime = _today_market_regime()
-    results = []
-    errors = []
+def _regime_for(category: str, regime_cache: dict) -> str:
+    ticker = KR_REGIME_TICKER if is_kr(category) else US_REGIME_TICKER
+    if ticker in regime_cache:
+        return regime_cache[ticker]
+    try:
+        close = _read_daily(ticker)["close"]
+        regime_cache[ticker] = mdd.market_regime(close)
+    except Exception:
+        regime_cache[ticker] = "판정불가"
+    return regime_cache[ticker]
+
+
+def run() -> tuple[list[dict], list[tuple]]:
+    baseline = mdd.load_baseline()
+    regime_cache: dict = {}
+    results, errors = [], []
+
     for category, symb in TICKERS:
         daily_path = DATA_DIR / f"{symb}_daily.csv"
-        weekly_path = DATA_DIR / f"{symb}_weekly.csv"
-        if not daily_path.exists() or not weekly_path.exists():
+        if not daily_path.exists():
             errors.append((symb, "데이터 없음 (fetch_universe.py 먼저 실행 필요)"))
             continue
+
         try:
-            daily = pd.read_csv(daily_path, parse_dates=["date"])
-            weekly = pd.read_csv(weekly_path, parse_dates=["date"])
-            df = compute_scores(daily, weekly)
-            df = apply_market_filter(df, regime)
+            daily = _read_daily(symb)
+            baseline_daily = _read_baseline_daily(symb)
+            baseline_entry = baseline.get(symb)
+
+            last = daily.iloc[-1]
+            prev_close = float(daily.iloc[-2]["close"]) if len(daily) >= 2 else float(last["close"])
+            pct_chg = (float(last["close"]) - prev_close) / prev_close * 100 if prev_close else 0.0
+
+            record = {
+                "category": category,
+                "symb": symb,
+                "name": TICKER_NAMES.get(symb, symb),
+                "currency": "KRW" if is_kr(category) else "USD",
+                "date": last["date"].strftime("%Y-%m-%d"),
+                "close": round(float(last["close"]), 2),
+                "pct_chg": round(pct_chg, 2),
+                "market_regime": _regime_for(category, regime_cache),
+            }
+
+            if baseline_entry is None or baseline_entry.get("insufficient_data"):
+                record.update({"depth": 0.0, "rolling_high": float(last["close"]),
+                               "stage": 0, "percentiles": None, "episode_count": 0,
+                               "is_record_drawdown": False})
+            else:
+                state = mdd.update_today_state(baseline_entry, daily)
+                percentiles = baseline_entry.get("percentiles")
+                episodes = baseline_entry.get("episodes", [])
+                record.update({
+                    "depth": round(state["depth"], 4),
+                    "rolling_high": round(state["rolling_high"], 2),
+                    "stage": mdd.classify_stage(state["depth"], percentiles),
+                    "percentiles": percentiles,
+                    "episode_count": len(episodes),
+                    "is_record_drawdown": mdd.is_record_drawdown(state["depth"], episodes),
+                })
+
+            record["timeframes"] = tf.compute_multi_timeframe_signals(daily, baseline_daily)
+
+            results.append(record)
         except Exception as e:
             errors.append((symb, str(e)))
-            continue
 
-        last = df.iloc[-1]
-        prev_close = float(df.iloc[-2]["close"]) if len(df) >= 2 else float(last["close"])
-        pct_chg = (float(last["close"]) - prev_close) / prev_close * 100 if prev_close else 0.0
-
-        last_w = _weekly_indicators(weekly)
-        daily_oversold = _is_oversold(last["percent_b"], last["rsi"], last["mfi"])
-        weekly_oversold = (
-            pd.notna(last_w["percent_b"]) and pd.notna(last_w["rsi"]) and pd.notna(last_w["mfi"])
-            and _is_oversold(last_w["percent_b"], last_w["rsi"], last_w["mfi"])
-        )
-
-        results.append({
-            "category": category,
-            "symb": symb,
-            "name": TICKER_NAMES.get(symb, symb),
-            "date": last["date"].strftime("%Y-%m-%d"),
-            "close": round(float(last["close"]), 2),
-            "pct_chg": round(pct_chg, 2),
-            "score": round(float(last["score"]), 1),
-            "verdict": str(last["verdict"]),
-            "signals": _signal_summary(last),
-            "detected": {
-                "divergence": bool(last["rsi_div_detected"]),
-                "squeeze": bool(last["squeeze_exp_detected"]),
-                "mfi_lead": bool(last["mfi_lead_detected"]),
-                "vol_exhaustion": bool(last["s_volume_exhaustion"] > 0),
-            },
-            "breakdown": {
-                "weekly_trend": round(float(last["s_weekly_trend"]), 2),
-                "percent_b": round(float(last["s_percent_b"]), 2),
-                "rsi_divergence": round(float(last["s_rsi_divergence"]), 2),
-                "mfi_lead": round(float(last["s_mfi_lead"]), 2),
-                "squeeze_expansion": round(float(last["s_squeeze_expansion"]), 2),
-                "volume_exhaustion": round(float(last["s_volume_exhaustion"]), 2),
-            },
-            "adx": round(float(last["adx"]), 1),
-            "regime_penalty": bool(last["regime_penalty_applied"]),
-            "market_regime": regime,
-            "pullback_raw": {
-                "daily_percent_b": None if pd.isna(last["percent_b"]) else round(float(last["percent_b"]), 3),
-                "daily_rsi": None if pd.isna(last["rsi"]) else round(float(last["rsi"]), 1),
-                "daily_mfi": None if pd.isna(last["mfi"]) else round(float(last["mfi"]), 1),
-                "weekly_percent_b": None if pd.isna(last_w["percent_b"]) else round(float(last_w["percent_b"]), 3),
-                "weekly_rsi": None if pd.isna(last_w["rsi"]) else round(float(last_w["rsi"]), 1),
-                "weekly_mfi": None if pd.isna(last_w["mfi"]) else round(float(last_w["mfi"]), 1),
-            },
-            "pullback_candidate": bool(daily_oversold and weekly_oversold),
-        })
-
-    results.sort(key=lambda r: r["score"], reverse=True)
+    results.sort(key=lambda r: r["stage"], reverse=True)
     return results, errors
 
 
 def print_report(results: list[dict], errors: list[tuple]) -> None:
-    if results:
-        print(f"오늘의 시장(SPY) 국면: {results[0]['market_regime']}"
-              + (" - 신규 강한매수후보 진입 차단 중" if results[0]["market_regime"] == "하락장" else ""))
-        print()
-    print(f"{'종목':6s} {'분류':8s} {'점수':>6s} {'판정':10s} {'현재가':>10s}  세부신호")
-    print("-" * 72)
+    print(f"{'종목':8s} {'분류':14s} {'통화':>4s} {'현재가':>12s}  {'단계':>4s}  {'낙폭':>7s}  일RSI  주RSI  월RSI")
+    print("-" * 90)
     for r in results:
-        print(f"{r['symb']:6s} {r['category']:8s} {r['score']:6.1f} {r['verdict']:10s} {r['close']:10.2f}  {r['signals']}")
+        d = r["timeframes"]["daily"]
+        w = r["timeframes"]["weekly"]
+        m = r["timeframes"]["monthly"]
+        cur = r["currency"]  # Windows 콘솔(cp949)이 ₩/$ 같은 기호를 못 찍는 경우가 있어 코드로 표시
+        print(
+            f"{r['symb']:8s} {r['category']:14s} {cur:>4s} {r['close']:12,.2f}  "
+            f"{r['stage']:>4d}  {r['depth'] * 100:6.1f}%  "
+            f"{d['rsi'] if d['rsi'] is not None else float('nan'):5.1f}  "
+            f"{w['rsi'] if w['rsi'] is not None else float('nan'):5.1f}  "
+            f"{m['rsi'] if m['rsi'] is not None else float('nan'):5.1f}"
+        )
 
     if errors:
         print("\n실패:")
         for symb, msg in errors:
             print(f"  {symb}: {msg}")
 
-    strong = [r for r in results if r["verdict"] == "강한매수후보"]
-    watch = [r for r in results if r["verdict"] == "관찰대상"]
-    pullback = [r for r in results if r["pullback_candidate"]]
-    print(f"\n{len(results)}/{len(TICKERS)} 종목 점수 산출 완료 "
-          f"(강한매수후보 {len(strong)}개, 관찰대상 {len(watch)}개, "
-          f"일봉+주봉 과매도 후보 {len(pullback)}개)")
+    insufficient = sum(1 for r in results if r.get("percentiles") is None)
+    by_stage = {s: sum(1 for r in results if r["stage"] == s) for s in (1, 2, 3)}
+    print(
+        f"\n{len(results)}/{len(TICKERS)} 종목 처리 완료 "
+        f"(MDD 1단계 {by_stage[1]}개, 2단계 {by_stage[2]}개, 3단계 {by_stage[3]}개, "
+        f"베이스라인 데이터 부족 {insufficient}개)"
+    )
 
 
 def main():
+    from signal_bot.notifier import send_telegram_message
+
     results, errors = run()
     print_report(results, errors)
 
@@ -190,22 +173,38 @@ def main():
     save_history(history)
     print(f"\nJSON 이력 저장 완료: {HISTORY_PATH} (기준일 {today}, 최근 {HISTORY_MAX_DAYS}거래일 유지)")
 
-    new_signals = alerts.find_new_strong_signals(history, today)
+    mdd_state = alerts.load_mdd_state()
+    indicator_state = alerts.load_indicator_state()
+    # find_alert_candidates가 mdd_state/indicator_state를 in-place로 갱신하지만,
+    # 발송이 실패하면 다음 실행에서 같은 이벤트를 재시도할 수 있도록 실제
+    # 발송(텔레그램 API 호출)이 성공한 뒤에만 디스크에 저장한다(아래).
+    candidates = alerts.find_alert_candidates(results, mdd_state, indicator_state)
+
     notified = alerts.load_notified()
-    to_send = alerts.filter_unnotified(new_signals, today, notified)
+    to_send = alerts.filter_unnotified(candidates, today, notified)
 
     if not to_send:
-        print("신규 65점 진입 종목 없음 (알림 발송 안 함)")
+        alerts.save_mdd_state(mdd_state)
+        alerts.save_indicator_state(indicator_state)
+        print("신규 알림 대상 없음 (발송 안 함)")
         return
 
     for r in to_send:
         r["business_summary"] = company_info.get_business_summary(r["symb"], r["name"])
 
-    message = alerts.format_alert_message(to_send, today)
-    send_telegram_message(message)
+    messages = alerts.format_alert_messages(to_send, today)
+    try:
+        for msg in messages:
+            send_telegram_message(msg)
+    except Exception as e:
+        print(f"\n텔레그램 발송 실패 - 상태 저장 안 함(다음 실행에서 재시도): {e}")
+        return
+
+    alerts.save_mdd_state(mdd_state)
+    alerts.save_indicator_state(indicator_state)
     alerts.mark_notified(notified, today, [r["symb"] for r in to_send])
     alerts.save_notified(notified)
-    print(f"\n텔레그램 알림 발송 완료: {[r['symb'] for r in to_send]}")
+    print(f"\n텔레그램 알림 발송 완료({len(messages)}건): {[r['symb'] for r in to_send]}")
 
 
 if __name__ == "__main__":

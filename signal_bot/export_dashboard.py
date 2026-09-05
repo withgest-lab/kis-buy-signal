@@ -1,7 +1,8 @@
-"""STEP 11: 대시보드용 scores.json 생성 (PROJECT_PLAN.md 섹션 10).
+"""대시보드용 scores.json + detail/*.json 생성 (MDD + RSI/MFI/다이버전스).
 
-history.json(전체 이력)에는 계좌/키 정보가 없지만, 혹시 모를 확장에 대비해
-scores.json에는 섹션 10 스펙대로 종목코드/점수/세부신호/현재가/타임스탬프만 담는다.
+history.json/mdd_baseline.json에는 계좌/키 정보가 없지만, scores.json에는
+화면 표시에 필요한 필드만(종목코드/MDD상태/RSI·MFI·다이버전스/현재가/
+타임스탬프) 담는다. API 키/계좌정보는 절대 포함하지 않는다.
 """
 
 import json
@@ -12,103 +13,83 @@ import pandas as pd
 
 from signal_bot import alerts
 from signal_bot import company_info
-from signal_bot import indicators as ind
-from signal_bot.config import TICKERS
-from signal_bot.pipeline import DATA_DIR, load_history
-from signal_bot.scoring import compute_components, compute_scores
+from signal_bot import mdd
+from signal_bot import timeframe_signals as tf
+from signal_bot.config import TICKERS, is_kr
+from signal_bot.pipeline import BASELINE_DIR, DATA_DIR, load_history
 
 OUTPUT_PATH = Path("docs/scores.json")
 DETAIL_DIR = Path("docs/detail")
-SPARKLINE_DAYS = 30
-DETAIL_CHART_DAYS = 150
-WEEKLY_CHART_WEEKS = 156  # 약 3년치 - 3~6개월 이상 보유 관점에서 큰 흐름을 보기 위함
-RECENT_SIGNAL_DAYS = 3  # "최근 감지 이력" 배지용 - 점수 자체엔 영향 없음(정보 표시 전용)
+SPARK_DAYS = 250          # 카드 미니 underwater 스파크라인 (약 1년)
+DETAIL_DAYS = 500         # 상세뷰 underwater/가격차트 (약 2년)
 KST = timezone(timedelta(hours=9))
 
 
-def _recent_signal_flags(symb: str) -> dict | None:
-    """오늘은 꺼졌지만 최근 며칠 내 감지된 적 있는 신호를 정보용으로 표시하기
-    위한 값. 백테스트 결과 점수 계산 자체에 지속성을 넣으면 오히려 우위가
-    희석돼서(2026-07-26 검증), 점수/알림 로직은 그대로 두고 화면에만 참고
-    표시를 추가한다."""
-    daily_path = DATA_DIR / f"{symb}_daily.csv"
-    weekly_path = DATA_DIR / f"{symb}_weekly.csv"
-    if not daily_path.exists() or not weekly_path.exists():
+def _read_daily(symb: str) -> pd.DataFrame | None:
+    path = DATA_DIR / f"{symb}_daily.csv"
+    if not path.exists():
         return None
-    daily = pd.read_csv(daily_path, parse_dates=["date"])
-    weekly = pd.read_csv(weekly_path, parse_dates=["date"])
-    df = compute_components(daily, weekly, signal_persistence_days=1).tail(RECENT_SIGNAL_DAYS)
-    return {
-        "divergence": bool(df["rsi_div_detected"].any()),
-        "squeeze": bool(df["squeeze_exp_detected"].any()),
-        "mfi_lead": bool(df["mfi_lead_detected"].any()),
-    }
+    return pd.read_csv(path, parse_dates=["date"])
 
 
-def _compute_volatility(symb: str) -> float | None:
-    """연율화 일간수익률 변동성(표준편차x sqrt(252)). 낮을수록 '우량주다움'에
-    가깝다는 프록시로 대시보드 "우량주 우선" 정렬 2차 기준에 쓴다
-    (STEP 10 백테스트의 변동성 3등분 로직과 같은 방식, PROJECT_PLAN.md 섹션 14)."""
-    daily_path = DATA_DIR / f"{symb}_daily.csv"
-    if not daily_path.exists():
+def _read_baseline_daily(symb: str) -> pd.DataFrame | None:
+    path = BASELINE_DIR / f"{symb}_daily.csv"
+    if not path.exists():
         return None
-    daily = pd.read_csv(daily_path)
-    rets = daily["close"].pct_change().dropna()
-    if len(rets) < 20:
-        return None
-    return round(float(rets.std() * (252 ** 0.5)), 4)
+    return pd.read_csv(path, parse_dates=["date"])
 
 
-def _build_sparkline(history: dict, symb: str, dates: list[str]) -> list[dict]:
-    points = []
-    for d in dates:
-        rec = history.get(d, {}).get(symb)
-        if rec:
-            points.append({"date": d, "score": rec["score"]})
-    return points
+def _underwater_series(baseline_daily: pd.DataFrame | None, recent_daily: pd.DataFrame) -> pd.DataFrame:
+    """depth%(t) 전체 시계열 - baseline+recent를 합쳐 롤링신고가를 정확히
+    계산한 뒤(중간에 baseline이 없어도 recent만으로 동작), 호출부에서 tail로 자른다."""
+    combined = tf.combined_daily(baseline_daily, recent_daily)
+    dd = mdd.compute_drawdown(combined["close"])
+    return pd.DataFrame({
+        "date": combined["date"], "close": combined["close"],
+        "rolling_high": dd["rolling_max"], "depth": dd["drawdown"],
+    })
 
 
-def _series_records(df: pd.DataFrame) -> list[dict]:
+def _series_records(df: pd.DataFrame, cols: list[str]) -> list[dict]:
     records = []
     for _, r in df.iterrows():
-        records.append({
-            "date": r["date"].strftime("%Y-%m-%d"),
-            "close": round(float(r["close"]), 2),
-            "bb_upper": None if pd.isna(r["bb_upper"]) else round(float(r["bb_upper"]), 2),
-            "bb_mid": None if pd.isna(r["bb_mid"]) else round(float(r["bb_mid"]), 2),
-            "bb_lower": None if pd.isna(r["bb_lower"]) else round(float(r["bb_lower"]), 2),
-            "rsi": None if pd.isna(r["rsi"]) else round(float(r["rsi"]), 1),
-            "mfi": None if pd.isna(r["mfi"]) else round(float(r["mfi"]), 1),
-        })
+        rec: dict = {"date": r["date"].strftime("%Y-%m-%d")}
+        for c in cols:
+            v = r.get(c)
+            if c == "divergence":
+                rec[c] = bool(v)
+            elif v is None or (isinstance(v, float) and pd.isna(v)):
+                rec[c] = None
+            else:
+                rec[c] = round(float(v), 4)
+        records.append(rec)
     return records
 
 
-def _build_detail(symb: str) -> dict | None:
-    """카드 상세뷰용 가격+볼린저밴드+RSI+MFI 시계열(일봉+주봉). 필요할 때만 프론트에서 lazy fetch."""
-    daily_path = DATA_DIR / f"{symb}_daily.csv"
-    weekly_path = DATA_DIR / f"{symb}_weekly.csv"
-    if not daily_path.exists() or not weekly_path.exists():
+def _build_detail(symb: str, baseline_entry: dict | None) -> dict | None:
+    daily = _read_daily(symb)
+    if daily is None:
         return None
+    baseline_daily = _read_baseline_daily(symb)
 
-    daily = pd.read_csv(daily_path, parse_dates=["date"])
-    weekly = pd.read_csv(weekly_path, parse_dates=["date"])
+    underwater = _underwater_series(baseline_daily, daily).tail(DETAIL_DAYS)
+    frames = tf.compute_timeframe_frames(daily, baseline_daily)
 
-    daily_df = compute_scores(daily, weekly).tail(DETAIL_CHART_DAYS)
+    return {
+        "underwater": _series_records(underwater, ["close", "rolling_high", "depth"]),
+        "daily": _series_records(frames["daily"].tail(DETAIL_DAYS), ["close", "rsi", "mfi", "divergence"]),
+        "weekly": _series_records(frames["weekly"].tail(260), ["close", "rsi", "mfi", "divergence"]),
+        "monthly": _series_records(frames["monthly"].tail(180), ["close", "rsi", "mfi", "divergence"]),
+        "episodes": (baseline_entry or {}).get("episodes", []),
+        "percentiles": (baseline_entry or {}).get("percentiles"),
+    }
 
-    weekly_df = weekly.copy()
-    weekly_df["rsi"] = ind.rsi(weekly_df["close"])
-    weekly_df["mfi"] = ind.mfi(weekly_df["high"], weekly_df["low"], weekly_df["close"], weekly_df["volume"])
-    weekly_df = pd.concat([weekly_df, ind.bollinger(weekly_df["close"])], axis=1)
-    weekly_df = weekly_df.tail(WEEKLY_CHART_WEEKS)
 
-    return {"daily": _series_records(daily_df), "weekly": _series_records(weekly_df)}
-
-
-def export_details() -> int:
+def export_details(baseline: dict) -> int:
     DETAIL_DIR.mkdir(parents=True, exist_ok=True)
     count = 0
     for _category, symb in TICKERS:
-        detail = _build_detail(symb)
+        detail = _build_detail(symb, baseline.get(symb))
         if detail is None:
             continue
         with open(DETAIL_DIR / f"{symb}.json", "w", encoding="utf-8") as f:
@@ -124,28 +105,35 @@ def main():
 
     dates = sorted(history.keys())
     today = dates[-1]
-    sparkline_dates = dates[-SPARKLINE_DAYS:]
 
-    new_signals = alerts.find_new_strong_signals(history, today)
-    new_symbs = {r["symb"] for r in new_signals}
+    baseline = mdd.load_baseline()
+    # 오늘 신규 알림이 나갔는지는 notified.json으로 판단한다(pipeline.main()이
+    # 알림 발송 시 이미 기록해둠) - find_stage_upgrades/find_indicator_events는
+    # 상태를 변경(mutate)하는 함수라 여기서 다시 호출하면 실제 알림 상태가
+    # 오염되므로 호출하지 않는다.
+    notified = alerts.load_notified()
+    new_symbs = set(notified.get(today, []))
 
     tickers = []
     for symb, rec in history[today].items():
         entry = dict(rec)
         entry["is_new"] = symb in new_symbs
-        entry["sparkline"] = _build_sparkline(history, symb, sparkline_dates)
-        entry["volatility"] = _compute_volatility(symb)
-        entry["recent_detected"] = _recent_signal_flags(symb)
+        underwater = _underwater_series(_read_baseline_daily(symb), _read_daily(symb)).tail(SPARK_DAYS)
+        entry["underwater_spark"] = _series_records(underwater, ["depth"])
         if entry["is_new"]:
             entry["business_summary"] = company_info.get_business_summary(symb, entry["name"])
         tickers.append(entry)
 
-    tickers.sort(key=lambda r: r["score"], reverse=True)
+    # stage 내림차순, 같은 stage면 depth가 더 깊은(음수가 더 큰) 종목 우선.
+    tickers.sort(key=lambda r: (-r["stage"], r["depth"]))
+
+    us_regime = next((t["market_regime"] for t in tickers if not is_kr(t["category"])), "판정불가")
+    kr_regime = next((t["market_regime"] for t in tickers if is_kr(t["category"])), "판정불가")
 
     payload = {
         "generated_at": datetime.now(KST).strftime("%Y-%m-%dT%H:%M:%S+09:00"),
         "as_of_date": today,
-        "market_regime": tickers[0].get("market_regime", "판정불가") if tickers else "판정불가",
+        "market_regime": {"us": us_regime, "kr": kr_regime},
         "tickers": tickers,
     }
 
@@ -153,9 +141,9 @@ def main():
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    print(f"대시보드 데이터 저장 완료: {OUTPUT_PATH} ({len(tickers)}종목, 신규 신호 {len(new_symbs)}개)")
+    print(f"대시보드 데이터 저장 완료: {OUTPUT_PATH} ({len(tickers)}종목, 신규 알림 {len(new_symbs)}개)")
 
-    detail_count = export_details()
+    detail_count = export_details(baseline)
     print(f"상세 차트 데이터 저장 완료: {DETAIL_DIR}/ ({detail_count}개 종목)")
 
 

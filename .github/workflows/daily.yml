@@ -58,27 +58,32 @@ jobs:
           my_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
           EOF
 
-      - name: Fetch latest prices (STEP 3)
+      - name: Fetch latest prices (일봉)
         run: uv run python -m signal_bot.fetch_universe
 
-      - name: Score + notify (STEP 6~8)
+      - name: Refresh MDD baseline (내부 staleness 체크로 보통 30일에 1번만 실수집)
+        run: uv run python -m signal_bot.baseline_fetch
+
+      - name: Score(MDD+RSI/MFI/다이버전스) + notify
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: uv run python main.py
 
-      - name: Build dashboard data (STEP 11)
+      - name: Build dashboard data
         run: uv run python -m signal_bot.export_dashboard
 
-      - name: Commit updated history (main - 코드/이력 상태 전용, dashboard data는 제외)
+      - name: Commit updated state (main - 코드/이력 상태 전용, dashboard data는 제외)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add signal_bot/data/history.json
-          if [ -f signal_bot/data/notified.json ]; then
-            git add signal_bot/data/notified.json
-          fi
-          git diff --cached --quiet || git commit -m "chore: update signal history $(date -u +%Y-%m-%d)"
+          for f in notified.json mdd_state.json indicator_state.json mdd_baseline.json baseline_meta.json universe_cache.json; do
+            if [ -f "signal_bot/data/$f" ]; then
+              git add "signal_bot/data/$f"
+            fi
+          done
+          git diff --cached --quiet || git commit -m "chore: update signal state $(date -u +%Y-%m-%d)"
           git push
 
       # STEP 12(섹션 13-3): docs/를 main에 영구 커밋하면 저장소 용량이 계속 불어나므로,
