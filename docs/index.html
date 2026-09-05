@@ -100,9 +100,12 @@
   .help-overlay {
     display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4);
     z-index: 100; align-items: flex-start; justify-content: center; padding: 24px 12px;
-    overflow-y: auto;
+    overflow-y: auto; overscroll-behavior: contain;
   }
   .help-overlay.open { display: flex; }
+  /* 모달이 열려있는 동안 배경 스크롤 잠금 - 모달 안에서 끝까지 스크롤한 뒤
+     반대로 스크롤하면 배경 카드가 같이 움직이던 문제(스크롤 체이닝) 방지. */
+  body.modal-open { overflow: hidden; }
   .help-panel {
     background: var(--surface-1); border-radius: 14px; max-width: 560px; width: 100%;
     border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.25);
@@ -155,6 +158,7 @@
   .card.banner-card { border: 2px solid var(--status-crit); }
 
   /* 종목 그리드 */
+  .grid-count { font-size: 12px; color: var(--text-muted); margin: 4px 2px 10px; }
   .grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
   @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
@@ -253,6 +257,7 @@
   </div>
 
   <div id="banner"></div>
+  <div class="grid-count" id="grid-count"></div>
   <div class="grid" id="grid"></div>
   <footer id="footer"></footer>
 </div>
@@ -697,13 +702,22 @@ function applyFilters(tickers) {
 
 function render() {
   if (!DATA) return;
-  const newOnes = DATA.tickers.filter(t => t.is_new);
+
+  // 배너("오늘의 신규 알림")도 필터(단계/분류)를 따르게 해서, 예를 들어
+  // "한국지수"를 선택했는데 배너에는 그대로 미국 종목이 계속 보여서
+  // "필터가 안 먹힌다"고 느껴지는 문제를 해결한다.
+  const list = applyFilters(DATA.tickers);
+  const newOnes = list.filter(t => t.is_new);
   document.getElementById("banner").innerHTML = bannerHtml(newOnes);
 
-  const list = applyFilters(DATA.tickers);
+  const filterActive = state.stage !== "all" || state.category !== "all";
+  document.getElementById("grid-count").textContent = filterActive
+    ? `필터 적용됨 - ${list.length}종목 표시 중 (전체 ${DATA.tickers.length}종목)`
+    : `전체 ${list.length}종목`;
+
   const grid = document.getElementById("grid");
   if (!list.length) {
-    grid.innerHTML = '<div class="empty-state">조건에 맞는 종목이 없습니다.</div>';
+    grid.innerHTML = '<div class="empty-state">선택한 조건에 맞는 종목이 없습니다.</div>';
   } else {
     grid.innerHTML = list.map(t => `<div class="card" data-symb="${escapeHtml(t.symb)}">${cardHtml(t)}</div>`).join("");
   }
@@ -718,9 +732,11 @@ function render() {
 
 function wireOverlay(btnId, overlayId, closeId) {
   const overlay = document.getElementById(overlayId);
-  document.getElementById(btnId).addEventListener("click", () => overlay.classList.add("open"));
-  document.getElementById(closeId).addEventListener("click", () => overlay.classList.remove("open"));
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.classList.remove("open"); });
+  const open = () => { overlay.classList.add("open"); document.body.classList.add("modal-open"); };
+  const close = () => { overlay.classList.remove("open"); document.body.classList.remove("modal-open"); };
+  document.getElementById(btnId).addEventListener("click", open);
+  document.getElementById(closeId).addEventListener("click", close);
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
 }
 
 function wireHelp() {
