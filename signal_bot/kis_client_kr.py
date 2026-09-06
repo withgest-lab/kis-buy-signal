@@ -25,7 +25,7 @@ ITEM_TR = "FHKST03010100"
 INDEX_URL = "/uapi/domestic-stock/v1/quotations/inquire-daily-indexchartprice"
 INDEX_TR = "FHKUP03500100"
 
-MAX_PAGES = 60
+MAX_PAGES = 200  # 15000행(약 60년) 확보용 상한 - 실제로는 데이터가 없으면 더 일찍 멈춤
 FAR_PAST_DATE = "19900101"
 
 # KOSPI200 = 업종코드 "2001" (2026-09 API 호출로 hts_kor_isnm="KOSPI200" 확인됨,

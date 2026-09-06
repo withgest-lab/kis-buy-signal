@@ -67,12 +67,16 @@ def _timeframe_snapshot(frame: pd.DataFrame) -> dict:
 
 def compute_timeframe_frames(recent_daily: pd.DataFrame,
                               baseline_daily: Optional[pd.DataFrame]) -> dict[str, pd.DataFrame]:
-    """대시보드 차트용 - 시간대별 전체 시계열(date/close/rsi/mfi/divergence)."""
+    """대시보드 차트용 - 시간대별 전체 시계열(date/close/rsi/mfi/divergence).
+
+    "daily"도 운영용 250일치만이 아니라 baseline과 합친 전체 기간으로 계산한다 -
+    대시보드 기간 선택(1Y~ALL)에서 일봉 그래프를 여러 해 단위로 확대해서 볼 수
+    있으려면 일봉 시계열 자체가 그만큼 길어야 하기 때문(주/월봉과 동일한 이유)."""
     combined = combined_daily(baseline_daily, recent_daily)
     weekly = _resample(combined, "W")
     monthly = _resample(combined, "ME")
     return {
-        "daily": _indicator_frame(recent_daily),
+        "daily": _indicator_frame(combined),
         "weekly": _indicator_frame(weekly),
         "monthly": _indicator_frame(monthly),
     }

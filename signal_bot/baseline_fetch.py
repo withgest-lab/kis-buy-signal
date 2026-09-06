@@ -28,7 +28,8 @@ DATA_DIR = Path(__file__).parent / "data"
 BASELINE_DIR = DATA_DIR / "baseline"
 META_PATH = DATA_DIR / "baseline_meta.json"
 
-DAILY_MIN_ROWS_LONG = 5000   # 약 20년
+DAILY_MIN_ROWS_LONG = 15000  # 넉넉한 상한(약 60년) - 실제로는 상장일 이전 데이터가
+                              # 없으면 _fetch_pages가 먼저 멈추므로 사실상 "가능한 최대"
 REFRESH_INTERVAL_DAYS = 30
 
 
@@ -83,7 +84,7 @@ def main(force: bool = False) -> None:
 
     BASELINE_DIR.mkdir(parents=True, exist_ok=True)
     kc.ensure_auth()
-    kc.MAX_PAGES = 60  # 5000행 확보하려면 기존 15로는 부족
+    kc.MAX_PAGES = 200  # 15000행(약 60년) 확보용 상한
 
     results = []
     with ThreadPoolExecutor(max_workers=kc.MAX_CONCURRENCY) as pool:

@@ -22,13 +22,9 @@ OUTPUT_PATH = Path("docs/scores.json")
 DETAIL_DIR = Path("docs/detail")
 SPARK_DAYS = 250            # 카드 미니 underwater 스파크라인 (약 1년, 가벼운 미리보기용)
 
-# 상세뷰(카드 펼침) 차트 표시기간 - "지금이 역사적으로 매수할 만한 시점인지"
-# 판단할 맥락이 필요하다는 피드백으로 확장. baseline(최대 20년치)을 이미
-# 갖고 있어 API 재호출 없이 tail 크기만 늘리면 된다.
-UNDERWATER_DETAIL_DAYS = 3000   # 낙폭(underwater) 추이 - 약 12년, 역사적 저점 대비 판단용
-DAILY_DETAIL_DAYS = 750         # 일봉 가격+RSI/MFI - 약 3년
-WEEKLY_DETAIL_WEEKS = 780       # 주봉 - 약 15년
-MONTHLY_DETAIL_MONTHS = 300     # 월봉 - baseline 전체(보통 20년 이내)가 다 나오는 넉넉한 값
+# 상세뷰(카드 펼침) 차트는 더 이상 여기서 기간을 잘라내지 않는다 - baseline 전체
+# (가능한 만큼 최대) 기간을 그대로 detail json에 담아서, 프론트의 기간 선택 버튼
+# (1Y~ALL)이 그 안에서 원하는 구간만 잘라 보여주도록 한다.
 KST = timezone(timedelta(hours=9))
 
 
@@ -79,14 +75,14 @@ def _build_detail(symb: str, baseline_entry: dict | None) -> dict | None:
         return None
     baseline_daily = _read_baseline_daily(symb)
 
-    underwater = _underwater_series(baseline_daily, daily).tail(UNDERWATER_DETAIL_DAYS)
+    underwater = _underwater_series(baseline_daily, daily)
     frames = tf.compute_timeframe_frames(daily, baseline_daily)
 
     return {
         "underwater": _series_records(underwater, ["close", "rolling_high", "depth"]),
-        "daily": _series_records(frames["daily"].tail(DAILY_DETAIL_DAYS), ["close", "rsi", "mfi", "divergence"]),
-        "weekly": _series_records(frames["weekly"].tail(WEEKLY_DETAIL_WEEKS), ["close", "rsi", "mfi", "divergence"]),
-        "monthly": _series_records(frames["monthly"].tail(MONTHLY_DETAIL_MONTHS), ["close", "rsi", "mfi", "divergence"]),
+        "daily": _series_records(frames["daily"], ["close", "rsi", "mfi", "divergence"]),
+        "weekly": _series_records(frames["weekly"], ["close", "rsi", "mfi", "divergence"]),
+        "monthly": _series_records(frames["monthly"], ["close", "rsi", "mfi", "divergence"]),
         "episodes": (baseline_entry or {}).get("episodes", []),
         "percentiles": (baseline_entry or {}).get("percentiles"),
     }

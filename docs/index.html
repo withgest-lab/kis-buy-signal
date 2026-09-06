@@ -86,11 +86,6 @@
   h1 { font-size: 18px; margin: 0 0 2px; }
   .meta { color: var(--text-muted); font-size: 12px; }
   .help-btn {
-    width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border);
-    background: var(--surface-2); color: var(--text-secondary); font-size: 13px; font-weight: 700;
-    cursor: pointer; line-height: 1; flex-shrink: 0;
-  }
-  .glossary-btn {
     height: 24px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--border);
     background: var(--surface-2); color: var(--text-secondary); font-size: 12px; font-weight: 600;
     cursor: pointer; line-height: 24px; flex-shrink: 0; white-space: nowrap;
@@ -199,7 +194,8 @@
     font-size: 10.5px; padding: 3px 7px; border-radius: 999px; border: 1px solid var(--border);
     color: var(--text-secondary); background: var(--surface-2);
   }
-  .tf-badge.on { color: white; background: var(--status-warn); border-color: var(--status-warn); font-weight: 600; }
+  .tf-badge.near { color: white; background: var(--status-warn); border-color: var(--status-warn); font-weight: 600; }
+  .tf-badge.confirmed { color: white; background: var(--status-crit); border-color: var(--status-crit); font-weight: 700; }
   .record-badge {
     display: inline-block; margin-top: 8px; font-size: 10.5px; font-weight: 700; color: white;
     background: var(--status-crit); border-radius: 6px; padding: 3px 7px;
@@ -218,11 +214,51 @@
   .detail-chart { display: block; width: 100%; }
   .chart-loading { font-size: 11px; color: var(--text-muted); padding: 8px 0; }
   .recovery-line { font-size: 11px; color: var(--text-secondary); margin: 4px 0; }
-  .pctile-note { font-size: 10.5px; color: var(--text-muted); margin-top: 4px; }
   .regime-note { margin-top: 8px; font-size: 11px; color: var(--text-muted); }
 
   .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
   footer { text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 24px; }
+
+  /* 조작 피드백 - 버튼/칩을 누르면 짧게 강조색 테두리가 반짝여서 "적용됐다"는 걸
+     바로 인지할 수 있게 함(비동기 로딩이 없는 즉시 반영 컨트롤용). */
+  @keyframes controlFlash {
+    0% { box-shadow: 0 0 0 2px var(--series-1); }
+    100% { box-shadow: 0 0 0 2px transparent; }
+  }
+  .control-flash { animation: controlFlash 650ms ease-out; }
+
+  /* 기간 선택 버튼(1Y~ALL) */
+  .period-group { display: flex; gap: 5px; flex-wrap: wrap; margin: 10px 0 4px; }
+  .period-btn {
+    font-size: 11px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-secondary); cursor: pointer;
+  }
+  .period-btn.active { background: var(--series-1); color: white; border-color: var(--series-1); }
+  .period-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* 상세뷰 툴바(기간 버튼 + 크게보기 토글) */
+  .detail-toolbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+  .expand-btn {
+    font-size: 11px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-secondary); cursor: pointer; white-space: nowrap;
+    margin-top: 10px; flex-shrink: 0;
+  }
+
+  /* 오실레이터(RSI·MFI) 패널 사이의 짧은 타임프레임 이름표 - 예전엔 각 패널마다
+     거의 같은 설명 문장이 반복돼서 화면이 장황했음. */
+  .tf-tag { font-size: 10px; font-weight: 600; color: var(--text-muted); margin: 8px 0 2px; }
+
+  /* 종목 상세뷰 "크게 보기" - 카드 하나를 화면 전체 오버레이로 넓게 표시 */
+  .fullscreen-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.4);
+    overflow-y: auto; padding: 24px 12px; overscroll-behavior: contain;
+  }
+  .fullscreen-backdrop.open { display: flex; justify-content: center; }
+  .card.fullscreen {
+    width: 100%; max-width: 920px; height: fit-content; box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    cursor: default;
+  }
+  body.fullscreen-open { overflow: hidden; }
 </style>
 </head>
 <body>
@@ -230,8 +266,7 @@
   <header>
     <div class="header-row">
       <h1>MDD 매수신호 대시보드</h1>
-      <button id="help-btn" class="help-btn" aria-label="방법론 설명 열기">?</button>
-      <button id="glossary-btn" class="glossary-btn" aria-label="용어사전 열기">📖 용어사전</button>
+      <button id="help-btn" class="help-btn" aria-label="데이터 읽는 법 열기">📖 데이터 읽는 법</button>
     </div>
     <div class="meta" id="meta-line">불러오는 중...</div>
   </header>
@@ -267,43 +302,56 @@
 <div id="help-overlay" class="help-overlay">
   <div class="help-panel">
     <div class="help-panel-head">
-      <h2>용어 설명</h2>
+      <h2>데이터 읽는 법</h2>
       <button id="help-close" class="help-close" aria-label="닫기">✕</button>
     </div>
     <div class="help-body">
       <section>
         <h3>MDD 단계는 뭘 의미하나요?</h3>
-        <p>각 종목의 최근 20년치(가능한 만큼) 낙폭 국면(고점→저점→신고가 복귀)을 모두 뽑아서, 그 깊이(depth)들의 분포를 계산합니다. 오늘의 낙폭이 그 분포에서 어디쯯 있는지로 단계를 매깁니다.</p>
-        <p><span class="dot" style="background:var(--stage-3)"></span> <b>3단계(극단)</b> — 과거 국면 중 가장 깊었던 하위 10% 수준까지 낙폭이 도달</p>
-        <p><span class="dot" style="background:var(--stage-2)"></span> <b>2단계(깊은낙폭)</b> — 과거 국면 하위 25% 수준</p>
-        <p><span class="dot" style="background:var(--stage-1)"></span> <b>1단계(관찰)</b> — 과거 국면 중간값(중간 정도 낙폭) 수준</p>
+        <p>각 종목의 역대 가능한 만큼(대개 수십 년치) 낙폭 국면(고점→저점→신고가 복귀)을 모두 뽑아서, 그 깊이(depth)들의 분포를 계산합니다. 오늘의 낙폭이 그 분포에서 어디쯤 있는지로 단계를 매깁니다.</p>
+        <p><span class="dot" style="background:var(--stage-3)"></span> <b>3단계(극단)</b> — 과거 국면 중 가장 깊었던 하위 10% 수준(P10)까지 낙폭이 도달</p>
+        <p><span class="dot" style="background:var(--stage-2)"></span> <b>2단계(깊은낙폭)</b> — 과거 국면 하위 25% 수준(P25)</p>
+        <p><span class="dot" style="background:var(--stage-1)"></span> <b>1단계(관찰)</b> — 과거 국면 중간값(P50, 평소 정도 낙폭) 수준</p>
         <p><span class="dot" style="background:var(--text-muted)"></span> <b>0(신호없음)</b> — 아직 평소 수준의 낙폭</p>
-        <p class="note">평균/표준편차 대신 실제 발생했던 국면들의 순위(백분위)를 그대로 쓰는 방식입니다 - 낙폭은 소수의 극단치(2008, 2020 등)가 평균을 왜곡시키기 쉬워서, 이 방식이 더 왜곡이 적습니다.</p>
+        <p class="note">평균/표준편차 대신 실제 발생했던 국면들의 순위(백분위, P50/P25/P10)를 그대로 쓰는 방식입니다 - 낙폭은 소수의 극단치(2008, 2020 등)가 평균을 왜곡시키기 쉬워서, 이 방식이 더 왜곡이 적습니다.</p>
       </section>
       <section>
         <h3>낙폭 게이지 차트는 어떻게 읽나요?</h3>
-        <p>가로 막대가 "0%(신고가)"에서 왼쪽으로 갈수록 더 깊은 낙폭입니다. 채워진 빨간 막대가 오늘의 낙폭 위치, 3개의 세로선이 그 종목의 과거 중간값(P50)/하위25%(P25)/하위10%(P10) 지점입니다.</p>
+        <p>가로 막대가 "0%(신고가)"에서 왼쪽으로 갈수록 더 깊은 낙폭입니다. 채워진 빨간 막대가 오늘의 낙폭 위치, 3개의 세로선(P50/P25/P10)이 그 종목의 과거 중간값/하위25%/하위10% 지점입니다.</p>
       </section>
       <section>
         <h3>"사상 최대 낙폭" 배지는요?</h3>
-        <p>오늘의 낙폭이 그 종목의 과거 20년 국면 중 가장 깊었던 것보다도 더 깊다는 뜻입니다. "과거엔 항상 돌아왔다"는 근거가 가장 약해지는 지점이라 별도로 표시합니다 - 매수를 권장하거나 만류하는 신호는 아니고, 판단에 참고할 정보입니다.</p>
+        <p>오늘의 낙폭이 그 종목의 과거 국면 중 가장 깊었던 것보다도 더 깊다는 뜻입니다. "과거엔 항상 돌아왔다"는 근거가 가장 약해지는 지점이라 별도로 표시합니다 - 매수를 권장하거나 만류하는 신호는 아니고, 판단에 참고할 정보입니다.</p>
       </section>
       <section>
         <h3>회복기간 통계는 뭔가요?</h3>
         <p>과거에 이 정도(또는 비슷한) 낙폭 국면이 신고가로 다시 복귀하기까지 걸린 기간의 최소/중간/최장 값입니다. 이번 낙폭이 얼마나 걸릴지 보장하진 않지만, 기다릴 각오를 얼마나 해야 할지 감을 잡는 데 참고할 수 있습니다.</p>
       </section>
       <section>
-        <h3>일/주/월 RSI·MFI 배지는요?</h3>
+        <h3>일/주/월 RSI·MFI 배지는요? 왜 색이 2단계인가요?</h3>
         <p><b>RSI</b> — 최근 오른 폭과 내린 폭을 비교해 사자/팔자 힘의 세기를 0~100으로 나타냅니다. <b>30 이하면 과매도</b>로 봅니다.</p>
         <p><b>MFI</b> — RSI와 비슷한데 거래량까지 반영합니다. <b>20 이하면 과매도</b>로 봅니다.</p>
-        <p><b>다이버전스(●)</b> — 가격은 신저점을 찍었는데 RSI/MFI는 오히려 덜 떨어진 경우입니다. 흔히 "떨어질 힘이 다 빠졌다"는 신호로 해석합니다.</p>
-        <p class="note">이 시스템은 사용자가 실제로 주간/월간 기준으로 RSI/MFI를 참고했을 때 타율이 좋았다고 밝혀서, 일봉 지표 외에 주봉/월봉도 함께 계산해서 보여줍니다. MDD와 마찬가지로 판정/점수 합산 없이 값 그대로만 보여드립니다 - 최종 판단은 사용자의 몫입니다.</p>
+        <p><span class="dot" style="background:var(--status-warn)"></span> <b>근접(주황)</b> — RSI 35 이하 <b>이고 동시에</b> MFI 25 이하일 때. 과매도 문턱에 같이 다가가고 있다는 뜻입니다.</p>
+        <p><span class="dot" style="background:var(--status-crit)"></span> <b>확정 과매도(빨강)</b> — RSI 30 이하 <b>이고 동시에</b> MFI 20 이하일 때(둘 다 기존 과매도 기준선을 넘은 상태). 둘 중 하나만 기준을 넘는 경우는 배지가 켜지지 않습니다 - 거래량 없이 가격만 흔들린 경우(또는 그 반대)를 걸러내기 위함입니다.</p>
+        <p><b>다이버전스(●)</b> — 가격은 신저점을 찍었는데 RSI/MFI는 오히려 덜 떨어진 경우입니다. 흔히 "떨어질 힘이 다 빠졌다"는 신호로 해석하며, 위 2단계 색과는 별개로 항상 표시됩니다.</p>
+        <p class="note">이 시스템은 사용자가 실제로 주간/월간 기준으로 RSI/MFI를 참고했을 때 타율이 좋았다고 밝혀서, 일봉 지표 외에 주봉/월봉도 함께 계산해서 보여줍니다. 같은 지표를 하루/한 주/한 달 단위로 각각 계산한 것으로, 일봉은 단기·월봉은 장기 흐름을 봅니다. MDD와 마찬가지로 판정/점수 합산 없이 값 그대로만 보여드립니다 - 최종 판단은 사용자의 몫입니다.</p>
       </section>
       <section>
         <h3>카드를 펼치면 나오는 차트들은요?</h3>
-        <p><b>가격 + 롤링 신고가</b> — 가격 위에 지금까지의 최고가선을 겹쳐서, 지금이 그 선에서 얼마나 떨어져 있는지 한눈에 보여줍니다.</p>
-        <p><b>낙폭국면 히스토그램</b> — 과거 20년의 낙폭 국면들을 막대로 나열합니다. 막대가 길수록 더 깊었던 국면이고, 점선은 P50/P25/P10 기준선입니다.</p>
-        <p><b>RSI/MFI 라인차트</b> — 일/주/월 탭으로 전환해서 볼 수 있습니다. 오버솔드 기준선(RSI 30, MFI 20)을 넘어가면 과매도 구간입니다.</p>
+        <p><b>가격 + 롤링 신고가</b> — 가격 위에 지금까지의 최고가선(점선)을 겹쳐서, 지금이 그 선에서 얼마나 떨어져 있는지 한눈에 보여줍니다. 빨간 점은 다이버전스가 감지된 날입니다.</p>
+        <p><b>낙폭(underwater) 추이</b> — 낙폭%을 시간 흐름에 따라 그린 그래프. 0%(신고가) 아래로 얼마나, 얼마나 오래 내려가 있었는지를 보여줍니다. 주황 점선은 코로나19, 2022 금리인상 하락장처럼 널리 알려진 시장 전체 충격 시기와 겹치는 지점을 참고로 표시한 것입니다(그 종목만의 개별 사정일 수도 있어 원인을 단정하는 건 아닙니다).</p>
+        <p><b>낙폭국면 히스토그램</b> — 과거의 낙폭 국면들을 막대로 나열합니다. 막대가 길수록 더 깊었던 국면이고, 점선은 P50/P25/P10 기준선입니다. 🔵는 신고가로 회복된(완결) 국면, 🔴는 아직 회복 전(진행중, "지금"이 여기)인 국면입니다.</p>
+        <p><b>RSI·MFI 라인차트</b> — 오버솔드 기준선(RSI 30, MFI 20)을 넘어가면 과매도 구간입니다. 선택한 기간이 3년 이하면 일/주/월봉을 모두, 3~15년이면 주봉, 그보다 길면 월봉만 보여줍니다(기간이 길어질수록 일봉은 너무 빽빽해져서 자동으로 더 굵은 단위로 바꿔 보여드리는 것입니다).</p>
+        <p><b>기간 버튼(1Y~ALL)</b> — 이 버튼으로 고른 기간이 그 카드 안의 가격/낙폭/RSI·MFI 차트 전부에 함께 적용됩니다(따로 조절할 필요 없음). 예를 들어 "지금 상승장이 언제부터 시작됐는지", "이번 하락장이 언제부터인지"를 보려면 기간을 길게(10Y 이상) 늘려서 가격 차트의 롤링 신고가선과 낙폭 차트를 함께 보시면 됩니다. 실제로 갖고 있는 데이터보다 긴 기간 버튼은 흐리게 표시되고 눌리지 않습니다.</p>
+        <p><b>크게 보기 ⛶</b> — 화면 전체로 넓게 펼쳐서 차트를 더 시원하게 볼 수 있습니다. 다시 누르면 원래 카드 레이아웃으로 돌아갑니다.</p>
+      </section>
+      <section>
+        <h3>화면에 나오는 다른 용어들도 궁금해요</h3>
+        <p><b>낙폭국면(episode)</b> — 신고가를 찍은 시점부터, 떨어졌다가 다시 신고가로 돌아오기까지의 한 구간("한 번의 하락→회복 사이클").</p>
+        <p><b>시장국면(참고용)</b> — SPY(미국)/KOSPI200(한국) 지수가 200일 이동평균선 대비 어디에 있는지로 판정한 상승장/횡보장/하락장. <b>이 신호를 이유로 매수신호를 막지는 않습니다</b> — MDD 전략 자체가 하락장에서 기회를 찾는 게 목적이라서, 참고 정보로만 표시합니다.</p>
+        <p><b>NEW 신호</b> — 오늘 새로 이 종목에 알림이 발생했다는 표시. 텔레그램으로도 같은 내용이 발송됩니다.</p>
+        <p><b>베이스라인 데이터 부족</b> — 최근 상장 등의 이유로 과거 낙폭국면이 5개 미만이라, MDD 백분위를 믿을 만하게 계산할 수 없는 상태. 이 경우 MDD 신호 계산을 생략합니다.</p>
+        <p><b>필터 칩(1단계+/2단계+/3단계, 분류)</b> — 상단 "분류" 칩(미국개별종목/섹터ETF/한국지수/한국개별종목)은 여러 개를 동시에 눌러 함께 볼 수 있습니다(다중 선택). "전체"를 누르면 선택이 초기화됩니다. 단계 필터는 "1단계+"를 고르면 1단계 이상, "3단계"를 고르면 가장 극단적인 3단계 종목만 걸러서 보여줍니다.</p>
       </section>
       <section>
         <h3>참고해주세요</h3>
@@ -313,52 +361,56 @@
   </div>
 </div>
 
-<div id="glossary-overlay" class="help-overlay">
-  <div class="help-panel">
-    <div class="help-panel-head">
-      <h2>용어사전 - 화면에 나오는 모든 용어</h2>
-      <button id="glossary-close" class="help-close" aria-label="닫기">✕</button>
-    </div>
-    <div class="help-body">
-      <section>
-        <h3>MDD · 낙폭 관련</h3>
-        <p><b>MDD(최대낙폭)</b> — 이 종목이 과거 최고점(신고가) 대비 얼마나 떨어졌는지를 보는 지표. "Maximum Drawdown"의 줄임말.</p>
-        <p><b>낙폭(depth)</b> — 지금 가격이 "지금까지의 최고가" 대비 몇 % 낮은지. 0%면 신고가, -30%면 최고가보다 30% 싸다는 뜻.</p>
-        <p><b>롤링 신고가</b> — 오늘까지 이 종목이 찍은 적 있는 가장 높은 가격. 새로 최고가를 찍으면 계속 갱신됨.</p>
-        <p><b>낙폭국면(episode)</b> — 신고가를 찍은 시점부터, 떨어졌다가 다시 신고가로 돌아오기까지의 한 구간. "한 번의 하락→회복 사이클"이라고 보면 됩니다.</p>
-        <p><b>완결</b> — 그 낙폭국면이 신고가로 완전히 회복돼서 끝난 경우. <b>진행중</b> — 아직 신고가를 회복하지 못해서 끝나지 않은 경우(보통 "지금"이 바로 이 상태).</p>
-        <p><b>회복기간</b> — 국면이 시작(고점 이탈)해서 신고가로 돌아오기까지 걸린 기간. 최소/중간/최장은 과거 여러 국면들 중 가장 짧았던/평균적인/가장 길었던 값.</p>
-        <p><b>P50 · P25 · P10 (백분위)</b> — 이 종목의 과거 낙폭국면들을 깊이 순으로 줄 세웠을 때, <b>P50</b>은 중간(평소 수준), <b>P25</b>는 상위 25%로 깊은 편, <b>P10</b>은 상위 10%로 역사상 드물게 깊은 수준을 뜻합니다. 평균값 대신 이걸 쓰는 이유는 2008년·2020년 같은 극단적인 사례 한두 개가 평균을 크게 왜곡시킬 수 있어서입니다.</p>
-        <p><b>MDD 단계(0~3)</b> — 오늘의 낙폭이 위 백분위 중 어디에 해당하는지의 신호 강도. 0=평소 수준, 1=P50 수준(관찰), 2=P25 수준(깊은낙폭), 3=P10 수준(극단).</p>
-        <p><b>사상 최대 낙폭</b> — 오늘의 낙폭이 과거 20년 어떤 국면보다도 더 깊다는 뜻. "참고할 과거 기록이 없는 영역"이라 특히 유의해서 보라는 표시입니다.</p>
-        <p><b>Underwater(낙폭 추이) 차트</b> — 낙폭%을 시간 흐름에 따라 그린 그래프. 0%(신고가) 아래로 얼마나, 얼마나 오래 내려가 있었는지를 한눈에 보여줍니다.</p>
-      </section>
-      <section>
-        <h3>RSI · MFI · 다이버전스</h3>
-        <p><b>RSI(14)</b> — 최근 14거래일(또는 14주/14개월)간 오른 폭과 내린 폭을 비교해서 "사자/팔자 힘의 세기"를 0~100으로 나타낸 지표. <b>30 이하면 과매도</b>(많이 팔려서 반등 가능성 있음)로 봅니다.</p>
-        <p><b>MFI(14)</b> — RSI와 비슷하지만 거래량까지 반영한 지표. <b>20 이하면 과매도</b>로 봅니다.</p>
-        <p><b>과매도</b> — 가격이 단기간에 많이 팔려서, 통상적인 기준(RSI 30·MFI 20)보다 낮아진 상태. 반드시 반등한다는 뜻은 아니고, 참고 신호입니다.</p>
-        <p><b>다이버전스</b> — 가격은 새로 더 낮은 저점을 찍었는데, RSI나 MFI는 오히려 그 전 저점보다 덜 떨어진(또는 더 높은) 경우. "가격은 떨어지는데 팔자 힘은 약해지고 있다"는 신호로 해석합니다.</p>
-        <p><b>일봉 · 주봉 · 월봉</b> — 같은 지표를 하루/한 주/한 달 단위 가격으로 각각 계산한 것. 일봉은 단기, 월봉은 장기 흐름을 봅니다. 이 대시보드는 셋을 판정 없이 그냥 같이 보여줘서, 판단은 직접 하도록 합니다.</p>
-      </section>
-      <section>
-        <h3>기타</h3>
-        <p><b>시장국면(참고용)</b> — SPY(미국)/KOSPI200(한국) 지수가 200일 이동평균선 대비 어디에 있는지로 판정한 상승장/횡보장/하락장. <b>이 신호를 이유로 매수신호를 막지는 않습니다</b> — MDD 전략 자체가 하락장에서 기회를 찾는 게 목적이라서, 참고 정보로만 표시합니다.</p>
-        <p><b>단계 배지 색(회색/주황/빨강/진한빨강)</b> — MDD 0~3단계를 색으로 구분한 것. 색이 진할수록 역사적으로 드문 수준의 낙폭이라는 뜻입니다.</p>
-        <p><b>NEW 신호</b> — 오늘 새로 이 종목에 알림이 발생했다는 표시(MDD 단계가 올라갔거나, RSI/MFI 과매도·다이버전스가 새로 감지된 경우). 텔레그램으로도 같은 내용이 발송됩니다.</p>
-        <p><b>베이스라인 데이터 부족</b> — 최근 상장 등의 이유로 과거 낙폭국면이 5개 미만이라, MDD 백분위(P50/P25/P10)를 믿을 만하게 계산할 수 없는 상태. 이 경우 MDD 신호 계산을 생략합니다.</p>
-        <p><b>차트의 "지금" 표시</b> — 그래프에서 가장 최근(오늘) 데이터 지점을 강조점과 값 라벨로 표시한 것. 이 지점이 매수/매도 판단의 기준이 되는 "현재 위치"입니다.</p>
-        <p><b>낙폭 차트의 주황 점선(시장충격 시기)</b> — 코로나19 급락, 2022 금리인상 하락장처럼 널리 알려진 시장 전체 충격 시기와 겹치는 깊은 낙폭 지점을 참고로 표시한 것입니다. 그 종목만의 개별 사정(실적 발표 등)일 수도 있어서 "이 시기와 겹친다"는 참고 정보일 뿐, 원인을 단정하는 건 아닙니다.</p>
-        <p><b>1단계+ / 2단계+ / 3단계 필터</b> — 툴바에서 "1단계+"를 고르면 1단계 이상(1·2·3단계)인 종목만, "3단계"를 고르면 가장 극단적인 3단계 종목만 걸러서 보여줍니다.</p>
-      </section>
-    </div>
-  </div>
+<div id="fullscreen-backdrop" class="fullscreen-backdrop">
+  <div class="card fullscreen" id="fullscreen-card"></div>
 </div>
 
 <script>
 let DATA = null;
-let state = { stage: "all", category: "all", sort: "stage" };
+let state = { stage: "all", category: new Set(), sort: "stage", period: "3Y" };
 const detailCache = {};
+let fullscreenSymb = null;
+
+// 오버솔드 기준 - "근접"은 확정 기준보다 살짝 위(RSI+5/MFI+5)로 잡아서, 확정
+// 직전 단계를 미리 알아챌 수 있게 한다. RSI/MFI가 "둘 다" 이 기준을 넘어야
+// 배지가 켜진다(하나만 넘는 경우는 표시 안 함).
+const RSI_OVERSOLD = 30, MFI_OVERSOLD = 20;
+const RSI_NEAR_OVERSOLD = 35, MFI_NEAR_OVERSOLD = 25;
+
+// 기간 선택 버튼(1Y~ALL) - [라벨, 일수](ALL은 Infinity)
+const PERIODS = [
+  ["1Y", 365], ["3Y", 365 * 3], ["5Y", 365 * 5], ["10Y", 365 * 10],
+  ["20Y", 365 * 20], ["30Y", 365 * 30], ["50Y", 365 * 50], ["ALL", Infinity],
+];
+
+function toTs(dateStr) { return new Date(dateStr + "T00:00:00").getTime(); }
+
+// 선택한 기간(예: "10Y")만큼 records의 끝부분을 잘라 반환. records는 date 오름차순 가정.
+function sliceByPeriod(records, periodKey) {
+  if (!records || !records.length) return records || [];
+  if (periodKey === "ALL") return records;
+  const spec = PERIODS.find(p => p[0] === periodKey);
+  const days = spec ? spec[1] : Infinity;
+  if (days === Infinity) return records;
+  const cutoff = toTs(records[records.length - 1].date) - days * 86400000;
+  const idx = records.findIndex(r => toTs(r.date) >= cutoff);
+  return idx <= 0 ? records : records.slice(idx);
+}
+
+// records가 실제로 커버하는 기간(일수) - 이보다 긴 기간 버튼은 비활성화.
+function spanDays(records) {
+  if (!records || records.length < 2) return 0;
+  return (toTs(records[records.length - 1].date) - toTs(records[0].date)) / 86400000;
+}
+
+// 선택 구간이 길어질수록 일봉은 너무 빽빽해지므로, 실제로 화면에 표시될 기간
+// 길이에 따라 일/주/월봉 중 무엇을 보여줄지 정한다(3년 이하=셋 다, ~15년=주봉,
+// 그 이상=월봉).
+function timeframesForSpan(days) {
+  if (days <= 365 * 3 + 30) return [["daily", "일봉"], ["weekly", "주봉"], ["monthly", "월봉"]];
+  if (days <= 365 * 15) return [["weekly", "주봉"]];
+  return [["monthly", "월봉"]];
+}
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => (
@@ -370,6 +422,26 @@ function fmtPrice(t) {
   const cur = t.currency === "KRW" ? "₩" : "$";
   const val = t.currency === "KRW" ? t.close.toLocaleString("ko-KR", { maximumFractionDigits: 0 }) : t.close.toFixed(2);
   return `${cur}${val}`;
+}
+
+// 차트 y축 라벨용 - 원화처럼 자릿수가 큰 값은 "8.9만"처럼 축약해서 라벨 폭을
+// 짧게 유지한다(안 그러면 왼쪽 여백을 아무리 늘려도 큰 값에서는 잘리기 쉬움).
+function fmtAxisPrice(v, currency) {
+  const cur = currency === "KRW" ? "₩" : "$";
+  if (currency === "KRW") {
+    const abs = Math.abs(v);
+    if (abs >= 100000000) return cur + (v / 100000000).toFixed(1) + "억";
+    if (abs >= 10000) return cur + (v / 10000).toFixed(1) + "만";
+    return cur + Math.round(v).toLocaleString("ko-KR");
+  }
+  return cur + Math.round(v).toLocaleString("en-US");
+}
+
+function fmtExactPrice(v, currency) {
+  const cur = currency === "KRW" ? "₩" : "$";
+  return currency === "KRW"
+    ? cur + Math.round(v).toLocaleString("ko-KR")
+    : cur + v.toFixed(2);
 }
 
 function fmtDays(days) {
@@ -453,8 +525,11 @@ function timeframeBadgesHtml(timeframes) {
     const t = (timeframes && timeframes[key]) || {};
     const rsiTxt = t.rsi == null ? "-" : t.rsi.toFixed(0);
     const mfiTxt = t.mfi == null ? "-" : t.mfi.toFixed(0);
-    const on = (t.rsi_oversold || t.mfi_oversold || t.divergence) ? "on" : "";
-    return `<span class="tf-badge ${on}">${label} RSI ${rsiTxt} · MFI ${mfiTxt}${t.divergence ? " ●다이버전스" : ""}</span>`;
+    // RSI·MFI 둘 다 과매도(근접/확정)에 도달해야 알람 - 하나만 넘는 경우는 켜지지 않는다.
+    let cls = "";
+    if (t.rsi != null && t.mfi != null && t.rsi <= RSI_OVERSOLD && t.mfi <= MFI_OVERSOLD) cls = "confirmed";
+    else if (t.rsi != null && t.mfi != null && t.rsi <= RSI_NEAR_OVERSOLD && t.mfi <= MFI_NEAR_OVERSOLD) cls = "near";
+    return `<span class="tf-badge ${cls}">${label} RSI ${rsiTxt} · MFI ${mfiTxt}${t.divergence ? " ●다이버전스" : ""}</span>`;
   }).join("");
 }
 
@@ -473,17 +548,22 @@ const MACRO_EVENTS = [
   ["2022-01-01", "2022-10-15", "2022 금리인상 하락장"],
 ];
 
-function findMacroEventMarkers(records, valueKey, worstThreshold) {
-  const markers = [];
+// 낙폭(depth) 시계열 기준으로 이벤트를 찾는다(날짜로 반환) - 가격 차트든 낙폭
+// 차트든, "얼마나 깊이 떨어졌었는지"의 기준은 항상 depth이므로 한 곳에서만
+// 계산하고, 각 차트는 자기 자신의 records에서 그 날짜의 x좌표만 찾아 쓴다
+// (예전엔 차트마다 자기 series[0] 값 기준으로 계산해서, 가격차트에 적용하면
+// "가격이 낮은 시점"을 찾는 셈이 되어 의미가 안 맞았음).
+function findMacroEvents(depthRecords, worstThreshold) {
+  const events = [];
   MACRO_EVENTS.forEach(([start, end, label]) => {
     let best = null;
-    records.forEach((r, i) => {
-      if (r.date < start || r.date > end || r[valueKey] == null) return;
-      if (!best || r[valueKey] < best.val) best = { i, val: r[valueKey] };
+    depthRecords.forEach(r => {
+      if (r.date < start || r.date > end || r.depth == null) return;
+      if (!best || r.depth < best.val) best = { date: r.date, val: r.depth };
     });
-    if (best && best.val <= worstThreshold) markers.push({ index: best.i, label, val: best.val });
+    if (best && best.val <= worstThreshold) events.push({ date: best.date, label, val: best.val });
   });
-  return markers;
+  return events;
 }
 
 // 라벨들이 x좌표상 서로 가까우면(minGapPx 이내) 겹치지 않게 여러 줄(최대
@@ -501,15 +581,12 @@ function layoutLabelsNoOverlap(itemsWithX, minGapPx, maxRows) {
 }
 
 function lineChartSvg(records, opts) {
-  const W = 320, H = opts.height || 110;
+  const W = opts.width || 320, H = opts.height || 110;
   const EVENT_ROWS = 3;
-  const margin = { top: opts.markEvents ? 12 + EVENT_ROWS * 9 : 14, right: 6, bottom: 16, left: 32 };
-  const innerW = W - margin.left - margin.right;
-  const innerH = H - margin.top - margin.bottom;
   const n = records.length;
   if (!n) return '<div class="chart-loading">표시할 데이터가 없습니다.</div>';
-  const xAt = i => margin.left + (n <= 1 ? 0 : (i / (n - 1)) * innerW);
   const yFmt = opts.yFormat || (v => Math.round(v));
+  const nowFmt = opts.nowFormat || yFmt;
 
   let vals = [];
   opts.series.forEach(s => records.forEach(r => { if (r[s.key] != null) vals.push(r[s.key]); }));
@@ -526,20 +603,47 @@ function lineChartSvg(records, opts) {
     const pad = (yMax - yMin) * 0.08 || 1;
     yMin -= pad; yMax += pad;
   }
+  const yMid = (yMax + yMin) / 2;
+
+  // y축 라벨 폭에 맞춰 왼쪽 여백을 동적으로 잡는다 - 원화처럼 자릿수가 큰
+  // 값이 고정 여백(예전 32px) 밖으로 잘려나가던 문제 방지. 9px 폰트 기준
+  // 대략 문자당 5.3px로 추정.
+  const axisLabels = [yFmt(yMax), yFmt(yMid), yFmt(yMin)].map(String);
+  const maxLabelLen = Math.max(...axisLabels.map(s => s.length));
+  const left = Math.max(24, 8 + maxLabelLen * 5.3);
+
+  // 이벤트 마커(있다면)를 실제로 표시되는 날짜 구간으로 먼저 걸러서, 아무
+  // 이벤트도 안 보이는 기간(예: 최근 1년)에서는 위쪽 여백을 불필요하게
+  // 넓히지 않게 한다.
+  const visibleEvents = (opts.eventMarkers || [])
+    .filter(ev => ev.date >= records[0].date && ev.date <= records[n - 1].date);
+  const hasEvents = visibleEvents.length > 0;
+
+  const margin = { top: hasEvents ? 12 + EVENT_ROWS * 9 : 14, right: 6, bottom: 16, left };
+  const innerW = W - margin.left - margin.right;
+  const innerH = H - margin.top - margin.bottom;
+  const xAt = i => margin.left + (n <= 1 ? 0 : (i / (n - 1)) * innerW);
   const yAt = v => margin.top + innerH - ((v - yMin) / (yMax - yMin)) * innerH;
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
 
-  if (opts.yAxisTitle && !opts.markEvents) {
+  if (opts.yAxisTitle && !hasEvents) {
     svg += `<text x="${margin.left}" y="9" font-size="8" fill="var(--text-secondary)">${opts.yAxisTitle}</text>`;
   }
 
-  (opts.thresholds || []).forEach(t => {
-    const y = yAt(t.value);
-    const color = t.color || "var(--text-muted)";
-    svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${y}" y2="${y}" stroke="${color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>`;
-    svg += `<text x="${W - margin.right}" y="${y - 3}" text-anchor="end" font-size="9" fill="${color}">${t.label}</text>`;
-  });
+  // 임계선(RSI30/MFI20 등) - y좌표가 서로 가까우면 라벨이 겹치므로 지그재그 배치.
+  const thresholds = opts.thresholds || [];
+  if (thresholds.length) {
+    const items = thresholds.map(t => ({ ...t, y: yAt(t.value) })).sort((a, b) => a.y - b.y);
+    let prevY = -Infinity, row = 0;
+    items.forEach(it => { row = (it.y - prevY < 9) ? (row === 0 ? 1 : 0) : 0; prevY = it.y; it.row = row; });
+    items.forEach(it => {
+      const color = it.color || "var(--text-muted)";
+      svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${it.y}" y2="${it.y}" stroke="${color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>`;
+      const ty = it.row === 1 ? it.y + 10 : it.y - 3;
+      svg += `<text x="${W - margin.right}" y="${ty}" text-anchor="end" font-size="9" fill="${color}">${it.label}</text>`;
+    });
+  }
 
   opts.series.forEach(s => {
     let d = "";
@@ -561,10 +665,13 @@ function lineChartSvg(records, opts) {
   // 잘 알려진 시장 충격 시기(코로나19, 2022 금리인상 등)와 겹치는 깊은
   // 낙폭 지점에 점선+짧은 이름을 표시 - "이때는 왜 떨어졌는지" 참고용.
   // (그 종목만의 개별 사정일 수도 있어 단정하지 않고 "이 시기와 겹침" 정도로만.)
-  if (opts.markEvents) {
-    let events = findMacroEventMarkers(records, opts.series[0].key, opts.eventThreshold != null ? opts.eventThreshold : -0.1);
-    events.sort((a, b) => a.val - b.val);           // 깊은(심한) 이벤트 우선
-    events = events.slice(0, EVENT_ROWS).map(ev => ({ ...ev, x: xAt(ev.index) }));
+  if (hasEvents) {
+    let events = [...visibleEvents].sort((a, b) => a.val - b.val).slice(0, EVENT_ROWS);
+    events = events.map(ev => {
+      let idx = records.findIndex(r => r.date >= ev.date);
+      if (idx === -1) idx = n - 1;
+      return { ...ev, x: xAt(idx) };
+    });
     const laidOut = layoutLabelsNoOverlap(events, 74, EVENT_ROWS);
     laidOut.forEach(ev => {
       const labelY = 10 + ev.row * 9;
@@ -574,24 +681,35 @@ function lineChartSvg(records, opts) {
   }
 
   // y축: 위/중간/아래 3곳에 값을 찍는다 - 양끝만으로는 지금 값이 그 사이
-  // 어디쯔음인지 가늠하기 어려워서.
-  const yMid = (yMax + yMin) / 2;
-  svg += `<text x="${margin.left - 4}" y="${margin.top + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${yFmt(yMax)}</text>`;
-  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH / 2 + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${yFmt(yMid)}</text>`;
-  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="9" fill="var(--text-muted)">${yFmt(yMin)}</text>`;
+  // 어디쯤인지 가늠하기 어려워서.
+  svg += `<text x="${margin.left - 4}" y="${margin.top + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${axisLabels[0]}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH / 2 + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${axisLabels[1]}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="9" fill="var(--text-muted)">${axisLabels[2]}</text>`;
 
-  // "지금"(마지막 데이터) 값을 강조점+라벨로 표시 - 지금이 매수/매도 판단에
-  // 참고할 값인지 바로 인지할 수 있게.
-  const mainKey = opts.series[0].key;
-  let lastIdx = n - 1;
-  while (lastIdx >= 0 && records[lastIdx][mainKey] == null) lastIdx--;
-  if (lastIdx >= 0) {
-    const lv = records[lastIdx][mainKey];
-    const lx = xAt(lastIdx), ly = yAt(lv);
-    svg += `<circle cx="${lx}" cy="${ly}" r="3.2" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="1"/>`;
-    const labelAboveOk = ly - margin.top > 10;
-    svg += `<text x="${lx - 4}" y="${labelAboveOk ? ly - 6 : ly + 12}" text-anchor="end" font-size="9" font-weight="700" fill="var(--status-crit)">지금 ${yFmt(lv)}</text>`;
-  }
+  // "지금"(마지막 데이터) 값을 강조점+라벨로 표시 - series 중 labelCurrent가 켜진
+  // 것들(가격 차트는 종가만, 오실레이터는 RSI·MFI 둘 다)을 각자의 색으로 표시하고,
+  // 값이 서로 가까우면(라벨 y좌표 10px 이내) 세로로 살짝 띄워 겹치지 않게 한다.
+  const nowSpecs = [];
+  opts.series.forEach(s => {
+    if (!s.labelCurrent) return;
+    let idx = n - 1;
+    while (idx >= 0 && records[idx][s.key] == null) idx--;
+    if (idx < 0) return;
+    const v = records[idx][s.key];
+    nowSpecs.push({ color: s.color, x: xAt(idx), trueY: yAt(v), text: nowFmt(v) });
+  });
+  nowSpecs.sort((a, b) => a.trueY - b.trueY);
+  let prevLabelY = -Infinity;
+  nowSpecs.forEach(spec => {
+    spec.labelY = (spec.trueY - prevLabelY < 10) ? prevLabelY + 10 : spec.trueY;
+    prevLabelY = spec.labelY;
+  });
+  nowSpecs.forEach(spec => {
+    svg += `<circle cx="${spec.x}" cy="${spec.trueY}" r="3.2" fill="${spec.color}" stroke="var(--surface-1)" stroke-width="1"/>`;
+    const aboveOk = spec.labelY - margin.top > 10;
+    const ly = aboveOk ? spec.labelY - 6 : spec.labelY + 12;
+    svg += `<text x="${spec.x - 4}" y="${ly}" text-anchor="end" font-size="9" font-weight="700" fill="${spec.color}">지금 ${spec.text}</text>`;
+  });
 
   // 기간이 길어질수록(수년치) 양끝 날짜만으로는 "지금이 그 흐름 어디쯤인지" 감이
   // 안 잡혀서, 중간에도 날짜 라벨을 몇 개 더 찍어준다(대략 80px당 1개꼴).
@@ -605,48 +723,49 @@ function lineChartSvg(records, opts) {
   return svg;
 }
 
-function priceChartBlock(records, currency) {
-  const cur = currency === "KRW" ? "₩" : "$";
+function priceChartBlock(records, currency, eventMarkers, chartOpts) {
   const chart = lineChartSvg(records, {
-    height: 130,
-    yAxisTitle: `가격(${cur})`,
-    yFormat: v => cur + Math.round(v).toLocaleString(),
+    height: (chartOpts && chartOpts.height) || 130,
+    width: chartOpts && chartOpts.width,
+    yFormat: v => fmtAxisPrice(v, currency),
+    nowFormat: v => fmtExactPrice(v, currency),
     series: [
       { key: "rolling_high", color: "var(--text-muted)", width: 1, dashed: true },
-      { key: "close", color: "var(--series-1)", width: 2 },
+      { key: "close", color: "var(--series-1)", width: 2, labelCurrent: true },
     ],
     markerKey: "divergence",
+    eventMarkers,
   });
-  return `<div class="chart-block"><div class="chart-label">가격(파랑) + 지금까지의 최고가(점선) · 붉은 점=다이버전스 감지일</div>${chart}</div>`;
+  return `<div class="chart-block"><div class="chart-label">가격 · 점선=최고가 · 빨간점=다이버전스</div>${chart}</div>`;
 }
 
-function oscillatorChartBlock(records, label) {
+function oscillatorChartBlock(records, tag, chartOpts) {
   const chart = lineChartSvg(records, {
-    height: 100, yMin: 0, yMax: 100,
-    yAxisTitle: "RSI·MFI (0~100)",
+    height: (chartOpts && chartOpts.height) || 100,
+    width: chartOpts && chartOpts.width,
+    yMin: 0, yMax: 100,
     thresholds: [
       { value: 30, label: "RSI30", color: "var(--series-2)" },
       { value: 20, label: "MFI20", color: "var(--series-3)" },
     ],
     series: [
-      { key: "rsi", color: "var(--series-2)", width: 2 },
-      { key: "mfi", color: "var(--series-3)", width: 2 },
+      { key: "rsi", color: "var(--series-2)", width: 2, labelCurrent: true },
+      { key: "mfi", color: "var(--series-3)", width: 2, labelCurrent: true },
     ],
   });
-  return `<div class="chart-block"><div class="chart-label">${label} RSI(14, 주황) · MFI(14, 초록) - 오버솔드선 아래=과매도</div>${chart}</div>`;
+  return `<div class="chart-block"><div class="tf-tag">${tag}</div>${chart}</div>`;
 }
 
-function underwaterDetailBlock(records) {
+function underwaterDetailBlock(records, eventMarkers, chartOpts) {
   const chart = lineChartSvg(records, {
-    height: 110,
-    yAxisTitle: "낙폭(%, 최고가 대비)",
+    height: (chartOpts && chartOpts.height) || 110,
+    width: chartOpts && chartOpts.width,
     yFormat: v => Math.round(v * 100) + "%",
-    series: [{ key: "depth", color: "var(--price-down)", width: 2 }],
+    series: [{ key: "depth", color: "var(--price-down)", width: 2, labelCurrent: true }],
     thresholds: [{ value: 0, label: "신고가", color: "var(--text-muted)" }],
-    markEvents: true,
-    eventThreshold: -0.1,
+    eventMarkers,
   });
-  return `<div class="chart-block"><div class="chart-label">낙폭(depth%) 추이 - 0%가 신고가 · 주황 점선=널리 알려진 시장충격 시기와 겹침(참고용)</div>${chart}</div>`;
+  return `<div class="chart-block"><div class="chart-label">낙폭 추이 · 0%=신고가</div>${chart}</div>`;
 }
 
 function episodeHistogramSvg(episodes, percentiles, asOfDate) {
@@ -722,37 +841,122 @@ function episodeHistogramSvg(episodes, percentiles, asOfDate) {
   return svg;
 }
 
-function renderDetail(container, detail, currency) {
+// 조작 피드백 - 클릭 즉시 반영되는 컨트롤에 짧은 강조 테두리를 다시 재생시켜서
+// "적용됐다"는 걸 눈으로 확인할 수 있게 한다.
+function flashFeedback(el) {
+  if (!el) return;
+  el.classList.remove("control-flash");
+  void el.offsetWidth; // 리플로우를 강제해서 애니메이션을 처음부터 다시 재생
+  el.classList.add("control-flash");
+}
+
+function periodButtonsHtml(maxDays) {
+  return `<div class="period-group">` + PERIODS.map(([key, days]) => {
+    const disabled = days !== Infinity && maxDays > 0 && days > maxDays + 30;
+    const active = state.period === key ? "active" : "";
+    return `<button type="button" class="period-btn ${active}" data-period="${key}" ${disabled ? "disabled" : ""}>${key}</button>`;
+  }).join("") + `</div>`;
+}
+
+// 카드 상세뷰(및 크게보기)의 실제 내용 - 기간 버튼으로 고른 state.period가
+// 가격/낙폭/RSI·MFI 차트 전부에 함께 적용된다(전역 동기화).
+function detailContentHtml(t, detail, large) {
   const completeCount = (detail.episodes || []).filter(e => e.is_complete).length;
   const incompleteCount = (detail.episodes || []).length - completeCount;
-  const underwater = detail.underwater || [];
-  const asOfDate = underwater.length ? underwater[underwater.length - 1].date : null;
-  container.innerHTML = `
-    ${priceChartBlock(detail.daily, currency)}
-    <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭(underwater) 추이 (최근 약 12년 - 지금이 역사적으로 어느 위치인지 참고)</div>
-    ${underwaterDetailBlock(detail.underwater)}
-    <div class="chart-label" style="font-weight:600;margin-top:6px">과거 낙폭국면 히스토그램</div>
-    <div class="chart-label">🔵완결(신고가로 회복됨) ${completeCount}회 · 🔴진행중(아직 회복 전, "지금"이 여기) ${incompleteCount}회</div>
+  const fullUnderwater = detail.underwater || [];
+  const asOfDate = fullUnderwater.length ? fullUnderwater[fullUnderwater.length - 1].date : null;
+  const maxDays = spanDays(fullUnderwater);
+
+  const priceSlice = sliceByPeriod(detail.daily, state.period);
+  const underwaterSlice = sliceByPeriod(fullUnderwater, state.period);
+  const events = findMacroEvents(fullUnderwater, -0.1);
+
+  const seriesForTf = { daily: detail.daily, weekly: detail.weekly, monthly: detail.monthly };
+  const tfPlan = timeframesForSpan(spanDays(underwaterSlice));
+  const bigChart = large ? { height: 220 } : undefined;
+  const bigOsc = large ? { height: 160 } : undefined;
+
+  return `
+    <div class="detail-toolbar">
+      ${periodButtonsHtml(maxDays)}
+      <button type="button" class="expand-btn" data-action="toggle-fullscreen">${large ? "축소하기" : "크게 보기 ⛶"}</button>
+    </div>
+    ${priceChartBlock(priceSlice, t.currency, events, bigChart)}
+    ${underwaterDetailBlock(underwaterSlice, events, bigChart)}
+    <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭국면 히스토그램 · 🔵완결 ${completeCount}회 · 🔴진행중("지금") ${incompleteCount}회</div>
     ${episodeHistogramSvg(detail.episodes, detail.percentiles, asOfDate)}
-    <div class="chart-label" style="font-weight:600;margin-top:6px">RSI · MFI (일/주/월)</div>
-    ${oscillatorChartBlock(detail.daily, "일봉")}
-    ${oscillatorChartBlock(detail.weekly, "주봉")}
-    ${oscillatorChartBlock(detail.monthly, "월봉")}
+    ${tfPlan.map(([key, label]) => oscillatorChartBlock(sliceByPeriod(seriesForTf[key], state.period), label, bigOsc)).join("")}
   `;
+}
+
+function wireDetailContainer(container, t, detail, large) {
+  container.querySelectorAll(".period-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.disabled) return;
+      state.period = btn.dataset.period;
+      renderDetailInto(container, t, detail, large);
+      flashFeedback(container.querySelector(`.period-btn[data-period="${state.period}"]`));
+    });
+  });
+  const expandBtn = container.querySelector('[data-action="toggle-fullscreen"]');
+  if (expandBtn) {
+    expandBtn.addEventListener("click", () => {
+      if (large) closeFullscreen(); else openFullscreen(t.symb, detail);
+    });
+  }
+}
+
+function renderDetailInto(container, t, detail, large) {
+  container.innerHTML = detailContentHtml(t, detail, large);
+  wireDetailContainer(container, t, detail, large);
+}
+
+function openFullscreen(symb, detail) {
+  const t = (DATA && DATA.tickers.find(x => x.symb === symb)) || {};
+  fullscreenSymb = symb;
+  const pctClass = t.pct_chg >= 0 ? "up" : "down";
+  const pctSign = t.pct_chg >= 0 ? "+" : "";
+  const card = document.getElementById("fullscreen-card");
+  card.innerHTML = `
+    <div class="card-top">
+      <div class="ticker-block">
+        <div class="symb">${escapeHtml(t.symb)}</div>
+        <div class="name">${escapeHtml(t.name)}</div>
+        <div class="cat-tag">${escapeHtml(t.category)}</div>
+      </div>
+      <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+    </div>
+    <div class="price-row">
+      <span>${fmtPrice(t)}</span>
+      <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
+      <span style="color:var(--text-muted)">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
+    </div>
+    <div class="fullscreen-charts"></div>
+  `;
+  renderDetailInto(card.querySelector(".fullscreen-charts"), t, detail, true);
+  document.getElementById("fullscreen-backdrop").classList.add("open");
+  document.body.classList.add("fullscreen-open");
+}
+
+function closeFullscreen() {
+  document.getElementById("fullscreen-backdrop").classList.remove("open");
+  document.body.classList.remove("fullscreen-open");
+  document.getElementById("fullscreen-card").innerHTML = "";
+  fullscreenSymb = null;
 }
 
 async function ensureDetailCharts(symb, cardEl) {
   const holder = cardEl.querySelector(".charts-holder");
   if (!holder) return;
   const t = (DATA && DATA.tickers.find(x => x.symb === symb)) || {};
-  if (detailCache[symb]) { renderDetail(holder, detailCache[symb], t.currency); return; }
+  if (detailCache[symb]) { renderDetailInto(holder, t, detailCache[symb], false); return; }
   holder.innerHTML = '<div class="chart-loading">차트 불러오는 중...</div>';
   try {
     const res = await fetch(`detail/${symb}.json`, { cache: "no-store" });
     if (!res.ok) throw new Error("상세 데이터 없음 (" + res.status + ")");
     const detail = await res.json();
     detailCache[symb] = detail;
-    renderDetail(holder, detail, t.currency);
+    renderDetailInto(holder, t, detail, false);
   } catch (e) {
     holder.innerHTML = `<div class="chart-loading">차트를 불러오지 못했습니다: ${e.message}</div>`;
   }
@@ -785,14 +989,13 @@ function cardHtml(t) {
     </div>
     ${t.business_summary ? `<div class="biz-summary">${escapeHtml(t.business_summary)}</div>` : ""}
     <div class="mini-chart-block">
-      <div class="chart-label">낙폭 위치 (P50/P25/P10 대비)</div>
+      <div class="chart-label">낙폭 위치</div>
       ${depthGaugeSvg(t.depth, t.percentiles)}
-      <div class="pctile-note">P50=평소 · P25=깊음 · P10=매우 깊음 (자세한 설명은 📖 용어사전)</div>
     </div>
     ${recoveryLineHtml(t.percentiles)}
     ${t.is_record_drawdown ? '<div class="record-badge">⚠️ 사상 최대 낙폭</div>' : ""}
     <div class="mini-chart-block">
-      <div class="chart-label">최근 약 1년 낙폭(underwater) 추이</div>
+      <div class="chart-label">낙폭 추이(최근 1년)</div>
       ${underwaterSparkSvg(t.underwater_spark)}
     </div>
     <div class="tf-badges">${timeframeBadgesHtml(t.timeframes)}</div>
@@ -815,7 +1018,7 @@ function bannerHtml(newOnes) {
 function applyFilters(tickers) {
   let list = tickers.filter(t => {
     if (state.stage !== "all" && t.stage < Number(state.stage)) return false;
-    if (state.category !== "all" && t.category !== state.category) return false;
+    if (state.category.size > 0 && !state.category.has(t.category)) return false;
     return true;
   });
   if (state.sort === "stage") list.sort((a, b) => (b.stage - a.stage) || (a.depth - b.depth));
@@ -836,7 +1039,7 @@ function render() {
   document.getElementById("banner").innerHTML = bannerHtml(newOnes);
 
   const SORT_LABELS = { stage: "MDD단계순", depth: "낙폭깊은순", pct_chg: "등락률순", symb: "알파벳순" };
-  const filterActive = state.stage !== "all" || state.category !== "all";
+  const filterActive = state.stage !== "all" || state.category.size > 0;
   const countEl = document.getElementById("grid-count");
   countEl.textContent = (filterActive
     ? `✅ 필터 적용됨 - ${list.length}종목 표시 중 (전체 ${DATA.tickers.length}종목)`
@@ -871,7 +1074,17 @@ function wireOverlay(btnId, overlayId, closeId) {
 
 function wireHelp() {
   wireOverlay("help-btn", "help-overlay", "help-close");
-  wireOverlay("glossary-btn", "glossary-overlay", "glossary-close");
+  // "크게 보기" 오버레이도 배경(카드 바깥) 클릭 시 닫히게 - 도움말 패널과 같은 동작.
+  document.getElementById("fullscreen-backdrop").addEventListener("click", (e) => {
+    if (e.target.id === "fullscreen-backdrop") closeFullscreen();
+  });
+}
+
+function updateCategoryChipUI() {
+  document.querySelectorAll("#filter-category .chip").forEach(c => {
+    const active = c.dataset.cat === "all" ? state.category.size === 0 : state.category.has(c.dataset.cat);
+    c.classList.toggle("active", active);
+  });
 }
 
 function wireToolbar() {
@@ -880,20 +1093,25 @@ function wireToolbar() {
       document.querySelectorAll("#filter-stage .chip").forEach(c => c.classList.remove("active"));
       chip.classList.add("active");
       state.stage = chip.dataset.stage;
+      flashFeedback(chip);
       render();
     });
   });
+  // 분류(지수/종목) 칩은 다중선택 - "전체"는 선택 초기화, 나머지는 각각 켜고 끌 수 있다.
   document.querySelectorAll("#filter-category .chip").forEach(chip => {
     chip.addEventListener("click", () => {
-      document.querySelectorAll("#filter-category .chip").forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      state.category = chip.dataset.cat;
+      const cat = chip.dataset.cat;
+      if (cat === "all") state.category.clear();
+      else if (state.category.has(cat)) state.category.delete(cat);
+      else state.category.add(cat);
+      updateCategoryChipUI();
+      flashFeedback(chip);
       render();
     });
   });
   document.getElementById("sort-select").addEventListener("change", (e) => {
     state.sort = e.target.value;
-    render();
+    render(); // grid-count가 매 render()마다 알아서 반짝여서 "적용됨"을 알려줌
   });
 }
 
