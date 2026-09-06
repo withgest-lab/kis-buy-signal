@@ -22,6 +22,19 @@ OUTPUT_PATH = Path("docs/scores.json")
 DETAIL_DIR = Path("docs/detail")
 SPARK_DAYS = 250            # 카드 미니 underwater 스파크라인 (약 1년, 가벼운 미리보기용)
 
+# 개별 종목의 -25% 이상 낙폭 국면 중 기존 거시이벤트(MACRO_EVENTS)로 설명되지 않는
+# 것들을 실제로 조사해(WebSearch) 채워둔 원인 메모 - 프론트에서 거시이벤트와 같은
+# 방식(점선+라벨)으로 병합 표시한다. 1회성으로 수동 조사한 결과이며, 못 찾은 건은
+# "특정 단일 원인 확인 안 됨"으로 정직하게 표기해뒀다(지어내지 않음).
+EPISODE_NOTES_PATH = Path(__file__).parent / "data" / "episode_notes.json"
+
+
+def _load_episode_notes() -> dict:
+    if not EPISODE_NOTES_PATH.exists():
+        return {}
+    with open(EPISODE_NOTES_PATH, encoding="utf-8") as f:
+        return json.load(f)
+
 # 상세뷰(카드 펼침) 차트는 더 이상 여기서 기간을 잘라내지 않는다 - baseline 전체
 # (가능한 만큼 최대) 기간을 그대로 detail json에 담아서, 프론트의 기간 선택 버튼
 # (1Y~ALL)이 그 안에서 원하는 구간만 잘라 보여주도록 한다.
@@ -69,7 +82,7 @@ def _series_records(df: pd.DataFrame, cols: list[str]) -> list[dict]:
     return records
 
 
-def _build_detail(symb: str, baseline_entry: dict | None) -> dict | None:
+def _build_detail(symb: str, baseline_entry: dict | None, episode_notes: dict) -> dict | None:
     daily = _read_daily(symb)
     if daily is None:
         return None
@@ -85,14 +98,16 @@ def _build_detail(symb: str, baseline_entry: dict | None) -> dict | None:
         "monthly": _series_records(frames["monthly"], ["close", "rsi", "mfi", "divergence"]),
         "episodes": (baseline_entry or {}).get("episodes", []),
         "percentiles": (baseline_entry or {}).get("percentiles"),
+        "episode_notes": episode_notes.get(symb, []),
     }
 
 
 def export_details(baseline: dict) -> int:
     DETAIL_DIR.mkdir(parents=True, exist_ok=True)
+    episode_notes = _load_episode_notes()
     count = 0
     for _category, symb in TICKERS:
-        detail = _build_detail(symb, baseline.get(symb))
+        detail = _build_detail(symb, baseline.get(symb), episode_notes)
         if detail is None:
             continue
         with open(DETAIL_DIR / f"{symb}.json", "w", encoding="utf-8") as f:

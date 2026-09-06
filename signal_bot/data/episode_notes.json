@@ -1,0 +1,56 @@
+{
+  "TSLA": [
+    {"start_date": "2010-06-30", "trough_date": "2010-07-07", "depth_pct": -33.9, "cause": "IPO(6/29) 직후 1분기 순손실이 매출을 초과한다는 우려와 그린테크 업종 전반에 대한 투자자 회의론으로 주가가 IPO 공모가($17) 아래로 하락", "source_name": "CNNMoney/Bloomberg", "source_url": "https://money.cnn.com/2010/07/07/technology/tesla_stock/index.htm"},
+    {"start_date": "2012-04-04", "trough_date": "2012-08-02", "depth_pct": -31.3, "cause": "Model S 출시(6월)를 앞두고 실적 발표에서 시장 예상보다 큰 손실을 보고하며 현금 소진 우려가 커짐", "source_name": "GreenCarReports", "source_url": "https://www.greencarreports.com/news/1082494_tesla-stock-sinks-after-release-of-2012-financial-results"},
+    {"start_date": "2013-10-01", "trough_date": "2013-11-26", "depth_pct": -37.7, "cause": "Model S 배터리 화재 3건이 연쇄 발생(도로 파편·나무 충돌 등)하고 미 도로교통안전국(NHTSA)이 조사에 착수, 3분기 판매도 예상치를 밑돌며 급락", "source_name": "CNNMoney/NPR/Fool.com", "source_url": "https://money.cnn.com/2013/11/07/autos/tesla-fire"},
+    {"start_date": "2014-03-05", "trough_date": "2014-05-08", "depth_pct": -29.9, "cause": "2월 깜짝 실적 발표와 모건스탠리의 목표주가 상향($320)으로 급등했던 주가가 차익실현 매물에 조정받음", "source_name": "Washington Post/CNNMoney", "source_url": "https://www.washingtonpost.com/news/wonk/wp/2014/02/25/teslas-stock-is-up-644-why-it-may-not-last/"},
+    {"start_date": "2020-09-01", "trough_date": "2020-09-08", "depth_pct": -33.7, "cause": "9월 4일 S&P500 지수 편입이 불발(수익성 지표 미흡이 사유로 추정)되며 실망 매물 출회", "source_name": "CNBC/Gurufocus", "source_url": "https://www.cnbc.com/2020/09/12/sp-500-snubs-tesla-etf-analysts-unpack-the-impact-on-the-market.html"},
+    {"start_date": "2021-01-27", "trough_date": "2021-03-08", "depth_pct": -36.2, "cause": "2월 8일 15억달러 규모 비트코인 매입 발표 이후 주가가 비트코인 가격 변동에 연동되었고, 금리 상승에 따른 고성장주 밸류에이션 조정과도 겹침", "source_name": "Forbes/CNBC", "source_url": "https://www.forbes.com/sites/jonathanponciano/2021/02/23/tesla-has-plunged-25-and-lost-200-billion-in-market-value-since-its-bitcoin-investment/"}
+  ],
+  "META": [
+    {"start_date": "2012-05-21", "trough_date": "2012-09-04", "depth_pct": -53.6, "cause": "2012년 5월 IPO 이후 모바일 광고 수익화에 대한 우려로 급락. IPO 로드쇼 당시 주관사들이 일부 기관투자자에게만 매출 전망 하향을 전달했던 사실도 논란이 됨", "source_name": "CNBC/Yahoo Finance", "source_url": "https://www.cnbc.com/2022/05/18/facebook-ipo-10-years-later-new-name-same-ceo-familiar-problem.html"}
+  ],
+  "AAPL": [
+    {"start_date": "2012-09-20", "trough_date": "2013-04-19", "depth_pct": -43.6, "cause": "아이폰5 수요 둔화 및 부품 주문 축소 보도가 이어졌고, 2013년 4월 발표에서 10년 만에 첫 분기 순이익 감소(전년比 -18%)를 기록", "source_name": "CNNMoney/Statista", "source_url": "https://www.cnbc.com/2013/04/19/after-apples-rise-a-bruising-fall.html"}
+  ],
+  "AMZN": [
+    {"start_date": "2010-04-23", "trough_date": "2010-06-29", "depth_pct": -27.6, "cause": "2010년 유럽 재정위기(그리스 등)와 5월 플래시크래시로 인한 시장 전반의 위험자산 회피 국면과 겹침(아마존 고유 이슈보다는 전반적 시장 조정에 가까움 - 같은 시기 SPY/ASML 등도 함께 하락)", "source_name": null, "source_url": null},
+    {"start_date": "2011-10-17", "trough_date": "2011-12-30", "depth_pct": -29.8, "cause": "킨들파이어($199, 제조원가 이하 판매)로 인한 마진 훼손 우려, 4분기 순이익이 전년比 58% 급감 발표", "source_name": "PhoneArena/AppleInsider", "source_url": "https://www.phonearena.com/news/Amazon-profits-down-in-Q4-2011-despite-Kindle-success_id26463"},
+    {"start_date": "2014-01-22", "trough_date": "2015-01-15", "depth_pct": -29.3, "cause": "파이어폰 실패로 1.7억달러 상각 처리, 14년 만의 최대 분기 손실(4.37억달러) 발표로 '성장 우선, 손실 감내' 전략에 대한 투자자 인내심이 소진됨", "source_name": "US News/Fortune/InvestorPlace", "source_url": "https://www.usnews.com/news/articles/2014/07/28/amazon-earnings-disappoint-as-fire-phone-debuts"}
+  ],
+  "AMD": [
+    {"start_date": "2016-08-29", "trough_date": "2016-09-13", "depth_pct": -25.2, "cause": "특정 단일 원인 확인 안 됨 - 검색된 기사들은 이 시기 실제 하락폭이 완만(약 7%)했다고 전하고 있어 계산된 낙폭(-25.2%)과 뉴스 간 괴리가 있음(참고용으로만 사용)", "source_name": null, "source_url": null},
+    {"start_date": "2017-02-28", "trough_date": "2018-04-02", "depth_pct": -37.3, "cause": "2017년 암호화폐 채굴 붐에 따른 GPU 수요 훈풍 이후, 2018년 들어 채굴 붐 둔화와 재고 과잉 우려로 조정(정확한 저점 시점의 개별 기사보다는 채굴 수요 사이클 전반과 관련)", "source_name": "Motley Fool/Tom's Hardware", "source_url": "https://www.fool.com/investing/2018/03/06/a-crypto-crash-could-derail-amd.aspx"}
+  ],
+  "INTC": [
+    {"start_date": "2012-05-03", "trough_date": "2012-11-21", "depth_pct": -32.0, "cause": "태블릿·모바일 기기로 수요가 이전되며 PC 시장이 둔화(3분기 PC 출하량 -8.6%), 울트라북 이니셔티브도 제한적 효과에 그침", "source_name": "Forbes", "source_url": "https://www.forbes.com/sites/greatspeculations/2012/10/17/intels-earnings-succumb-to-the-pc-market-slowdown/"}
+  ],
+  "LRCX": [
+    {"start_date": "2017-11-22", "trough_date": "2018-02-08", "depth_pct": -25.7, "cause": "특정 단일 기사 확인은 안 됐으나, 2017년 말~2018년 초 반도체 장비업종 전반에서 메모리 수요 둔화 및 설비투자 사이클 고점 우려가 부각되던 시기와 겹침", "source_name": null, "source_url": null}
+  ],
+  "ASML": [
+    {"start_date": "2010-04-14", "trough_date": "2010-08-31", "depth_pct": -31.3, "cause": "2010년 유럽 재정위기·플래시크래시로 인한 시장 전반의 위험자산 회피 국면과 겹침(같은 시기 SPY/AMZN 등도 함께 하락 - 대시보드에 별도 거시이벤트로도 표시됨)", "source_name": null, "source_url": null}
+  ],
+  "MU": [
+    {"start_date": "2021-04-13", "trough_date": "2021-10-13", "depth_pct": -30.5, "cause": "D램·낸드 가격이 공급부족에서 공급과잉 국면으로 전환되며 예상보다 약한 가이던스를 발표", "source_name": "Motley Fool", "source_url": "https://www.fool.com/investing/2022/07/20/micron-faces-plunging-memory-chip-prices"}
+  ],
+  "NVDA": [
+    {"start_date": "2024-06-20", "trough_date": "2024-08-07", "depth_pct": -27.1, "cause": "차세대 AI칩 블랙웰(B200)이 설계 결함으로 출시가 3개월 이상 지연된다는 보도와 대미 수출규제 강화 우려가 겹침", "source_name": "Forbes/Benzinga", "source_url": "https://www.forbes.com/sites/bethkindig/2024/08/22/nvidia-stock-blackwell-suppliers-shrug-off-delay-ahead-of-q2-earnings/"}
+  ],
+  "AVGO": [
+    {"start_date": "2024-06-18", "trough_date": "2024-08-07", "depth_pct": -25.2, "cause": "2분기 실적 자체는 견조했으나 AI 매출이 눈높이를 밑돌았고, 구글이 커스텀 AI칩 소싱을 다변화한다는 소식이 겹치며 과도했던 기대치가 조정됨", "source_name": "Yahoo Finance/Morningstar", "source_url": "https://finance.yahoo.com/markets/stocks/articles/why-broadcom-stock-fell-15-005000975.html"}
+  ],
+  "CAT": [
+    {"start_date": "2012-02-24", "trough_date": "2012-07-12", "depth_pct": -31.2, "cause": "중국 경제성장 둔화 우려와 함께, 2011년 고점을 찍었던 광산업체들의 설비투자가 위축되기 시작한 국면", "source_name": "Bloomberg/Fool.com (2012~2014년 흐름 관련 보도)", "source_url": "https://www.bloomberg.com/news/articles/2014-05-20/caterpillar-sales-drop-accelerates-amid-mining-cuts"}
+  ],
+  "005930": [
+    {"start_date": "1990-04-02", "trough_date": "1992-05-25", "depth_pct": -43.9, "cause": "특정 단일 원인 확인 안 됨(1990년대 초 국내 증시 전반의 장기 조정 국면으로 추정되나 명확한 근거 기사는 찾지 못함)", "source_name": null, "source_url": null},
+    {"start_date": "1994-09-22", "trough_date": "1995-01-09", "depth_pct": -38.9, "cause": "특정 단일 원인 확인 안 됨(1990년대 중반 메모리 반도체 가격 조정과 관련 있을 가능성이 있으나 명확한 근거 기사는 찾지 못함)", "source_name": null, "source_url": null},
+    {"start_date": "1999-09-14", "trough_date": "1999-10-25", "depth_pct": -28.2, "cause": "특정 단일 원인 확인 안 됨", "source_name": null, "source_url": null},
+    {"start_date": "2004-04-26", "trough_date": "2004-12-13", "depth_pct": -36.9, "cause": "특정 단일 원인 확인 안 됨(낸드플래시 가격 경쟁 심화 등 반도체 업황과 관련 있을 것으로 추정)", "source_name": null, "source_url": null},
+    {"start_date": "2006-02-01", "trough_date": "2007-10-25", "depth_pct": -31.5, "cause": "특정 단일 원인 확인 안 됨", "source_name": null, "source_url": null}
+  ],
+  "KOSPI200": [
+    {"start_date": "1992-02-10", "trough_date": "1992-08-21", "depth_pct": -35.1, "cause": "특정 단일 원인 확인 안 됨", "source_name": null, "source_url": null}
+  ]
+}

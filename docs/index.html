@@ -405,7 +405,7 @@
       <section>
         <h3>카드를 펼치면 나오는 차트들은요?</h3>
         <p><b>가격 + 롤링 신고가</b> — 가격 위에 지금까지의 최고가선(점선)을 겹쳐서, 지금이 그 선에서 얼마나 떨어져 있는지 한눈에 보여줍니다. 빨간 점은 다이버전스가 감지된 날입니다.</p>
-        <p><b>낙폭(underwater) 추이</b> — 낙폭%을 시간 흐름에 따라 그린 그래프. 0%(신고가) 아래로 얼마나, 얼마나 오래 내려가 있었는지를 보여줍니다. 주황 점선은 코로나19, 2022 금리인상 하락장처럼 널리 알려진 시장 전체 충격 시기와 겹치는 지점을 참고로 표시한 것입니다(그 종목만의 개별 사정일 수도 있어 원인을 단정하는 건 아닙니다).</p>
+        <p><b>낙폭(underwater) 추이</b> — 낙폭%을 시간 흐름에 따라 그린 그래프. 0%(신고가) 아래로 얼마나, 얼마나 오래 내려가 있었는지를 보여줍니다. 주황 점선은 코로나19, 2022 금리인상 하락장처럼 널리 알려진 시장 전체 충격 시기와 겹치는 지점, 또는 그 종목만의 큰 낙폭(-25% 이상)에 대해 실제로 찾아본 개별 원인을 표시한 것입니다(마우스를 올리면 자세한 내용이 보입니다). 명확한 원인을 못 찾은 경우는 "특정 단일 원인 확인 안 됨"이라고 정직하게 표시했고, 아직 조사가 안 된 나머지 낙폭 국면들도 있습니다 - 원인을 안다고 단정하는 게 아니라 참고용입니다.</p>
         <p><b>낙폭국면 히스토그램</b> — 과거의 낙폭 국면들을 막대로 나열합니다. 막대가 길수록 더 깊었던 국면이고, 점선은 P50/P25/P10 기준선입니다. 🔵는 신고가로 회복된(완결) 국면, 🔴는 아직 회복 전(진행중, "지금"이 여기)인 국면입니다.</p>
         <p><b>RSI·MFI 라인차트</b> — 오버솔드 기준선(RSI 30, MFI 20)을 넘어가면 과매도 구간입니다. 선택한 기간이 3년 이하면 일/주/월봉을 모두, 3~15년이면 주봉, 그보다 길면 월봉만 보여줍니다(기간이 길어질수록 일봉은 너무 빽빽해져서 자동으로 더 굵은 단위로 바꿔 보여드리는 것입니다).</p>
         <p><b>기간 버튼(1Y~ALL)</b> — 이 버튼으로 고른 기간이 그 카드 안의 가격/낙폭/RSI·MFI 차트 전부에 함께 적용됩니다(따로 조절할 필요 없음). 예를 들어 "지금 상승장이 언제부터 시작됐는지", "이번 하락장이 언제부터인지"를 보려면 기간을 길게(10Y 이상) 늘려서 가격 차트의 롤링 신고가선과 낙폭 차트를 함께 보시면 됩니다. 실제로 갖고 있는 데이터보다 긴 기간 버튼은 흐리게 표시되고 눌리지 않습니다.</p>
@@ -605,7 +605,9 @@ function timeframeBadgesHtml(timeframes) {
 // 수는 없지만(개별 기업 사정일 수도 있음), 이 시기와 겹치면 참고 정보로
 // 표시한다. 차트에 실제로 표시되는 데이터 구간에 들어있을 때만 노출됨.
 const MACRO_EVENTS = [
+  ["1997-07-01", "1998-12-31", "IMF 외환위기(아시아 금융위기)"],
   ["2000-03-01", "2002-10-01", "닷컴버블 붕괴"],
+  ["2010-04-15", "2010-07-10", "유럽 재정위기·플래시크래시"],
   ["2008-09-01", "2009-03-01", "글로벌 금융위기"],
   ["2011-08-01", "2011-10-01", "미 신용등급 강등"],
   ["2015-08-01", "2016-02-01", "차이나 쇼크"],
@@ -618,6 +620,7 @@ const MACRO_EVENTS = [
   ["2025-04-01", "2025-04-15", "2025 관세충격"],
   ["2025-06-12", "2025-06-25", "이란-이스라엘 분쟁 발발"],
   ["2026-02-20", "2026-04-10", "이란전쟁 확전·유가급등"],
+  ["2026-06-15", "2026-08-15", "AI·반도체 밸류에이션 조정"],
 ];
 
 // 낙폭(depth) 시계열 기준으로 이벤트를 찾는다(날짜로 반환) - 가격 차트든 낙폭
@@ -636,6 +639,17 @@ function findMacroEvents(depthRecords, worstThreshold) {
     if (best && best.val <= worstThreshold) events.push({ date: best.date, label, val: best.val });
   });
   return events;
+}
+
+// 그 종목만의 낙폭 원인 메모(signal_bot/data/episode_notes.json, 1회성으로 조사해
+// 채워둔 것)를 거시이벤트와 같은 {date,label,val} 모양으로 변환 - 기존 이벤트
+// 마커 렌더링(점선+라벨+정렬/겹침방지)을 그대로 재사용하기 위함. 라벨은 차트 안에
+// 짧게만 보여주고, 조사한 전체 사유 문장은 마우스오버 툴팁(title)에서 보여준다.
+function episodeNotesToEvents(notes) {
+  return (notes || []).map(note => {
+    const short = note.cause.length > 14 ? note.cause.slice(0, 13) + "…" : note.cause;
+    return { date: note.trough_date, label: short, val: note.depth_pct / 100, cause: note.cause };
+  });
 }
 
 // 라벨들이 x좌표상 서로 가까우면(minGapPx 이내) 겹치지 않게 여러 줄(최대
@@ -759,7 +773,17 @@ function lineChartSvg(records, opts) {
   // 낙폭 지점에 점선+짧은 이름을 표시 - "이때는 왜 떨어졌는지" 참고용.
   // (그 종목만의 개별 사정일 수도 있어 단정하지 않고 "이 시기와 겹침" 정도로만.)
   if (hasEvents) {
-    let events = [...visibleEvents].sort((a, b) => a.val - b.val).slice(0, EVENT_ROWS);
+    // 종목별로 실제 조사한 낙폭 원인(ev.cause 있음)은 공통 거시이벤트보다 정보
+    // 가치가 커서, 변동성이 큰 종목(예: TSLA)에서 거시이벤트들에 밀려 상위
+    // EVENT_ROWS 안에 아예 못 들어가는 일이 없도록 자리를 따로 확보해준다 -
+    // 종목별 메모를 먼저 최대 절반만큼 채우고, 남는 자리를 거시이벤트 중
+    // 깊은 순으로 채운다.
+    const ticketSpecific = visibleEvents.filter(ev => ev.cause).sort((a, b) => a.val - b.val);
+    const shared = visibleEvents.filter(ev => !ev.cause).sort((a, b) => a.val - b.val);
+    const specificSlots = Math.min(ticketSpecific.length, Math.ceil(EVENT_ROWS / 2));
+    let events = ticketSpecific.slice(0, specificSlots)
+      .concat(shared.slice(0, EVENT_ROWS - specificSlots))
+      .sort((a, b) => a.val - b.val);
     events = events.map(ev => {
       let idx = records.findIndex(r => r.date >= ev.date);
       if (idx === -1) idx = n - 1;
@@ -768,8 +792,12 @@ function lineChartSvg(records, opts) {
     const laidOut = layoutLabelsNoOverlap(events, 74, EVENT_ROWS);
     laidOut.forEach(ev => {
       const labelY = 10 + ev.row * rowGap;
+      // 종목별 낙폭 원인 메모(episodeNotesToEvents)는 조사한 전체 사유 문장을
+      // ev.cause에 담아 왔으므로 툴팁에 그대로 보여주고, 공통 거시이벤트는 기존
+      // 문구를 유지한다.
+      const tooltip = escapeHtml(ev.cause ? ev.cause : `${ev.label} 시기와 겹침`);
       svg += `<line x1="${ev.x}" x2="${ev.x}" y1="${labelY + 4}" y2="${margin.top + innerH}" stroke="var(--stage-1)" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/>`;
-      svg += `<text x="${ev.x}" y="${labelY}" text-anchor="middle" font-size="${fSmall}" fill="var(--stage-1)"><title>${ev.label} 시기와 겹침</title>${ev.label}</text>`;
+      svg += `<text x="${ev.x}" y="${labelY}" text-anchor="middle" font-size="${fSmall}" fill="var(--stage-1)"><title>${tooltip}</title>${escapeHtml(ev.label)}</text>`;
     });
 
     // 낙폭 차트에서는 그 이벤트 때 실제로 몇 %까지 빠졌는지 숫자도 저점 근처에
@@ -1016,7 +1044,8 @@ function detailContentHtml(t, detail, large) {
 
   const priceSlice = sliceByPeriod(detail.daily, state.period);
   const underwaterSlice = sliceByPeriod(fullUnderwater, state.period);
-  const events = findMacroEvents(fullUnderwater, -0.08);
+  const events = findMacroEvents(fullUnderwater, -0.08)
+    .concat(episodeNotesToEvents(detail.episode_notes));
 
   const seriesForTf = { daily: detail.daily, weekly: detail.weekly, monthly: detail.monthly };
   const tfPlan = timeframesForSpan(spanDays(underwaterSlice));
