@@ -117,10 +117,17 @@ def main():
     notified = alerts.load_notified()
     new_symbs = set(notified.get(today, []))
 
+    # TICKERS는 이미 "대형 지수 ETF(SPY/QQQ/DIA/IWM) → 섹터ETF → 시가총액순
+    # 개별종목 → 한국지수 → 한국개별종목" 순으로 큐레이션돼 있으므로, 이 순서를
+    # 그대로 대시보드의 "시가총액순" 정렬 기준으로 재사용한다(별도 시가총액
+    # 데이터 수집 불필요).
+    universe_rank = {symb: i for i, (_category, symb) in enumerate(TICKERS)}
+
     tickers = []
     for symb, rec in history[today].items():
         entry = dict(rec)
         entry["is_new"] = symb in new_symbs
+        entry["universe_rank"] = universe_rank.get(symb, len(TICKERS))
         underwater = _underwater_series(_read_baseline_daily(symb), _read_daily(symb)).tail(SPARK_DAYS)
         entry["underwater_spark"] = _series_records(underwater, ["depth"])
         if entry["is_new"]:
