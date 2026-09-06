@@ -691,19 +691,37 @@ function estimateLeftMargin(vals, yFmt) {
   return Math.max(24, 8 + maxLen * 5.3);
 }
 
-// 날짜 -> 그 차트(lineChartSvg)에서의 실제 x좌표. lineChartSvg는 날짜를 인덱스로
-// 균등배치(i/(n-1))하므로(거래일 기준 - 주말/휴장일이 껴 있어 달력일 비례와는
-// 미세하게 다름), 히스토그램 막대 선택 시 그 국면의 시작/끝 날짜를 가격·낙폭
-// 차트 위에 표시하려면 이 차트가 실제로 쓰는 것과 동일한 인덱스 기반 공식을
-// 그대로 재사용해야 정확히 겹친다(margin.right는 lineChartSvg 내부에 6으로
-// 고정돼 있어 여기서도 동일하게 맞춘다).
-function chartXForDate(records, dateStr, marginLeft, W) {
+// 날짜 -> x좌표. records 자신의 첫/끝 날짜가 아니라 항상 호출부가 넘겨주는
+// 공통 domainStart~domainEnd 기준으로 비례 계산한다. 처음엔 records[0]/
+// records[n-1]을 기준으로 삼았었는데, sliceByPeriod()가 일봉/주봉/월봉처럼
+// 표본 밀도가 다른 시계열마다 "가장 가까운 실제 데이터 포인트"에서 슬라이스를
+// 끊다 보니 -  예를 들어 "1년"을 골라도 일봉은 정확히 365일 전 근처에서
+// 시작하는 반면 월봉은 그다음 달 말일에야 시작하는 식으로 - 같은 기간인데도
+// 계열마다 실제 첫/끝 날짜가 미세하게 달라져서, 각자 자기 첫/끝을 기준으로
+// 비례 계산하면 그 어긋난 만큼 전체 그래프가 밀리는 문제가 있었다(주봉은 최대
+// 2px, 월봉은 최대 20px 이상까지 어긋남 - 실측 확인함). 그래서 가격/낙폭/
+// 오실레이터(RSI·MFI, 일/주/월봉 무관)/히스토그램 네 차트 모두 detailContentHtml
+// 이 한 번만 계산한 domainStart(현재 선택된 기간의 낙폭 계열 첫 날짜)~asOfDate
+// (전체 데이터의 마지막 날짜)를 그대로 공유해서 쓴다 - 히스토그램은 원래부터
+// 이 방식이었다.
+function dateToX(dateStr, domainStart, domainEnd, marginLeft, innerW) {
+  const toTime = s => new Date(s + "T00:00:00").getTime();
+  const t0 = toTime(domainStart), t1 = toTime(domainEnd);
+  const span = (t1 - t0) || 1;
+  let target = toTime(dateStr);
+  if (target < t0) target = t0;
+  if (target > t1) target = t1;
+  return marginLeft + ((target - t0) / span) * innerW;
+}
+
+// lineChartSvg에서 쓰는 인덱스 조회형 xAt - domainStart/domainEnd가 없으면(호출부가
+// 안 넘겼으면) 안전하게 이 records 자신의 첫/끝 날짜로 대체한다.
+function timeXAt(records, domainStart, domainEnd, marginLeft, innerW) {
   const n = records.length;
-  if (!n || dateStr == null) return null;
-  let idx = records.findIndex(r => r.date >= dateStr);
-  if (idx === -1) idx = n - 1;
-  const innerW = W - marginLeft - 6;
-  return marginLeft + (n <= 1 ? 0 : (idx / (n - 1)) * innerW);
+  if (n <= 1) return () => marginLeft;
+  const ds = domainStart || records[0].date;
+  const de = domainEnd || records[n - 1].date;
+  return i => dateToX(records[i].date, ds, de, marginLeft, innerW);
 }
 
 function lineChartSvg(records, opts) {
@@ -766,7 +784,11 @@ function lineChartSvg(records, opts) {
   };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
-  const xAt = i => margin.left + (n <= 1 ? 0 : (i / (n - 1)) * innerW);
+  // 인덱스 비례가 아니라 달력일 비례로 배치(timeXAt) - 이래야 일봉/주봉/월봉처럼
+  // 점 밀도가 다른 차트끼리도, 그리고 히스토그램(날짜 비례로 그리는)과도 같은
+  // 날짜가 항상 같은 x좌표에 온다. domainStart/domainEnd는 호출부(detailContentHtml)가
+  // 가격/낙폭/오실레이터 모두에 공통으로 넘겨준다.
+  const xAt = timeXAt(records, opts.domainStart, opts.domainEnd, margin.left, innerW);
   const yAt = v => margin.top + innerH - ((v - yMin) / (yMax - yMin)) * innerH;
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
@@ -926,6 +948,8 @@ function priceChartBlock(records, currency, eventMarkers, chartOpts) {
   const chart = lineChartSvg(records, {
     height: H, width: W,
     marginLeft: chartOpts && chartOpts.marginLeft,
+    domainStart: chartOpts && chartOpts.domainStart,
+    domainEnd: chartOpts && chartOpts.domainEnd,
     large,
     yFormat: v => fmtAxisPrice(v, currency),
     nowFormat: v => fmtExactPrice(v, currency),
@@ -953,6 +977,9 @@ function oscillatorChartBlock(records, tag, chartOpts) {
   const chart = lineChartSvg(records, {
     height: (chartOpts && chartOpts.height) || 100,
     width: chartOpts && chartOpts.width,
+    marginLeft: chartOpts && chartOpts.marginLeft,
+    domainStart: chartOpts && chartOpts.domainStart,
+    domainEnd: chartOpts && chartOpts.domainEnd,
     large,
     yMin: 0, yMax: 100,
     thresholds: [
@@ -974,6 +1001,8 @@ function underwaterDetailBlock(records, eventMarkers, chartOpts) {
   const chart = lineChartSvg(records, {
     height: H, width: W,
     marginLeft: chartOpts && chartOpts.marginLeft,
+    domainStart: chartOpts && chartOpts.domainStart,
+    domainEnd: chartOpts && chartOpts.domainEnd,
     large,
     yFormat: v => Math.round(v * 100) + "%",
     series: [{ key: "depth", color: "var(--price-down)", width: large ? 1.6 : 2, labelCurrent: true }],
@@ -1135,12 +1164,15 @@ function detailContentHtml(t, detail, large, ctxOut) {
   const chartW = large ? 640 : 320;
   const priceH = large ? 190 : 130;
   const uwH = large ? 190 : 110;
+  const oscH = large ? 150 : 100;
   const histH = large ? 190 : 140;
 
-  // 가격/낙폭/히스토그램 세 차트의 왼쪽 여백(margin.left)을 하나로 통일 -
-  // 히스토그램 막대를 선택했을 때 그 국면의 시작/끝 날짜가 가격·낙폭 차트에서도
-  // 정확히 같은 x좌표가 되려면(chartXForDate가 margin.left를 그대로 재사용),
-  // 세 차트가 각자 자기 값 범위로 계산한 서로 다른 여백을 쓰면 안 된다.
+  // 가격/낙폭/히스토그램/RSI·MFI 네 차트의 왼쪽 여백(margin.left)을 하나로
+  // 통일 - 히스토그램 막대를 선택했을 때 그 국면의 시작/끝 날짜가 가격·낙폭
+  // 차트에서도 정확히 같은 x좌표가 되려면(dateToX가 margin.left를 그대로
+  // 재사용), 차트마다 자기 값 범위로 각자 계산한 서로 다른 여백을 쓰면 안 된다.
+  // RSI/MFI는 0~100 고정 척도라 자체 여백은 항상 이보다 작거나 같으므로, 공용
+  // 여백을 그대로 받아써도 잘리지 않는다.
   const priceVals = [];
   priceSlice.forEach(r => { if (r.close != null) priceVals.push(r.close); if (r.rolling_high != null) priceVals.push(r.rolling_high); });
   const depthVals = underwaterSlice.map(r => r.depth).filter(v => v != null);
@@ -1149,22 +1181,26 @@ function detailContentHtml(t, detail, large, ctxOut) {
     estimateLeftMargin(depthVals, v => Math.round(v * 100) + "%"),
   );
 
-  const bigChart = { width: chartW, height: priceH, large, marginLeft: sharedLeft };
-  const bigUw = { width: chartW, height: uwH, large, marginLeft: sharedLeft };
-  const bigOsc = large ? { width: chartW, height: 150, large: true } : undefined;
+  // 가격/낙폭/오실레이터(일·주·월봉 무관)/히스토그램 네 차트가 모두 같은
+  // domainStart~domainEnd를 공유해야, sliceByPeriod()가 계열마다(일봉은 정확히
+  // 그 근처, 월봉은 그 달 말일에야 등) 서로 다르게 끊어놓은 실제 첫/끝 날짜
+  // 차이 때문에 그래프 전체가 밀리는 문제 없이 정확히 같은 날짜=같은 x좌표가
+  // 된다. underwaterSlice의 첫 날짜가 곧 지금 선택된 기간의 시작일.
+  const domainStart = underwaterSlice.length ? underwaterSlice[0].date : (fullUnderwater[0] && fullUnderwater[0].date);
+  const domainEnd = asOfDate;
+
+  const bigChart = { width: chartW, height: priceH, large, marginLeft: sharedLeft, domainStart, domainEnd };
+  const bigUw = { width: chartW, height: uwH, large, marginLeft: sharedLeft, domainStart, domainEnd };
+  const bigOsc = { width: chartW, height: oscH, large, marginLeft: sharedLeft, domainStart, domainEnd };
   const bigHist = { width: chartW, height: histH, large, marginLeft: sharedLeft };
 
-  // 히스토그램도 가격·낙폭과 같은 기간(domainStart~domainEnd)을 도메인으로 써야
-  // 세 그림의 x축(시간)이 서로 정렬된다 - underwaterSlice의 첫 날짜가 곧 지금
-  // 선택된 기간의 시작일.
-  const domainStart = underwaterSlice.length ? underwaterSlice[0].date : (fullUnderwater[0] && fullUnderwater[0].date);
   const visibleEpisodes = filterEpisodesToDomain(detail.episodes, domainStart, asOfDate);
   const completeCount = visibleEpisodes.filter(e => e.is_complete).length;
   const incompleteCount = visibleEpisodes.length - completeCount;
 
   if (ctxOut) {
-    ctxOut.priceRecords = priceSlice;
-    ctxOut.uwRecords = underwaterSlice;
+    ctxOut.domainStart = domainStart;
+    ctxOut.domainEnd = domainEnd;
     ctxOut.marginLeft = sharedLeft;
     ctxOut.priceW = chartW; ctxOut.priceH = priceH;
     ctxOut.uwW = chartW; ctxOut.uwH = uwH;
@@ -1202,12 +1238,12 @@ function findEpisodeCause(events, start, end) {
 // 바로 아래 실제 차트와 완전히 동일해서(같은 W/H) 좌표가 항상 1:1로 맞는다.
 // 시작/끝 날짜가 너무 가까우면(짧은 국면) 라벨이 겹치지 않도록 기존
 // layoutLabelsNoOverlap()으로 좌우(행)를 엇갈리게 배치한다.
-function renderEpisodeOverlay(overlaySvgEl, records, marginLeft, W, H, episode) {
+function renderEpisodeOverlay(overlaySvgEl, domainStart, domainEnd, marginLeft, W, H, episode) {
   if (!overlaySvgEl) return;
-  if (!episode || !records || !records.length) { overlaySvgEl.innerHTML = ""; return; }
-  const startX = chartXForDate(records, episode.start, marginLeft, W);
-  const endX = chartXForDate(records, episode.end, marginLeft, W);
-  if (startX == null) { overlaySvgEl.innerHTML = ""; return; }
+  if (!episode || !domainStart || !domainEnd) { overlaySvgEl.innerHTML = ""; return; }
+  const innerW = W - marginLeft - 6;
+  const startX = dateToX(episode.start, domainStart, domainEnd, marginLeft, innerW);
+  const endX = dateToX(episode.end, domainStart, domainEnd, marginLeft, innerW);
   const color = "var(--status-crit)";
   const items = [{ x: startX, label: episode.start.slice(2) }];
   if (endX != null && Math.abs(endX - startX) > 3) items.push({ x: endX, label: episode.end.slice(2) });
@@ -1248,8 +1284,8 @@ function applyEpisodeSelection(container, ctx, episode) {
 
   const priceHost = container.querySelector('[data-chart-role="price"]');
   const uwHost = container.querySelector('[data-chart-role="underwater"]');
-  renderEpisodeOverlay(priceHost && priceHost.querySelector(".chart-overlay"), ctx.priceRecords, ctx.marginLeft, ctx.priceW, ctx.priceH, episode);
-  renderEpisodeOverlay(uwHost && uwHost.querySelector(".chart-overlay"), ctx.uwRecords, ctx.marginLeft, ctx.uwW, ctx.uwH, episode);
+  renderEpisodeOverlay(priceHost && priceHost.querySelector(".chart-overlay"), ctx.domainStart, ctx.domainEnd, ctx.marginLeft, ctx.priceW, ctx.priceH, episode);
+  renderEpisodeOverlay(uwHost && uwHost.querySelector(".chart-overlay"), ctx.domainStart, ctx.domainEnd, ctx.marginLeft, ctx.uwW, ctx.uwH, episode);
 
   const box = container.querySelector(".episode-detail-box");
   if (box) box.innerHTML = episode ? episodeDetailHtml(episode, findEpisodeCause(ctx.events, episode.start, episode.end)) : "";
