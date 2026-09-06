@@ -61,6 +61,19 @@ jobs:
       - name: Fetch latest prices (일봉)
         run: uv run python -m signal_bot.fetch_universe
 
+      # signal_bot/data/baseline/(20년치 원본 CSV)은 용량 때문에 git에는 커밋하지
+      # 않지만(.gitignore), 그렇다고 매번 새 러너에서 KIS API로 처음부터 다시
+      # 받으면 느리고 API 호출도 많다 - 캐시로 러너 사이에 이어준다. 캐시가
+      # 없거나 오래돼도(baseline_fetch.py의 is_stale()이 파일 존재 여부까지
+      # 확인하도록 되어있어) 안전하게 재수집되므로 안전망은 이미 있음.
+      - name: Restore MDD baseline cache
+        uses: actions/cache@v4
+        with:
+          path: signal_bot/data/baseline
+          key: mdd-baseline-${{ github.run_id }}
+          restore-keys: |
+            mdd-baseline-
+
       - name: Refresh MDD baseline (내부 staleness 체크로 보통 30일에 1번만 실수집)
         run: uv run python -m signal_bot.baseline_fetch
 

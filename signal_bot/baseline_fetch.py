@@ -54,6 +54,13 @@ def is_stale(force: bool = False) -> bool:
         return True
     if sorted(meta.get("symbols", [])) != sorted(symb for _c, symb in TICKERS):
         return True  # 유니버스 구성이 바뀜(시총 랭킹 변동 등) -> 강제 재수집
+    # signal_bot/data/baseline/은 .gitignore 대상이라 커밋되지 않는데, meta.json은
+    # 커밋된다 - CI처럼 매번 새 파일시스템으로 시작하는 환경에서는 "meta상 날짜는
+    # 최신"인데 실제 CSV 파일은 하나도 없는 상태가 될 수 있다. 이 경우 날짜만 보고
+    # 재수집을 건너뛰면 이후 모든 계산이 베이스라인 없이(최근 데이터만으로) 진행되는
+    # 조용한 데이터 손상으로 이어지므로, 파일이 실제로 있는지도 반드시 함께 확인한다.
+    if not any(BASELINE_DIR.glob("*_daily.csv")):
+        return True
     updated_at = datetime.strptime(meta["updated_at"], "%Y-%m-%d").date()
     return date.today() - updated_at > timedelta(days=REFRESH_INTERVAL_DAYS)
 
