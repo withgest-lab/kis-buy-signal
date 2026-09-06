@@ -406,7 +406,7 @@
         <h3>카드를 펼치면 나오는 차트들은요?</h3>
         <p><b>가격 + 롤링 신고가</b> — 가격 위에 지금까지의 최고가선(점선)을 겹쳐서, 지금이 그 선에서 얼마나 떨어져 있는지 한눈에 보여줍니다. 빨간 점은 다이버전스가 감지된 날입니다.</p>
         <p><b>낙폭(underwater) 추이</b> — 낙폭%을 시간 흐름에 따라 그린 그래프. 0%(신고가) 아래로 얼마나, 얼마나 오래 내려가 있었는지를 보여줍니다. 주황 점선은 코로나19, 2022 금리인상 하락장처럼 널리 알려진 시장 전체 충격 시기와 겹치는 지점, 또는 그 종목만의 큰 낙폭(-25% 이상)에 대해 실제로 찾아본 개별 원인을 표시한 것입니다(마우스를 올리면 자세한 내용이 보입니다). 명확한 원인을 못 찾은 경우는 "특정 단일 원인 확인 안 됨"이라고 정직하게 표시했고, 아직 조사가 안 된 나머지 낙폭 국면들도 있습니다 - 원인을 안다고 단정하는 게 아니라 참고용입니다.</p>
-        <p><b>낙폭국면 히스토그램</b> — 과거의 낙폭 국면들을 막대로 나열합니다. 막대가 길수록 더 깊었던 국면이고, 점선은 P50/P25/P10 기준선입니다. 🔵는 신고가로 회복된(완결) 국면, 🔴는 아직 회복 전(진행중, "지금"이 여기)인 국면입니다.</p>
+        <p><b>낙폭국면 히스토그램</b> — 과거의 낙폭 국면들을 막대로 나열합니다. 막대가 <b>길수록</b>(세로) 더 깊었던 국면이고, <b>두꺼울수록</b>(가로 폭) 신고가로 회복하는 데 오래 걸린 국면입니다 - 얇으면 금방 회복, 두꺼우면 오래 걸림. 점선은 P50/P25/P10 기준선입니다. 🔵는 신고가로 회복된(완결) 국면, 🔴는 아직 회복 전(진행중, "지금"이 여기)인 국면입니다.</p>
         <p><b>RSI·MFI 라인차트</b> — 오버솔드 기준선(RSI 30, MFI 20)을 넘어가면 과매도 구간입니다. 선택한 기간이 3년 이하면 일/주/월봉을 모두, 3~15년이면 주봉, 그보다 길면 월봉만 보여줍니다(기간이 길어질수록 일봉은 너무 빽빽해져서 자동으로 더 굵은 단위로 바꿔 보여드리는 것입니다).</p>
         <p><b>기간 버튼(1Y~ALL)</b> — 이 버튼으로 고른 기간이 그 카드 안의 가격/낙폭/RSI·MFI 차트 전부에 함께 적용됩니다(따로 조절할 필요 없음). 예를 들어 "지금 상승장이 언제부터 시작됐는지", "이번 하락장이 언제부터인지"를 보려면 기간을 길게(10Y 이상) 늘려서 가격 차트의 롤링 신고가선과 낙폭 차트를 함께 보시면 됩니다. 실제로 갖고 있는 데이터보다 긴 기간 버튼은 흐리게 표시되고 눌리지 않습니다.</p>
         <p><b>크게 보기 ⛶</b> — 화면 전체로 넓게 펼쳐서 차트를 더 시원하게 볼 수 있습니다. 다시 누르면 원래 카드 레이아웃으로 돌아갑니다.</p>
@@ -961,13 +961,9 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
   if (yMin >= 0) yMin = -0.1;
   const yAtFixed = v => (v / yMin) * innerH; // v<=0, yMin<0 -> 0..innerH
 
-  // domainStart 이전에 시작해 이 구간까지 이어진 국면은 막대 중심을 domainStart
+  // domainStart 이전에 시작해 이 구간까지 이어진 국면은 막대 왼쪽 끝을 domainStart
   // 위치로 당겨서(clamp) 왼쪽 밖으로 삐져나가지 않게 그린다.
   const clampedX = dateStr => Math.max(margin.left, xAt(dateStr));
-  const xs = visible.map(e => clampedX(e.start_date)).sort((a, b) => a - b);
-  let minGap = innerW;
-  for (let i = 1; i < xs.length; i++) minGap = Math.min(minGap, xs[i] - xs[i - 1]);
-  const barW = Math.max(3, Math.min(14, minGap * 0.7 || 14));
 
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
   if (percentiles) {
@@ -988,12 +984,18 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
       svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="${fs}" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
     });
   }
+  // 막대 폭 = 그 국면의 실제 회복 기간(시작일~회복일, 진행중이면 지금까지) -
+  // 얇으면 금방 회복한 것, 두꺼우면 오래 걸린 것을 한눈에 보여준다. 기간 버튼을
+  // 바꾸면 xAt()의 하루당 픽셀 폭 자체가 달라지므로 막대 폭도 자동으로 그
+  // 기간 기준으로 다시 그려진다(위 가격·낙폭 차트와 항상 같은 시간축 기준).
   visible.forEach(e => {
     const barH = yAtFixed(e.depth);
-    const x = clampedX(e.start_date) - barW / 2;
+    const xStart = clampedX(e.start_date);
+    const xEnd = Math.min(W - margin.right, xAt(e.recovery_date || nowDate));
+    const width = Math.max(3, xEnd - xStart);
     const color = e.is_complete ? "var(--series-1)" : "var(--status-crit)";
     const title = `${e.start_date} ~ ${e.recovery_date || "진행중(아직 회복 전)"} · 낙폭 ${(e.depth * 100).toFixed(1)}%`;
-    svg += `<rect x="${x}" y="${margin.top}" width="${barW}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.85"><title>${title}</title></rect>`;
+    svg += `<rect x="${xStart}" y="${margin.top}" width="${width}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.8" stroke="var(--surface-1)" stroke-width="0.6"><title>${title}</title></rect>`;
   });
 
   // "지금" 위치 - 가장 최근(진행중 국면이 있으면 그 지점)을 세로선+라벨로 표시
