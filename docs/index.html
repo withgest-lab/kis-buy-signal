@@ -168,8 +168,9 @@
   .mdd-alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
   .mdd-alert-item {
     padding: 8px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 600; color: white;
-    display: flex; flex-direction: column; gap: 2px;
+    display: flex; flex-direction: column; gap: 2px; cursor: pointer; transition: transform .1s;
   }
+  .mdd-alert-item:active { transform: scale(0.97); }
   .mdd-alert-item .sub { font-weight: 400; font-size: 11px; opacity: 0.9; }
   .mdd-alert-item.tier-mild { background: var(--stage-1); color: #241a00; }
   .mdd-alert-item.tier-mid { background: var(--stage-2); }
@@ -1504,7 +1505,7 @@ function mddAlertBannerHtml(tickers) {
       <div class="mdd-alert-title">🚨 주요 지수 낙폭 경보 - 장기 매수 참고(매도 신호 아님)</div>
       <div class="mdd-alert-grid">
         ${alerting.map(t => `
-          <div class="mdd-alert-item ${mddAlertTierClass(t.mdd_alert.threshold)}">
+          <div class="mdd-alert-item ${mddAlertTierClass(t.mdd_alert.threshold)}" data-symb="${escapeHtml(t.symb)}" title="탭하면 ${escapeHtml(t.symb)} 카드로 이동합니다">
             <span>${escapeHtml(t.symb)} · 낙폭 ${(t.depth * 100).toFixed(1)}%</span>
             <span class="sub">${escapeHtml(t.mdd_alert.label)}</span>
           </div>
@@ -1540,6 +1541,31 @@ function applyFilters(tickers) {
   return list;
 }
 
+// 지수 낙폭 경보를 탭하면 그 종목 카드로 이동한다. 경보는 필터/검색과 무관하게 항상
+// 전체 데이터 기준으로 뜨므로, 지금 걸려있는 필터 때문에 그리드에서 그 종목이 안
+// 보이는 상태일 수 있다 - 검색어를 그 종목 심볼로 세팅하고 나머지 필터(단계/분류)는
+// 초기화해서 무조건 카드가 보이게 만든 뒤 펼치고 스크롤한다.
+function goToTicker(symb) {
+  state.search = symb;
+  state.stage = "all";
+  state.category.clear();
+
+  const searchInput = document.getElementById("ticker-search");
+  if (searchInput) searchInput.value = symb;
+  document.querySelectorAll("#filter-stage .chip").forEach(c => c.classList.toggle("active", c.dataset.stage === "all"));
+  updateCategoryChipUI();
+
+  render();
+
+  const card = document.querySelector(`#grid .card[data-symb="${CSS.escape(symb)}"]`);
+  if (!card) return;
+  card.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!card.classList.contains("expanded")) {
+    card.classList.add("expanded");
+    ensureDetailCharts(symb, card);
+  }
+}
+
 function render() {
   if (!DATA) return;
 
@@ -1552,6 +1578,9 @@ function render() {
   // 지수 낙폭 경보는 그리드 필터/검색과 무관하게(전체 데이터 기준) 항상 표시 -
   // "지금 시장 전체가 어느 낙폭 구간인지"를 놓치지 않게 하기 위함.
   document.getElementById("mdd-alert-banner").innerHTML = mddAlertBannerHtml(DATA.tickers);
+  document.querySelectorAll("#mdd-alert-banner .mdd-alert-item").forEach(el => {
+    el.addEventListener("click", () => goToTicker(el.dataset.symb));
+  });
 
   const SORT_LABELS = { cap: "시가총액순", stage: "MDD단계순", depth: "낙폭깊은순", pct_chg: "등락률순", symb: "알파벳순" };
   const filterActive = state.stage !== "all" || state.category.size > 0 || state.search.trim() !== "";
