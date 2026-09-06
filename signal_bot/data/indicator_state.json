@@ -198,7 +198,7 @@
       "divergence": false
     },
     "monthly": {
-      "rsi_oversold": true,
+      "rsi_oversold": false,
       "mfi_oversold": false,
       "divergence": false
     }

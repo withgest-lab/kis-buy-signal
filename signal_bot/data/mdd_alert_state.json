@@ -1,0 +1,22 @@
+{
+  "SPY": {
+    "episode_start": null,
+    "notified_levels": []
+  },
+  "QQQ": {
+    "episode_start": "2026-06-03",
+    "notified_levels": []
+  },
+  "DIA": {
+    "episode_start": null,
+    "notified_levels": []
+  },
+  "SOXX": {
+    "episode_start": "2026-06-23",
+    "notified_levels": [
+      0.1,
+      0.15,
+      0.2
+    ]
+  }
+}
