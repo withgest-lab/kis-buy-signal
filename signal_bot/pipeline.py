@@ -173,6 +173,23 @@ def main():
     save_history(history)
     print(f"\nJSON 이력 저장 완료: {HISTORY_PATH} (기준일 {today}, 최근 {HISTORY_MAX_DAYS}거래일 유지)")
 
+    # 지수성 ETF(SPY/QQQ/DIA/SOXX) 절대 낙폭 구간 경보 - 기존 MDD단계/RSI·MFI
+    # 알림과는 완전히 별개 트리거라 독립적으로 판정하고 별도 메시지로 발송한다
+    # (아래 candidates가 없어도 이건 그대로 확인해야 하므로 먼저 처리).
+    baseline = mdd.load_baseline()
+    mdd_alert_state = alerts.load_mdd_alert_state()
+    mdd_level_events = alerts.find_mdd_level_events(results, baseline, mdd_alert_state)
+    if mdd_level_events:
+        level_message = alerts.format_mdd_level_message(mdd_level_events, today)
+        try:
+            send_telegram_message(level_message)
+            alerts.save_mdd_alert_state(mdd_alert_state)
+            print(f"\n지수 낙폭 경보 발송 완료: {[e['symb'] for e in mdd_level_events]}")
+        except Exception as e:
+            print(f"\n지수 낙폭 경보 발송 실패 - 상태 저장 안 함(다음 실행에서 재시도): {e}")
+    else:
+        alerts.save_mdd_alert_state(mdd_alert_state)
+
     mdd_state = alerts.load_mdd_state()
     indicator_state = alerts.load_indicator_state()
     # find_alert_candidates가 mdd_state/indicator_state를 in-place로 갱신하지만,

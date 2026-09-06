@@ -141,6 +141,11 @@
     border: 1px solid var(--border); background: var(--surface-2); color: var(--text-primary);
     margin-left: auto;
   }
+  .ticker-search {
+    font-size: 13px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-primary); width: 100%; max-width: 260px;
+  }
+  .ticker-search::placeholder { color: var(--text-muted); }
 
   /* 신규 신호 배너 */
   #banner { margin-bottom: 16px; }
@@ -151,6 +156,28 @@
   .banner-title { font-size: 13px; font-weight: 600; color: var(--status-crit); margin-bottom: 8px; }
   .banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
   .card.banner-card { border: 2px solid var(--status-crit); }
+
+  /* 지수 낙폭 경보 배너(SPY/QQQ/DIA/SOXX 절대 낙폭 구간, 장기 매수 참고용) -
+     단계가 깊을수록(임계값이 클수록) 더 진하고 강한 색으로 눈에 띄게 함. */
+  #mdd-alert-banner { margin-bottom: 16px; }
+  .mdd-alert-box {
+    padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--surface-1);
+  }
+  .mdd-alert-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .mdd-alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+  .mdd-alert-item {
+    padding: 8px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 600; color: white;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .mdd-alert-item .sub { font-weight: 400; font-size: 11px; opacity: 0.9; }
+  .mdd-alert-item.tier-mild { background: var(--stage-1); color: #241a00; }
+  .mdd-alert-item.tier-mid { background: var(--stage-2); }
+  .mdd-alert-item.tier-severe { background: var(--stage-3); }
+  .mdd-badge {
+    display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 700; color: white;
+    background: var(--stage-3); border-radius: 999px; padding: 3px 9px;
+  }
 
   /* 종목 그리드 */
   .grid-count { font-size: 12px; color: var(--text-muted); margin: 4px 2px 10px; transition: color .15s, font-weight .15s; }
@@ -307,6 +334,7 @@
   </header>
 
   <div class="toolbar">
+    <input type="search" class="ticker-search" id="ticker-search" placeholder="종목명·티커 검색(예: AAPL, 삼성전자)">
     <div class="chip-group" id="filter-stage">
       <span class="chip active" data-stage="all">전체</span>
       <span class="chip" data-stage="1">1단계+</span>
@@ -329,6 +357,7 @@
     </select>
   </div>
 
+  <div id="mdd-alert-banner"></div>
   <div id="banner"></div>
   <div class="grid-count" id="grid-count"></div>
   <div class="grid" id="grid"></div>
@@ -404,7 +433,7 @@
 
 <script>
 let DATA = null;
-let state = { stage: "all", category: new Set(), sort: "cap", period: "3Y" };
+let state = { stage: "all", category: new Set(), sort: "cap", period: "3Y", search: "" };
 const detailCache = {};
 let fullscreenSymb = null;
 
@@ -1121,6 +1150,7 @@ function statsBlockHtml(t, opts) {
     </div>
     ${recoveryLineHtml(t.percentiles)}
     ${t.is_record_drawdown ? '<div class="record-badge">⚠️ 사상 최대 낙폭</div>' : ""}
+    ${t.mdd_alert ? `<div class="mdd-badge">🚨 ${escapeHtml(t.mdd_alert.label)} (장기매수 참고)</div>` : ""}
     ${skipSpark ? "" : `
     <div class="mini-chart-block">
       <div class="chart-label">낙폭 추이(최근 1년)</div>
@@ -1158,6 +1188,35 @@ function cardHtml(t) {
   `;
 }
 
+// SPY/QQQ/DIA/SOXX 절대 낙폭 구간 경보(장기 매수 참고용) - 기존 MDD 0~3단계(종목별
+// 상대 백분위)와는 별개로, scores.json의 mdd_alert 필드(백엔드가 depth로 이미 계산해둠)를
+// 그대로 표시만 한다. 이 시스템은 "MDD 매수신호"이므로 낙폭이 깊을수록 매수 참고 신호이지
+// 매도 신호가 아님을 문구에 분명히 한다.
+function mddAlertTierClass(threshold) {
+  if (threshold >= 0.30) return "tier-severe";
+  if (threshold >= 0.20) return "tier-mid";
+  return "tier-mild";
+}
+
+function mddAlertBannerHtml(tickers) {
+  const alerting = tickers.filter(t => t.mdd_alert);
+  if (!alerting.length) return "";
+  alerting.sort((a, b) => b.mdd_alert.threshold - a.mdd_alert.threshold);
+  return `
+    <div class="mdd-alert-box">
+      <div class="mdd-alert-title">🚨 주요 지수 낙폭 경보 - 장기 매수 참고(매도 신호 아님)</div>
+      <div class="mdd-alert-grid">
+        ${alerting.map(t => `
+          <div class="mdd-alert-item ${mddAlertTierClass(t.mdd_alert.threshold)}">
+            <span>${escapeHtml(t.symb)} · 낙폭 ${(t.depth * 100).toFixed(1)}%</span>
+            <span class="sub">${escapeHtml(t.mdd_alert.label)}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
 function bannerHtml(newOnes) {
   if (!newOnes.length) return '<div class="banner-empty">오늘 신규 알림 대상 없음</div>';
   return `
@@ -1169,9 +1228,11 @@ function bannerHtml(newOnes) {
 }
 
 function applyFilters(tickers) {
+  const q = state.search.trim().toLowerCase();
   let list = tickers.filter(t => {
     if (state.stage !== "all" && t.stage < Number(state.stage)) return false;
     if (state.category.size > 0 && !state.category.has(t.category)) return false;
+    if (q && !t.symb.toLowerCase().includes(q) && !t.name.toLowerCase().includes(q)) return false;
     return true;
   });
   if (state.sort === "cap") list.sort((a, b) => (a.universe_rank ?? 999) - (b.universe_rank ?? 999));
@@ -1191,9 +1252,12 @@ function render() {
   const list = applyFilters(DATA.tickers);
   const newOnes = list.filter(t => t.is_new);
   document.getElementById("banner").innerHTML = bannerHtml(newOnes);
+  // 지수 낙폭 경보는 그리드 필터/검색과 무관하게(전체 데이터 기준) 항상 표시 -
+  // "지금 시장 전체가 어느 낙폭 구간인지"를 놓치지 않게 하기 위함.
+  document.getElementById("mdd-alert-banner").innerHTML = mddAlertBannerHtml(DATA.tickers);
 
   const SORT_LABELS = { cap: "시가총액순", stage: "MDD단계순", depth: "낙폭깊은순", pct_chg: "등락률순", symb: "알파벳순" };
-  const filterActive = state.stage !== "all" || state.category.size > 0;
+  const filterActive = state.stage !== "all" || state.category.size > 0 || state.search.trim() !== "";
   const countEl = document.getElementById("grid-count");
   countEl.textContent = (filterActive
     ? `✅ 필터 적용됨 - ${list.length}종목 표시 중 (전체 ${DATA.tickers.length}종목)`
@@ -1281,6 +1345,10 @@ function wireToolbar() {
   document.getElementById("sort-select").addEventListener("change", (e) => {
     state.sort = e.target.value;
     render(); // grid-count가 매 render()마다 알아서 반짝여서 "적용됨"을 알려줌
+  });
+  document.getElementById("ticker-search").addEventListener("input", (e) => {
+    state.search = e.target.value;
+    render();
   });
 }
 

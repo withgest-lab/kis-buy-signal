@@ -15,7 +15,7 @@ from signal_bot import alerts
 from signal_bot import company_info
 from signal_bot import mdd
 from signal_bot import timeframe_signals as tf
-from signal_bot.config import TICKERS, is_kr
+from signal_bot.config import MDD_ALERT_LEVELS, MDD_ALERT_TICKERS, TICKERS, is_kr
 from signal_bot.pipeline import BASELINE_DIR, DATA_DIR, load_history
 
 OUTPUT_PATH = Path("docs/scores.json")
@@ -132,6 +132,15 @@ def main():
         entry["underwater_spark"] = _series_records(underwater, ["depth"])
         if entry["is_new"]:
             entry["business_summary"] = company_info.get_business_summary(symb, entry["name"])
+        if symb in MDD_ALERT_TICKERS:
+            # 텔레그램 발송 이력(mdd_alert_state.json)과 무관하게, "지금 depth 기준
+            # 현재 상태"를 대시보드에는 항상 정확하게 보여준다(알림은 이미 보낸
+            # 구간이라도 화면에는 계속 표시돼야 하므로).
+            depth = entry["depth"]
+            level = next(((t, label) for t, label in MDD_ALERT_LEVELS if depth <= -t), None)
+            entry["mdd_alert"] = (
+                {"threshold": level[0], "label": level[1]} if level else None
+            )
         tickers.append(entry)
 
     # stage 내림차순, 같은 stage면 depth가 더 깊은(음수가 더 큰) 종목 우선.

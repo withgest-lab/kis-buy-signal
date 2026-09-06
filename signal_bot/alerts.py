@@ -9,10 +9,13 @@
 import json
 from pathlib import Path
 
+from signal_bot.config import MDD_ALERT_LEVELS, MDD_ALERT_TICKERS
+
 DATA_DIR = Path("signal_bot/data")
 NOTIFIED_PATH = DATA_DIR / "notified.json"
 MDD_STATE_PATH = DATA_DIR / "mdd_state.json"
 INDICATOR_STATE_PATH = DATA_DIR / "indicator_state.json"
+MDD_ALERT_STATE_PATH = DATA_DIR / "mdd_alert_state.json"
 
 _TIMEFRAMES = ["daily", "weekly", "monthly"]
 _TIMEFRAME_LABELS = {"daily": "일봉", "weekly": "주봉", "monthly": "월봉"}
@@ -64,6 +67,14 @@ def load_notified() -> dict:
 
 def save_notified(notified: dict) -> None:
     _save_json(NOTIFIED_PATH, notified)
+
+
+def load_mdd_alert_state() -> dict:
+    return _load_json(MDD_ALERT_STATE_PATH)
+
+
+def save_mdd_alert_state(state: dict) -> None:
+    _save_json(MDD_ALERT_STATE_PATH, state)
 
 
 # ---------------------------------------------------------------------------
@@ -129,6 +140,83 @@ def find_indicator_events(results: list[dict], indicator_state: dict) -> list[di
             events.append({**r, "trigger_reasons": reasons})
 
     return events
+
+
+# ---------------------------------------------------------------------------
+# 트리거 3: 지수성 ETF(MDD_ALERT_TICKERS) 절대 낙폭 구간 경보 - 장기 매수 참고용
+#
+# 기존 MDD 0~3단계(트리거 1)는 종목별 과거 국면 대비 상대 백분위라서, 시장
+# 전체가 "지금 조정인지 약세장인지 폭락 수준인지"를 절대 % 기준으로 바로
+# 알기 어렵다. 이 시스템은 원래 "MDD 매수신호"(낙폭이 깊을수록 우량 지수 ETF를
+# 장기 보유 목적으로 사는 전략)이므로, SPY/QQQ/DIA/SOXX 같은 지수성 ETF가 정해진
+# 낙폭 구간(config.MDD_ALERT_LEVELS)에 새로 도달할 때마다 별도로, 더 눈에 띄게
+# 알린다 - 매도 신호가 아니라 매수 참고 경보.
+# ---------------------------------------------------------------------------
+
+def _current_episode_start(episodes: list[dict]) -> str | None:
+    """baseline의 국면(episode) 목록에서 아직 신고가로 복귀하지 못한(진행중) 국면의
+    시작일. 신고가 상태(진행중 국면 없음)면 None."""
+    for e in reversed(episodes or []):
+        if not e.get("is_complete"):
+            return e.get("start_date")
+    return None
+
+
+def find_mdd_level_events(results: list[dict], baseline: dict, mdd_alert_state: dict) -> list[dict]:
+    """MDD_ALERT_TICKERS 한정으로 오늘 낙폭이 새 임계값을 넘었으면 이벤트로 반환하고
+    mdd_alert_state를 갱신(in-place). 신고가 복귀로 국면이 끝나면 그 종목의 알림
+    이력을 초기화해 다음 낙폭 국면에서 같은 구간을 다시 알릴 수 있게 한다."""
+    events = []
+    by_symb = {r["symb"]: r for r in results}
+
+    for symb in MDD_ALERT_TICKERS:
+        r = by_symb.get(symb)
+        if r is None:
+            continue
+
+        depth = r["depth"]
+        episodes = (baseline.get(symb) or {}).get("episodes", [])
+        episode_start = _current_episode_start(episodes)
+        state = mdd_alert_state.setdefault(symb, {"episode_start": None, "notified_levels": []})
+
+        if episode_start != state["episode_start"]:
+            state["episode_start"] = episode_start
+            state["notified_levels"] = []
+
+        if episode_start is None:
+            continue  # 신고가 상태 - 알릴 낙폭 구간 없음
+
+        # MDD_ALERT_LEVELS는 깊은 것부터 정렬돼 있어, newly_crossed도 깊은 순서 그대로.
+        newly_crossed = [
+            (threshold, label) for threshold, label in MDD_ALERT_LEVELS
+            if depth <= -threshold and threshold not in state["notified_levels"]
+        ]
+        if newly_crossed:
+            state["notified_levels"] = sorted(set(state["notified_levels"]) | {t for t, _ in newly_crossed})
+            events.append({**r, "mdd_alert_levels": newly_crossed})
+
+    return events
+
+
+def format_mdd_level_message(events: list[dict], today: str) -> str:
+    """트리거 3 전용 메시지 - 기존 MDD단계/RSI·MFI 알림과 섞지 않고 별도 발송해서
+    "지금 시장이 어느 낙폭 구간인지"가 한눈에 눈에 띄게 한다."""
+    if not events:
+        return ""
+
+    lines = [f"\U0001F6A8 *지수 낙폭 경보(장기 매수 참고)* ({today})", ""]
+    for r in events:
+        currency = "₩" if r.get("currency") == "KRW" else "$"
+        _deepest_threshold, deepest_label = r["mdd_alert_levels"][0]
+        lines.append(f"*{r['symb']}* ({r['name']}) - 낙폭 {r['depth'] * 100:.1f}% - {deepest_label}")
+        if len(r["mdd_alert_levels"]) > 1:
+            passed = ", ".join(f"-{int(t * 100)}%" for t, _ in r["mdd_alert_levels"])
+            lines.append(f"  (오늘 새로 도달한 구간: {passed})")
+        lines.append(f"  {currency}{r['close']:,.2f} ({r['pct_chg']:+.2f}%)")
+        lines.append("")
+
+    lines.append("_장기 매수 판단 참고용 경보입니다 - 실제 매매는 사용자가 직접 결정합니다._")
+    return "\n".join(lines).rstrip()
 
 
 def find_alert_candidates(results: list[dict], mdd_state: dict, indicator_state: dict) -> list[dict]:
