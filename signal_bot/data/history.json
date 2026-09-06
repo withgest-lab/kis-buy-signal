@@ -402014,15 +402014,15 @@
       "rolling_high": 2919000.0,
       "stage": 3,
       "percentiles": {
-        "count": 27,
-        "p50": -0.1575,
-        "p25": -0.2389,
-        "p10": -0.43466,
-        "recovery_days_min": 5,
-        "recovery_days_median": 31,
-        "recovery_days_max": 1887
+        "count": 18,
+        "p50": -0.13815,
+        "p25": -0.1904,
+        "p10": -0.3964699999999999,
+        "recovery_days_min": 1,
+        "recovery_days_median": 8,
+        "recovery_days_max": 6478
       },
-      "episode_count": 28,
+      "episode_count": 19,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -402531,15 +402531,15 @@
       "rolling_high": 1477.22,
       "stage": 2,
       "percentiles": {
-        "count": 12,
-        "p50": -0.1067,
-        "p25": -0.1933,
-        "p10": -0.34612,
+        "count": 27,
+        "p50": -0.1284,
+        "p25": -0.24305,
+        "p10": -0.45882,
         "recovery_days_min": 1,
-        "recovery_days_median": 43,
-        "recovery_days_max": 1030
+        "recovery_days_median": 48,
+        "recovery_days_max": 1484
       },
-      "episode_count": 13,
+      "episode_count": 28,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -402578,15 +402578,15 @@
       "rolling_high": 362500.0,
       "stage": 2,
       "percentiles": {
-        "count": 32,
-        "p50": -0.13005,
-        "p25": -0.22790000000000002,
-        "p10": -0.32633,
+        "count": 66,
+        "p50": -0.1143,
+        "p25": -0.22325,
+        "p10": -0.37255,
         "recovery_days_min": 3,
-        "recovery_days_median": 35,
+        "recovery_days_median": 25,
         "recovery_days_max": 1162
       },
-      "episode_count": 33,
+      "episode_count": 67,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
