@@ -78,7 +78,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add signal_bot/data/history.json
-          for f in notified.json mdd_state.json indicator_state.json mdd_baseline.json baseline_meta.json universe_cache.json; do
+          for f in notified.json mdd_state.json indicator_state.json mdd_alert_state.json mdd_baseline.json baseline_meta.json universe_cache.json; do
             if [ -f "signal_bot/data/$f" ]; then
               git add "signal_bot/data/$f"
             fi
