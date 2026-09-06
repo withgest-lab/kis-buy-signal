@@ -165,9 +165,9 @@
     padding: 14px; cursor: pointer;
   }
   .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-  .ticker-block .symb { font-size: 15px; font-weight: 700; }
-  .ticker-block .name { font-size: 11px; color: var(--text-muted); }
-  .cat-tag { font-size: 10px; color: var(--text-muted); }
+  .ticker-block .symb { font-size: 16px; font-weight: 700; }
+  .ticker-block .name { font-size: 11.5px; color: var(--text-muted); }
+  .cat-tag { font-size: 10.5px; color: var(--text-muted); }
 
   .stage-badge {
     font-size: 13px; font-weight: 700; padding: 3px 9px; border-radius: 8px;
@@ -184,10 +184,10 @@
 
   .biz-summary { margin-top: 8px; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
 
-  .chart-label { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
+  .chart-label { font-size: 10.5px; color: var(--text-muted); margin-bottom: 2px; }
   .mini-chart-block { margin-top: 10px; }
   .mini-chart-block svg { display: block; width: 100%; height: 40px; }
-  .spark-note { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+  .spark-note { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
 
   .tf-badges { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
   .tf-badge {
@@ -239,17 +239,20 @@
   /* 상세뷰 툴바(기간 버튼) */
   .detail-toolbar { margin-bottom: 4px; }
 
-  /* 카드 우측 상단의 "크게 보기 ⛶" 토글 - 단계 배지 아래 작은 원형 아이콘 버튼 */
+  /* 카드 우측 상단의 "크게 보기" 토글 - 단계 배지 아래, 아이콘+글자가 있는 pill
+     버튼(예전엔 아이콘 하나뿐인 작은 원형이라 뭘 하는 버튼인지 안 와닿고 탭하기도
+     작았음 - 글자를 붙이고 터치 영역을 키웠다). */
   .top-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
   .corner-btn {
-    width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border);
-    background: var(--surface-2); color: var(--text-secondary); font-size: 11px;
-    cursor: pointer; line-height: 1; padding: 0;
+    display: inline-flex; align-items: center; gap: 4px; height: 30px; padding: 0 12px;
+    border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--text-secondary); font-size: 12.5px; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
   }
 
   /* 오실레이터(RSI·MFI) 패널 사이의 짧은 타임프레임 이름표 - 예전엔 각 패널마다
      거의 같은 설명 문장이 반복돼서 화면이 장황했음. */
-  .tf-tag { font-size: 10px; font-weight: 600; color: var(--text-muted); margin: 8px 0 2px; }
+  .tf-tag { font-size: 10.5px; font-weight: 600; color: var(--text-muted); margin: 8px 0 2px; }
 
   /* 종목 상세뷰 "크게 보기" - 카드 하나를 화면 전체 오버레이로 넓게 표시 */
   .fullscreen-backdrop {
@@ -262,6 +265,15 @@
     cursor: default; padding: 20px;
   }
   body.fullscreen-open { overflow: hidden; }
+
+  /* 닫기("원본으로 보기") 버튼을 카드 맨 위에 고정된 얇은 바로 분리 - 차트를 보려고
+     아래로 스크롤해도 항상 화면 위쪽(우측)에 붙어있어서 다시 찾아 스크롤을 올릴
+     필요가 없다(예전엔 카드 맨 위 배지 아래에만 있어서 스크롤하면 안 보였음). */
+  .fullscreen-header {
+    position: sticky; top: 0; z-index: 5; display: flex; justify-content: flex-end;
+    margin: -20px -20px 14px; padding: 10px 20px; background: var(--surface-1);
+    border-radius: 14px 14px 0 0; border-bottom: 1px solid var(--grid);
+  }
 
   /* 기본(좁은 화면)은 세로 1단 - 정보 다음에 차트가 이어짐(지금 모바일과 동일한 흐름).
      넓은 화면(폴드 언폴드/태블릿)에서만 정보/차트를 좌우 2열로 나눠 공간을 활용한다. */
@@ -277,7 +289,6 @@
   .card.fullscreen .name { font-size: 13px; }
   .card.fullscreen .price-row { font-size: 16px; margin-top: 12px; }
   .card.fullscreen .stage-badge { font-size: 15px; padding: 4px 11px; }
-  .card.fullscreen .corner-btn { width: 26px; height: 26px; font-size: 13px; }
   .card.fullscreen .recovery-line { font-size: 12.5px; }
   .card.fullscreen .biz-summary { font-size: 13.5px; }
   .card.fullscreen .chart-label, .card.fullscreen .tf-tag { font-size: 11.5px; }
@@ -568,8 +579,13 @@ const MACRO_EVENTS = [
   ["2011-08-01", "2011-10-01", "미 신용등급 강등"],
   ["2015-08-01", "2016-02-01", "차이나 쇼크"],
   ["2018-10-01", "2018-12-25", "2018 금리인상 발작"],
+  ["2019-07-25", "2019-08-10", "미중 무역전쟁"],
   ["2020-02-15", "2020-04-01", "코로나19 급락"],
   ["2022-01-01", "2022-10-15", "2022 금리인상 하락장"],
+  ["2022-02-20", "2022-03-15", "우크라이나 전쟁 발발"],
+  ["2023-03-05", "2023-03-20", "SVB 은행위기"],
+  ["2025-04-01", "2025-04-15", "2025 관세충격"],
+  ["2025-06-12", "2025-06-25", "이란-이스라엘 분쟁"],
 ];
 
 // 낙폭(depth) 시계열 기준으로 이벤트를 찾는다(날짜로 반환) - 가격 차트든 낙폭
@@ -606,7 +622,7 @@ function layoutLabelsNoOverlap(itemsWithX, minGapPx, maxRows) {
 
 function lineChartSvg(records, opts) {
   const W = opts.width || 320, H = opts.height || 110;
-  const EVENT_ROWS = 3;
+  const EVENT_ROWS = 5;
   const n = records.length;
   if (!n) return '<div class="chart-loading">표시할 데이터가 없습니다.</div>';
   const yFmt = opts.yFormat || (v => Math.round(v));
@@ -648,8 +664,16 @@ function lineChartSvg(records, opts) {
   const labelSeries = opts.series.filter(s => s.labelCurrent);
   const multiLabel = labelSeries.length > 1;
 
+  // 크게보기(opts.large)에서는 차트 안 글자도 함께 커 보이게 - 축/이벤트/임계선/
+  // "지금" 라벨 폰트 크기와 그에 맞춘 줄 간격을 한 단계씩 키운다(작은 카드에서는
+  // 기존 크기 그대로).
+  const fSmall = opts.large ? 10 : 8;
+  const fReg = opts.large ? 11 : 9;
+  const rowGap = opts.large ? 11 : 9;
+  const nowRowGap = opts.large ? 12 : 10;
+
   const margin = {
-    top: 14 + (hasEvents ? EVENT_ROWS * 9 : 0) + (multiLabel ? labelSeries.length * 10 : 0),
+    top: 14 + (hasEvents ? EVENT_ROWS * rowGap : 0) + (multiLabel ? labelSeries.length * nowRowGap : 0),
     right: 6, bottom: 16, left,
   };
   const innerW = W - margin.left - margin.right;
@@ -660,7 +684,7 @@ function lineChartSvg(records, opts) {
   let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
 
   if (opts.yAxisTitle && !hasEvents) {
-    svg += `<text x="${margin.left}" y="9" font-size="8" fill="var(--text-secondary)">${opts.yAxisTitle}</text>`;
+    svg += `<text x="${margin.left}" y="9" font-size="${fSmall}" fill="var(--text-secondary)">${opts.yAxisTitle}</text>`;
   }
 
   // 임계선(RSI30/MFI20 등) - y좌표가 서로 가까우면 라벨이 겹치므로 지그재그 배치.
@@ -668,12 +692,12 @@ function lineChartSvg(records, opts) {
   if (thresholds.length) {
     const items = thresholds.map(t => ({ ...t, y: yAt(t.value) })).sort((a, b) => a.y - b.y);
     let prevY = -Infinity, row = 0;
-    items.forEach(it => { row = (it.y - prevY < 9) ? (row === 0 ? 1 : 0) : 0; prevY = it.y; it.row = row; });
+    items.forEach(it => { row = (it.y - prevY < rowGap) ? (row === 0 ? 1 : 0) : 0; prevY = it.y; it.row = row; });
     items.forEach(it => {
       const color = it.color || "var(--text-muted)";
       svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${it.y}" y2="${it.y}" stroke="${color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>`;
-      const ty = it.row === 1 ? it.y + 10 : it.y - 3;
-      svg += `<text x="${W - margin.right}" y="${ty}" text-anchor="end" font-size="9" fill="${color}">${it.label}</text>`;
+      const ty = it.row === 1 ? it.y + rowGap : it.y - 3;
+      svg += `<text x="${W - margin.right}" y="${ty}" text-anchor="end" font-size="${fReg}" fill="${color}">${it.label}</text>`;
     });
   }
 
@@ -706,17 +730,36 @@ function lineChartSvg(records, opts) {
     });
     const laidOut = layoutLabelsNoOverlap(events, 74, EVENT_ROWS);
     laidOut.forEach(ev => {
-      const labelY = 10 + ev.row * 9;
+      const labelY = 10 + ev.row * rowGap;
       svg += `<line x1="${ev.x}" x2="${ev.x}" y1="${labelY + 4}" y2="${margin.top + innerH}" stroke="var(--stage-1)" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/>`;
-      svg += `<text x="${ev.x}" y="${labelY}" text-anchor="middle" font-size="8" fill="var(--stage-1)"><title>${ev.label} 시기와 겹침</title>${ev.label}</text>`;
+      svg += `<text x="${ev.x}" y="${labelY}" text-anchor="middle" font-size="${fSmall}" fill="var(--stage-1)"><title>${ev.label} 시기와 겹침</title>${ev.label}</text>`;
     });
+
+    // 낙폭 차트에서는 그 이벤트 때 실제로 몇 %까지 빠졌는지 숫자도 저점 근처에
+    // 표시한다 - 기간을 길게(ALL/50Y) 볼 때는 y축이 압축돼서 실제로는 깊은
+    // 낙폭도 그래프상 작아 보이는 착시가 있어, 눈대중 대신 정확한 숫자로 확인
+    //할 수 있게 하기 위함(가격 차트는 %가 의미 없어서 표시 안 함).
+    if (opts.eventDepthLabels) {
+      const depthItems = events.map(ev => ({ ...ev, ty: yAt(ev.val) })).sort((a, b) => a.ty - b.ty);
+      let prevTy = -Infinity;
+      depthItems.forEach(it => {
+        it.ty2 = (it.ty - prevTy < rowGap) ? prevTy + rowGap : it.ty;
+        prevTy = it.ty2;
+      });
+      depthItems.forEach(it => {
+        const aboveOk = it.ty2 - margin.top > 12;
+        const ly = aboveOk ? it.ty2 - 4 : it.ty2 + 12;
+        svg += `<circle cx="${it.x}" cy="${it.ty}" r="2.2" fill="var(--price-down)"/>`;
+        svg += `<text x="${it.x}" y="${ly}" text-anchor="middle" font-size="${fSmall}" font-weight="700" fill="var(--price-down)">${Math.round(it.val * 100)}%</text>`;
+      });
+    }
   }
 
   // y축: 위/중간/아래 3곳에 값을 찍는다 - 양끝만으로는 지금 값이 그 사이
   // 어디쯤인지 가늠하기 어려워서.
-  svg += `<text x="${margin.left - 4}" y="${margin.top + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${axisLabels[0]}</text>`;
-  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH / 2 + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${axisLabels[1]}</text>`;
-  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="9" fill="var(--text-muted)">${axisLabels[2]}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + 3}" text-anchor="end" font-size="${fReg}" fill="var(--text-muted)">${axisLabels[0]}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH / 2 + 3}" text-anchor="end" font-size="${fReg}" fill="var(--text-muted)">${axisLabels[1]}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="${fReg}" fill="var(--text-muted)">${axisLabels[2]}</text>`;
 
   // "지금"(마지막 데이터) 값 표시. 점(circle)은 항상 실제 데이터 위치에 찍어서
   // "여기가 지금"임을 보여주되, 값 텍스트는 배치를 다르게 한다:
@@ -736,18 +779,18 @@ function lineChartSvg(records, opts) {
     nowItems.forEach(it => {
       svg += `<circle cx="${it.x}" cy="${it.y}" r="3" fill="${it.color}" stroke="var(--surface-1)" stroke-width="1"/>`;
     });
-    let rowY = 9;
+    let rowY = fReg;
     nowItems.forEach(it => {
       const label = it.tag ? `${it.tag} ${it.text}` : `지금 ${it.text}`;
-      svg += `<text x="${W - margin.right}" y="${rowY}" text-anchor="end" font-size="9" font-weight="700" fill="${it.color}">${label}</text>`;
-      rowY += 10;
+      svg += `<text x="${W - margin.right}" y="${rowY}" text-anchor="end" font-size="${fReg}" font-weight="700" fill="${it.color}">${label}</text>`;
+      rowY += nowRowGap;
     });
   } else {
     nowItems.forEach(it => {
       svg += `<circle cx="${it.x}" cy="${it.y}" r="3.2" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="1"/>`;
       const aboveOk = it.y - margin.top > 10;
       const ly = aboveOk ? it.y - 6 : it.y + 12;
-      svg += `<text x="${it.x - 4}" y="${ly}" text-anchor="end" font-size="9" font-weight="700" fill="var(--status-crit)">지금 ${it.text}</text>`;
+      svg += `<text x="${it.x - 4}" y="${ly}" text-anchor="end" font-size="${fReg}" font-weight="700" fill="var(--status-crit)">지금 ${it.text}</text>`;
     });
   }
 
@@ -757,7 +800,7 @@ function lineChartSvg(records, opts) {
   for (let k = 0; k < tickCount; k++) {
     const idx = Math.round((k / (tickCount - 1)) * (n - 1));
     const anchor = k === 0 ? "start" : (k === tickCount - 1 ? "end" : "middle");
-    svg += `<text x="${xAt(idx)}" y="${H - 2}" text-anchor="${anchor}" font-size="9" fill="var(--text-muted)">${records[idx].date.slice(2)}</text>`;
+    svg += `<text x="${xAt(idx)}" y="${H - 2}" text-anchor="${anchor}" font-size="${fReg}" fill="var(--text-muted)">${records[idx].date.slice(2)}</text>`;
   }
   svg += `</svg>`;
   return svg;
@@ -768,6 +811,7 @@ function priceChartBlock(records, currency, eventMarkers, chartOpts) {
   const chart = lineChartSvg(records, {
     height: (chartOpts && chartOpts.height) || 130,
     width: chartOpts && chartOpts.width,
+    large,
     yFormat: v => fmtAxisPrice(v, currency),
     nowFormat: v => fmtExactPrice(v, currency),
     series: [
@@ -785,6 +829,7 @@ function oscillatorChartBlock(records, tag, chartOpts) {
   const chart = lineChartSvg(records, {
     height: (chartOpts && chartOpts.height) || 100,
     width: chartOpts && chartOpts.width,
+    large,
     yMin: 0, yMax: 100,
     thresholds: [
       { value: 30, label: "RSI30", color: "var(--series-2)" },
@@ -803,34 +848,52 @@ function underwaterDetailBlock(records, eventMarkers, chartOpts) {
   const chart = lineChartSvg(records, {
     height: (chartOpts && chartOpts.height) || 110,
     width: chartOpts && chartOpts.width,
+    large,
     yFormat: v => Math.round(v * 100) + "%",
     series: [{ key: "depth", color: "var(--price-down)", width: large ? 1.6 : 2, labelCurrent: true }],
     thresholds: [{ value: 0, label: "신고가", color: "var(--text-muted)" }],
     eventMarkers,
+    eventDepthLabels: true,
   });
   return `<div class="chart-block"><div class="chart-label">낙폭 추이 · 0%=신고가</div>${chart}</div>`;
 }
 
-function episodeHistogramSvg(episodes, percentiles, asOfDate) {
-  if (!episodes || !episodes.length) return '<div class="chart-loading">낙폭 국면 데이터가 없습니다.</div>';
-  const W = 320, H = 140, margin = { top: 8, right: 6, bottom: 28, left: 28 };
+// 위 가격·낙폭 차트와 같은 기간(state.period)만 보이도록, 그 구간 안에서
+// 끝난(또는 아직 진행중인) 국면만 남긴다 - 안 그러면 위 차트들은 기간에 맞춰
+// 좁아지는데 히스토그램만 항상 전체 역사를 보여줘서 그림들의 시간축이 서로
+// 안 맞았음. 캡션의 완결/진행중 개수도 이 필터된 목록 기준으로 세야 실제
+// 그려지는 막대 개수와 일치한다.
+function filterEpisodesToDomain(episodes, domainStart, domainEnd) {
+  return (episodes || []).filter(e => (e.recovery_date || domainEnd) >= domainStart);
+}
+
+function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, chartOpts) {
+  const visible = filterEpisodesToDomain(episodes, domainStart, domainEnd);
+  if (!visible.length) return '<div class="chart-loading">이 기간에는 낙폭 국면 데이터가 없습니다.</div>';
+  const large = chartOpts && chartOpts.large;
+  const fs = large ? 10 : 8;
+  const W = (chartOpts && chartOpts.width) || 320, H = (chartOpts && chartOpts.height) || 140;
+  const margin = { top: 8, right: 6, bottom: 28, left: 28 };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
 
   // 국면을 index로 균등배치하면 "언제 있었던 일인지"가 안 보여서, 실제 날짜
-  // 비례로 x좌표를 계산한다(첫 국면 시작일 ~ 오늘 기준).
+  // 비례로 x좌표를 계산한다(위 차트들과 동일한 domainStart~domainEnd 기준).
   const toTime = s => new Date(s + "T00:00:00").getTime();
-  const startTime = toTime(episodes[0].start_date);
-  const nowDate = asOfDate || episodes[episodes.length - 1].trough_date;
+  const startTime = toTime(domainStart);
+  const nowDate = domainEnd;
   const span = Math.max(1, toTime(nowDate) - startTime);
   const xAt = dateStr => margin.left + ((toTime(dateStr) - startTime) / span) * innerW;
 
-  const depths = episodes.map(e => e.depth);
+  const depths = visible.map(e => e.depth);
   let yMin = Math.min(...depths, percentiles ? percentiles.p10 : 0) * 1.1;
   if (yMin >= 0) yMin = -0.1;
   const yAtFixed = v => (v / yMin) * innerH; // v<=0, yMin<0 -> 0..innerH
 
-  const xs = episodes.map(e => xAt(e.start_date)).sort((a, b) => a - b);
+  // domainStart 이전에 시작해 이 구간까지 이어진 국면은 막대 중심을 domainStart
+  // 위치로 당겨서(clamp) 왼쪽 밖으로 삐져나가지 않게 그린다.
+  const clampedX = dateStr => Math.max(margin.left, xAt(dateStr));
+  const xs = visible.map(e => clampedX(e.start_date)).sort((a, b) => a - b);
   let minGap = innerW;
   for (let i = 1; i < xs.length; i++) minGap = Math.min(minGap, xs[i] - xs[i - 1]);
   const barW = Math.max(3, Math.min(14, minGap * 0.7 || 14));
@@ -851,12 +914,12 @@ function episodeHistogramSvg(episodes, percentiles, asOfDate) {
     pItems.forEach(it => {
       svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${it.y}" y2="${it.y}" stroke="${it.color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.8"/>`;
       const tx = it.row === 1 ? W - margin.right - 34 : W - margin.right;
-      svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="8" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
+      svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="${fs}" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
     });
   }
-  episodes.forEach(e => {
+  visible.forEach(e => {
     const barH = yAtFixed(e.depth);
-    const x = xAt(e.start_date) - barW / 2;
+    const x = clampedX(e.start_date) - barW / 2;
     const color = e.is_complete ? "var(--series-1)" : "var(--status-crit)";
     const title = `${e.start_date} ~ ${e.recovery_date || "진행중(아직 회복 전)"} · 낙폭 ${(e.depth * 100).toFixed(1)}%`;
     svg += `<rect x="${x}" y="${margin.top}" width="${barW}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.85"><title>${title}</title></rect>`;
@@ -865,11 +928,11 @@ function episodeHistogramSvg(episodes, percentiles, asOfDate) {
   // "지금" 위치 - 가장 최근(진행중 국면이 있으면 그 지점)을 세로선+라벨로 표시
   const nowX = xAt(nowDate);
   svg += `<line x1="${nowX}" x2="${nowX}" y1="${margin.top}" y2="${margin.top + innerH + 4}" stroke="var(--status-crit)" stroke-width="1" stroke-dasharray="2 2"/>`;
-  svg += `<text x="${nowX}" y="${margin.top + innerH + 13}" text-anchor="middle" font-size="8" fill="var(--status-crit)">지금</text>`;
+  svg += `<text x="${nowX}" y="${margin.top + innerH + 13}" text-anchor="middle" font-size="${fs}" fill="var(--status-crit)">지금</text>`;
 
   svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${margin.top}" y2="${margin.top}" stroke="var(--grid)" stroke-width="1"/>`;
-  svg += `<text x="${margin.left - 2}" y="${margin.top + 7}" text-anchor="end" font-size="8" fill="var(--text-muted)">0%</text>`;
-  svg += `<text x="${margin.left - 2}" y="${margin.top + innerH}" text-anchor="end" font-size="8" fill="var(--text-muted)">${(yMin * 100).toFixed(0)}%</text>`;
+  svg += `<text x="${margin.left - 2}" y="${margin.top + 7}" text-anchor="end" font-size="${fs}" fill="var(--text-muted)">0%</text>`;
+  svg += `<text x="${margin.left - 2}" y="${margin.top + innerH}" text-anchor="end" font-size="${fs}" fill="var(--text-muted)">${(yMin * 100).toFixed(0)}%</text>`;
 
   // 실제 시간 비례축이라 중간 날짜도 몇 개 찍어줘야 "언제쯔음"인지 감이 잡힘.
   // 맨 끝(오늘)은 이미 위의 "지금" 라벨이 표시하므로 시작~중간까지만 찍는다.
@@ -878,7 +941,7 @@ function episodeHistogramSvg(episodes, percentiles, asOfDate) {
   for (let k = 0; k < axisTicks; k++) {
     const t = startTime + (k / axisTicks) * span;
     const x = margin.left + (k / axisTicks) * innerW;
-    svg += `<text x="${x}" y="${H - 3}" text-anchor="${k === 0 ? "start" : "middle"}" font-size="8" fill="var(--text-muted)">${fmtTime(t)}</text>`;
+    svg += `<text x="${x}" y="${H - 3}" text-anchor="${k === 0 ? "start" : "middle"}" font-size="${fs}" fill="var(--text-muted)">${fmtTime(t)}</text>`;
   }
   svg += `</svg>`;
   return svg;
@@ -904,15 +967,13 @@ function periodButtonsHtml(maxDays) {
 // 카드 상세뷰(및 크게보기)의 실제 내용 - 기간 버튼으로 고른 state.period가
 // 가격/낙폭/RSI·MFI 차트 전부에 함께 적용된다(전역 동기화).
 function detailContentHtml(t, detail, large) {
-  const completeCount = (detail.episodes || []).filter(e => e.is_complete).length;
-  const incompleteCount = (detail.episodes || []).length - completeCount;
   const fullUnderwater = detail.underwater || [];
   const asOfDate = fullUnderwater.length ? fullUnderwater[fullUnderwater.length - 1].date : null;
   const maxDays = spanDays(fullUnderwater);
 
   const priceSlice = sliceByPeriod(detail.daily, state.period);
   const underwaterSlice = sliceByPeriod(fullUnderwater, state.period);
-  const events = findMacroEvents(fullUnderwater, -0.1);
+  const events = findMacroEvents(fullUnderwater, -0.08);
 
   const seriesForTf = { daily: detail.daily, weekly: detail.weekly, monthly: detail.monthly };
   const tfPlan = timeframesForSpan(spanDays(underwaterSlice));
@@ -921,6 +982,15 @@ function detailContentHtml(t, detail, large) {
   // 두꺼워 보이는 문제가 있었다. 폭을 더 크게 벌려 Y스케일 증가를 완만하게 누른다.
   const bigChart = large ? { width: 640, height: 190, large: true } : undefined;
   const bigOsc = large ? { width: 640, height: 150, large: true } : undefined;
+  const bigHist = large ? { width: 640, height: 190, large: true } : undefined;
+
+  // 히스토그램도 가격·낙폭과 같은 기간(domainStart~domainEnd)을 도메인으로 써야
+  // 세 그림의 x축(시간)이 서로 정렬된다 - underwaterSlice의 첫 날짜가 곧 지금
+  // 선택된 기간의 시작일.
+  const domainStart = underwaterSlice.length ? underwaterSlice[0].date : (fullUnderwater[0] && fullUnderwater[0].date);
+  const visibleEpisodes = filterEpisodesToDomain(detail.episodes, domainStart, asOfDate);
+  const completeCount = visibleEpisodes.filter(e => e.is_complete).length;
+  const incompleteCount = visibleEpisodes.length - completeCount;
 
   return `
     <div class="detail-toolbar">
@@ -929,7 +999,7 @@ function detailContentHtml(t, detail, large) {
     ${priceChartBlock(priceSlice, t.currency, events, bigChart)}
     ${underwaterDetailBlock(underwaterSlice, events, bigChart)}
     <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭국면 히스토그램 · 🔵완결 ${completeCount}회 · 🔴진행중("지금") ${incompleteCount}회</div>
-    ${episodeHistogramSvg(detail.episodes, detail.percentiles, asOfDate)}
+    ${episodeHistogramSvg(detail.episodes, detail.percentiles, domainStart, asOfDate, bigHist)}
     ${tfPlan.map(([key, label]) => oscillatorChartBlock(sliceByPeriod(seriesForTf[key], state.period), label, bigOsc)).join("")}
   `;
 }
@@ -964,6 +1034,9 @@ function openFullscreen(symb, detail) {
   const pctSign = t.pct_chg >= 0 ? "+" : "";
   const card = document.getElementById("fullscreen-card");
   card.innerHTML = `
+    <div class="fullscreen-header">
+      <button type="button" class="corner-btn" data-action="close-fullscreen" aria-label="원본으로 보기" title="원본으로 보기">✕ 원본으로 보기</button>
+    </div>
     <div class="fullscreen-body">
       <div class="fullscreen-info">
         <div class="card-top">
@@ -972,10 +1045,7 @@ function openFullscreen(symb, detail) {
             <div class="name">${escapeHtml(t.name)}</div>
             <div class="cat-tag">${escapeHtml(t.category)}</div>
           </div>
-          <div class="top-actions">
-            <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
-            <button type="button" class="corner-btn" data-action="close-fullscreen" aria-label="축소하기" title="축소하기">✕</button>
-          </div>
+          <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
         </div>
         <div class="price-row">
           <span>${fmtPrice(t)}</span>
@@ -1059,7 +1129,7 @@ function cardHtml(t) {
       </div>
       <div class="top-actions">
         <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
-        <button type="button" class="corner-btn" data-action="fullscreen" aria-label="크게 보기" title="크게 보기">⛶</button>
+        <button type="button" class="corner-btn" data-action="fullscreen" aria-label="크게 보기" title="크게 보기">크게 보기 ⛶</button>
       </div>
     </div>
     <div class="price-row">
