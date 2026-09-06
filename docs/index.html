@@ -259,9 +259,30 @@
   .fullscreen-backdrop.open { display: flex; justify-content: center; }
   .card.fullscreen {
     width: 100%; max-width: 920px; height: fit-content; box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-    cursor: default;
+    cursor: default; padding: 20px;
   }
   body.fullscreen-open { overflow: hidden; }
+
+  /* 기본(좁은 화면)은 세로 1단 - 정보 다음에 차트가 이어짐(지금 모바일과 동일한 흐름).
+     넓은 화면(폴드 언폴드/태블릿)에서만 정보/차트를 좌우 2열로 나눠 공간을 활용한다. */
+  .fullscreen-info { margin-bottom: 4px; }
+  @media (min-width: 760px) {
+    .fullscreen-body { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
+    .fullscreen-info { margin-bottom: 0; }
+  }
+
+  /* 크게보기는 차트 높이만 키우는 게 아니라 정보 요소(종목명/가격/배지/캡션)도 함께
+     커져야 "박스 전체가 커진" 느낌이 든다는 피드백 반영 - 과하지 않게 1.15~1.3배 정도만. */
+  .card.fullscreen .symb { font-size: 19px; }
+  .card.fullscreen .name { font-size: 13px; }
+  .card.fullscreen .price-row { font-size: 16px; margin-top: 12px; }
+  .card.fullscreen .stage-badge { font-size: 15px; padding: 4px 11px; }
+  .card.fullscreen .corner-btn { width: 26px; height: 26px; font-size: 13px; }
+  .card.fullscreen .recovery-line { font-size: 12.5px; }
+  .card.fullscreen .biz-summary { font-size: 13.5px; }
+  .card.fullscreen .chart-label, .card.fullscreen .tf-tag { font-size: 11.5px; }
+  .card.fullscreen .tf-badge { font-size: 12px; padding: 4px 8px; }
+  .card.fullscreen .chart-block { margin-bottom: 16px; }
 </style>
 </head>
 <body>
@@ -743,6 +764,7 @@ function lineChartSvg(records, opts) {
 }
 
 function priceChartBlock(records, currency, eventMarkers, chartOpts) {
+  const large = chartOpts && chartOpts.large;
   const chart = lineChartSvg(records, {
     height: (chartOpts && chartOpts.height) || 130,
     width: chartOpts && chartOpts.width,
@@ -750,7 +772,7 @@ function priceChartBlock(records, currency, eventMarkers, chartOpts) {
     nowFormat: v => fmtExactPrice(v, currency),
     series: [
       { key: "rolling_high", color: "var(--text-muted)", width: 1, dashed: true },
-      { key: "close", color: "var(--series-1)", width: 2, labelCurrent: true },
+      { key: "close", color: "var(--series-1)", width: large ? 1.6 : 2, labelCurrent: true },
     ],
     markerKey: "divergence",
     eventMarkers,
@@ -759,6 +781,7 @@ function priceChartBlock(records, currency, eventMarkers, chartOpts) {
 }
 
 function oscillatorChartBlock(records, tag, chartOpts) {
+  const large = chartOpts && chartOpts.large;
   const chart = lineChartSvg(records, {
     height: (chartOpts && chartOpts.height) || 100,
     width: chartOpts && chartOpts.width,
@@ -768,19 +791,20 @@ function oscillatorChartBlock(records, tag, chartOpts) {
       { value: 20, label: "MFI20", color: "var(--series-3)" },
     ],
     series: [
-      { key: "rsi", color: "var(--series-2)", width: 1.3, labelCurrent: true, nowTag: "RSI" },
-      { key: "mfi", color: "var(--series-3)", width: 1.3, labelCurrent: true, nowTag: "MFI" },
+      { key: "rsi", color: "var(--series-2)", width: large ? 1.1 : 1.3, labelCurrent: true, nowTag: "RSI" },
+      { key: "mfi", color: "var(--series-3)", width: large ? 1.1 : 1.3, labelCurrent: true, nowTag: "MFI" },
     ],
   });
   return `<div class="chart-block"><div class="tf-tag">${tag}</div>${chart}</div>`;
 }
 
 function underwaterDetailBlock(records, eventMarkers, chartOpts) {
+  const large = chartOpts && chartOpts.large;
   const chart = lineChartSvg(records, {
     height: (chartOpts && chartOpts.height) || 110,
     width: chartOpts && chartOpts.width,
     yFormat: v => Math.round(v * 100) + "%",
-    series: [{ key: "depth", color: "var(--price-down)", width: 2, labelCurrent: true }],
+    series: [{ key: "depth", color: "var(--price-down)", width: large ? 1.6 : 2, labelCurrent: true }],
     thresholds: [{ value: 0, label: "신고가", color: "var(--text-muted)" }],
     eventMarkers,
   });
@@ -892,8 +916,11 @@ function detailContentHtml(t, detail, large) {
 
   const seriesForTf = { daily: detail.daily, weekly: detail.weekly, monthly: detail.monthly };
   const tfPlan = timeframesForSpan(spanDays(underwaterSlice));
-  const bigChart = large ? { height: 220 } : undefined;
-  const bigOsc = large ? { height: 160 } : undefined;
+  // 크게보기에서는 높이보다 폭을 더 넉넉히 키운다(2배) - 높이만 키우면 Y축 배율이
+  // 커져서 선(stroke-width는 viewBox 단위라 Y스케일을 그대로 받음)이 상대적으로
+  // 두꺼워 보이는 문제가 있었다. 폭을 더 크게 벌려 Y스케일 증가를 완만하게 누른다.
+  const bigChart = large ? { width: 640, height: 190, large: true } : undefined;
+  const bigOsc = large ? { width: 640, height: 150, large: true } : undefined;
 
   return `
     <div class="detail-toolbar">
@@ -937,23 +964,28 @@ function openFullscreen(symb, detail) {
   const pctSign = t.pct_chg >= 0 ? "+" : "";
   const card = document.getElementById("fullscreen-card");
   card.innerHTML = `
-    <div class="card-top">
-      <div class="ticker-block">
-        <div class="symb">${escapeHtml(t.symb)}</div>
-        <div class="name">${escapeHtml(t.name)}</div>
-        <div class="cat-tag">${escapeHtml(t.category)}</div>
+    <div class="fullscreen-body">
+      <div class="fullscreen-info">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="symb">${escapeHtml(t.symb)}</div>
+            <div class="name">${escapeHtml(t.name)}</div>
+            <div class="cat-tag">${escapeHtml(t.category)}</div>
+          </div>
+          <div class="top-actions">
+            <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+            <button type="button" class="corner-btn" data-action="close-fullscreen" aria-label="축소하기" title="축소하기">✕</button>
+          </div>
+        </div>
+        <div class="price-row">
+          <span>${fmtPrice(t)}</span>
+          <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
+          <span style="color:var(--text-muted)">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
+        </div>
+        ${statsBlockHtml(t, { skipSpark: true })}
       </div>
-      <div class="top-actions">
-        <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
-        <button type="button" class="corner-btn" data-action="close-fullscreen" aria-label="축소하기" title="축소하기">✕</button>
-      </div>
+      <div class="fullscreen-charts"></div>
     </div>
-    <div class="price-row">
-      <span>${fmtPrice(t)}</span>
-      <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
-      <span style="color:var(--text-muted)">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
-    </div>
-    <div class="fullscreen-charts"></div>
   `;
   card.querySelector('[data-action="close-fullscreen"]').addEventListener("click", closeFullscreen);
   renderDetailInto(card.querySelector(".fullscreen-charts"), t, detail, true);
@@ -992,6 +1024,28 @@ function recoveryLineHtml(p) {
   return `<div class="recovery-line">과거 국면(총 ${p.count}회) 회복기간 - 최소 ${fmtDays(p.recovery_days_min)} · 중간 ${fmtDays(p.recovery_days_median)} · 최장 ${fmtDays(p.recovery_days_max)}</div>`;
 }
 
+// 카드/전체화면 둘 다 쓰는 통계 요약 블록(사업요약·낙폭게이지·회복기간·배지) -
+// 전체화면 정보란에서는 낙폭 스파크라인만 뺀다(같은 정보를 담은 큰 낙폭 차트가
+// 차트 영역에 이미 있어서 중복).
+function statsBlockHtml(t, opts) {
+  const skipSpark = opts && opts.skipSpark;
+  return `
+    ${t.business_summary ? `<div class="biz-summary">${escapeHtml(t.business_summary)}</div>` : ""}
+    <div class="mini-chart-block">
+      <div class="chart-label">낙폭 위치</div>
+      ${depthGaugeSvg(t.depth, t.percentiles)}
+    </div>
+    ${recoveryLineHtml(t.percentiles)}
+    ${t.is_record_drawdown ? '<div class="record-badge">⚠️ 사상 최대 낙폭</div>' : ""}
+    ${skipSpark ? "" : `
+    <div class="mini-chart-block">
+      <div class="chart-label">낙폭 추이(최근 1년)</div>
+      ${underwaterSparkSvg(t.underwater_spark)}
+    </div>`}
+    <div class="tf-badges">${timeframeBadgesHtml(t.timeframes)}</div>
+  `;
+}
+
 function cardHtml(t) {
   const pctClass = t.pct_chg >= 0 ? "up" : "down";
   const pctSign = t.pct_chg >= 0 ? "+" : "";
@@ -1013,18 +1067,7 @@ function cardHtml(t) {
       <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
       <span style="color:var(--text-muted)">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
     </div>
-    ${t.business_summary ? `<div class="biz-summary">${escapeHtml(t.business_summary)}</div>` : ""}
-    <div class="mini-chart-block">
-      <div class="chart-label">낙폭 위치</div>
-      ${depthGaugeSvg(t.depth, t.percentiles)}
-    </div>
-    ${recoveryLineHtml(t.percentiles)}
-    ${t.is_record_drawdown ? '<div class="record-badge">⚠️ 사상 최대 낙폭</div>' : ""}
-    <div class="mini-chart-block">
-      <div class="chart-label">낙폭 추이(최근 1년)</div>
-      ${underwaterSparkSvg(t.underwater_spark)}
-    </div>
-    <div class="tf-badges">${timeframeBadgesHtml(t.timeframes)}</div>
+    ${statsBlockHtml(t)}
     <div class="detail">
       <div class="charts-holder"><div class="chart-loading">카드를 펼치면 차트를 불러옵니다...</div></div>
     </div>
