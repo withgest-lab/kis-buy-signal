@@ -240,6 +240,17 @@
   .chart-block { margin-bottom: 10px; }
   .detail-chart { display: block; width: 100%; }
   .chart-loading { font-size: 11px; color: var(--text-muted); padding: 8px 0; }
+
+  /* 히스토그램 막대 선택 시 가격·낙폭 차트 위에 시작/끝 시점을 겹쳐 그리는
+     오버레이 - viewBox가 바로 아래 실제 차트와 동일해 좌표가 항상 1:1로 맞는다. */
+  .chart-overlay-host { position: relative; }
+  .chart-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  rect.hist-bar.hist-bar-selected { stroke: #ffd166; stroke-width: 2px; }
+  .episode-detail-box-inner {
+    margin-top: 6px; padding: 6px 8px; font-size: 11px; line-height: 1.5;
+    color: var(--text-secondary); background: var(--surface-2); border-radius: 6px;
+    border: 1px solid var(--border);
+  }
   .recovery-line { font-size: 11px; color: var(--text-secondary); margin: 4px 0; }
   .regime-note { margin-top: 8px; font-size: 11px; color: var(--text-muted); }
 
@@ -666,6 +677,35 @@ function layoutLabelsNoOverlap(itemsWithX, minGapPx, maxRows) {
   });
 }
 
+// 여러 값의 y축 라벨 폭을 추정해 왼쪽 여백을 계산 - lineChartSvg 내부에서 쓰는
+// 것과 같은 공식이다. 가격/낙폭/히스토그램 세 차트의 왼쪽 여백을 하나로 통일해야
+// 같은 날짜가 세 차트에서 정확히 같은 x좌표에 오는데(히스토그램 막대 선택 시
+// 위 차트에 표시할 화살표 위치 계산에 필요), 각 차트가 자기 값 범위로 각자
+// 계산하면 서로 다른 여백이 나올 수 있어 미리 공통 여백을 구해서 세 곳에 강제한다.
+function estimateLeftMargin(vals, yFmt) {
+  if (!vals.length) return 24;
+  const yMax = Math.max(...vals), yMin = Math.min(...vals);
+  const yMid = (yMax + yMin) / 2;
+  const labels = [yMax, yMid, yMin].map(v => String(yFmt(v)));
+  const maxLen = Math.max(...labels.map(s => s.length));
+  return Math.max(24, 8 + maxLen * 5.3);
+}
+
+// 날짜 -> 그 차트(lineChartSvg)에서의 실제 x좌표. lineChartSvg는 날짜를 인덱스로
+// 균등배치(i/(n-1))하므로(거래일 기준 - 주말/휴장일이 껴 있어 달력일 비례와는
+// 미세하게 다름), 히스토그램 막대 선택 시 그 국면의 시작/끝 날짜를 가격·낙폭
+// 차트 위에 표시하려면 이 차트가 실제로 쓰는 것과 동일한 인덱스 기반 공식을
+// 그대로 재사용해야 정확히 겹친다(margin.right는 lineChartSvg 내부에 6으로
+// 고정돼 있어 여기서도 동일하게 맞춘다).
+function chartXForDate(records, dateStr, marginLeft, W) {
+  const n = records.length;
+  if (!n || dateStr == null) return null;
+  let idx = records.findIndex(r => r.date >= dateStr);
+  if (idx === -1) idx = n - 1;
+  const innerW = W - marginLeft - 6;
+  return marginLeft + (n <= 1 ? 0 : (idx / (n - 1)) * innerW);
+}
+
 function lineChartSvg(records, opts) {
   const W = opts.width || 320, H = opts.height || 110;
   const EVENT_ROWS = 5;
@@ -695,8 +735,10 @@ function lineChartSvg(records, opts) {
   // 값이 고정 여백(예전 32px) 밖으로 잘려나가던 문제 방지. 9px 폰트 기준
   // 대략 문자당 5.3px로 추정.
   const axisLabels = [yFmt(yMax), yFmt(yMid), yFmt(yMin)].map(String);
-  const maxLabelLen = Math.max(...axisLabels.map(s => s.length));
-  const left = Math.max(24, 8 + maxLabelLen * 5.3);
+  // 여러 차트(가격/낙폭/히스토그램)의 왼쪽 여백을 통일해야 할 때는 호출부에서
+  // opts.marginLeft로 강제한다 - 안 그러면 차트마다 자기 라벨 길이로 계산해서
+  // 서로 다른 여백이 나와 x좌표가 미세하게 어긋난다.
+  const left = opts.marginLeft != null ? opts.marginLeft : estimateLeftMargin(vals, yFmt);
 
   // 이벤트 마커(있다면)를 실제로 표시되는 날짜 구간으로 먼저 걸러서, 아무
   // 이벤트도 안 보이는 기간(예: 최근 1년)에서는 위쪽 여백을 불필요하게
@@ -879,9 +921,11 @@ function lineChartSvg(records, opts) {
 
 function priceChartBlock(records, currency, eventMarkers, chartOpts) {
   const large = chartOpts && chartOpts.large;
+  const W = (chartOpts && chartOpts.width) || 320;
+  const H = (chartOpts && chartOpts.height) || 130;
   const chart = lineChartSvg(records, {
-    height: (chartOpts && chartOpts.height) || 130,
-    width: chartOpts && chartOpts.width,
+    height: H, width: W,
+    marginLeft: chartOpts && chartOpts.marginLeft,
     large,
     yFormat: v => fmtAxisPrice(v, currency),
     nowFormat: v => fmtExactPrice(v, currency),
@@ -892,7 +936,16 @@ function priceChartBlock(records, currency, eventMarkers, chartOpts) {
     markerKey: "divergence",
     eventMarkers,
   });
-  return `<div class="chart-block"><div class="chart-label">가격 · 점선=최고가 · 빨간점=다이버전스</div>${chart}</div>`;
+  // chart-overlay-host: 히스토그램 막대를 선택하면 그 국면의 시작/끝 시점을
+  // 여기 겹쳐 그리는 빈 오버레이 SVG(초기엔 비어있음, viewBox가 본 차트와
+  // 동일해 좌표가 항상 1:1로 맞는다) - applyEpisodeSelection()이 채워 넣는다.
+  return `<div class="chart-block">
+    <div class="chart-label">가격 · 점선=최고가 · 빨간점=다이버전스</div>
+    <div class="chart-overlay-host" data-chart-role="price">
+      ${chart}
+      <svg class="chart-overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"></svg>
+    </div>
+  </div>`;
 }
 
 function oscillatorChartBlock(records, tag, chartOpts) {
@@ -916,9 +969,11 @@ function oscillatorChartBlock(records, tag, chartOpts) {
 
 function underwaterDetailBlock(records, eventMarkers, chartOpts) {
   const large = chartOpts && chartOpts.large;
+  const W = (chartOpts && chartOpts.width) || 320;
+  const H = (chartOpts && chartOpts.height) || 110;
   const chart = lineChartSvg(records, {
-    height: (chartOpts && chartOpts.height) || 110,
-    width: chartOpts && chartOpts.width,
+    height: H, width: W,
+    marginLeft: chartOpts && chartOpts.marginLeft,
     large,
     yFormat: v => Math.round(v * 100) + "%",
     series: [{ key: "depth", color: "var(--price-down)", width: large ? 1.6 : 2, labelCurrent: true }],
@@ -926,7 +981,13 @@ function underwaterDetailBlock(records, eventMarkers, chartOpts) {
     eventMarkers,
     eventDepthLabels: true,
   });
-  return `<div class="chart-block"><div class="chart-label">낙폭 추이 · 0%=신고가</div>${chart}</div>`;
+  return `<div class="chart-block">
+    <div class="chart-label">낙폭 추이 · 0%=신고가</div>
+    <div class="chart-overlay-host" data-chart-role="underwater">
+      ${chart}
+      <svg class="chart-overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"></svg>
+    </div>
+  </div>`;
 }
 
 // 위 가격·낙폭 차트와 같은 기간(state.period)만 보이도록, 그 구간 안에서
@@ -944,7 +1005,10 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
   const large = chartOpts && chartOpts.large;
   const fs = large ? 10 : 8;
   const W = (chartOpts && chartOpts.width) || 320, H = (chartOpts && chartOpts.height) || 140;
-  const margin = { top: 8, right: 6, bottom: 28, left: 28 };
+  // marginLeft는 가격/낙폭 차트와 통일해서 넘겨받는다(같은 날짜가 세 차트에서
+  // 정확히 같은 x좌표가 되도록 - 막대 선택 시 위 차트 화살표 위치 계산에 필요).
+  const sharedLeft = (chartOpts && chartOpts.marginLeft != null) ? chartOpts.marginLeft : 28;
+  const margin = { top: 8, right: 6, bottom: 28, left: sharedLeft };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
 
@@ -991,11 +1055,14 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
   visible.forEach(e => {
     const barH = yAtFixed(e.depth);
     const xStart = clampedX(e.start_date);
-    const xEnd = Math.min(W - margin.right, xAt(e.recovery_date || nowDate));
+    const endDate = e.recovery_date || nowDate;
+    const xEnd = Math.min(W - margin.right, xAt(endDate));
     const width = Math.max(3, xEnd - xStart);
     const color = e.is_complete ? "var(--series-1)" : "var(--status-crit)";
     const title = `${e.start_date} ~ ${e.recovery_date || "진행중(아직 회복 전)"} · 낙폭 ${(e.depth * 100).toFixed(1)}%`;
-    svg += `<rect x="${xStart}" y="${margin.top}" width="${width}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.8" stroke="var(--surface-1)" stroke-width="0.6"><title>${title}</title></rect>`;
+    // data-*: 이 막대를 탭하면 위 가격·낙폭 차트에 시작/끝 시점을 표시하는
+    // applyEpisodeSelection()이 읽어가는 식별 정보(클릭 이벤트 위임에서 사용).
+    svg += `<rect class="hist-bar" data-start="${e.start_date}" data-end="${endDate}" data-complete="${e.is_complete ? 1 : 0}" data-depth="${e.depth}" x="${xStart}" y="${margin.top}" width="${width}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.8" stroke="var(--surface-1)" stroke-width="0.6" style="cursor:pointer"><title>${title}</title></rect>`;
   });
 
   // "지금" 위치 - 가장 최근(진행중 국면이 있으면 그 지점)을 세로선+라벨로 표시
@@ -1037,26 +1104,55 @@ function periodButtonsHtml(maxDays) {
   }).join("") + `</div>`;
 }
 
+// 거시이벤트 + 종목별 조사 원인메모를 병합한 이벤트 목록 - 차트 마커용으로도,
+// 히스토그램 막대 선택 시 "이 국면의 원인이 뭐였는지" 찾는 용도로도 재사용한다.
+function computeDetailEvents(detail) {
+  const fullUnderwater = detail.underwater || [];
+  return findMacroEvents(fullUnderwater, -0.08)
+    .concat(episodeNotesToEvents(detail.episode_notes));
+}
+
 // 카드 상세뷰(및 크게보기)의 실제 내용 - 기간 버튼으로 고른 state.period가
 // 가격/낙폭/RSI·MFI 차트 전부에 함께 적용된다(전역 동기화).
-function detailContentHtml(t, detail, large) {
+// ctxOut(선택): 넘기면 히스토그램 막대 선택 기능이 나중에(클릭 시) 가격·낙폭
+// 차트와 동일한 좌표계로 화살표를 그릴 수 있도록, 지금 실제로 렌더링에 쓴
+// records/margin.left/차트 크기/이벤트 목록을 그 객체에 채워 넣는다(renderDetailInto가
+// container._chartCtx로 보관).
+function detailContentHtml(t, detail, large, ctxOut) {
   const fullUnderwater = detail.underwater || [];
   const asOfDate = fullUnderwater.length ? fullUnderwater[fullUnderwater.length - 1].date : null;
   const maxDays = spanDays(fullUnderwater);
 
   const priceSlice = sliceByPeriod(detail.daily, state.period);
   const underwaterSlice = sliceByPeriod(fullUnderwater, state.period);
-  const events = findMacroEvents(fullUnderwater, -0.08)
-    .concat(episodeNotesToEvents(detail.episode_notes));
+  const events = computeDetailEvents(detail);
 
   const seriesForTf = { daily: detail.daily, weekly: detail.weekly, monthly: detail.monthly };
   const tfPlan = timeframesForSpan(spanDays(underwaterSlice));
   // 크게보기에서는 높이보다 폭을 더 넉넉히 키운다(2배) - 높이만 키우면 Y축 배율이
   // 커져서 선(stroke-width는 viewBox 단위라 Y스케일을 그대로 받음)이 상대적으로
   // 두꺼워 보이는 문제가 있었다. 폭을 더 크게 벌려 Y스케일 증가를 완만하게 누른다.
-  const bigChart = large ? { width: 640, height: 190, large: true } : undefined;
-  const bigOsc = large ? { width: 640, height: 150, large: true } : undefined;
-  const bigHist = large ? { width: 640, height: 190, large: true } : undefined;
+  const chartW = large ? 640 : 320;
+  const priceH = large ? 190 : 130;
+  const uwH = large ? 190 : 110;
+  const histH = large ? 190 : 140;
+
+  // 가격/낙폭/히스토그램 세 차트의 왼쪽 여백(margin.left)을 하나로 통일 -
+  // 히스토그램 막대를 선택했을 때 그 국면의 시작/끝 날짜가 가격·낙폭 차트에서도
+  // 정확히 같은 x좌표가 되려면(chartXForDate가 margin.left를 그대로 재사용),
+  // 세 차트가 각자 자기 값 범위로 계산한 서로 다른 여백을 쓰면 안 된다.
+  const priceVals = [];
+  priceSlice.forEach(r => { if (r.close != null) priceVals.push(r.close); if (r.rolling_high != null) priceVals.push(r.rolling_high); });
+  const depthVals = underwaterSlice.map(r => r.depth).filter(v => v != null);
+  const sharedLeft = Math.max(
+    estimateLeftMargin(priceVals, v => fmtAxisPrice(v, t.currency)),
+    estimateLeftMargin(depthVals, v => Math.round(v * 100) + "%"),
+  );
+
+  const bigChart = { width: chartW, height: priceH, large, marginLeft: sharedLeft };
+  const bigUw = { width: chartW, height: uwH, large, marginLeft: sharedLeft };
+  const bigOsc = large ? { width: chartW, height: 150, large: true } : undefined;
+  const bigHist = { width: chartW, height: histH, large, marginLeft: sharedLeft };
 
   // 히스토그램도 가격·낙폭과 같은 기간(domainStart~domainEnd)을 도메인으로 써야
   // 세 그림의 x축(시간)이 서로 정렬된다 - underwaterSlice의 첫 날짜가 곧 지금
@@ -1066,16 +1162,97 @@ function detailContentHtml(t, detail, large) {
   const completeCount = visibleEpisodes.filter(e => e.is_complete).length;
   const incompleteCount = visibleEpisodes.length - completeCount;
 
+  if (ctxOut) {
+    ctxOut.priceRecords = priceSlice;
+    ctxOut.uwRecords = underwaterSlice;
+    ctxOut.marginLeft = sharedLeft;
+    ctxOut.priceW = chartW; ctxOut.priceH = priceH;
+    ctxOut.uwW = chartW; ctxOut.uwH = uwH;
+    ctxOut.events = events;
+  }
+
   return `
     <div class="detail-toolbar">
       ${periodButtonsHtml(maxDays)}
     </div>
     ${priceChartBlock(priceSlice, t.currency, events, bigChart)}
-    ${underwaterDetailBlock(underwaterSlice, events, bigChart)}
-    <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭국면 히스토그램 · 🔵완결 ${completeCount}회 · 🔴진행중("지금") ${incompleteCount}회</div>
+    ${underwaterDetailBlock(underwaterSlice, events, bigUw)}
+    <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭국면 히스토그램 · 🔵완결 ${completeCount}회 · 🔴진행중("지금") ${incompleteCount}회 · 막대를 탭하면 위 차트에 시작/끝 시점이 표시됩니다</div>
     ${episodeHistogramSvg(detail.episodes, detail.percentiles, domainStart, asOfDate, bigHist)}
+    <div class="episode-detail-box"></div>
     ${tfPlan.map(([key, label]) => oscillatorChartBlock(sliceByPeriod(seriesForTf[key], state.period), label, bigOsc)).join("")}
   `;
+}
+
+// 국면(episode)의 [start,end] 구간과 겹치는 이벤트를 찾아 "왜 떨어졌는지" 문구를
+// 만든다 - 종목별로 실제 조사해둔 원인(ev.cause)이 있으면 그 문장을 그대로 쓰고,
+// 없으면 겹치는 거시이벤트 중 가장 깊은 것의 이름만 참고용으로 보여준다. 겹치는
+// 게 하나도 없으면 null(호출부에서 "특정 이벤트와 매칭되지 않음"으로 표시).
+function findEpisodeCause(events, start, end) {
+  const within = (events || []).filter(ev => ev.date >= start && ev.date <= end);
+  if (!within.length) return null;
+  const specific = within.find(ev => ev.cause);
+  if (specific) return specific.cause;
+  const generic = [...within].sort((a, b) => a.val - b.val)[0];
+  return `${generic.label} 시기와 겹침(구체적 개별 사유는 확인 안 됨)`;
+}
+
+// 히스토그램에서 선택한 국면의 시작/끝 시점을 가격·낙폭 차트 위 오버레이 SVG에
+// 화살표(삼각형)+세로점선+짧은 날짜로 표시한다. overlaySvgEl의 viewBox는 그
+// 바로 아래 실제 차트와 완전히 동일해서(같은 W/H) 좌표가 항상 1:1로 맞는다.
+// 시작/끝 날짜가 너무 가까우면(짧은 국면) 라벨이 겹치지 않도록 기존
+// layoutLabelsNoOverlap()으로 좌우(행)를 엇갈리게 배치한다.
+function renderEpisodeOverlay(overlaySvgEl, records, marginLeft, W, H, episode) {
+  if (!overlaySvgEl) return;
+  if (!episode || !records || !records.length) { overlaySvgEl.innerHTML = ""; return; }
+  const startX = chartXForDate(records, episode.start, marginLeft, W);
+  const endX = chartXForDate(records, episode.end, marginLeft, W);
+  if (startX == null) { overlaySvgEl.innerHTML = ""; return; }
+  const color = "var(--status-crit)";
+  const items = [{ x: startX, label: episode.start.slice(2) }];
+  if (endX != null && Math.abs(endX - startX) > 3) items.push({ x: endX, label: episode.end.slice(2) });
+  const laidOut = layoutLabelsNoOverlap(items, 30, 2);
+  const labelTop = 8, labelGap = 10;
+  const lineTop = labelTop + labelGap * 2 + 4;
+  let svg = "";
+  laidOut.forEach(it => {
+    const ty = labelTop + it.row * labelGap;
+    svg += `<path d="M ${it.x - 4} ${ty - 6} L ${it.x + 4} ${ty - 6} L ${it.x} ${ty} Z" fill="${color}"/>`;
+    svg += `<text x="${it.x}" y="${ty + 8}" text-anchor="middle" font-size="8" font-weight="700" fill="${color}">${escapeHtml(it.label)}</text>`;
+    svg += `<line x1="${it.x}" x2="${it.x}" y1="${lineTop}" y2="${H - 14}" stroke="${color}" stroke-width="1.3" stroke-dasharray="3 2" opacity="0.85"/>`;
+  });
+  overlaySvgEl.innerHTML = svg;
+}
+
+// 선택된 국면의 상세 설명 - 일반 HTML 블록(div/strong/br)이라 SVG와 달리 길이에
+// 따라 자동 줄바꿈되고 아래 내용을 밀어낼 뿐이므로, 그래프나 다른 글자와
+// 겹치거나 잘리는 문제가 애초에 생기지 않는다.
+function episodeDetailHtml(episode, cause) {
+  const days = Math.max(0, Math.round((new Date(episode.end) - new Date(episode.start)) / 86400000));
+  const endLabel = episode.isComplete ? episode.end : `${episode.end}(진행중)`;
+  const causeText = cause || "특정 이벤트와 매칭되지 않음";
+  return `<div class="episode-detail-box-inner">
+    <strong>선택한 낙폭국면</strong> · ${escapeHtml(episode.start)} ~ ${escapeHtml(endLabel)} (${days}일) · 최대낙폭 ${Math.abs(episode.depth * 100).toFixed(1)}%<br>
+    사유: ${escapeHtml(causeText)}
+  </div>`;
+}
+
+// 막대 탭(선택/해제) 처리 - 같은 막대를 다시 누르면 해제(episode=null)한다.
+// ctx는 renderDetailInto가 container._chartCtx에 저장해둔, 지금 실제로 렌더링된
+// records/margin.left/차트크기/이벤트목록(detailContentHtml의 ctxOut)이다.
+function applyEpisodeSelection(container, ctx, episode) {
+  container.querySelectorAll(".hist-bar").forEach(b => {
+    const match = !!episode && b.dataset.start === episode.start && b.dataset.end === episode.end;
+    b.classList.toggle("hist-bar-selected", match);
+  });
+
+  const priceHost = container.querySelector('[data-chart-role="price"]');
+  const uwHost = container.querySelector('[data-chart-role="underwater"]');
+  renderEpisodeOverlay(priceHost && priceHost.querySelector(".chart-overlay"), ctx.priceRecords, ctx.marginLeft, ctx.priceW, ctx.priceH, episode);
+  renderEpisodeOverlay(uwHost && uwHost.querySelector(".chart-overlay"), ctx.uwRecords, ctx.marginLeft, ctx.uwW, ctx.uwH, episode);
+
+  const box = container.querySelector(".episode-detail-box");
+  if (box) box.innerHTML = episode ? episodeDetailHtml(episode, findEpisodeCause(ctx.events, episode.start, episode.end)) : "";
 }
 
 function wireDetailContainer(container, t, detail, large) {
@@ -1091,10 +1268,29 @@ function wireDetailContainer(container, t, detail, large) {
       flashFeedback(container.querySelector(`.period-btn[data-period="${state.period}"]`));
     });
   });
+
+  container.querySelectorAll(".hist-bar").forEach(bar => {
+    bar.addEventListener("click", (e) => {
+      // 히스토그램도 카드 안에 있으므로 동일하게 펼치기/접기 버블링을 막는다.
+      e.stopPropagation();
+      const ctx = container._chartCtx;
+      if (!ctx) return;
+      const alreadySelected = bar.classList.contains("hist-bar-selected");
+      const episode = alreadySelected ? null : {
+        start: bar.dataset.start,
+        end: bar.dataset.end,
+        isComplete: bar.dataset.complete === "1",
+        depth: parseFloat(bar.dataset.depth),
+      };
+      applyEpisodeSelection(container, ctx, episode);
+    });
+  });
 }
 
 function renderDetailInto(container, t, detail, large) {
-  container.innerHTML = detailContentHtml(t, detail, large);
+  const ctx = {};
+  container.innerHTML = detailContentHtml(t, detail, large, ctx);
+  container._chartCtx = ctx;
   wireDetailContainer(container, t, detail, large);
 }
 
