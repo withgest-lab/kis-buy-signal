@@ -236,12 +236,15 @@
   .period-btn.active { background: var(--series-1); color: white; border-color: var(--series-1); }
   .period-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
-  /* 상세뷰 툴바(기간 버튼 + 크게보기 토글) */
-  .detail-toolbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
-  .expand-btn {
-    font-size: 11px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--border);
-    background: var(--surface-2); color: var(--text-secondary); cursor: pointer; white-space: nowrap;
-    margin-top: 10px; flex-shrink: 0;
+  /* 상세뷰 툴바(기간 버튼) */
+  .detail-toolbar { margin-bottom: 4px; }
+
+  /* 카드 우측 상단의 "크게 보기 ⛶" 토글 - 단계 배지 아래 작은 원형 아이콘 버튼 */
+  .top-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+  .corner-btn {
+    width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-secondary); font-size: 11px;
+    cursor: pointer; line-height: 1; padding: 0;
   }
 
   /* 오실레이터(RSI·MFI) 패널 사이의 짧은 타임프레임 이름표 - 예전엔 각 패널마다
@@ -619,7 +622,15 @@ function lineChartSvg(records, opts) {
     .filter(ev => ev.date >= records[0].date && ev.date <= records[n - 1].date);
   const hasEvents = visibleEvents.length > 0;
 
-  const margin = { top: hasEvents ? 12 + EVENT_ROWS * 9 : 14, right: 6, bottom: 16, left };
+  // series가 2개 이상 "지금" 값을 라벨링해야 하면(RSI+MFI) 값 텍스트를 선 위에
+  // 겹쳐 찍지 않고 우상단에 따로 모아 보여줄 자리를 미리 확보해둔다.
+  const labelSeries = opts.series.filter(s => s.labelCurrent);
+  const multiLabel = labelSeries.length > 1;
+
+  const margin = {
+    top: 14 + (hasEvents ? EVENT_ROWS * 9 : 0) + (multiLabel ? labelSeries.length * 10 : 0),
+    right: 6, bottom: 16, left,
+  };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
   const xAt = i => margin.left + (n <= 1 ? 0 : (i / (n - 1)) * innerW);
@@ -686,30 +697,38 @@ function lineChartSvg(records, opts) {
   svg += `<text x="${margin.left - 4}" y="${margin.top + innerH / 2 + 3}" text-anchor="end" font-size="9" fill="var(--text-muted)">${axisLabels[1]}</text>`;
   svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="9" fill="var(--text-muted)">${axisLabels[2]}</text>`;
 
-  // "지금"(마지막 데이터) 값을 강조점+라벨로 표시 - series 중 labelCurrent가 켜진
-  // 것들(가격 차트는 종가만, 오실레이터는 RSI·MFI 둘 다)을 각자의 색으로 표시하고,
-  // 값이 서로 가까우면(라벨 y좌표 10px 이내) 세로로 살짝 띄워 겹치지 않게 한다.
-  const nowSpecs = [];
-  opts.series.forEach(s => {
-    if (!s.labelCurrent) return;
+  // "지금"(마지막 데이터) 값 표시. 점(circle)은 항상 실제 데이터 위치에 찍어서
+  // "여기가 지금"임을 보여주되, 값 텍스트는 배치를 다르게 한다:
+  // - 지표가 1개(가격/낙폭)면 예전처럼 그 점 옆에 라벨을 붙이되, 선 색과 헷갈리지
+  //   않도록 항상 강조색(빨강)을 쓴다(선과 라벨이 같은 색이라 구분이 안 되던 문제).
+  // - 지표가 2개 이상(RSI+MFI)이면 선이 촘촘한 구간과 라벨 글자가 겹치기 쉬우므로,
+  //   각자의 값을 우상단 한 곳에 모아 표시한다(자리는 margin.top에서 미리 확보).
+  const nowItems = labelSeries.map(s => {
     let idx = n - 1;
     while (idx >= 0 && records[idx][s.key] == null) idx--;
-    if (idx < 0) return;
+    if (idx < 0) return null;
     const v = records[idx][s.key];
-    nowSpecs.push({ color: s.color, x: xAt(idx), trueY: yAt(v), text: nowFmt(v) });
-  });
-  nowSpecs.sort((a, b) => a.trueY - b.trueY);
-  let prevLabelY = -Infinity;
-  nowSpecs.forEach(spec => {
-    spec.labelY = (spec.trueY - prevLabelY < 10) ? prevLabelY + 10 : spec.trueY;
-    prevLabelY = spec.labelY;
-  });
-  nowSpecs.forEach(spec => {
-    svg += `<circle cx="${spec.x}" cy="${spec.trueY}" r="3.2" fill="${spec.color}" stroke="var(--surface-1)" stroke-width="1"/>`;
-    const aboveOk = spec.labelY - margin.top > 10;
-    const ly = aboveOk ? spec.labelY - 6 : spec.labelY + 12;
-    svg += `<text x="${spec.x - 4}" y="${ly}" text-anchor="end" font-size="9" font-weight="700" fill="${spec.color}">지금 ${spec.text}</text>`;
-  });
+    return { color: s.color, tag: s.nowTag, x: xAt(idx), y: yAt(v), text: nowFmt(v) };
+  }).filter(Boolean);
+
+  if (multiLabel) {
+    nowItems.forEach(it => {
+      svg += `<circle cx="${it.x}" cy="${it.y}" r="3" fill="${it.color}" stroke="var(--surface-1)" stroke-width="1"/>`;
+    });
+    let rowY = 9;
+    nowItems.forEach(it => {
+      const label = it.tag ? `${it.tag} ${it.text}` : `지금 ${it.text}`;
+      svg += `<text x="${W - margin.right}" y="${rowY}" text-anchor="end" font-size="9" font-weight="700" fill="${it.color}">${label}</text>`;
+      rowY += 10;
+    });
+  } else {
+    nowItems.forEach(it => {
+      svg += `<circle cx="${it.x}" cy="${it.y}" r="3.2" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="1"/>`;
+      const aboveOk = it.y - margin.top > 10;
+      const ly = aboveOk ? it.y - 6 : it.y + 12;
+      svg += `<text x="${it.x - 4}" y="${ly}" text-anchor="end" font-size="9" font-weight="700" fill="var(--status-crit)">지금 ${it.text}</text>`;
+    });
+  }
 
   // 기간이 길어질수록(수년치) 양끝 날짜만으로는 "지금이 그 흐름 어디쯤인지" 감이
   // 안 잡혀서, 중간에도 날짜 라벨을 몇 개 더 찍어준다(대략 80px당 1개꼴).
@@ -749,8 +768,8 @@ function oscillatorChartBlock(records, tag, chartOpts) {
       { value: 20, label: "MFI20", color: "var(--series-3)" },
     ],
     series: [
-      { key: "rsi", color: "var(--series-2)", width: 2, labelCurrent: true },
-      { key: "mfi", color: "var(--series-3)", width: 2, labelCurrent: true },
+      { key: "rsi", color: "var(--series-2)", width: 1.3, labelCurrent: true, nowTag: "RSI" },
+      { key: "mfi", color: "var(--series-3)", width: 1.3, labelCurrent: true, nowTag: "MFI" },
     ],
   });
   return `<div class="chart-block"><div class="tf-tag">${tag}</div>${chart}</div>`;
@@ -879,7 +898,6 @@ function detailContentHtml(t, detail, large) {
   return `
     <div class="detail-toolbar">
       ${periodButtonsHtml(maxDays)}
-      <button type="button" class="expand-btn" data-action="toggle-fullscreen">${large ? "축소하기" : "크게 보기 ⛶"}</button>
     </div>
     ${priceChartBlock(priceSlice, t.currency, events, bigChart)}
     ${underwaterDetailBlock(underwaterSlice, events, bigChart)}
@@ -891,19 +909,17 @@ function detailContentHtml(t, detail, large) {
 
 function wireDetailContainer(container, t, detail, large) {
   container.querySelectorAll(".period-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+      // 이 버튼은 카드(.detail) 안에 있어서, 클릭이 카드 바깥의 "펼치기/접기"
+      // 리스너까지 버블링되면 기간을 바꾸자마자 카드가 접혀버리는 문제가
+      // 있었다 - 여기서 막아준다.
+      e.stopPropagation();
       if (btn.disabled) return;
       state.period = btn.dataset.period;
       renderDetailInto(container, t, detail, large);
       flashFeedback(container.querySelector(`.period-btn[data-period="${state.period}"]`));
     });
   });
-  const expandBtn = container.querySelector('[data-action="toggle-fullscreen"]');
-  if (expandBtn) {
-    expandBtn.addEventListener("click", () => {
-      if (large) closeFullscreen(); else openFullscreen(t.symb, detail);
-    });
-  }
 }
 
 function renderDetailInto(container, t, detail, large) {
@@ -911,6 +927,9 @@ function renderDetailInto(container, t, detail, large) {
   wireDetailContainer(container, t, detail, large);
 }
 
+// 종목 카드 상단(우측)의 "크게 보기 ⛶" 토글을 눌렀을 때 - 그래프만 키우는 게
+// 아니라 그 종목 박스 내용 전체(가격 정보 + 모든 차트)를 화면 전체로 넓혀서
+// 폴드폰 펼침 화면 등 넓은 화면을 활용해 더 시원하게 볼 수 있게 한다.
 function openFullscreen(symb, detail) {
   const t = (DATA && DATA.tickers.find(x => x.symb === symb)) || {};
   fullscreenSymb = symb;
@@ -924,7 +943,10 @@ function openFullscreen(symb, detail) {
         <div class="name">${escapeHtml(t.name)}</div>
         <div class="cat-tag">${escapeHtml(t.category)}</div>
       </div>
-      <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+      <div class="top-actions">
+        <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+        <button type="button" class="corner-btn" data-action="close-fullscreen" aria-label="축소하기" title="축소하기">✕</button>
+      </div>
     </div>
     <div class="price-row">
       <span>${fmtPrice(t)}</span>
@@ -933,6 +955,7 @@ function openFullscreen(symb, detail) {
     </div>
     <div class="fullscreen-charts"></div>
   `;
+  card.querySelector('[data-action="close-fullscreen"]').addEventListener("click", closeFullscreen);
   renderDetailInto(card.querySelector(".fullscreen-charts"), t, detail, true);
   document.getElementById("fullscreen-backdrop").classList.add("open");
   document.body.classList.add("fullscreen-open");
@@ -980,7 +1003,10 @@ function cardHtml(t) {
         <div class="name">${escapeHtml(t.name)}</div>
         <div class="cat-tag">${escapeHtml(t.category)}</div>
       </div>
-      <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+      <div class="top-actions">
+        <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+        <button type="button" class="corner-btn" data-action="fullscreen" aria-label="크게 보기" title="크게 보기">⛶</button>
+      </div>
     </div>
     <div class="price-row">
       <span>${fmtPrice(t)}</span>
@@ -1060,6 +1086,21 @@ function render() {
       el.classList.toggle("expanded");
       if (el.classList.contains("expanded")) ensureDetailCharts(el.dataset.symb, el);
     });
+    const cornerBtn = el.querySelector('[data-action="fullscreen"]');
+    if (cornerBtn) {
+      cornerBtn.addEventListener("click", async (e) => {
+        // 카드 전체의 펼치기/접기 클릭으로 버블링되지 않게 막는다 - 안 그러면
+        // "크게 보기"를 누르자마자 카드가 접혀버리는 것처럼 보인다.
+        e.stopPropagation();
+        const symb = el.dataset.symb;
+        if (!detailCache[symb]) {
+          el.classList.add("expanded");
+          await ensureDetailCharts(symb, el);
+        }
+        if (detailCache[symb]) openFullscreen(symb, detailCache[symb]);
+        flashFeedback(cornerBtn);
+      });
+    }
   });
 }
 
