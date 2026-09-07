@@ -1,0 +1,1706 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MDD 매수신호 대시보드</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page:           #f9f9f7;
+    --surface-1:      #fcfcfb;
+    --surface-2:      #f2f1ee;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-2:       #eb6834;
+    --series-3:       #1baf7a;
+    --stage-1:        #fab219;
+    --stage-2:        #e0692f;
+    --stage-3:        #d03b3b;
+    --status-good:    #0ca30c;
+    --status-warn:    #fab219;
+    --status-crit:    #d03b3b;
+    --price-up:       #d03b3b;
+    --price-down:     #2a78d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page:           #0d0d0d;
+      --surface-1:      #1a1a19;
+      --surface-2:      #232322;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-2:       #d95926;
+      --series-3:       #199e70;
+      --stage-1:        #fab219;
+      --stage-2:        #e0692f;
+      --stage-3:        #e66767;
+      --status-good:    #0ca30c;
+      --status-warn:    #fab219;
+      --status-crit:    #e66767;
+      --price-up:       #e66767;
+      --price-down:     #3987e5;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:           #0d0d0d;
+    --surface-1:      #1a1a19;
+    --surface-2:      #232322;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:           #2c2c2a;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+    --series-2:       #d95926;
+    --series-3:       #199e70;
+    --stage-1:        #fab219;
+    --stage-2:        #e0692f;
+    --stage-3:        #e66767;
+    --status-good:    #0ca30c;
+    --status-warn:    #fab219;
+    --status-crit:    #e66767;
+    --price-up:       #e66767;
+    --price-down:     #3987e5;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--page); color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 16px 12px 48px; }
+
+  header { margin-bottom: 12px; }
+  .header-row { display: flex; align-items: center; gap: 8px; }
+  h1 { font-size: 18px; margin: 0 0 2px; }
+  .meta { color: var(--text-muted); font-size: 12px; }
+  .help-btn {
+    height: 24px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-secondary); font-size: 12px; font-weight: 600;
+    cursor: pointer; line-height: 24px; flex-shrink: 0; white-space: nowrap;
+  }
+
+  /* 도움말 패널 */
+  .help-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+    z-index: 100; align-items: flex-start; justify-content: center; padding: 24px 12px;
+    overflow-y: auto; overscroll-behavior: contain;
+  }
+  .help-overlay.open { display: flex; }
+  /* 모달이 열려있는 동안 배경 스크롤 잠금 - 모달 안에서 끝까지 스크롤한 뒤
+     반대로 스크롤하면 배경 카드가 같이 움직이던 문제(스크롤 체이닝) 방지. */
+  body.modal-open { overflow: hidden; }
+  .help-panel {
+    background: var(--surface-1); border-radius: 14px; max-width: 560px; width: 100%;
+    border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+  .help-panel-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 16px; border-bottom: 1px solid var(--grid); position: sticky; top: 0;
+    background: var(--surface-1); border-radius: 14px 14px 0 0;
+  }
+  .help-panel-head h2 { font-size: 15px; margin: 0; }
+  .help-close {
+    width: 28px; height: 28px; border-radius: 50%; border: none; background: var(--surface-2);
+    color: var(--text-secondary); font-size: 13px; cursor: pointer;
+  }
+  .help-body { padding: 4px 16px 16px; }
+  .help-body section { margin-top: 14px; }
+  .help-body h3 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .02em; margin: 0 0 6px; }
+  .help-body p { font-size: 13px; color: var(--text-secondary); margin: 4px 0; line-height: 1.5; }
+  .help-body b { color: var(--text-primary); }
+  .help-body .note { font-size: 11.5px; color: var(--text-muted); }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; }
+
+  /* 툴바 */
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    margin: 16px 0; padding: 10px; background: var(--surface-1);
+    border: 1px solid var(--border); border-radius: 10px;
+  }
+  .chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip {
+    font-size: 12px; padding: 6px 10px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--text-secondary); cursor: pointer; white-space: nowrap;
+  }
+  .chip.active { background: var(--series-1); color: white; border-color: var(--series-1); }
+  select.sort-select {
+    font-size: 12px; padding: 6px 10px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface-2); color: var(--text-primary);
+    margin-left: auto;
+  }
+  .ticker-search {
+    font-size: 13px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-primary); width: 100%; max-width: 260px;
+  }
+  .ticker-search::placeholder { color: var(--text-muted); }
+
+  /* 신규 신호 배너 */
+  #banner { margin-bottom: 16px; }
+  .banner-empty {
+    padding: 12px 16px; background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text-muted); font-size: 13px; text-align: center;
+  }
+  .banner-title { font-size: 13px; font-weight: 600; color: var(--status-crit); margin-bottom: 8px; }
+  .banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+  .card.banner-card { border: 2px solid var(--status-crit); }
+
+  /* 지수 낙폭 경보 배너(SPY/QQQ/DIA/SOXX 절대 낙폭 구간, 장기 매수 참고용) -
+     단계가 깊을수록(임계값이 클수록) 더 진하고 강한 색으로 눈에 띄게 함. */
+  #mdd-alert-banner { margin-bottom: 16px; }
+  .mdd-alert-box {
+    padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--surface-1);
+  }
+  .mdd-alert-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .mdd-alert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+  .mdd-alert-item {
+    padding: 8px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 600; color: white;
+    display: flex; flex-direction: column; gap: 2px; cursor: pointer; transition: transform .1s;
+  }
+  .mdd-alert-item:active { transform: scale(0.97); }
+  .mdd-alert-item .sub { font-weight: 400; font-size: 11px; opacity: 0.9; }
+  .mdd-alert-item.tier-mild { background: var(--stage-1); color: #241a00; }
+  .mdd-alert-item.tier-mid { background: var(--stage-2); }
+  .mdd-alert-item.tier-severe { background: var(--stage-3); }
+  .mdd-badge {
+    display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 700; color: white;
+    background: var(--stage-3); border-radius: 999px; padding: 3px 9px;
+  }
+
+  /* 종목 그리드 */
+  .grid-count { font-size: 12px; color: var(--text-muted); margin: 4px 2px 10px; transition: color .15s, font-weight .15s; }
+  .grid-count.flash { color: var(--series-1); font-weight: 700; animation: gridCountFade 900ms ease-out; }
+  @keyframes gridCountFade { 0% { color: var(--series-1); } 100% { color: var(--text-muted); } }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px; cursor: pointer;
+  }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .ticker-block .symb { font-size: 16px; font-weight: 700; }
+  .ticker-block .name { font-size: 11.5px; color: var(--text-muted); }
+  .cat-tag { font-size: 10.5px; color: var(--text-muted); }
+
+  .stage-badge {
+    font-size: 13px; font-weight: 700; padding: 3px 9px; border-radius: 8px;
+    color: white; line-height: 1.4; text-align: center; white-space: nowrap;
+  }
+  .stage-0 { background: var(--surface-2); color: var(--text-muted); }
+  .stage-1 { background: var(--stage-1); color: #241a00; }
+  .stage-2 { background: var(--stage-2); }
+  .stage-3 { background: var(--stage-3); box-shadow: 0 0 0 2px color-mix(in srgb, var(--stage-3) 40%, transparent); }
+
+  .price-row { margin-top: 8px; font-size: 13px; display: flex; gap: 8px; align-items: baseline; }
+  .price-row .pct.up { color: var(--price-up); }
+  .price-row .pct.down { color: var(--price-down); }
+
+  .biz-summary { margin-top: 8px; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+
+  .chart-label { font-size: 10.5px; color: var(--text-muted); margin-bottom: 2px; }
+  .mini-chart-block { margin-top: 10px; }
+  .mini-chart-block svg { display: block; width: 100%; height: 40px; }
+  .spark-note { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+
+  .tf-badges { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .tf-badge {
+    font-size: 10.5px; padding: 3px 7px; border-radius: 999px; border: 1px solid var(--border);
+    color: var(--text-secondary); background: var(--surface-2);
+  }
+  .tf-badge.near { color: white; background: var(--status-warn); border-color: var(--status-warn); font-weight: 600; }
+  .tf-badge.confirmed { color: white; background: var(--status-crit); border-color: var(--status-crit); font-weight: 700; }
+  .record-badge {
+    display: inline-block; margin-top: 8px; font-size: 10.5px; font-weight: 700; color: white;
+    background: var(--status-crit); border-radius: 6px; padding: 3px 7px;
+  }
+
+  .new-flag {
+    display: inline-block; font-size: 10px; font-weight: 700; color: white;
+    background: var(--status-crit); border-radius: 6px; padding: 2px 6px; margin-bottom: 6px;
+  }
+
+  /* 상세 확장 */
+  .detail { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--grid); display: none; }
+  .card.expanded .detail { display: block; }
+
+  .chart-block { margin-bottom: 10px; }
+  .detail-chart { display: block; width: 100%; }
+  .chart-loading { font-size: 11px; color: var(--text-muted); padding: 8px 0; }
+
+  /* 히스토그램 막대 선택 시 가격·낙폭 차트 위에 시작/끝 시점을 겹쳐 그리는
+     오버레이 - viewBox가 바로 아래 실제 차트와 동일해 좌표가 항상 1:1로 맞는다. */
+  .chart-overlay-host { position: relative; }
+  .chart-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  rect.hist-bar.hist-bar-selected { stroke: #ffd166; stroke-width: 2px; }
+  .episode-detail-box-inner {
+    margin-top: 6px; padding: 6px 8px; font-size: 11px; line-height: 1.5;
+    color: var(--text-secondary); background: var(--surface-2); border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  .recovery-line { font-size: 11px; color: var(--text-secondary); margin: 4px 0; }
+  .regime-note { margin-top: 8px; font-size: 11px; color: var(--text-muted); }
+
+  .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-size: 13px; }
+  footer { text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 24px; }
+
+  /* 조작 피드백 - 버튼/칩을 누르면 짧게 강조색 테두리가 반짝여서 "적용됐다"는 걸
+     바로 인지할 수 있게 함(비동기 로딩이 없는 즉시 반영 컨트롤용). */
+  @keyframes controlFlash {
+    0% { box-shadow: 0 0 0 2px var(--series-1); }
+    100% { box-shadow: 0 0 0 2px transparent; }
+  }
+  .control-flash { animation: controlFlash 650ms ease-out; }
+
+  /* 기간 선택 버튼(1Y~ALL) */
+  .period-group { display: flex; gap: 5px; flex-wrap: wrap; margin: 10px 0 4px; }
+  .period-btn {
+    font-size: 11px; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text-secondary); cursor: pointer;
+  }
+  .period-btn.active { background: var(--series-1); color: white; border-color: var(--series-1); }
+  .period-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* 상세뷰 툴바(기간 버튼) */
+  .detail-toolbar { margin-bottom: 4px; }
+
+  /* 카드 우측 상단의 "크게 보기" 토글 - 단계 배지 아래, 아이콘+글자가 있는 pill
+     버튼(예전엔 아이콘 하나뿐인 작은 원형이라 뭘 하는 버튼인지 안 와닿고 탭하기도
+     작았음 - 글자를 붙이고 터치 영역을 키웠다). */
+  .top-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+  .corner-btn {
+    display: inline-flex; align-items: center; gap: 4px; height: 30px; padding: 0 12px;
+    border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2);
+    color: var(--text-secondary); font-size: 12.5px; font-weight: 600;
+    cursor: pointer; white-space: nowrap;
+  }
+
+  /* 오실레이터(RSI·MFI) 패널 사이의 짧은 타임프레임 이름표 - 예전엔 각 패널마다
+     거의 같은 설명 문장이 반복돼서 화면이 장황했음. */
+  .tf-tag { font-size: 10.5px; font-weight: 600; color: var(--text-muted); margin: 8px 0 2px; }
+
+  /* 종목 상세뷰 "크게 보기" - 카드 하나를 화면 전체 오버레이로 넓게 표시 */
+  .fullscreen-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.4);
+    overflow-y: auto; padding: 24px 12px; overscroll-behavior: contain;
+  }
+  .fullscreen-backdrop.open { display: flex; justify-content: center; }
+  .card.fullscreen {
+    width: 100%; max-width: 920px; height: fit-content; box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    cursor: default; padding: 20px;
+  }
+  body.fullscreen-open { overflow: hidden; }
+
+  /* 닫기("원본으로 보기") 버튼을 카드 맨 위에 고정된 얇은 바로 분리 - 차트를 보려고
+     아래로 스크롤해도 항상 화면 위쪽(우측)에 붙어있어서 다시 찾아 스크롤을 올릴
+     필요가 없다(예전엔 카드 맨 위 배지 아래에만 있어서 스크롤하면 안 보였음). */
+  .fullscreen-header {
+    position: sticky; top: 0; z-index: 5; display: flex; justify-content: flex-end;
+    margin: -20px -20px 14px; padding: 10px 20px; background: var(--surface-1);
+    border-radius: 14px 14px 0 0; border-bottom: 1px solid var(--grid);
+  }
+
+  /* 기본(좁은 화면)은 세로 1단 - 정보 다음에 차트가 이어짐(지금 모바일과 동일한 흐름).
+     넓은 화면(폴드 언폴드/태블릿)에서만 정보/차트를 좌우 2열로 나눠 공간을 활용한다. */
+  .fullscreen-info { margin-bottom: 4px; }
+  @media (min-width: 760px) {
+    .fullscreen-body { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; }
+    .fullscreen-info { margin-bottom: 0; }
+  }
+
+  /* 크게보기는 차트 높이만 키우는 게 아니라 정보 요소(종목명/가격/배지/캡션)도 함께
+     커져야 "박스 전체가 커진" 느낌이 든다는 피드백 반영 - 과하지 않게 1.15~1.3배 정도만. */
+  .card.fullscreen .symb { font-size: 19px; }
+  .card.fullscreen .name { font-size: 13px; }
+  .card.fullscreen .price-row { font-size: 16px; margin-top: 12px; }
+  .card.fullscreen .stage-badge { font-size: 15px; padding: 4px 11px; }
+  .card.fullscreen .recovery-line { font-size: 12.5px; }
+  .card.fullscreen .biz-summary { font-size: 13.5px; }
+  .card.fullscreen .chart-label, .card.fullscreen .tf-tag { font-size: 11.5px; }
+  .card.fullscreen .tf-badge { font-size: 12px; padding: 4px 8px; }
+  .card.fullscreen .chart-block { margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="header-row">
+      <h1>MDD 매수신호 대시보드</h1>
+      <button id="help-btn" class="help-btn" aria-label="데이터 읽는 법 열기">📖 데이터 읽는 법</button>
+    </div>
+    <div class="meta" id="meta-line">불러오는 중...</div>
+  </header>
+
+  <div class="toolbar">
+    <input type="search" class="ticker-search" id="ticker-search" placeholder="종목명·티커 검색(예: AAPL, 삼성전자)">
+    <div class="chip-group" id="filter-stage">
+      <span class="chip active" data-stage="all">전체</span>
+      <span class="chip" data-stage="1">1단계+</span>
+      <span class="chip" data-stage="2">2단계+</span>
+      <span class="chip" data-stage="3">3단계</span>
+    </div>
+    <div class="chip-group" id="filter-category">
+      <span class="chip active" data-cat="all">모든분류</span>
+      <span class="chip" data-cat="개별종목">미국개별종목</span>
+      <span class="chip" data-cat="섹터ETF">섹터ETF</span>
+      <span class="chip" data-cat="한국지수">한국지수</span>
+      <span class="chip" data-cat="한국개별종목">한국개별종목</span>
+    </div>
+    <select class="sort-select" id="sort-select">
+      <option value="cap" selected>시가총액순</option>
+      <option value="stage">MDD단계순</option>
+      <option value="depth">낙폭깊은순</option>
+      <option value="pct_chg">등락률순</option>
+      <option value="symb">알파벳순</option>
+    </select>
+  </div>
+
+  <div id="mdd-alert-banner"></div>
+  <div id="banner"></div>
+  <div class="grid-count" id="grid-count"></div>
+  <div class="grid" id="grid"></div>
+  <footer id="footer"></footer>
+</div>
+
+<div id="help-overlay" class="help-overlay">
+  <div class="help-panel">
+    <div class="help-panel-head">
+      <h2>데이터 읽는 법</h2>
+      <button id="help-close" class="help-close" aria-label="닫기">✕</button>
+    </div>
+    <div class="help-body">
+      <section>
+        <h3>MDD 단계는 뭘 의미하나요?</h3>
+        <p>각 종목의 역대 가능한 만큼(대개 수십 년치) 낙폭 국면(고점→저점→신고가 복귀)을 모두 뽑아서, 그 깊이(depth)들의 분포를 계산합니다. 오늘의 낙폭이 그 분포에서 어디쯤 있는지로 단계를 매깁니다.</p>
+        <p><span class="dot" style="background:var(--stage-3)"></span> <b>3단계(극단)</b> — 과거 국면 중 가장 깊었던 하위 10% 수준(P10)까지 낙폭이 도달</p>
+        <p><span class="dot" style="background:var(--stage-2)"></span> <b>2단계(깊은낙폭)</b> — 과거 국면 하위 25% 수준(P25)</p>
+        <p><span class="dot" style="background:var(--stage-1)"></span> <b>1단계(관찰)</b> — 과거 국면 중간값(P50, 평소 정도 낙폭) 수준</p>
+        <p><span class="dot" style="background:var(--text-muted)"></span> <b>0(신호없음)</b> — 아직 평소 수준의 낙폭</p>
+        <p class="note">평균/표준편차 대신 실제 발생했던 국면들의 순위(백분위, P50/P25/P10)를 그대로 쓰는 방식입니다 - 낙폭은 소수의 극단치(2008, 2020 등)가 평균을 왜곡시키기 쉬워서, 이 방식이 더 왜곡이 적습니다.</p>
+        <p class="note">참고로 SPY·QQQ 같은 지수 성격 종목은 역사적으로 <b>-10% 이상 조정이 평균 약 2년에 한 번 꼴</b>(1974년 이후 27회), <b>-20% 이상 약세장은 평균 3.5~7년에 한 번 꼴</b>(그 중 실제로 -20%까지 악화된 경우는 27번의 조정 중 6번뿐)로 알려져 있습니다. 출처마다 수치가 조금씩 달라 "약 ~정도"의 근사치로 봐주세요 - 지금 낙폭이 역사적으로 흔한 수준인지 가늠하는 데 참고할 수 있습니다.</p>
+      </section>
+      <section>
+        <h3>낙폭 게이지 차트는 어떻게 읽나요?</h3>
+        <p>가로 막대가 "0%(신고가)"에서 왼쪽으로 갈수록 더 깊은 낙폭입니다. 채워진 빨간 막대가 오늘의 낙폭 위치, 3개의 세로선(P50/P25/P10)이 그 종목의 과거 중간값/하위25%/하위10% 지점입니다.</p>
+      </section>
+      <section>
+        <h3>"사상 최대 낙폭" 배지는요?</h3>
+        <p>오늘의 낙폭이 그 종목의 과거 국면 중 가장 깊었던 것보다도 더 깊다는 뜻입니다. "과거엔 항상 돌아왔다"는 근거가 가장 약해지는 지점이라 별도로 표시합니다 - 매수를 권장하거나 만류하는 신호는 아니고, 판단에 참고할 정보입니다.</p>
+      </section>
+      <section>
+        <h3>회복기간 통계는 뭔가요?</h3>
+        <p>과거에 이 정도(또는 비슷한) 낙폭 국면이 신고가로 다시 복귀하기까지 걸린 기간의 최소/중간/최장 값입니다. 이번 낙폭이 얼마나 걸릴지 보장하진 않지만, 기다릴 각오를 얼마나 해야 할지 감을 잡는 데 참고할 수 있습니다.</p>
+      </section>
+      <section>
+        <h3>일/주/월 RSI·MFI 배지는요? 왜 색이 2단계인가요?</h3>
+        <p><b>RSI</b> — 최근 오른 폭과 내린 폭을 비교해 사자/팔자 힘의 세기를 0~100으로 나타냅니다. <b>30 이하면 과매도</b>로 봅니다.</p>
+        <p><b>MFI</b> — RSI와 비슷한데 거래량까지 반영합니다. <b>20 이하면 과매도</b>로 봅니다.</p>
+        <p><span class="dot" style="background:var(--status-warn)"></span> <b>근접(주황)</b> — RSI 35 이하 <b>이고 동시에</b> MFI 25 이하일 때. 과매도 문턱에 같이 다가가고 있다는 뜻입니다.</p>
+        <p><span class="dot" style="background:var(--status-crit)"></span> <b>확정 과매도(빨강)</b> — RSI 30 이하 <b>이고 동시에</b> MFI 20 이하일 때(둘 다 기존 과매도 기준선을 넘은 상태). 둘 중 하나만 기준을 넘는 경우는 배지가 켜지지 않습니다 - 거래량 없이 가격만 흔들린 경우(또는 그 반대)를 걸러내기 위함입니다.</p>
+        <p><b>다이버전스(●)</b> — 가격은 신저점을 찍었는데 RSI/MFI는 오히려 덜 떨어진 경우입니다. 흔히 "떨어질 힘이 다 빠졌다"는 신호로 해석하며, 위 2단계 색과는 별개로 항상 표시됩니다.</p>
+        <p class="note">이 시스템은 사용자가 실제로 주간/월간 기준으로 RSI/MFI를 참고했을 때 타율이 좋았다고 밝혀서, 일봉 지표 외에 주봉/월봉도 함께 계산해서 보여줍니다. 같은 지표를 하루/한 주/한 달 단위로 각각 계산한 것으로, 일봉은 단기·월봉은 장기 흐름을 봅니다. MDD와 마찬가지로 판정/점수 합산 없이 값 그대로만 보여드립니다 - 최종 판단은 사용자의 몫입니다.</p>
+      </section>
+      <section>
+        <h3>카드를 펼치면 나오는 차트들은요?</h3>
+        <p><b>가격 + 롤링 신고가</b> — 가격 위에 지금까지의 최고가선(점선)을 겹쳐서, 지금이 그 선에서 얼마나 떨어져 있는지 한눈에 보여줍니다. 빨간 점은 다이버전스가 감지된 날입니다.</p>
+        <p><b>낙폭(underwater) 추이</b> — 낙폭%을 시간 흐름에 따라 그린 그래프. 0%(신고가) 아래로 얼마나, 얼마나 오래 내려가 있었는지를 보여줍니다. 주황 점선은 코로나19, 2022 금리인상 하락장처럼 널리 알려진 시장 전체 충격 시기와 겹치는 지점, 또는 그 종목만의 큰 낙폭(-25% 이상)에 대해 실제로 찾아본 개별 원인을 표시한 것입니다(마우스를 올리면 자세한 내용이 보입니다). 명확한 원인을 못 찾은 경우는 "특정 단일 원인 확인 안 됨"이라고 정직하게 표시했고, 아직 조사가 안 된 나머지 낙폭 국면들도 있습니다 - 원인을 안다고 단정하는 게 아니라 참고용입니다.</p>
+        <p><b>낙폭국면 히스토그램</b> — 과거의 낙폭 국면들을 막대로 나열합니다. 막대가 <b>길수록</b>(세로) 더 깊었던 국면이고, <b>두꺼울수록</b>(가로 폭) 신고가로 회복하는 데 오래 걸린 국면입니다 - 얇으면 금방 회복, 두꺼우면 오래 걸림. 점선은 P50/P25/P10 기준선입니다. 🔵는 신고가로 회복된(완결) 국면, 🔴는 아직 회복 전(진행중, "지금"이 여기)인 국면입니다.</p>
+        <p><b>RSI·MFI 라인차트</b> — 오버솔드 기준선(RSI 30, MFI 20)을 넘어가면 과매도 구간입니다. 선택한 기간이 3년 이하면 일/주/월봉을 모두, 3~15년이면 주봉, 그보다 길면 월봉만 보여줍니다(기간이 길어질수록 일봉은 너무 빽빽해져서 자동으로 더 굵은 단위로 바꿔 보여드리는 것입니다).</p>
+        <p><b>기간 버튼(1Y~ALL)</b> — 이 버튼으로 고른 기간이 그 카드 안의 가격/낙폭/RSI·MFI 차트 전부에 함께 적용됩니다(따로 조절할 필요 없음). 예를 들어 "지금 상승장이 언제부터 시작됐는지", "이번 하락장이 언제부터인지"를 보려면 기간을 길게(10Y 이상) 늘려서 가격 차트의 롤링 신고가선과 낙폭 차트를 함께 보시면 됩니다. 실제로 갖고 있는 데이터보다 긴 기간 버튼은 흐리게 표시되고 눌리지 않습니다.</p>
+        <p><b>크게 보기 ⛶</b> — 화면 전체로 넓게 펼쳐서 차트를 더 시원하게 볼 수 있습니다. 다시 누르면 원래 카드 레이아웃으로 돌아갑니다.</p>
+      </section>
+      <section>
+        <h3>화면에 나오는 다른 용어들도 궁금해요</h3>
+        <p><b>낙폭국면(episode)</b> — 신고가를 찍은 시점부터, 떨어졌다가 다시 신고가로 돌아오기까지의 한 구간("한 번의 하락→회복 사이클").</p>
+        <p><b>시장국면(참고용)</b> — SPY(미국)/KOSPI200(한국) 지수가 200일 이동평균선 대비 어디에 있는지로 판정한 상승장/횡보장/하락장. <b>이 신호를 이유로 매수신호를 막지는 않습니다</b> — MDD 전략 자체가 하락장에서 기회를 찾는 게 목적이라서, 참고 정보로만 표시합니다.</p>
+        <p><b>NEW 신호</b> — 오늘 새로 이 종목에 알림이 발생했다는 표시. 텔레그램으로도 같은 내용이 발송됩니다.</p>
+        <p><b>베이스라인 데이터 부족</b> — 최근 상장 등의 이유로 과거 낙폭국면이 5개 미만이라, MDD 백분위를 믿을 만하게 계산할 수 없는 상태. 이 경우 MDD 신호 계산을 생략합니다.</p>
+        <p><b>필터 칩(1단계+/2단계+/3단계, 분류)</b> — 상단 "분류" 칩(미국개별종목/섹터ETF/한국지수/한국개별종목)은 여러 개를 동시에 눌러 함께 볼 수 있습니다(다중 선택). "전체"를 누르면 선택이 초기화됩니다. 단계 필터는 "1단계+"를 고르면 1단계 이상, "3단계"를 고르면 가장 극단적인 3단계 종목만 걸러서 보여줍니다.</p>
+      </section>
+      <section>
+        <h3>참고해주세요</h3>
+        <p>이 시스템은 <b>종목을 조회하고 알림만 보내주는 용도</b>입니다. 실제로 사고파는 주문은 절대 하지 않으며, 신호를 참고해서 최종 판단과 매매는 사용자가 직접 합니다. 개별종목의 낙폭은 반드시 회복된다는 보장이 없습니다(지수와 달리 개별기업은 구조적으로 재기하지 못하는 경우도 있습니다) - 회복기간 통계와 사상최대낙폭 배지를 참고해서 직접 판단해주세요.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div id="fullscreen-backdrop" class="fullscreen-backdrop">
+  <div class="card fullscreen" id="fullscreen-card"></div>
+</div>
+
+<script>
+let DATA = null;
+let state = { stage: "all", category: new Set(), sort: "cap", period: "3Y", search: "" };
+const detailCache = {};
+let fullscreenSymb = null;
+
+// 오버솔드 기준 - "근접"은 확정 기준보다 살짝 위(RSI+5/MFI+5)로 잡아서, 확정
+// 직전 단계를 미리 알아챌 수 있게 한다. RSI/MFI가 "둘 다" 이 기준을 넘어야
+// 배지가 켜진다(하나만 넘는 경우는 표시 안 함).
+const RSI_OVERSOLD = 30, MFI_OVERSOLD = 20;
+const RSI_NEAR_OVERSOLD = 35, MFI_NEAR_OVERSOLD = 25;
+
+// 기간 선택 버튼(1Y~ALL) - [라벨, 일수](ALL은 Infinity)
+const PERIODS = [
+  ["1Y", 365], ["3Y", 365 * 3], ["5Y", 365 * 5], ["10Y", 365 * 10],
+  ["20Y", 365 * 20], ["30Y", 365 * 30], ["50Y", 365 * 50], ["ALL", Infinity],
+];
+
+function toTs(dateStr) { return new Date(dateStr + "T00:00:00").getTime(); }
+
+// 선택한 기간(예: "10Y")만큼 records의 끝부분을 잘라 반환. records는 date 오름차순 가정.
+function sliceByPeriod(records, periodKey) {
+  if (!records || !records.length) return records || [];
+  if (periodKey === "ALL") return records;
+  const spec = PERIODS.find(p => p[0] === periodKey);
+  const days = spec ? spec[1] : Infinity;
+  if (days === Infinity) return records;
+  const cutoff = toTs(records[records.length - 1].date) - days * 86400000;
+  const idx = records.findIndex(r => toTs(r.date) >= cutoff);
+  return idx <= 0 ? records : records.slice(idx);
+}
+
+// records가 실제로 커버하는 기간(일수) - 이보다 긴 기간 버튼은 비활성화.
+function spanDays(records) {
+  if (!records || records.length < 2) return 0;
+  return (toTs(records[records.length - 1].date) - toTs(records[0].date)) / 86400000;
+}
+
+// 선택 구간이 길어질수록 일봉은 너무 빽빽해지므로, 실제로 화면에 표시될 기간
+// 길이에 따라 일/주/월봉 중 무엇을 보여줄지 정한다(3년 이하=셋 다, ~15년=주봉,
+// 그 이상=월봉).
+function timeframesForSpan(days) {
+  if (days <= 365 * 3 + 30) return [["daily", "일봉"], ["weekly", "주봉"], ["monthly", "월봉"]];
+  if (days <= 365 * 15) return [["weekly", "주봉"]];
+  return [["monthly", "월봉"]];
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
+function fmtPrice(t) {
+  const cur = t.currency === "KRW" ? "₩" : "$";
+  const val = t.currency === "KRW" ? t.close.toLocaleString("ko-KR", { maximumFractionDigits: 0 }) : t.close.toFixed(2);
+  return `${cur}${val}`;
+}
+
+// 차트 y축 라벨용 - 원화처럼 자릿수가 큰 값은 "8.9만"처럼 축약해서 라벨 폭을
+// 짧게 유지한다(안 그러면 왼쪽 여백을 아무리 늘려도 큰 값에서는 잘리기 쉬움).
+function fmtAxisPrice(v, currency) {
+  const cur = currency === "KRW" ? "₩" : "$";
+  if (currency === "KRW") {
+    const abs = Math.abs(v);
+    if (abs >= 100000000) return cur + (v / 100000000).toFixed(1) + "억";
+    if (abs >= 10000) return cur + (v / 10000).toFixed(1) + "만";
+    return cur + Math.round(v).toLocaleString("ko-KR");
+  }
+  return cur + Math.round(v).toLocaleString("en-US");
+}
+
+function fmtExactPrice(v, currency) {
+  const cur = currency === "KRW" ? "₩" : "$";
+  return currency === "KRW"
+    ? cur + Math.round(v).toLocaleString("ko-KR")
+    : cur + v.toFixed(2);
+}
+
+function fmtDays(days) {
+  if (days == null) return "-";
+  const years = days / 252;
+  if (years >= 1) return `약 ${years.toFixed(1)}년`;
+  return `약 ${(days / 21).toFixed(1)}개월`;
+}
+
+function stageLabel(stage) {
+  return { 0: "신호없음", 1: "1단계·관찰", 2: "2단계·깊은낙폭", 3: "3단계·극단" }[stage] || "신호없음";
+}
+
+// ---- 미니 차트 ----
+
+function underwaterSparkSvg(points, height) {
+  const h = height || 40;
+  if (!points || points.length < 2) return '<div class="spark-note">데이터 누적 중</div>';
+  const w = 280, pad = 2;
+  const vals = points.map(p => p.depth).filter(v => v != null);
+  if (!vals.length) return '<div class="spark-note">데이터 없음</div>';
+  const min = Math.min(...vals, 0), max = 0;
+  const range = (max - min) || 1;
+  const x = i => pad + (i / (points.length - 1)) * (w - pad * 2);
+  const y = v => pad + ((max - v) / range) * (h - pad * 2);
+  const y0 = y(0);
+  let top = "", bottom = "";
+  points.forEach((p, i) => { top += (i === 0 ? "M" : "L") + x(i) + "," + y(p.depth == null ? 0 : p.depth) + " "; });
+  for (let i = points.length - 1; i >= 0; i--) bottom += "L" + x(i) + "," + y0 + " ";
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <line x1="0" x2="${w}" y1="${y0}" y2="${y0}" stroke="var(--grid)" stroke-width="1"/>
+    <path d="${top}${bottom}Z" fill="var(--price-down)" opacity="0.16" stroke="none"/>
+    <path d="${top}" fill="none" stroke="var(--price-down)" stroke-width="1.5"/>
+  </svg>`;
+}
+
+function depthGaugeSvg(depth, percentiles) {
+  const W = 280, H = 50, margin = { left: 6, right: 6, top: 22, bottom: 13 };
+  const innerW = W - margin.left - margin.right;
+  const candidates = [depth, -0.05];
+  if (percentiles) candidates.push(percentiles.p10);
+  let domainMin = Math.min(...candidates) * 1.15;
+  if (domainMin >= 0) domainMin = -0.1;
+  const x = v => margin.left + ((v - domainMin) / (0 - domainMin)) * innerW;
+  const barY = margin.top, barH = H - margin.top - margin.bottom;
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}">`;
+  svg += `<rect x="${margin.left}" y="${barY}" width="${innerW}" height="${barH}" fill="var(--surface-2)" rx="4"/>`;
+  const curX = x(depth);
+  svg += `<rect x="${margin.left}" y="${barY}" width="${Math.max(0, curX - margin.left)}" height="${barH}" fill="var(--price-down)" rx="4" opacity="0.75"/>`;
+
+  if (percentiles) {
+    // P10/P25/P50 값이 서로 가까우면(예: -24%/-26%) 라벨 글자가 겹쳐서
+    // "P25P50"처럼 붙어보이던 문제 - x좌표가 가까운 라벨은 위/아래로
+    // 번갈아 띄워서(2단 지그재그) 겹치지 않게 한다.
+    const items = [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]]
+      .map(([k, color]) => ({ k, color, x: x(percentiles[k]) }))
+      .sort((a, b) => a.x - b.x);
+    const MIN_GAP = 24;
+    let prevX = -Infinity, row = 0;
+    items.forEach(it => {
+      row = (it.x - prevX < MIN_GAP) ? (row === 0 ? 1 : 0) : 0;
+      prevX = it.x;
+      it.row = row;
+    });
+    items.forEach(it => {
+      svg += `<line x1="${it.x}" x2="${it.x}" y1="${barY - 3}" y2="${barY + barH + 3}" stroke="${it.color}" stroke-width="2"/>`;
+      const ty = it.row === 1 ? barY - 13 : barY - 5;
+      svg += `<text x="${it.x}" y="${ty}" font-size="8" text-anchor="middle" fill="${it.color}">${it.k.toUpperCase()}(${(percentiles[it.k] * 100).toFixed(0)}%)</text>`;
+    });
+  }
+  svg += `<text x="${margin.left}" y="${H - 2}" font-size="9" fill="var(--text-muted)">${(domainMin * 100).toFixed(0)}%</text>`;
+  svg += `<text x="${W - margin.right}" y="${H - 2}" font-size="9" text-anchor="end" fill="var(--text-muted)">0%(신고가)</text>`;
+  svg += `</svg>`;
+  return svg;
+}
+
+function timeframeBadgesHtml(timeframes) {
+  const order = [["daily", "일봉"], ["weekly", "주봉"], ["monthly", "월봉"]];
+  return order.map(([key, label]) => {
+    const t = (timeframes && timeframes[key]) || {};
+    const rsiTxt = t.rsi == null ? "-" : t.rsi.toFixed(0);
+    const mfiTxt = t.mfi == null ? "-" : t.mfi.toFixed(0);
+    // RSI·MFI 둘 다 과매도(근접/확정)에 도달해야 알람 - 하나만 넘는 경우는 켜지지 않는다.
+    let cls = "";
+    if (t.rsi != null && t.mfi != null && t.rsi <= RSI_OVERSOLD && t.mfi <= MFI_OVERSOLD) cls = "confirmed";
+    else if (t.rsi != null && t.mfi != null && t.rsi <= RSI_NEAR_OVERSOLD && t.mfi <= MFI_NEAR_OVERSOLD) cls = "near";
+    return `<span class="tf-badge ${cls}">${label} RSI ${rsiTxt} · MFI ${mfiTxt}${t.divergence ? " ●다이버전스" : ""}</span>`;
+  }).join("");
+}
+
+// ---- 상세뷰 차트 (lazy load) ----
+
+// 널리 알려진 시장 전체 충격 시기 - 특정 종목의 낙폭 "원인"을 안다고 단정할
+// 수는 없지만(개별 기업 사정일 수도 있음), 이 시기와 겹치면 참고 정보로
+// 표시한다. 차트에 실제로 표시되는 데이터 구간에 들어있을 때만 노출됨.
+const MACRO_EVENTS = [
+  ["1997-07-01", "1998-12-31", "IMF 외환위기(아시아 금융위기)"],
+  ["2000-03-01", "2002-10-01", "닷컴버블 붕괴"],
+  ["2010-04-15", "2010-07-10", "유럽 재정위기·플래시크래시"],
+  ["2008-09-01", "2009-03-01", "글로벌 금융위기"],
+  ["2011-08-01", "2011-10-01", "미 신용등급 강등"],
+  ["2015-08-01", "2016-02-01", "차이나 쇼크"],
+  ["2018-10-01", "2018-12-25", "2018 금리인상 발작"],
+  ["2019-07-25", "2019-08-10", "미중 무역전쟁"],
+  ["2020-02-15", "2020-04-01", "코로나19 급락"],
+  ["2022-01-01", "2022-10-15", "2022 금리인상 하락장"],
+  ["2022-02-20", "2022-03-15", "우크라이나 전쟁 발발"],
+  ["2023-03-05", "2023-03-20", "SVB 은행위기"],
+  ["2025-04-01", "2025-04-15", "2025 관세충격"],
+  ["2025-06-12", "2025-06-25", "이란-이스라엘 분쟁 발발"],
+  ["2026-02-20", "2026-04-10", "이란전쟁 확전·유가급등"],
+  ["2026-06-15", "2026-08-15", "AI·반도체 밸류에이션 조정"],
+];
+
+// 낙폭(depth) 시계열 기준으로 이벤트를 찾는다(날짜로 반환) - 가격 차트든 낙폭
+// 차트든, "얼마나 깊이 떨어졌었는지"의 기준은 항상 depth이므로 한 곳에서만
+// 계산하고, 각 차트는 자기 자신의 records에서 그 날짜의 x좌표만 찾아 쓴다
+// (예전엔 차트마다 자기 series[0] 값 기준으로 계산해서, 가격차트에 적용하면
+// "가격이 낮은 시점"을 찾는 셈이 되어 의미가 안 맞았음).
+function findMacroEvents(depthRecords, worstThreshold) {
+  const events = [];
+  MACRO_EVENTS.forEach(([start, end, label]) => {
+    let best = null;
+    depthRecords.forEach(r => {
+      if (r.date < start || r.date > end || r.depth == null) return;
+      if (!best || r.depth < best.val) best = { date: r.date, val: r.depth };
+    });
+    if (best && best.val <= worstThreshold) events.push({ date: best.date, label, val: best.val });
+  });
+  return events;
+}
+
+// 그 종목만의 낙폭 원인 메모(signal_bot/data/episode_notes.json, 1회성으로 조사해
+// 채워둔 것)를 거시이벤트와 같은 {date,label,val} 모양으로 변환 - 기존 이벤트
+// 마커 렌더링(점선+라벨+정렬/겹침방지)을 그대로 재사용하기 위함. 라벨은 차트 안에
+// 짧게만 보여주고, 조사한 전체 사유 문장은 마우스오버 툴팁(title)에서 보여준다.
+function episodeNotesToEvents(notes) {
+  return (notes || []).map(note => {
+    const short = note.cause.length > 14 ? note.cause.slice(0, 13) + "…" : note.cause;
+    return { date: note.trough_date, label: short, val: note.depth_pct / 100, cause: note.cause };
+  });
+}
+
+// 라벨들이 x좌표상 서로 가까우면(minGapPx 이내) 겹치지 않게 여러 줄(최대
+// maxRows)로 번갈아 배치한다 - 이벤트 라벨이 여러 개 몰릴 때 뭉개져
+// 안 보이는 문제 방지.
+function layoutLabelsNoOverlap(itemsWithX, minGapPx, maxRows) {
+  const sorted = [...itemsWithX].sort((a, b) => a.x - b.x);
+  const rowLastX = new Array(maxRows).fill(-Infinity);
+  return sorted.map(it => {
+    let row = 0;
+    while (row < maxRows - 1 && it.x - rowLastX[row] < minGapPx) row++;
+    rowLastX[row] = it.x;
+    return { ...it, row };
+  });
+}
+
+// 여러 값의 y축 라벨 폭을 추정해 왼쪽 여백을 계산 - lineChartSvg 내부에서 쓰는
+// 것과 같은 공식이다. 가격/낙폭/히스토그램 세 차트의 왼쪽 여백을 하나로 통일해야
+// 같은 날짜가 세 차트에서 정확히 같은 x좌표에 오는데(히스토그램 막대 선택 시
+// 위 차트에 표시할 화살표 위치 계산에 필요), 각 차트가 자기 값 범위로 각자
+// 계산하면 서로 다른 여백이 나올 수 있어 미리 공통 여백을 구해서 세 곳에 강제한다.
+function estimateLeftMargin(vals, yFmt) {
+  if (!vals.length) return 24;
+  const yMax = Math.max(...vals), yMin = Math.min(...vals);
+  const yMid = (yMax + yMin) / 2;
+  const labels = [yMax, yMid, yMin].map(v => String(yFmt(v)));
+  const maxLen = Math.max(...labels.map(s => s.length));
+  return Math.max(24, 8 + maxLen * 5.3);
+}
+
+// 날짜 -> x좌표. records 자신의 첫/끝 날짜가 아니라 항상 호출부가 넘겨주는
+// 공통 domainStart~domainEnd 기준으로 비례 계산한다. 처음엔 records[0]/
+// records[n-1]을 기준으로 삼았었는데, sliceByPeriod()가 일봉/주봉/월봉처럼
+// 표본 밀도가 다른 시계열마다 "가장 가까운 실제 데이터 포인트"에서 슬라이스를
+// 끊다 보니 -  예를 들어 "1년"을 골라도 일봉은 정확히 365일 전 근처에서
+// 시작하는 반면 월봉은 그다음 달 말일에야 시작하는 식으로 - 같은 기간인데도
+// 계열마다 실제 첫/끝 날짜가 미세하게 달라져서, 각자 자기 첫/끝을 기준으로
+// 비례 계산하면 그 어긋난 만큼 전체 그래프가 밀리는 문제가 있었다(주봉은 최대
+// 2px, 월봉은 최대 20px 이상까지 어긋남 - 실측 확인함). 그래서 가격/낙폭/
+// 오실레이터(RSI·MFI, 일/주/월봉 무관)/히스토그램 네 차트 모두 detailContentHtml
+// 이 한 번만 계산한 domainStart(현재 선택된 기간의 낙폭 계열 첫 날짜)~asOfDate
+// (전체 데이터의 마지막 날짜)를 그대로 공유해서 쓴다 - 히스토그램은 원래부터
+// 이 방식이었다.
+function dateToX(dateStr, domainStart, domainEnd, marginLeft, innerW) {
+  const toTime = s => new Date(s + "T00:00:00").getTime();
+  const t0 = toTime(domainStart), t1 = toTime(domainEnd);
+  const span = (t1 - t0) || 1;
+  let target = toTime(dateStr);
+  if (target < t0) target = t0;
+  if (target > t1) target = t1;
+  return marginLeft + ((target - t0) / span) * innerW;
+}
+
+// lineChartSvg에서 쓰는 인덱스 조회형 xAt - domainStart/domainEnd가 없으면(호출부가
+// 안 넘겼으면) 안전하게 이 records 자신의 첫/끝 날짜로 대체한다.
+function timeXAt(records, domainStart, domainEnd, marginLeft, innerW) {
+  const n = records.length;
+  if (n <= 1) return () => marginLeft;
+  const ds = domainStart || records[0].date;
+  const de = domainEnd || records[n - 1].date;
+  return i => dateToX(records[i].date, ds, de, marginLeft, innerW);
+}
+
+function lineChartSvg(records, opts) {
+  const W = opts.width || 320, H = opts.height || 110;
+  const EVENT_ROWS = 5;
+  const n = records.length;
+  if (!n) return '<div class="chart-loading">표시할 데이터가 없습니다.</div>';
+  const yFmt = opts.yFormat || (v => Math.round(v));
+  const nowFmt = opts.nowFormat || yFmt;
+
+  let vals = [];
+  opts.series.forEach(s => records.forEach(r => { if (r[s.key] != null) vals.push(r[s.key]); }));
+  if (opts.thresholds) vals.push(...opts.thresholds.map(t => t.value));
+  if (!vals.length) return '<div class="chart-loading">표시할 데이터가 없습니다.</div>';
+
+  // yMin/yMax를 명시적으로 지정한 경우(RSI/MFI의 0~100 같은 정해진 척도)는
+  // 그 값 그대로 축 경계로 쓴다 - 예전엔 여기에 자동 패딩(8%)을 또 더해서
+  // "108"/"-8" 같은 척도 밖의 숫자가 축에 찍히는 문제가 있었음.
+  const explicitBounds = opts.yMin != null && opts.yMax != null;
+  let yMin = opts.yMin != null ? opts.yMin : Math.min(...vals);
+  let yMax = opts.yMax != null ? opts.yMax : Math.max(...vals);
+  if (!explicitBounds) {
+    const pad = (yMax - yMin) * 0.08 || 1;
+    yMin -= pad; yMax += pad;
+  }
+  const yMid = (yMax + yMin) / 2;
+
+  // y축 라벨 폭에 맞춰 왼쪽 여백을 동적으로 잡는다 - 원화처럼 자릿수가 큰
+  // 값이 고정 여백(예전 32px) 밖으로 잘려나가던 문제 방지. 9px 폰트 기준
+  // 대략 문자당 5.3px로 추정.
+  const axisLabels = [yFmt(yMax), yFmt(yMid), yFmt(yMin)].map(String);
+  // 여러 차트(가격/낙폭/히스토그램)의 왼쪽 여백을 통일해야 할 때는 호출부에서
+  // opts.marginLeft로 강제한다 - 안 그러면 차트마다 자기 라벨 길이로 계산해서
+  // 서로 다른 여백이 나와 x좌표가 미세하게 어긋난다.
+  const left = opts.marginLeft != null ? opts.marginLeft : estimateLeftMargin(vals, yFmt);
+
+  // 이벤트 마커(있다면)를 실제로 표시되는 날짜 구간으로 먼저 걸러서, 아무
+  // 이벤트도 안 보이는 기간(예: 최근 1년)에서는 위쪽 여백을 불필요하게
+  // 넓히지 않게 한다.
+  const visibleEvents = (opts.eventMarkers || [])
+    .filter(ev => ev.date >= records[0].date && ev.date <= records[n - 1].date);
+  const hasEvents = visibleEvents.length > 0;
+
+  // series가 2개 이상 "지금" 값을 라벨링해야 하면(RSI+MFI) 값 텍스트를 선 위에
+  // 겹쳐 찍지 않고 우상단에 따로 모아 보여줄 자리를 미리 확보해둔다.
+  const labelSeries = opts.series.filter(s => s.labelCurrent);
+  const multiLabel = labelSeries.length > 1;
+
+  // 크게보기(opts.large)에서는 차트 안 글자도 함께 커 보이게 - 축/이벤트/임계선/
+  // "지금" 라벨 폰트 크기와 그에 맞춘 줄 간격을 한 단계씩 키운다(작은 카드에서는
+  // 기존 크기 그대로).
+  const fSmall = opts.large ? 10 : 8;
+  const fReg = opts.large ? 11 : 9;
+  const rowGap = opts.large ? 11 : 9;
+  const nowRowGap = opts.large ? 12 : 10;
+
+  const margin = {
+    top: 14 + (hasEvents ? EVENT_ROWS * rowGap : 0) + (multiLabel ? labelSeries.length * nowRowGap : 0),
+    right: 6, bottom: 16, left,
+  };
+  const innerW = W - margin.left - margin.right;
+  const innerH = H - margin.top - margin.bottom;
+  // 인덱스 비례가 아니라 달력일 비례로 배치(timeXAt) - 이래야 일봉/주봉/월봉처럼
+  // 점 밀도가 다른 차트끼리도, 그리고 히스토그램(날짜 비례로 그리는)과도 같은
+  // 날짜가 항상 같은 x좌표에 온다. domainStart/domainEnd는 호출부(detailContentHtml)가
+  // 가격/낙폭/오실레이터 모두에 공통으로 넘겨준다.
+  const xAt = timeXAt(records, opts.domainStart, opts.domainEnd, margin.left, innerW);
+  const yAt = v => margin.top + innerH - ((v - yMin) / (yMax - yMin)) * innerH;
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
+
+  if (opts.yAxisTitle && !hasEvents) {
+    svg += `<text x="${margin.left}" y="9" font-size="${fSmall}" fill="var(--text-secondary)">${opts.yAxisTitle}</text>`;
+  }
+
+  // 임계선(RSI30/MFI20, 신고가 0% 등) - y좌표가 서로 가까우면 라벨이 겹치므로
+  // 지그재그 배치. 이 라벨들의 최종 y좌표는 아래 단일계열 "지금" 라벨이 자기
+  // 자리를 정할 때도 피해가야 해서 thresholdLabelYs에 모아둔다(안 그러면
+  // 예를 들어 낙폭이 0%에 가까울 때 "지금" 라벨과 "신고가" 라벨이 겹침).
+  const thresholds = opts.thresholds || [];
+  const thresholdLabelYs = [];
+  if (thresholds.length) {
+    const items = thresholds.map(t => ({ ...t, y: yAt(t.value) })).sort((a, b) => a.y - b.y);
+    let prevY = -Infinity, row = 0;
+    items.forEach(it => { row = (it.y - prevY < rowGap) ? (row === 0 ? 1 : 0) : 0; prevY = it.y; it.row = row; });
+    items.forEach(it => {
+      const color = it.color || "var(--text-muted)";
+      svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${it.y}" y2="${it.y}" stroke="${color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>`;
+      const ty = it.row === 1 ? it.y + rowGap : it.y - 3;
+      thresholdLabelYs.push(ty);
+      svg += `<text x="${W - margin.right}" y="${ty}" text-anchor="end" font-size="${fReg}" fill="${color}">${it.label}</text>`;
+    });
+  }
+
+  opts.series.forEach(s => {
+    let d = "";
+    records.forEach((r, i) => {
+      if (r[s.key] == null) return;
+      d += (d === "" ? "M" : "L") + xAt(i) + "," + yAt(r[s.key]) + " ";
+    });
+    svg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width || 2}" ${s.dashed ? 'stroke-dasharray="3 3"' : ""} stroke-linecap="round" stroke-linejoin="round"/>`;
+  });
+
+  if (opts.markerKey) {
+    records.forEach((r, i) => {
+      if (r[opts.markerKey] && r[opts.series[0].key] != null) {
+        svg += `<circle cx="${xAt(i)}" cy="${yAt(r[opts.series[0].key])}" r="3.5" fill="var(--status-crit)"/>`;
+      }
+    });
+  }
+
+  // 잘 알려진 시장 충격 시기(코로나19, 2022 금리인상 등)와 겹치는 깊은
+  // 낙폭 지점에 점선+짧은 이름을 표시 - "이때는 왜 떨어졌는지" 참고용.
+  // (그 종목만의 개별 사정일 수도 있어 단정하지 않고 "이 시기와 겹침" 정도로만.)
+  if (hasEvents) {
+    // 종목별로 실제 조사한 낙폭 원인(ev.cause 있음)은 공통 거시이벤트보다 정보
+    // 가치가 커서, 변동성이 큰 종목(예: TSLA)에서 거시이벤트들에 밀려 상위
+    // EVENT_ROWS 안에 아예 못 들어가는 일이 없도록 자리를 따로 확보해준다 -
+    // 종목별 메모를 먼저 최대 절반만큼 채우고, 남는 자리를 거시이벤트 중
+    // 깊은 순으로 채운다.
+    const ticketSpecific = visibleEvents.filter(ev => ev.cause).sort((a, b) => a.val - b.val);
+    const shared = visibleEvents.filter(ev => !ev.cause).sort((a, b) => a.val - b.val);
+    const specificSlots = Math.min(ticketSpecific.length, Math.ceil(EVENT_ROWS / 2));
+    let events = ticketSpecific.slice(0, specificSlots)
+      .concat(shared.slice(0, EVENT_ROWS - specificSlots))
+      .sort((a, b) => a.val - b.val);
+    events = events.map(ev => {
+      let idx = records.findIndex(r => r.date >= ev.date);
+      if (idx === -1) idx = n - 1;
+      return { ...ev, x: xAt(idx) };
+    });
+    const laidOut = layoutLabelsNoOverlap(events, 74, EVENT_ROWS);
+    laidOut.forEach(ev => {
+      const labelY = 10 + ev.row * rowGap;
+      // 종목별 낙폭 원인 메모(episodeNotesToEvents)는 조사한 전체 사유 문장을
+      // ev.cause에 담아 왔으므로 툴팁에 그대로 보여주고, 공통 거시이벤트는 기존
+      // 문구를 유지한다.
+      const tooltip = escapeHtml(ev.cause ? ev.cause : `${ev.label} 시기와 겹침`);
+      svg += `<line x1="${ev.x}" x2="${ev.x}" y1="${labelY + 4}" y2="${margin.top + innerH}" stroke="var(--stage-1)" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/>`;
+      svg += `<text x="${ev.x}" y="${labelY}" text-anchor="middle" font-size="${fSmall}" fill="var(--stage-1)"><title>${tooltip}</title>${escapeHtml(ev.label)}</text>`;
+    });
+
+    // 낙폭 차트에서는 그 이벤트 때 실제로 몇 %까지 빠졌는지 숫자도 저점 근처에
+    // 표시한다 - 기간을 길게(ALL/50Y) 볼 때는 y축이 압축돼서 실제로는 깊은
+    // 낙폭도 그래프상 작아 보이는 착시가 있어, 눈대중 대신 정확한 숫자로 확인
+    //할 수 있게 하기 위함(가격 차트는 %가 의미 없어서 표시 안 함).
+    if (opts.eventDepthLabels) {
+      const depthItems = events.map(ev => ({ ...ev, ty: yAt(ev.val) })).sort((a, b) => a.ty - b.ty);
+      let prevTy = -Infinity;
+      depthItems.forEach(it => {
+        it.ty2 = (it.ty - prevTy < rowGap) ? prevTy + rowGap : it.ty;
+        prevTy = it.ty2;
+      });
+      depthItems.forEach(it => {
+        const aboveOk = it.ty2 - margin.top > 14;
+        const ly = aboveOk ? it.ty2 - 6 : it.ty2 + 14;
+        svg += `<circle cx="${it.x}" cy="${it.ty}" r="2.2" fill="var(--status-crit)"/>`;
+        svg += `<text x="${it.x}" y="${ly}" text-anchor="middle" font-size="${fSmall}" font-weight="700" fill="var(--status-crit)">${Math.round(it.val * 100)}%</text>`;
+      });
+    }
+  }
+
+  // y축: 위/중간/아래 3곳에 값을 찍는다 - 양끝만으로는 지금 값이 그 사이
+  // 어디쯤인지 가늠하기 어려워서.
+  svg += `<text x="${margin.left - 4}" y="${margin.top + 3}" text-anchor="end" font-size="${fReg}" fill="var(--text-muted)">${axisLabels[0]}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH / 2 + 3}" text-anchor="end" font-size="${fReg}" fill="var(--text-muted)">${axisLabels[1]}</text>`;
+  svg += `<text x="${margin.left - 4}" y="${margin.top + innerH}" text-anchor="end" font-size="${fReg}" fill="var(--text-muted)">${axisLabels[2]}</text>`;
+
+  // "지금"(마지막 데이터) 값 표시. 점(circle)은 항상 실제 데이터 위치에 찍어서
+  // "여기가 지금"임을 보여주되, 값 텍스트는 배치를 다르게 한다:
+  // - 지표가 1개(가격/낙폭)면 예전처럼 그 점 옆에 라벨을 붙이되, 선 색과 헷갈리지
+  //   않도록 항상 강조색(빨강)을 쓴다(선과 라벨이 같은 색이라 구분이 안 되던 문제).
+  // - 지표가 2개 이상(RSI+MFI)이면 선이 촘촘한 구간과 라벨 글자가 겹치기 쉬우므로,
+  //   각자의 값을 우상단 한 곳에 모아 표시한다(자리는 margin.top에서 미리 확보).
+  const nowItems = labelSeries.map(s => {
+    let idx = n - 1;
+    while (idx >= 0 && records[idx][s.key] == null) idx--;
+    if (idx < 0) return null;
+    const v = records[idx][s.key];
+    return { color: s.color, tag: s.nowTag, x: xAt(idx), y: yAt(v), text: nowFmt(v) };
+  }).filter(Boolean);
+
+  if (multiLabel) {
+    nowItems.forEach(it => {
+      svg += `<circle cx="${it.x}" cy="${it.y}" r="3" fill="${it.color}" stroke="var(--surface-1)" stroke-width="1"/>`;
+    });
+    let rowY = fReg;
+    nowItems.forEach(it => {
+      const label = it.tag ? `${it.tag} ${it.text}` : `지금 ${it.text}`;
+      svg += `<text x="${W - margin.right}" y="${rowY}" text-anchor="end" font-size="${fReg}" font-weight="700" fill="${it.color}">${label}</text>`;
+      rowY += nowRowGap;
+    });
+  } else {
+    nowItems.forEach(it => {
+      svg += `<circle cx="${it.x}" cy="${it.y}" r="3.2" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="1"/>`;
+      const aboveOk = it.y - margin.top > 10;
+      let ly = aboveOk ? it.y - 6 : it.y + 12;
+      // 값이 임계선(예: 낙폭 0%=신고가)에 가까우면 "지금"과 임계선 라벨이 우측
+      // 상단에서 서로 겹칠 수 있어(둘 다 같은 우측 정렬 영역), 임계선 라벨과
+      // 너무 가까우면 한 칸 더 밀어낸다.
+      thresholdLabelYs.forEach(ty => {
+        if (Math.abs(ly - ty) < rowGap * 1.4) ly += aboveOk ? -rowGap : rowGap;
+      });
+      svg += `<text x="${it.x - 4}" y="${ly}" text-anchor="end" font-size="${fReg}" font-weight="700" fill="var(--status-crit)">지금 ${it.text}</text>`;
+    });
+  }
+
+  // 기간이 길어질수록(수년치) 양끝 날짜만으로는 "지금이 그 흐름 어디쯤인지" 감이
+  // 안 잡혀서, 중간에도 날짜 라벨을 몇 개 더 찍어준다(대략 80px당 1개꼴).
+  const tickCount = Math.max(2, Math.min(5, Math.round(innerW / 80)));
+  for (let k = 0; k < tickCount; k++) {
+    const idx = Math.round((k / (tickCount - 1)) * (n - 1));
+    const anchor = k === 0 ? "start" : (k === tickCount - 1 ? "end" : "middle");
+    svg += `<text x="${xAt(idx)}" y="${H - 2}" text-anchor="${anchor}" font-size="${fReg}" fill="var(--text-muted)">${records[idx].date.slice(2)}</text>`;
+  }
+  svg += `</svg>`;
+  return svg;
+}
+
+function priceChartBlock(records, currency, eventMarkers, chartOpts) {
+  const large = chartOpts && chartOpts.large;
+  const W = (chartOpts && chartOpts.width) || 320;
+  const H = (chartOpts && chartOpts.height) || 130;
+  const chart = lineChartSvg(records, {
+    height: H, width: W,
+    marginLeft: chartOpts && chartOpts.marginLeft,
+    domainStart: chartOpts && chartOpts.domainStart,
+    domainEnd: chartOpts && chartOpts.domainEnd,
+    large,
+    yFormat: v => fmtAxisPrice(v, currency),
+    nowFormat: v => fmtExactPrice(v, currency),
+    series: [
+      { key: "rolling_high", color: "var(--text-muted)", width: 1, dashed: true },
+      { key: "close", color: "var(--series-1)", width: large ? 1.6 : 2, labelCurrent: true },
+    ],
+    markerKey: "divergence",
+    eventMarkers,
+  });
+  // chart-overlay-host: 히스토그램 막대를 선택하면 그 국면의 시작/끝 시점을
+  // 여기 겹쳐 그리는 빈 오버레이 SVG(초기엔 비어있음, viewBox가 본 차트와
+  // 동일해 좌표가 항상 1:1로 맞는다) - applyEpisodeSelection()이 채워 넣는다.
+  return `<div class="chart-block">
+    <div class="chart-label">가격 · 점선=최고가 · 빨간점=다이버전스</div>
+    <div class="chart-overlay-host" data-chart-role="price">
+      ${chart}
+      <svg class="chart-overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"></svg>
+    </div>
+  </div>`;
+}
+
+function oscillatorChartBlock(records, tag, chartOpts) {
+  const large = chartOpts && chartOpts.large;
+  const W = (chartOpts && chartOpts.width) || 320;
+  const H = (chartOpts && chartOpts.height) || 100;
+  const chart = lineChartSvg(records, {
+    height: H, width: W,
+    marginLeft: chartOpts && chartOpts.marginLeft,
+    domainStart: chartOpts && chartOpts.domainStart,
+    domainEnd: chartOpts && chartOpts.domainEnd,
+    large,
+    yMin: 0, yMax: 100,
+    thresholds: [
+      { value: 30, label: "RSI30", color: "var(--series-2)" },
+      { value: 20, label: "MFI20", color: "var(--series-3)" },
+    ],
+    series: [
+      { key: "rsi", color: "var(--series-2)", width: large ? 1.1 : 1.3, labelCurrent: true, nowTag: "RSI" },
+      { key: "mfi", color: "var(--series-3)", width: large ? 1.1 : 1.3, labelCurrent: true, nowTag: "MFI" },
+    ],
+  });
+  // 히스토그램에서 낙폭국면을 선택하면 가격·낙폭 차트와 마찬가지로 여기에도
+  // 그 국면의 시작/끝 시점을 점선으로 겹쳐 보여준다(applyEpisodeSelection이
+  // data-chart-role="osc"인 모든 패널에 같은 오버레이를 그림 - 일/주/월봉
+  // 패널이 여러 개 있어도 전부 동기화).
+  return `<div class="chart-block">
+    <div class="tf-tag">${tag}</div>
+    <div class="chart-overlay-host" data-chart-role="osc">
+      ${chart}
+      <svg class="chart-overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"></svg>
+    </div>
+  </div>`;
+}
+
+function underwaterDetailBlock(records, eventMarkers, chartOpts) {
+  const large = chartOpts && chartOpts.large;
+  const W = (chartOpts && chartOpts.width) || 320;
+  const H = (chartOpts && chartOpts.height) || 110;
+  const chart = lineChartSvg(records, {
+    height: H, width: W,
+    marginLeft: chartOpts && chartOpts.marginLeft,
+    domainStart: chartOpts && chartOpts.domainStart,
+    domainEnd: chartOpts && chartOpts.domainEnd,
+    large,
+    yFormat: v => Math.round(v * 100) + "%",
+    series: [{ key: "depth", color: "var(--price-down)", width: large ? 1.6 : 2, labelCurrent: true }],
+    thresholds: [{ value: 0, label: "신고가", color: "var(--text-muted)" }],
+    eventMarkers,
+    eventDepthLabels: true,
+  });
+  return `<div class="chart-block">
+    <div class="chart-label">낙폭 추이 · 0%=신고가</div>
+    <div class="chart-overlay-host" data-chart-role="underwater">
+      ${chart}
+      <svg class="chart-overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"></svg>
+    </div>
+  </div>`;
+}
+
+// 위 가격·낙폭 차트와 같은 기간(state.period)만 보이도록, 그 구간 안에서
+// 끝난(또는 아직 진행중인) 국면만 남긴다 - 안 그러면 위 차트들은 기간에 맞춰
+// 좁아지는데 히스토그램만 항상 전체 역사를 보여줘서 그림들의 시간축이 서로
+// 안 맞았음. 캡션의 완결/진행중 개수도 이 필터된 목록 기준으로 세야 실제
+// 그려지는 막대 개수와 일치한다.
+function filterEpisodesToDomain(episodes, domainStart, domainEnd) {
+  return (episodes || []).filter(e => (e.recovery_date || domainEnd) >= domainStart);
+}
+
+function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, chartOpts) {
+  const visible = filterEpisodesToDomain(episodes, domainStart, domainEnd);
+  if (!visible.length) return '<div class="chart-loading">이 기간에는 낙폭 국면 데이터가 없습니다.</div>';
+  const large = chartOpts && chartOpts.large;
+  const fs = large ? 10 : 8;
+  const W = (chartOpts && chartOpts.width) || 320, H = (chartOpts && chartOpts.height) || 140;
+  // marginLeft는 가격/낙폭 차트와 통일해서 넘겨받는다(같은 날짜가 세 차트에서
+  // 정확히 같은 x좌표가 되도록 - 막대 선택 시 위 차트 화살표 위치 계산에 필요).
+  const sharedLeft = (chartOpts && chartOpts.marginLeft != null) ? chartOpts.marginLeft : 28;
+  const margin = { top: 8, right: 6, bottom: 28, left: sharedLeft };
+  const innerW = W - margin.left - margin.right;
+  const innerH = H - margin.top - margin.bottom;
+
+  // 국면을 index로 균등배치하면 "언제 있었던 일인지"가 안 보여서, 실제 날짜
+  // 비례로 x좌표를 계산한다(위 차트들과 동일한 domainStart~domainEnd 기준).
+  const toTime = s => new Date(s + "T00:00:00").getTime();
+  const startTime = toTime(domainStart);
+  const nowDate = domainEnd;
+  const span = Math.max(1, toTime(nowDate) - startTime);
+  const xAt = dateStr => margin.left + ((toTime(dateStr) - startTime) / span) * innerW;
+
+  const depths = visible.map(e => e.depth);
+  let yMin = Math.min(...depths, percentiles ? percentiles.p10 : 0) * 1.1;
+  if (yMin >= 0) yMin = -0.1;
+  const yAtFixed = v => (v / yMin) * innerH; // v<=0, yMin<0 -> 0..innerH
+
+  // domainStart 이전에 시작해 이 구간까지 이어진 국면은 막대 왼쪽 끝을 domainStart
+  // 위치로 당겨서(clamp) 왼쪽 밖으로 삐져나가지 않게 그린다.
+  const clampedX = dateStr => Math.max(margin.left, xAt(dateStr));
+
+  let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart" preserveAspectRatio="none">`;
+  if (percentiles) {
+    // 값이 서로 가까우면(예: P25/P50 낙폭이 비슷) 라벨이 세로로 겹치므로
+    // y가 가까운 라벨은 좌우로 살짝 엇갈려 붙인다.
+    const pItems = [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]]
+      .map(([k, color]) => ({ k, color, y: margin.top + yAtFixed(percentiles[k]) }))
+      .sort((a, b) => a.y - b.y);
+    let prevY = -Infinity, row = 0;
+    pItems.forEach(it => {
+      row = (it.y - prevY < 9) ? (row === 0 ? 1 : 0) : 0;
+      prevY = it.y;
+      it.row = row;
+    });
+    pItems.forEach(it => {
+      svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${it.y}" y2="${it.y}" stroke="${it.color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.8"/>`;
+      const tx = it.row === 1 ? W - margin.right - 34 : W - margin.right;
+      svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="${fs}" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
+    });
+  }
+  // 막대 폭 = 그 국면의 실제 회복 기간(시작일~회복일, 진행중이면 지금까지) -
+  // 얇으면 금방 회복한 것, 두꺼우면 오래 걸린 것을 한눈에 보여준다. 기간 버튼을
+  // 바꾸면 xAt()의 하루당 픽셀 폭 자체가 달라지므로 막대 폭도 자동으로 그
+  // 기간 기준으로 다시 그려진다(위 가격·낙폭 차트와 항상 같은 시간축 기준).
+  visible.forEach(e => {
+    const barH = yAtFixed(e.depth);
+    const xStart = clampedX(e.start_date);
+    const endDate = e.recovery_date || nowDate;
+    const xEnd = Math.min(W - margin.right, xAt(endDate));
+    const width = Math.max(3, xEnd - xStart);
+    const color = e.is_complete ? "var(--series-1)" : "var(--status-crit)";
+    const title = `${e.start_date} ~ ${e.recovery_date || "진행중(아직 회복 전)"} · 낙폭 ${(e.depth * 100).toFixed(1)}%`;
+    // data-*: 이 막대를 탭하면 위 가격·낙폭 차트에 시작/끝 시점을 표시하는
+    // applyEpisodeSelection()이 읽어가는 식별 정보(클릭 이벤트 위임에서 사용).
+    svg += `<rect class="hist-bar" data-start="${e.start_date}" data-end="${endDate}" data-complete="${e.is_complete ? 1 : 0}" data-depth="${e.depth}" x="${xStart}" y="${margin.top}" width="${width}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.8" stroke="var(--surface-1)" stroke-width="0.6" style="cursor:pointer"><title>${title}</title></rect>`;
+  });
+
+  // "지금" 위치 - 가장 최근(진행중 국면이 있으면 그 지점)을 세로선+라벨로 표시
+  const nowX = xAt(nowDate);
+  svg += `<line x1="${nowX}" x2="${nowX}" y1="${margin.top}" y2="${margin.top + innerH + 4}" stroke="var(--status-crit)" stroke-width="1" stroke-dasharray="2 2"/>`;
+  svg += `<text x="${nowX}" y="${margin.top + innerH + 13}" text-anchor="middle" font-size="${fs}" fill="var(--status-crit)">지금</text>`;
+
+  svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${margin.top}" y2="${margin.top}" stroke="var(--grid)" stroke-width="1"/>`;
+  svg += `<text x="${margin.left - 2}" y="${margin.top + 7}" text-anchor="end" font-size="${fs}" fill="var(--text-muted)">0%</text>`;
+  svg += `<text x="${margin.left - 2}" y="${margin.top + innerH}" text-anchor="end" font-size="${fs}" fill="var(--text-muted)">${(yMin * 100).toFixed(0)}%</text>`;
+
+  // 실제 시간 비례축이라 중간 날짜도 몇 개 찍어줘야 "언제쯔음"인지 감이 잡힘.
+  // 맨 끝(오늘)은 이미 위의 "지금" 라벨이 표시하므로 시작~중간까지만 찍는다.
+  const fmtTime = t => new Date(t).toISOString().slice(2, 10);
+  const axisTicks = 3;
+  for (let k = 0; k < axisTicks; k++) {
+    const t = startTime + (k / axisTicks) * span;
+    const x = margin.left + (k / axisTicks) * innerW;
+    svg += `<text x="${x}" y="${H - 3}" text-anchor="${k === 0 ? "start" : "middle"}" font-size="${fs}" fill="var(--text-muted)">${fmtTime(t)}</text>`;
+  }
+  svg += `</svg>`;
+  return svg;
+}
+
+// 조작 피드백 - 클릭 즉시 반영되는 컨트롤에 짧은 강조 테두리를 다시 재생시켜서
+// "적용됐다"는 걸 눈으로 확인할 수 있게 한다.
+function flashFeedback(el) {
+  if (!el) return;
+  el.classList.remove("control-flash");
+  void el.offsetWidth; // 리플로우를 강제해서 애니메이션을 처음부터 다시 재생
+  el.classList.add("control-flash");
+}
+
+function periodButtonsHtml(maxDays) {
+  return `<div class="period-group">` + PERIODS.map(([key, days]) => {
+    const disabled = days !== Infinity && maxDays > 0 && days > maxDays + 30;
+    const active = state.period === key ? "active" : "";
+    return `<button type="button" class="period-btn ${active}" data-period="${key}" ${disabled ? "disabled" : ""}>${key}</button>`;
+  }).join("") + `</div>`;
+}
+
+// 거시이벤트 + 종목별 조사 원인메모를 병합한 이벤트 목록 - 차트 마커용으로도,
+// 히스토그램 막대 선택 시 "이 국면의 원인이 뭐였는지" 찾는 용도로도 재사용한다.
+function computeDetailEvents(detail) {
+  const fullUnderwater = detail.underwater || [];
+  return findMacroEvents(fullUnderwater, -0.08)
+    .concat(episodeNotesToEvents(detail.episode_notes));
+}
+
+// 카드 상세뷰(및 크게보기)의 실제 내용 - 기간 버튼으로 고른 state.period가
+// 가격/낙폭/RSI·MFI 차트 전부에 함께 적용된다(전역 동기화).
+// ctxOut(선택): 넘기면 히스토그램 막대 선택 기능이 나중에(클릭 시) 가격·낙폭
+// 차트와 동일한 좌표계로 화살표를 그릴 수 있도록, 지금 실제로 렌더링에 쓴
+// records/margin.left/차트 크기/이벤트 목록을 그 객체에 채워 넣는다(renderDetailInto가
+// container._chartCtx로 보관).
+function detailContentHtml(t, detail, large, ctxOut) {
+  const fullUnderwater = detail.underwater || [];
+  const asOfDate = fullUnderwater.length ? fullUnderwater[fullUnderwater.length - 1].date : null;
+  const maxDays = spanDays(fullUnderwater);
+
+  const priceSlice = sliceByPeriod(detail.daily, state.period);
+  const underwaterSlice = sliceByPeriod(fullUnderwater, state.period);
+  const events = computeDetailEvents(detail);
+
+  const seriesForTf = { daily: detail.daily, weekly: detail.weekly, monthly: detail.monthly };
+  const tfPlan = timeframesForSpan(spanDays(underwaterSlice));
+  // 크게보기에서는 높이보다 폭을 더 넉넉히 키운다(2배) - 높이만 키우면 Y축 배율이
+  // 커져서 선(stroke-width는 viewBox 단위라 Y스케일을 그대로 받음)이 상대적으로
+  // 두꺼워 보이는 문제가 있었다. 폭을 더 크게 벌려 Y스케일 증가를 완만하게 누른다.
+  const chartW = large ? 640 : 320;
+  const priceH = large ? 190 : 130;
+  const uwH = large ? 190 : 110;
+  const oscH = large ? 150 : 100;
+  const histH = large ? 190 : 140;
+
+  // 가격/낙폭/히스토그램/RSI·MFI 네 차트의 왼쪽 여백(margin.left)을 하나로
+  // 통일 - 히스토그램 막대를 선택했을 때 그 국면의 시작/끝 날짜가 가격·낙폭
+  // 차트에서도 정확히 같은 x좌표가 되려면(dateToX가 margin.left를 그대로
+  // 재사용), 차트마다 자기 값 범위로 각자 계산한 서로 다른 여백을 쓰면 안 된다.
+  // RSI/MFI는 0~100 고정 척도라 자체 여백은 항상 이보다 작거나 같으므로, 공용
+  // 여백을 그대로 받아써도 잘리지 않는다.
+  const priceVals = [];
+  priceSlice.forEach(r => { if (r.close != null) priceVals.push(r.close); if (r.rolling_high != null) priceVals.push(r.rolling_high); });
+  const depthVals = underwaterSlice.map(r => r.depth).filter(v => v != null);
+  const sharedLeft = Math.max(
+    estimateLeftMargin(priceVals, v => fmtAxisPrice(v, t.currency)),
+    estimateLeftMargin(depthVals, v => Math.round(v * 100) + "%"),
+  );
+
+  // 가격/낙폭/오실레이터(일·주·월봉 무관)/히스토그램 네 차트가 모두 같은
+  // domainStart~domainEnd를 공유해야, sliceByPeriod()가 계열마다(일봉은 정확히
+  // 그 근처, 월봉은 그 달 말일에야 등) 서로 다르게 끊어놓은 실제 첫/끝 날짜
+  // 차이 때문에 그래프 전체가 밀리는 문제 없이 정확히 같은 날짜=같은 x좌표가
+  // 된다. underwaterSlice의 첫 날짜가 곧 지금 선택된 기간의 시작일.
+  const domainStart = underwaterSlice.length ? underwaterSlice[0].date : (fullUnderwater[0] && fullUnderwater[0].date);
+  const domainEnd = asOfDate;
+
+  const bigChart = { width: chartW, height: priceH, large, marginLeft: sharedLeft, domainStart, domainEnd };
+  const bigUw = { width: chartW, height: uwH, large, marginLeft: sharedLeft, domainStart, domainEnd };
+  const bigOsc = { width: chartW, height: oscH, large, marginLeft: sharedLeft, domainStart, domainEnd };
+  const bigHist = { width: chartW, height: histH, large, marginLeft: sharedLeft };
+
+  const visibleEpisodes = filterEpisodesToDomain(detail.episodes, domainStart, asOfDate);
+  const completeCount = visibleEpisodes.filter(e => e.is_complete).length;
+  const incompleteCount = visibleEpisodes.length - completeCount;
+
+  if (ctxOut) {
+    ctxOut.domainStart = domainStart;
+    ctxOut.domainEnd = domainEnd;
+    ctxOut.marginLeft = sharedLeft;
+    ctxOut.priceW = chartW; ctxOut.priceH = priceH;
+    ctxOut.uwW = chartW; ctxOut.uwH = uwH;
+    ctxOut.oscW = chartW; ctxOut.oscH = oscH;
+    ctxOut.events = events;
+  }
+
+  return `
+    <div class="detail-toolbar">
+      ${periodButtonsHtml(maxDays)}
+    </div>
+    ${priceChartBlock(priceSlice, t.currency, events, bigChart)}
+    ${underwaterDetailBlock(underwaterSlice, events, bigUw)}
+    <div class="chart-label" style="font-weight:600;margin-top:6px">낙폭국면 히스토그램 · 🔵완결 ${completeCount}회 · 🔴진행중("지금") ${incompleteCount}회 · 막대를 탭하면 위 차트에 시작/끝 시점이 표시됩니다</div>
+    ${episodeHistogramSvg(detail.episodes, detail.percentiles, domainStart, asOfDate, bigHist)}
+    <div class="episode-detail-box"></div>
+    ${tfPlan.map(([key, label]) => oscillatorChartBlock(sliceByPeriod(seriesForTf[key], state.period), label, bigOsc)).join("")}
+  `;
+}
+
+// 국면(episode)의 [start,end] 구간과 겹치는 이벤트를 찾아 "왜 떨어졌는지" 문구를
+// 만든다 - 종목별로 실제 조사해둔 원인(ev.cause)이 있으면 그 문장을 그대로 쓰고,
+// 없으면 겹치는 거시이벤트 중 가장 깊은 것의 이름만 참고용으로 보여준다. 겹치는
+// 게 하나도 없으면 null(호출부에서 "특정 이벤트와 매칭되지 않음"으로 표시).
+function findEpisodeCause(events, start, end) {
+  const within = (events || []).filter(ev => ev.date >= start && ev.date <= end);
+  if (!within.length) return null;
+  const specific = within.find(ev => ev.cause);
+  if (specific) return specific.cause;
+  const generic = [...within].sort((a, b) => a.val - b.val)[0];
+  return `${generic.label} 시기와 겹침(구체적 개별 사유는 확인 안 됨)`;
+}
+
+// 히스토그램에서 선택한 국면의 시작/끝 시점을 가격·낙폭 차트 위 오버레이 SVG에
+// 화살표(삼각형)+세로점선+짧은 날짜로 표시한다. overlaySvgEl의 viewBox는 그
+// 바로 아래 실제 차트와 완전히 동일해서(같은 W/H) 좌표가 항상 1:1로 맞는다.
+// 시작/끝 날짜가 너무 가까우면(짧은 국면) 라벨이 겹치지 않도록 기존
+// layoutLabelsNoOverlap()으로 좌우(행)를 엇갈리게 배치한다.
+function renderEpisodeOverlay(overlaySvgEl, domainStart, domainEnd, marginLeft, W, H, episode) {
+  if (!overlaySvgEl) return;
+  if (!episode || !domainStart || !domainEnd) { overlaySvgEl.innerHTML = ""; return; }
+  const innerW = W - marginLeft - 6;
+  const startX = dateToX(episode.start, domainStart, domainEnd, marginLeft, innerW);
+  const endX = dateToX(episode.end, domainStart, domainEnd, marginLeft, innerW);
+  const color = "var(--status-crit)";
+  const items = [{ x: startX, label: episode.start.slice(2) }];
+  if (endX != null && Math.abs(endX - startX) > 3) items.push({ x: endX, label: episode.end.slice(2) });
+  const laidOut = layoutLabelsNoOverlap(items, 30, 2);
+  const labelTop = 8, labelGap = 10;
+  const lineTop = labelTop + labelGap * 2 + 4;
+  let svg = "";
+  laidOut.forEach(it => {
+    const ty = labelTop + it.row * labelGap;
+    svg += `<path d="M ${it.x - 4} ${ty - 6} L ${it.x + 4} ${ty - 6} L ${it.x} ${ty} Z" fill="${color}"/>`;
+    svg += `<text x="${it.x}" y="${ty + 8}" text-anchor="middle" font-size="8" font-weight="700" fill="${color}">${escapeHtml(it.label)}</text>`;
+    svg += `<line x1="${it.x}" x2="${it.x}" y1="${lineTop}" y2="${H - 14}" stroke="${color}" stroke-width="1.3" stroke-dasharray="3 2" opacity="0.85"/>`;
+  });
+  overlaySvgEl.innerHTML = svg;
+}
+
+// RSI/MFI 패널(일/주/월봉 최대 3개)은 화살표+날짜 라벨까지 패널마다 반복하면
+// 오히려 번잡해지므로(날짜는 이미 히스토그램 아래 텍스트에 나와 있음), 선택한
+// 국면의 시작/끝 지점에 점선만 그어서 "가격·낙폭 차트와 같은 기간을 보고
+// 있다"는 것만 시각적으로 동기화한다.
+function renderEpisodeSyncLines(overlaySvgEl, domainStart, domainEnd, marginLeft, W, H, episode) {
+  if (!overlaySvgEl) return;
+  if (!episode || !domainStart || !domainEnd) { overlaySvgEl.innerHTML = ""; return; }
+  const innerW = W - marginLeft - 6;
+  const color = "var(--status-crit)";
+  const startX = dateToX(episode.start, domainStart, domainEnd, marginLeft, innerW);
+  const endX = dateToX(episode.end, domainStart, domainEnd, marginLeft, innerW);
+  let svg = "";
+  [startX, endX].forEach(x => {
+    svg += `<line x1="${x}" x2="${x}" y1="2" y2="${H - 2}" stroke="${color}" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.75"/>`;
+  });
+  overlaySvgEl.innerHTML = svg;
+}
+
+// 선택된 국면의 상세 설명 - 일반 HTML 블록(div/strong/br)이라 SVG와 달리 길이에
+// 따라 자동 줄바꿈되고 아래 내용을 밀어낼 뿐이므로, 그래프나 다른 글자와
+// 겹치거나 잘리는 문제가 애초에 생기지 않는다.
+function episodeDetailHtml(episode, cause) {
+  const days = Math.max(0, Math.round((new Date(episode.end) - new Date(episode.start)) / 86400000));
+  const endLabel = episode.isComplete ? episode.end : `${episode.end}(진행중)`;
+  const causeText = cause || "특정 이벤트와 매칭되지 않음";
+  return `<div class="episode-detail-box-inner">
+    <strong>선택한 낙폭국면</strong> · ${escapeHtml(episode.start)} ~ ${escapeHtml(endLabel)} (${days}일) · 최대낙폭 ${Math.abs(episode.depth * 100).toFixed(1)}%<br>
+    사유: ${escapeHtml(causeText)}
+  </div>`;
+}
+
+// 막대 탭(선택/해제) 처리 - 같은 막대를 다시 누르면 해제(episode=null)한다.
+// ctx는 renderDetailInto가 container._chartCtx에 저장해둔, 지금 실제로 렌더링된
+// records/margin.left/차트크기/이벤트목록(detailContentHtml의 ctxOut)이다.
+function applyEpisodeSelection(container, ctx, episode) {
+  container.querySelectorAll(".hist-bar").forEach(b => {
+    const match = !!episode && b.dataset.start === episode.start && b.dataset.end === episode.end;
+    b.classList.toggle("hist-bar-selected", match);
+  });
+
+  const priceHost = container.querySelector('[data-chart-role="price"]');
+  const uwHost = container.querySelector('[data-chart-role="underwater"]');
+  renderEpisodeOverlay(priceHost && priceHost.querySelector(".chart-overlay"), ctx.domainStart, ctx.domainEnd, ctx.marginLeft, ctx.priceW, ctx.priceH, episode);
+  renderEpisodeOverlay(uwHost && uwHost.querySelector(".chart-overlay"), ctx.domainStart, ctx.domainEnd, ctx.marginLeft, ctx.uwW, ctx.uwH, episode);
+  // 일/주/월봉 RSI·MFI 패널이 여러 개(최대 3개) 있을 수 있어 전부 순회하며 동기화.
+  container.querySelectorAll('[data-chart-role="osc"]').forEach(host => {
+    renderEpisodeSyncLines(host.querySelector(".chart-overlay"), ctx.domainStart, ctx.domainEnd, ctx.marginLeft, ctx.oscW, ctx.oscH, episode);
+  });
+
+  const box = container.querySelector(".episode-detail-box");
+  if (box) box.innerHTML = episode ? episodeDetailHtml(episode, findEpisodeCause(ctx.events, episode.start, episode.end)) : "";
+}
+
+function wireDetailContainer(container, t, detail, large) {
+  container.querySelectorAll(".period-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      // 이 버튼은 카드(.detail) 안에 있어서, 클릭이 카드 바깥의 "펼치기/접기"
+      // 리스너까지 버블링되면 기간을 바꾸자마자 카드가 접혀버리는 문제가
+      // 있었다 - 여기서 막아준다.
+      e.stopPropagation();
+      if (btn.disabled) return;
+      state.period = btn.dataset.period;
+      renderDetailInto(container, t, detail, large);
+      flashFeedback(container.querySelector(`.period-btn[data-period="${state.period}"]`));
+    });
+  });
+
+  container.querySelectorAll(".hist-bar").forEach(bar => {
+    bar.addEventListener("click", (e) => {
+      // 히스토그램도 카드 안에 있으므로 동일하게 펼치기/접기 버블링을 막는다.
+      e.stopPropagation();
+      const ctx = container._chartCtx;
+      if (!ctx) return;
+      const alreadySelected = bar.classList.contains("hist-bar-selected");
+      const episode = alreadySelected ? null : {
+        start: bar.dataset.start,
+        end: bar.dataset.end,
+        isComplete: bar.dataset.complete === "1",
+        depth: parseFloat(bar.dataset.depth),
+      };
+      applyEpisodeSelection(container, ctx, episode);
+    });
+  });
+}
+
+function renderDetailInto(container, t, detail, large) {
+  const ctx = {};
+  container.innerHTML = detailContentHtml(t, detail, large, ctx);
+  container._chartCtx = ctx;
+  wireDetailContainer(container, t, detail, large);
+}
+
+// 종목 카드 상단(우측)의 "크게 보기 ⛶" 토글을 눌렀을 때 - 그래프만 키우는 게
+// 아니라 그 종목 박스 내용 전체(가격 정보 + 모든 차트)를 화면 전체로 넓혀서
+// 폴드폰 펼침 화면 등 넓은 화면을 활용해 더 시원하게 볼 수 있게 한다.
+function openFullscreen(symb, detail) {
+  const t = (DATA && DATA.tickers.find(x => x.symb === symb)) || {};
+  fullscreenSymb = symb;
+  const pctClass = t.pct_chg >= 0 ? "up" : "down";
+  const pctSign = t.pct_chg >= 0 ? "+" : "";
+  const card = document.getElementById("fullscreen-card");
+  card.innerHTML = `
+    <div class="fullscreen-header">
+      <button type="button" class="corner-btn" data-action="close-fullscreen" aria-label="원본으로 보기" title="원본으로 보기">✕ 원본으로 보기</button>
+    </div>
+    <div class="fullscreen-body">
+      <div class="fullscreen-info">
+        <div class="card-top">
+          <div class="ticker-block">
+            <div class="symb">${escapeHtml(t.symb)}</div>
+            <div class="name">${escapeHtml(t.name)}</div>
+            <div class="cat-tag">${escapeHtml(t.category)}</div>
+          </div>
+          <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+        </div>
+        <div class="price-row">
+          <span>${fmtPrice(t)}</span>
+          <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
+          <span style="color:var(--text-muted)">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
+        </div>
+        ${statsBlockHtml(t, { skipSpark: true })}
+      </div>
+      <div class="fullscreen-charts"></div>
+    </div>
+  `;
+  card.querySelector('[data-action="close-fullscreen"]').addEventListener("click", closeFullscreen);
+  renderDetailInto(card.querySelector(".fullscreen-charts"), t, detail, true);
+  document.getElementById("fullscreen-backdrop").classList.add("open");
+  document.body.classList.add("fullscreen-open");
+}
+
+function closeFullscreen() {
+  document.getElementById("fullscreen-backdrop").classList.remove("open");
+  document.body.classList.remove("fullscreen-open");
+  document.getElementById("fullscreen-card").innerHTML = "";
+  fullscreenSymb = null;
+}
+
+async function ensureDetailCharts(symb, cardEl) {
+  const holder = cardEl.querySelector(".charts-holder");
+  if (!holder) return;
+  const t = (DATA && DATA.tickers.find(x => x.symb === symb)) || {};
+  if (detailCache[symb]) { renderDetailInto(holder, t, detailCache[symb], false); return; }
+  holder.innerHTML = '<div class="chart-loading">차트 불러오는 중...</div>';
+  try {
+    const res = await fetch(`detail/${symb}.json`, { cache: "no-store" });
+    if (!res.ok) throw new Error("상세 데이터 없음 (" + res.status + ")");
+    const detail = await res.json();
+    detailCache[symb] = detail;
+    renderDetailInto(holder, t, detail, false);
+  } catch (e) {
+    holder.innerHTML = `<div class="chart-loading">차트를 불러오지 못했습니다: ${e.message}</div>`;
+  }
+}
+
+// ---- 카드 렌더 ----
+
+function recoveryLineHtml(p) {
+  if (!p) return `<div class="recovery-line">베이스라인 데이터 부족(과거 국면 5개 미만) - 신호 계산 생략</div>`;
+  return `<div class="recovery-line">과거 국면(총 ${p.count}회) 회복기간 - 최소 ${fmtDays(p.recovery_days_min)} · 중간 ${fmtDays(p.recovery_days_median)} · 최장 ${fmtDays(p.recovery_days_max)}</div>`;
+}
+
+// 카드/전체화면 둘 다 쓰는 통계 요약 블록(사업요약·낙폭게이지·회복기간·배지) -
+// 전체화면 정보란에서는 낙폭 스파크라인만 뺀다(같은 정보를 담은 큰 낙폭 차트가
+// 차트 영역에 이미 있어서 중복).
+function statsBlockHtml(t, opts) {
+  const skipSpark = opts && opts.skipSpark;
+  return `
+    ${t.business_summary ? `<div class="biz-summary">${escapeHtml(t.business_summary)}</div>` : ""}
+    <div class="mini-chart-block">
+      <div class="chart-label">낙폭 위치</div>
+      ${depthGaugeSvg(t.depth, t.percentiles)}
+    </div>
+    ${recoveryLineHtml(t.percentiles)}
+    ${t.is_record_drawdown ? '<div class="record-badge">⚠️ 사상 최대 낙폭</div>' : ""}
+    ${t.mdd_alert ? `<div class="mdd-badge">🚨 ${escapeHtml(t.mdd_alert.label)} (장기매수 참고)</div>` : ""}
+    ${skipSpark ? "" : `
+    <div class="mini-chart-block">
+      <div class="chart-label">낙폭 추이(최근 1년)</div>
+      ${underwaterSparkSvg(t.underwater_spark)}
+    </div>`}
+    <div class="tf-badges">${timeframeBadgesHtml(t.timeframes)}</div>
+  `;
+}
+
+function cardHtml(t) {
+  const pctClass = t.pct_chg >= 0 ? "up" : "down";
+  const pctSign = t.pct_chg >= 0 ? "+" : "";
+  return `
+    ${t.is_new ? '<div class="new-flag">NEW 신호</div><br>' : ""}
+    <div class="card-top">
+      <div class="ticker-block">
+        <div class="symb">${escapeHtml(t.symb)}</div>
+        <div class="name">${escapeHtml(t.name)}</div>
+        <div class="cat-tag">${escapeHtml(t.category)}</div>
+      </div>
+      <div class="top-actions">
+        <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+        <button type="button" class="corner-btn" data-action="fullscreen" aria-label="크게 보기" title="크게 보기">크게 보기 ⛶</button>
+      </div>
+    </div>
+    <div class="price-row">
+      <span>${fmtPrice(t)}</span>
+      <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
+      <span style="color:var(--text-muted)">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
+    </div>
+    ${statsBlockHtml(t)}
+    <div class="detail">
+      <div class="charts-holder"><div class="chart-loading">카드를 펼치면 차트를 불러옵니다...</div></div>
+    </div>
+  `;
+}
+
+// SPY/QQQ/DIA/SOXX 절대 낙폭 구간 경보(장기 매수 참고용) - 기존 MDD 0~3단계(종목별
+// 상대 백분위)와는 별개로, scores.json의 mdd_alert 필드(백엔드가 depth로 이미 계산해둠)를
+// 그대로 표시만 한다. 이 시스템은 "MDD 매수신호"이므로 낙폭이 깊을수록 매수 참고 신호이지
+// 매도 신호가 아님을 문구에 분명히 한다.
+function mddAlertTierClass(threshold) {
+  if (threshold >= 0.30) return "tier-severe";
+  if (threshold >= 0.20) return "tier-mid";
+  return "tier-mild";
+}
+
+function mddAlertBannerHtml(tickers) {
+  const alerting = tickers.filter(t => t.mdd_alert);
+  if (!alerting.length) return "";
+  alerting.sort((a, b) => b.mdd_alert.threshold - a.mdd_alert.threshold);
+  return `
+    <div class="mdd-alert-box">
+      <div class="mdd-alert-title">🚨 주요 지수 낙폭 경보 - 장기 매수 참고(매도 신호 아님)</div>
+      <div class="mdd-alert-grid">
+        ${alerting.map(t => `
+          <div class="mdd-alert-item ${mddAlertTierClass(t.mdd_alert.threshold)}" data-symb="${escapeHtml(t.symb)}" title="탭하면 ${escapeHtml(t.symb)} 카드로 이동합니다">
+            <span>${escapeHtml(t.symb)} · 낙폭 ${(t.depth * 100).toFixed(1)}%</span>
+            <span class="sub">${escapeHtml(t.mdd_alert.label)}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function bannerHtml(newOnes) {
+  if (!newOnes.length) return '<div class="banner-empty">오늘 신규 알림 대상 없음</div>';
+  return `
+    <div class="banner-title">오늘의 신규 알림 (${newOnes.length}개) · 카드를 눌러 자세히 보기</div>
+    <div class="banner-grid">
+      ${newOnes.map(t => `<div class="card banner-card" data-symb="${escapeHtml(t.symb)}">${cardHtml(t)}</div>`).join("")}
+    </div>
+  `;
+}
+
+function applyFilters(tickers) {
+  const q = state.search.trim().toLowerCase();
+  let list = tickers.filter(t => {
+    if (state.stage !== "all" && t.stage < Number(state.stage)) return false;
+    if (state.category.size > 0 && !state.category.has(t.category)) return false;
+    if (q && !t.symb.toLowerCase().includes(q) && !t.name.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  if (state.sort === "cap") list.sort((a, b) => (a.universe_rank ?? 999) - (b.universe_rank ?? 999));
+  else if (state.sort === "stage") list.sort((a, b) => (b.stage - a.stage) || (a.depth - b.depth));
+  else if (state.sort === "depth") list.sort((a, b) => a.depth - b.depth);
+  else if (state.sort === "pct_chg") list.sort((a, b) => b.pct_chg - a.pct_chg);
+  else if (state.sort === "symb") list.sort((a, b) => a.symb.localeCompare(b.symb));
+  return list;
+}
+
+// 지수 낙폭 경보를 탭하면 그 종목 카드로 이동한다. 경보는 필터/검색과 무관하게 항상
+// 전체 데이터 기준으로 뜨므로, 지금 걸려있는 필터 때문에 그리드에서 그 종목이 안
+// 보이는 상태일 수 있다 - 검색어를 그 종목 심볼로 세팅하고 나머지 필터(단계/분류)는
+// 초기화해서 무조건 카드가 보이게 만든 뒤 펼치고 스크롤한다.
+function goToTicker(symb) {
+  state.search = symb;
+  state.stage = "all";
+  state.category.clear();
+
+  const searchInput = document.getElementById("ticker-search");
+  if (searchInput) searchInput.value = symb;
+  document.querySelectorAll("#filter-stage .chip").forEach(c => c.classList.toggle("active", c.dataset.stage === "all"));
+  updateCategoryChipUI();
+
+  render();
+
+  const card = document.querySelector(`#grid .card[data-symb="${CSS.escape(symb)}"]`);
+  if (!card) return;
+  card.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!card.classList.contains("expanded")) {
+    card.classList.add("expanded");
+    ensureDetailCharts(symb, card);
+  }
+}
+
+function render() {
+  if (!DATA) return;
+
+  // 배너("오늘의 신규 알림")도 필터(단계/분류)를 따르게 해서, 예를 들어
+  // "한국지수"를 선택했는데 배너에는 그대로 미국 종목이 계속 보여서
+  // "필터가 안 먹힌다"고 느껴지는 문제를 해결한다.
+  const list = applyFilters(DATA.tickers);
+  const newOnes = list.filter(t => t.is_new);
+  document.getElementById("banner").innerHTML = bannerHtml(newOnes);
+  // 지수 낙폭 경보는 그리드 필터/검색과 무관하게(전체 데이터 기준) 항상 표시 -
+  // "지금 시장 전체가 어느 낙폭 구간인지"를 놓치지 않게 하기 위함.
+  document.getElementById("mdd-alert-banner").innerHTML = mddAlertBannerHtml(DATA.tickers);
+  document.querySelectorAll("#mdd-alert-banner .mdd-alert-item").forEach(el => {
+    el.addEventListener("click", () => goToTicker(el.dataset.symb));
+  });
+
+  const SORT_LABELS = { cap: "시가총액순", stage: "MDD단계순", depth: "낙폭깊은순", pct_chg: "등락률순", symb: "알파벳순" };
+  const filterActive = state.stage !== "all" || state.category.size > 0 || state.search.trim() !== "";
+  const countEl = document.getElementById("grid-count");
+  countEl.textContent = (filterActive
+    ? `✅ 필터 적용됨 - ${list.length}종목 표시 중 (전체 ${DATA.tickers.length}종목)`
+    : `전체 ${list.length}종목`) + ` · 정렬: ${SORT_LABELS[state.sort] || state.sort}`;
+  // 뭔가 바뀔 때마다 잠깐 강조색으로 반짝여서 "적용됐다"는 걸 눈에 띄게 함.
+  countEl.classList.remove("flash");
+  requestAnimationFrame(() => countEl.classList.add("flash"));
+
+  const grid = document.getElementById("grid");
+  if (!list.length) {
+    grid.innerHTML = '<div class="empty-state">선택한 조건에 맞는 종목이 없습니다.</div>';
+  } else {
+    grid.innerHTML = list.map(t => `<div class="card" data-symb="${escapeHtml(t.symb)}">${cardHtml(t)}</div>`).join("");
+  }
+
+  document.querySelectorAll("#banner .card, #grid .card").forEach(el => {
+    el.addEventListener("click", () => {
+      el.classList.toggle("expanded");
+      if (el.classList.contains("expanded")) ensureDetailCharts(el.dataset.symb, el);
+    });
+    const cornerBtn = el.querySelector('[data-action="fullscreen"]');
+    if (cornerBtn) {
+      cornerBtn.addEventListener("click", async (e) => {
+        // 카드 전체의 펼치기/접기 클릭으로 버블링되지 않게 막는다 - 안 그러면
+        // "크게 보기"를 누르자마자 카드가 접혀버리는 것처럼 보인다.
+        e.stopPropagation();
+        const symb = el.dataset.symb;
+        if (!detailCache[symb]) {
+          el.classList.add("expanded");
+          await ensureDetailCharts(symb, el);
+        }
+        if (detailCache[symb]) openFullscreen(symb, detailCache[symb]);
+        flashFeedback(cornerBtn);
+      });
+    }
+  });
+}
+
+function wireOverlay(btnId, overlayId, closeId) {
+  const overlay = document.getElementById(overlayId);
+  const open = () => { overlay.classList.add("open"); document.body.classList.add("modal-open"); };
+  const close = () => { overlay.classList.remove("open"); document.body.classList.remove("modal-open"); };
+  document.getElementById(btnId).addEventListener("click", open);
+  document.getElementById(closeId).addEventListener("click", close);
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+}
+
+function wireHelp() {
+  wireOverlay("help-btn", "help-overlay", "help-close");
+  // "크게 보기" 오버레이도 배경(카드 바깥) 클릭 시 닫히게 - 도움말 패널과 같은 동작.
+  document.getElementById("fullscreen-backdrop").addEventListener("click", (e) => {
+    if (e.target.id === "fullscreen-backdrop") closeFullscreen();
+  });
+}
+
+function updateCategoryChipUI() {
+  document.querySelectorAll("#filter-category .chip").forEach(c => {
+    const active = c.dataset.cat === "all" ? state.category.size === 0 : state.category.has(c.dataset.cat);
+    c.classList.toggle("active", active);
+  });
+}
+
+function wireToolbar() {
+  document.querySelectorAll("#filter-stage .chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      document.querySelectorAll("#filter-stage .chip").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      state.stage = chip.dataset.stage;
+      flashFeedback(chip);
+      render();
+    });
+  });
+  // 분류(지수/종목) 칩은 다중선택 - "전체"는 선택 초기화, 나머지는 각각 켜고 끌 수 있다.
+  document.querySelectorAll("#filter-category .chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const cat = chip.dataset.cat;
+      if (cat === "all") state.category.clear();
+      else if (state.category.has(cat)) state.category.delete(cat);
+      else state.category.add(cat);
+      updateCategoryChipUI();
+      flashFeedback(chip);
+      render();
+    });
+  });
+  document.getElementById("sort-select").addEventListener("change", (e) => {
+    state.sort = e.target.value;
+    render(); // grid-count가 매 render()마다 알아서 반짝여서 "적용됨"을 알려줌
+  });
+  document.getElementById("ticker-search").addEventListener("input", (e) => {
+    state.search = e.target.value;
+    render();
+  });
+}
+
+async function init() {
+  wireToolbar();
+  wireHelp();
+  try {
+    const res = await fetch("scores.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("scores.json 로드 실패: " + res.status);
+    DATA = await res.json();
+    const regime = DATA.market_regime || {};
+    document.getElementById("meta-line").textContent =
+      `기준일 ${DATA.as_of_date} · 생성 ${DATA.generated_at} · 총 ${DATA.tickers.length}종목 · ` +
+      `시장국면(참고용) 미국 ${regime.us || "판정불가"} · 한국 ${regime.kr || "판정불가"}`;
+    document.getElementById("footer").textContent =
+      "매일 한국시간 07:30 자동 갱신 · 조회/알림 전용 시스템(자동매매 없음) · " +
+      "MDD/RSI/MFI/다이버전스는 참고 지표이며 최종 매수판단은 사용자가 직접 합니다";
+    render();
+  } catch (e) {
+    document.getElementById("meta-line").textContent = "데이터 로드 실패";
+    document.getElementById("grid").innerHTML =
+      `<div class="empty-state">scores.json을 불러오지 못했습니다.<br>${e.message}</div>`;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
