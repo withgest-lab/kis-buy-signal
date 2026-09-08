@@ -839,6 +839,11 @@ function lineChartSvg(records, opts) {
   // 예를 들어 낙폭이 0%에 가까울 때 "지금" 라벨과 "신고가" 라벨이 겹침).
   const thresholds = opts.thresholds || [];
   const thresholdLabelYs = [];
+  // eventDepthLabels(저점 등의 실제 값 라벨, 아래 hasEvents 블록에서 채움)의
+  // 최종 y좌표도 모아둔다 - 단일계열 "지금" 라벨이 자기 자리를 정할 때 이것도
+  // 피해가야 겹치지 않는다(진행중 국면은 저점이 "지금"과 가까워 값도 비슷해서
+  // 특히 자주 겹침).
+  const depthLabelYs = [];
   if (thresholds.length) {
     const items = thresholds.map(t => ({ ...t, y: yAt(t.value) })).sort((a, b) => a.y - b.y);
     let prevY = -Infinity, row = 0;
@@ -899,7 +904,10 @@ function lineChartSvg(records, opts) {
     const laidOut = layoutLabelsNoOverlap(events, 74, rowCap);
     laidOut.forEach(ev => {
       const labelY = 10 + ev.row * rowGap;
-      const color = ev.isSelection ? "var(--status-crit)" : "var(--stage-1)";
+      // 국면 시작/끝 경계는 히스토그램에서 강조하는 막대 테두리(hist-bar-selected,
+      // 금색)와 같은 색으로 그려 "이 선이 그 막대의 양 끝"임을 시각적으로
+      // 연결한다. 저점(빨강)과 색을 분리해 구분되게 한다.
+      const color = ev.isBoundary ? "#ffd166" : (ev.isSelection ? "var(--status-crit)" : "var(--stage-1)");
       const weight = ev.isSelection ? "700" : "400";
       // 종목별 낙폭 원인 메모(episodeNotesToEvents)는 조사한 전체 사유 문장을
       // ev.cause에 담아 왔으므로 툴팁에 그대로 보여주고, 공통 거시이벤트는 기존
@@ -924,6 +932,7 @@ function lineChartSvg(records, opts) {
       depthItems.forEach(it => {
         const aboveOk = it.ty2 - margin.top > 14;
         const ly = aboveOk ? it.ty2 - 6 : it.ty2 + 14;
+        depthLabelYs.push(ly);
         svg += `<circle cx="${it.x}" cy="${it.ty}" r="2.2" fill="var(--status-crit)"/>`;
         svg += `<text x="${it.x}" y="${ly}" text-anchor="middle" font-size="${fSmall}" font-weight="700" fill="var(--status-crit)">${Math.round(it.val * 100)}%</text>`;
       });
@@ -954,7 +963,10 @@ function lineChartSvg(records, opts) {
     nowItems.forEach(it => {
       svg += `<circle cx="${it.x}" cy="${it.y}" r="3" fill="${it.color}" stroke="var(--surface-1)" stroke-width="1"/>`;
     });
-    let rowY = fReg;
+    // 이벤트/저점 마커 라벨(있다면)도 이 우상단 영역 맨 위(y≈10)부터 그려지므로,
+    // margin.top이 이미 예약해둔 이벤트 밴드 높이만큼 시작점을 아래로 밀어야
+    // 두 라벨 그룹이 겹치지 않고 위아래로 나뉜다(margin.top 계산과 순서를 맞춤).
+    let rowY = fReg + (hasEvents ? rowCap * rowGap : 0);
     nowItems.forEach(it => {
       const label = it.tag ? `${it.tag} ${it.text}` : `지금 ${it.text}`;
       svg += `<text x="${W - margin.right}" y="${rowY}" text-anchor="end" font-size="${fReg}" font-weight="700" fill="${it.color}">${label}</text>`;
@@ -965,12 +977,19 @@ function lineChartSvg(records, opts) {
       svg += `<circle cx="${it.x}" cy="${it.y}" r="3.2" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="1"/>`;
       const aboveOk = it.y - margin.top > 10;
       let ly = aboveOk ? it.y - 6 : it.y + 12;
-      // 값이 임계선(예: 낙폭 0%=신고가)에 가까우면 "지금"과 임계선 라벨이 우측
-      // 상단에서 서로 겹칠 수 있어(둘 다 같은 우측 정렬 영역), 임계선 라벨과
-      // 너무 가까우면 한 칸 더 밀어낸다.
-      thresholdLabelYs.forEach(ty => {
-        if (Math.abs(ly - ty) < rowGap * 1.4) ly += aboveOk ? -rowGap : rowGap;
-      });
+      // 값이 임계선(예: 낙폭 0%=신고가)이나 저점 값 라벨(진행중 국면은 저점이
+      // "지금"과 값·위치 모두 비슷해 특히 자주 겹침)에 가까우면 우측 상단에서
+      // 서로 겹칠 수 있어, 너무 가까우면 한 칸 더 밀어낸다. 밀어내는 방향은
+      // "위/아래 선호(aboveOk)"가 아니라 걸린 기준점 기준 반대쪽으로 잡아야
+      // 실제로 멀어진다(같은 방향으로만 밀면 오히려 더 가까워질 수 있음).
+      // 기준점이 여러 개면 한 번 밀어낸 자리가 다른 기준점과 다시 겹칠 수 있어
+      // 안정될 때까지 몇 차례 반복 확인한다.
+      const avoidYs = thresholdLabelYs.concat(depthLabelYs);
+      for (let pass = 0; pass < 4; pass++) {
+        avoidYs.forEach(ty => {
+          if (Math.abs(ly - ty) < rowGap * 1.4) ly += (ly < ty) ? -rowGap : rowGap;
+        });
+      }
       svg += `<text x="${it.x - 4}" y="${ly}" text-anchor="end" font-size="${fReg}" font-weight="700" fill="var(--status-crit)">지금 ${it.text}</text>`;
     });
   }
@@ -1111,17 +1130,27 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
   // 어려워서("너무 러프"), 10%(범위가 좁으면 5%, 넓으면 20%) 단위의 옅은 기준선을
   // 배경에 깔아 어느 막대든 대략적인 낙폭 구간을 바로 읽을 수 있게 한다. 백분위
   // 점선보다 먼저 그려서 배경으로 깔리게 한다.
+  // 선(line)은 여기서 바로 그리되, 라벨 텍스트는 막대(rect)를 다 그린 뒤로
+  // 미룬다 - SVG는 나중에 그린 요소가 위로 쌓이는데, 텍스트를 막대보다 먼저
+  // 그리면 진행중(빨강) 막대 등의 반투명 채우기가 halo까지 덮어버려서 선택된
+  // 막대 위의 라벨이 잘 안 보이는 문제가 있었다. 막대를 그린 뒤 같은 좌표로
+  // 텍스트만 다시 그리면 halo가 항상 최상단에서 실제로 대비 역할을 한다.
   const stepPct = Math.abs(yMin * 100) <= 20 ? 5 : (Math.abs(yMin * 100) <= 60 ? 10 : 20);
+  const gridLevels = [];
   for (let p = -stepPct; p > yMin * 100 + 0.01; p -= stepPct) {
     const gy = margin.top + yAtFixed(p / 100);
+    // yMin 자체의 축 라벨(맨 아래, margin.top+innerH 위치)과 너무 가까우면
+    // 숫자만 1 다른 라벨 두 개가 거의 겹쳐 보이므로(예: "-80%"와 "-81%") 건너뛴다.
+    if (Math.abs(gy - (margin.top + innerH)) < 8) continue;
+    gridLevels.push({ p, gy });
     svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${gy}" y2="${gy}" stroke="var(--grid)" stroke-width="1" stroke-dasharray="1 3" opacity="0.6"/>`;
-    svg += `<text x="${margin.left - 2}" y="${gy + 3}" text-anchor="end" font-size="${fs}" fill="var(--text-muted)">${p}%</text>`;
   }
 
+  let pItems = [];
   if (percentiles) {
     // 값이 서로 가까우면(예: P25/P50 낙폭이 비슷) 라벨이 세로로 겹치므로
     // y가 가까운 라벨은 좌우로 살짝 엇갈려 붙인다.
-    const pItems = [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]]
+    pItems = [["p50", "var(--text-muted)"], ["p25", "var(--stage-1)"], ["p10", "var(--stage-3)"]]
       .map(([k, color]) => ({ k, color, y: margin.top + yAtFixed(percentiles[k]) }))
       .sort((a, b) => a.y - b.y);
     let prevY = -Infinity, row = 0;
@@ -1132,8 +1161,6 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
     });
     pItems.forEach(it => {
       svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${it.y}" y2="${it.y}" stroke="${it.color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.8"/>`;
-      const tx = it.row === 1 ? W - margin.right - 34 : W - margin.right;
-      svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="${fs}" style="${TEXT_HALO}" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
     });
   }
   // 막대 폭 = 그 국면의 실제 회복 기간(시작일~회복일, 진행중이면 지금까지) -
@@ -1154,6 +1181,16 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
     const isSelected = !!selectedEpisode && selectedEpisode.start === e.start_date && selectedEpisode.end === endDate;
     const barClass = isSelected ? "hist-bar hist-bar-selected" : "hist-bar";
     svg += `<rect class="${barClass}" data-start="${e.start_date}" data-end="${endDate}" data-complete="${e.is_complete ? 1 : 0}" data-depth="${e.depth}" x="${xStart}" y="${margin.top}" width="${width}" height="${Math.max(1, barH)}" fill="${color}" opacity="0.8" stroke="var(--surface-1)" stroke-width="0.6" style="cursor:pointer"><title>${title}</title></rect>`;
+  });
+
+  // 그리드/백분위 라벨 텍스트 - 위에서 미뤄둔 대로 막대를 다 그린 뒤에 그려서
+  // 어떤 막대(진행중 빨강 포함) 위에 있어도 halo와 함께 항상 최상단에서 읽힌다.
+  gridLevels.forEach(g => {
+    svg += `<text x="${margin.left - 2}" y="${g.gy + 3}" text-anchor="end" font-size="${fs}" style="${TEXT_HALO}" fill="var(--text-muted)">${g.p}%</text>`;
+  });
+  pItems.forEach(it => {
+    const tx = it.row === 1 ? W - margin.right - 34 : W - margin.right;
+    svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="${fs}" style="${TEXT_HALO}" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
   });
 
   // "지금" 위치 - 가장 최근(진행중 국면이 있으면 그 지점)을 세로선+라벨로 표시.
@@ -1252,17 +1289,28 @@ function nearestRecord(records, dateStr) {
 // troughDates(detailContentHtml에서 findDepthTroughs로 한 번만 계산)를 받으므로,
 // 차트들이 이미 공유하는 domainStart/domainEnd/marginLeft 덕에 세 차트에 그려지는
 // 세로 점선이 항상 같은 x좌표에 와서 "그래프 간 점선으로 이어진 것처럼" 보인다.
-function buildSelectionMarkers(kind, records, troughDates) {
-  if (!troughDates || !troughDates.length) return [];
-  const multi = troughDates.length > 1;
+// price/underwater는 저점 마커에 더해 선택한 국면(episode)의 시작/끝 날짜도
+// 경계 마커(isBoundary:true)로 함께 표시한다 - 히스토그램에서 강조한 막대의
+// 양 끝이 정확히 어느 날짜인지 위 차트에서도 바로 보이게(막대와 같은 금색으로
+// 구분). 오실레이터는 저점만 표시(예전부터 경계 없음, 이번 요청도 저점만 언급).
+function buildSelectionMarkers(kind, records, troughDates, episode) {
   if (kind === "price" || kind === "underwater") {
-    return troughDates.map((d, i) => {
+    const items = [];
+    if (episode) {
+      items.push({ date: episode.start, label: episode.start.slice(2), val: null, isSelection: true, isBoundary: true });
+      items.push({ date: episode.end, label: episode.end.slice(2), val: null, isSelection: true, isBoundary: true });
+    }
+    const multi = troughDates && troughDates.length > 1;
+    (troughDates || []).forEach((d, i) => {
       const rec = (records || []).find(r => r.date === d);
       const label = multi ? `저점${i + 1}` : "저점";
       const val = (kind === "underwater" && rec) ? rec.depth : null;
-      return { date: d, label, val, isSelection: true };
+      items.push({ date: d, label, val, isSelection: true });
     });
+    return items;
   }
+  if (!troughDates || !troughDates.length) return [];
+  const multi = troughDates.length > 1;
   if (kind === "osc") {
     return troughDates.map((d, i) => {
       const rec = nearestRecord(records, d);
@@ -1339,8 +1387,8 @@ function detailContentHtml(t, detail, large, selectedEpisode) {
   const troughDates = selectedEpisode
     ? findDepthTroughs(underwaterSlice, selectedEpisode.start, selectedEpisode.end).map(tr => tr.date)
     : [];
-  const priceMarkers = buildSelectionMarkers("price", priceSlice, troughDates);
-  const uwMarkers = buildSelectionMarkers("underwater", underwaterSlice, troughDates);
+  const priceMarkers = buildSelectionMarkers("price", priceSlice, troughDates, selectedEpisode);
+  const uwMarkers = buildSelectionMarkers("underwater", underwaterSlice, troughDates, selectedEpisode);
   const episodeBoxHtml = selectedEpisode
     ? episodeDetailHtml(selectedEpisode, findEpisodeCause(events, selectedEpisode.start, selectedEpisode.end))
     : "";
