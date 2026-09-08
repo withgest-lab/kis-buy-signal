@@ -820,6 +820,14 @@ function lineChartSvg(records, opts) {
   };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
+  // 값 라벨(저점 %, "지금" 등)의 y좌표가 내려갈 수 있는 최대 한도 - 맨 아래
+  // 날짜축 눈금(H-2에 그림)과 겹치거나 그 아래로 잘려나가지 않도록, 값이
+  // 차트 바닥 근처(예: 그 기간의 최대낙폭)일 때도 눈금 줄 위에서 멈춘다.
+  const labelYMax = H - margin.bottom - 6;
+  // 가운데정렬(middle) 라벨은 x가 차트 좌우 경계에 가까우면 절반이 viewBox
+  // 밖으로 잘려나간다(예: 국면 끝 날짜가 "지금"과 가까워 오른쪽 끝에 붙을 때) -
+  // 그런 경우엔 글자가 안쪽으로만 자라도록 anchor를 end/start로 바꿔준다.
+  const edgeAnchor = x => (x > W - margin.right - 28 ? "end" : (x < margin.left + 28 ? "start" : "middle"));
   // 인덱스 비례가 아니라 달력일 비례로 배치(timeXAt) - 이래야 일봉/주봉/월봉처럼
   // 점 밀도가 다른 차트끼리도, 그리고 히스토그램(날짜 비례로 그리는)과도 같은
   // 날짜가 항상 같은 x좌표에 온다. domainStart/domainEnd는 호출부(detailContentHtml)가
@@ -914,7 +922,7 @@ function lineChartSvg(records, opts) {
       // 문구를 유지한다.
       const tooltip = escapeHtml(ev.cause ? ev.cause : `${ev.label} 시기와 겹침`);
       svg += `<line x1="${ev.x}" x2="${ev.x}" y1="${labelY + 4}" y2="${margin.top + innerH}" stroke="${color}" stroke-width="1" stroke-dasharray="2 2" opacity="0.8"/>`;
-      svg += `<text x="${ev.x}" y="${labelY}" text-anchor="middle" font-size="${fSmall}" font-weight="${weight}" fill="${color}"><title>${tooltip}</title>${escapeHtml(ev.label)}</text>`;
+      svg += `<text x="${ev.x}" y="${labelY}" text-anchor="${edgeAnchor(ev.x)}" font-size="${fSmall}" font-weight="${weight}" fill="${color}"><title>${tooltip}</title>${escapeHtml(ev.label)}</text>`;
     });
 
     // 낙폭 차트에서는 그 이벤트 때 실제로 몇 %까지 빠졌는지 숫자도 저점 근처에
@@ -931,10 +939,10 @@ function lineChartSvg(records, opts) {
       });
       depthItems.forEach(it => {
         const aboveOk = it.ty2 - margin.top > 14;
-        const ly = aboveOk ? it.ty2 - 6 : it.ty2 + 14;
+        const ly = Math.min(labelYMax, aboveOk ? it.ty2 - 6 : it.ty2 + 14);
         depthLabelYs.push(ly);
         svg += `<circle cx="${it.x}" cy="${it.ty}" r="2.2" fill="var(--status-crit)"/>`;
-        svg += `<text x="${it.x}" y="${ly}" text-anchor="middle" font-size="${fSmall}" font-weight="700" fill="var(--status-crit)">${Math.round(it.val * 100)}%</text>`;
+        svg += `<text x="${it.x}" y="${ly}" text-anchor="${edgeAnchor(it.x)}" font-size="${fSmall}" font-weight="700" fill="var(--status-crit)">${Math.round(it.val * 100)}%</text>`;
       });
     }
   }
@@ -976,7 +984,7 @@ function lineChartSvg(records, opts) {
     nowItems.forEach(it => {
       svg += `<circle cx="${it.x}" cy="${it.y}" r="3.2" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="1"/>`;
       const aboveOk = it.y - margin.top > 10;
-      let ly = aboveOk ? it.y - 6 : it.y + 12;
+      let ly = Math.min(labelYMax, aboveOk ? it.y - 6 : it.y + 12);
       // 값이 임계선(예: 낙폭 0%=신고가)이나 저점 값 라벨(진행중 국면은 저점이
       // "지금"과 값·위치 모두 비슷해 특히 자주 겹침)에 가까우면 우측 상단에서
       // 서로 겹칠 수 있어, 너무 가까우면 한 칸 더 밀어낸다. 밀어내는 방향은
@@ -1243,29 +1251,18 @@ function computeDetailEvents(detail) {
     .concat(episodeNotesToEvents(detail.episode_notes));
 }
 
-// 선택한 국면 구간의 낙폭 최저점(들)을 찾는다 - 보통 1개지만, 뚜렷한 이중바닥
-// (primary와 15일 이상 떨어져 있고 낙폭이 primary의 85% 이상으로 비슷하게
-// 깊은 두 번째 지역 최저점)이 있으면 최대 2개까지. 이 날짜(들)를 가격/낙폭/
-// 오실레이터 전 차트가 공유해서 세로 점선을 그리므로, 차트마다 따로 자기
-// 최저값을 찾던 예전 방식(RSI 따로, MFI 따로 - 서로 다른 날짜라 산발적으로
-// 보임)보다 "이 시점에 낙폭도 이 정도였고 RSI·MFI도 이랬다"를 한 번에 보여준다.
+// 선택한 국면 구간에서 낙폭이 가장 깊었던 지점(최저점) 하나를 찾는다. 이
+// 날짜를 가격/낙폭/오실레이터 전 차트가 공유해서 세로 점선을 그리므로,
+// 차트마다 따로 자기 최저값을 찾던 예전 방식(RSI 따로, MFI 따로 - 서로 다른
+// 날짜라 산발적으로 보임)보다 "이 시점에 낙폭도 이 정도였고 RSI·MFI도
+// 이랬다"를 한 번에 보여준다. (예전엔 뚜렷한 이중바닥이면 최대 2개까지
+// 표시했었는데, 값이 사실상 같은 저점이 중복으로 두 번 찍혀 오히려 헷갈린다는
+// 피드백을 받아 항상 1개만 찾도록 단순화했다.)
 function findDepthTroughs(records, start, end) {
   const within = (records || []).filter(r => r.date >= start && r.date <= end && r.depth != null);
   if (!within.length) return [];
-  const locals = within.filter((r, i) => {
-    const prev = within[i - 1], next = within[i + 1];
-    return (!prev || r.depth <= prev.depth) && (!next || r.depth <= next.depth);
-  });
-  const candidates = (locals.length ? locals : within).slice().sort((a, b) => a.depth - b.depth);
-  const primary = candidates[0];
-  const troughs = [primary];
-  const toTime = s => new Date(s + "T00:00:00").getTime();
-  for (const c of candidates.slice(1)) {
-    if (troughs.length >= 2) break;
-    const gapDays = Math.abs(toTime(c.date) - toTime(primary.date)) / 86400000;
-    if (gapDays >= 15 && Math.abs(c.depth) >= Math.abs(primary.depth) * 0.85) troughs.push(c);
-  }
-  return troughs.sort((a, b) => a.date < b.date ? -1 : 1);
+  const primary = within.reduce((m, r) => (!m || r.depth < m.depth) ? r : m);
+  return [primary];
 }
 
 // records에서 dateStr과 가장 가까운 날짜의 레코드를 찾는다 - 오실레이터가
@@ -1300,26 +1297,23 @@ function buildSelectionMarkers(kind, records, troughDates, episode) {
       items.push({ date: episode.start, label: episode.start.slice(2), val: null, isSelection: true, isBoundary: true });
       items.push({ date: episode.end, label: episode.end.slice(2), val: null, isSelection: true, isBoundary: true });
     }
-    const multi = troughDates && troughDates.length > 1;
-    (troughDates || []).forEach((d, i) => {
+    (troughDates || []).forEach(d => {
       const rec = (records || []).find(r => r.date === d);
-      const label = multi ? `저점${i + 1}` : "저점";
       const val = (kind === "underwater" && rec) ? rec.depth : null;
-      items.push({ date: d, label, val, isSelection: true });
+      items.push({ date: d, label: "저점", val, isSelection: true });
     });
     return items;
   }
   if (!troughDates || !troughDates.length) return [];
-  const multi = troughDates.length > 1;
   if (kind === "osc") {
-    return troughDates.map((d, i) => {
+    return troughDates.map(d => {
       const rec = nearestRecord(records, d);
       if (!rec) return null;
       const parts = [];
       if (rec.rsi != null) parts.push(`RSI ${Math.round(rec.rsi)}`);
       if (rec.mfi != null) parts.push(`MFI ${Math.round(rec.mfi)}`);
       if (!parts.length) return null;
-      return { date: rec.date, label: (multi ? `저점${i + 1} ` : "") + parts.join("·"), val: null, isSelection: true };
+      return { date: rec.date, label: parts.join("·"), val: null, isSelection: true };
     }).filter(Boolean);
   }
   return [];
