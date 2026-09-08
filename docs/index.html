@@ -82,7 +82,7 @@
   .wrap { max-width: 1080px; margin: 0 auto; padding: 16px 12px 48px; }
 
   header { margin-bottom: 12px; }
-  .header-row { display: flex; align-items: center; gap: 8px; }
+  .header-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   h1 { font-size: 18px; margin: 0 0 2px; }
   .meta { color: var(--text-muted); font-size: 12px; }
   .help-btn {
@@ -312,6 +312,10 @@
     position: sticky; top: 0; z-index: 5; display: flex; justify-content: flex-end;
     margin: -20px -20px 14px; padding: 10px 20px; background: var(--surface-1);
     border-radius: 14px 14px 0 0; border-bottom: 1px solid var(--grid);
+    /* 모바일(안드로이드 크롬)에서 sticky + border-radius 조합일 때 스크롤 중
+       이미 지나간 콘텐츠가 이 바 위쪽에 잔상으로 겹쳐 보이는 리페인트 버그가
+       있어, 별도 GPU 합성 레이어로 강제 승격시켜 완화한다. */
+    transform: translateZ(0);
   }
 
   /* 기본(좁은 화면)은 세로 1단 - 정보 다음에 차트가 이어짐(지금 모바일과 동일한 흐름).
@@ -341,6 +345,8 @@
     <div class="header-row">
       <h1>MDD 매수신호 대시보드</h1>
       <button id="help-btn" class="help-btn" aria-label="데이터 읽는 법 열기">📖 데이터 읽는 법</button>
+      <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/" class="help-btn" style="text-decoration:none;display:inline-flex;align-items:center;">🏠 홈</a>
+      <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/portfolio/" class="help-btn" style="text-decoration:none;display:inline-flex;align-items:center;">📊 포트폴리오</a>
     </div>
     <div class="meta" id="meta-line">불러오는 중...</div>
   </header>
@@ -455,8 +461,11 @@ let fullscreenSymb = null;
 const RSI_OVERSOLD = 30, MFI_OVERSOLD = 20;
 const RSI_NEAR_OVERSOLD = 35, MFI_NEAR_OVERSOLD = 25;
 
-// 기간 선택 버튼(1Y~ALL) - [라벨, 일수](ALL은 Infinity)
+// 기간 선택 버튼(1M~ALL) - [라벨, 일수](ALL은 Infinity, YTD는 고정 일수가 아니라
+// "올해 1/1부터"라는 달력 기준이라 null로 표시하고 sliceByPeriod/periodButtonsHtml에서
+// 따로 처리한다).
 const PERIODS = [
+  ["1M", 30], ["3M", 91], ["6M", 182], ["YTD", null],
   ["1Y", 365], ["3Y", 365 * 3], ["5Y", 365 * 5], ["10Y", 365 * 10],
   ["20Y", 365 * 20], ["30Y", 365 * 30], ["50Y", 365 * 50], ["ALL", Infinity],
 ];
@@ -467,6 +476,14 @@ function toTs(dateStr) { return new Date(dateStr + "T00:00:00").getTime(); }
 function sliceByPeriod(records, periodKey) {
   if (!records || !records.length) return records || [];
   if (periodKey === "ALL") return records;
+  if (periodKey === "YTD") {
+    // 고정 일수 차감이 아니라 달력 기준(올해 1/1) - 데이터의 마지막 날짜가 속한
+    // 연도의 1/1 이후만 남긴다.
+    const year = records[records.length - 1].date.slice(0, 4);
+    const cutoff = toTs(`${year}-01-01`);
+    const idx = records.findIndex(r => toTs(r.date) >= cutoff);
+    return idx <= 0 ? records : records.slice(idx);
+  }
   const spec = PERIODS.find(p => p[0] === periodKey);
   const days = spec ? spec[1] : Infinity;
   if (days === Infinity) return records;
@@ -482,10 +499,10 @@ function spanDays(records) {
 }
 
 // 선택 구간이 길어질수록 일봉은 너무 빽빽해지므로, 실제로 화면에 표시될 기간
-// 길이에 따라 일/주/월봉 중 무엇을 보여줄지 정한다(3년 이하=셋 다, ~15년=주봉,
+// 길이에 따라 일/주/월봉 중 무엇을 보여줄지 정한다(3년 미만=셋 다, 3년 이상~15년=주봉,
 // 그 이상=월봉).
 function timeframesForSpan(days) {
-  if (days <= 365 * 3 + 30) return [["daily", "일봉"], ["weekly", "주봉"], ["monthly", "월봉"]];
+  if (days < 365 * 3) return [["daily", "일봉"], ["weekly", "주봉"], ["monthly", "월봉"]];
   if (days <= 365 * 15) return [["weekly", "주봉"]];
   return [["monthly", "월봉"]];
 }
@@ -1139,7 +1156,7 @@ function flashFeedback(el) {
 
 function periodButtonsHtml(maxDays) {
   return `<div class="period-group">` + PERIODS.map(([key, days]) => {
-    const disabled = days !== Infinity && maxDays > 0 && days > maxDays + 30;
+    const disabled = days !== Infinity && days !== null && maxDays > 0 && days > maxDays + 30;
     const active = state.period === key ? "active" : "";
     return `<button type="button" class="period-btn ${active}" data-period="${key}" ${disabled ? "disabled" : ""}>${key}</button>`;
   }).join("") + `</div>`;
@@ -1470,8 +1487,8 @@ function cardHtml(t) {
         <div class="cat-tag">${escapeHtml(t.category)}</div>
       </div>
       <div class="top-actions">
-        <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
         <button type="button" class="corner-btn" data-action="fullscreen" aria-label="크게 보기" title="크게 보기">크게 보기 ⛶</button>
+        <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
       </div>
     </div>
     <div class="price-row">
