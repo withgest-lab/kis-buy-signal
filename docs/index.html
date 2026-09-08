@@ -301,21 +301,24 @@
   .fullscreen-backdrop.open { display: flex; justify-content: center; }
   .card.fullscreen {
     width: 100%; max-width: 920px; height: fit-content; box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-    cursor: default; padding: 20px;
+    cursor: default; padding: 54px 20px 20px;
   }
   body.fullscreen-open { overflow: hidden; }
 
-  /* 닫기("원본으로 보기") 버튼을 카드 맨 위에 고정된 얇은 바로 분리 - 차트를 보려고
-     아래로 스크롤해도 항상 화면 위쪽(우측)에 붙어있어서 다시 찾아 스크롤을 올릴
-     필요가 없다(예전엔 카드 맨 위 배지 아래에만 있어서 스크롤하면 안 보였음). */
+  /* 닫기("원본으로 보기") 버튼을 카드와 같은 폭/위치로 화면에 고정된 얇은 바로 분리 -
+     차트를 보려고 아래로 스크롤해도 항상 화면 위쪽에 붙어있어서 다시 찾아 스크롤을
+     올릴 필요가 없다. 예전엔 position:sticky + border-radius 조합을 썼는데, 모바일
+     (안드로이드 크롬)에서 스크롤 중 이미 지나간 콘텐츠가 이 바 위쪽에 잔상으로
+     겹쳐 보이는 리페인트 버그가 실기기에서 확인돼(GPU 레이어 승격만으로는 해결 안 됨),
+     position:fixed로 바꿔 이 문제 자체를 구조적으로 없앴다 - fixed는 스크롤 컨테이너와
+     무관하게 뷰포트 기준으로 별도 합성되므로 이 종류의 리페인트 버그가 아예 발생하지
+     않는다. 카드와 같은 폭/위치를 유지하기 위해 openFullscreen()이 열릴 때와
+     리사이즈될 때 positionFullscreenHeader()가 left/width를 JS로 동기화한다. */
   .fullscreen-header {
-    position: sticky; top: 0; z-index: 5; display: flex; justify-content: flex-end;
-    margin: -20px -20px 14px; padding: 10px 20px; background: var(--surface-1);
+    position: fixed; top: 0; z-index: 95; display: flex; justify-content: flex-end;
+    padding: 10px 20px; background: var(--surface-1);
     border-radius: 14px 14px 0 0; border-bottom: 1px solid var(--grid);
-    /* 모바일(안드로이드 크롬)에서 sticky + border-radius 조합일 때 스크롤 중
-       이미 지나간 콘텐츠가 이 바 위쪽에 잔상으로 겹쳐 보이는 리페인트 버그가
-       있어, 별도 GPU 합성 레이어로 강제 승격시켜 완화한다. */
-    transform: translateZ(0);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   }
 
   /* 기본(좁은 화면)은 세로 1단 - 정보 다음에 차트가 이어짐(지금 모바일과 동일한 흐름).
@@ -1382,6 +1385,20 @@ function renderDetailInto(container, t, detail, large) {
   wireDetailContainer(container, t, detail, large);
 }
 
+// .fullscreen-header가 position:fixed(뷰포트 기준)라 카드(.card.fullscreen, 최대
+// 920px에 화면 중앙 정렬)와 같은 폭/위치를 저절로 따라오지 못한다 - 카드의 실제
+// 렌더링된 left/width를 읽어 헤더에 그대로 맞춰준다. 열릴 때와 화면 크기가 바뀔 때
+// (폴드폰 펼침/회전 등) 다시 불러야 계속 카드와 정렬이 맞는다.
+function positionFullscreenHeader() {
+  const header = document.querySelector(".fullscreen-header");
+  const card = document.getElementById("fullscreen-card");
+  if (!header || !card) return;
+  const rect = card.getBoundingClientRect();
+  header.style.left = rect.left + "px";
+  header.style.width = rect.width + "px";
+}
+window.addEventListener("resize", () => { if (fullscreenSymb) positionFullscreenHeader(); });
+
 // 종목 카드 상단(우측)의 "크게 보기 ⛶" 토글을 눌렀을 때 - 그래프만 키우는 게
 // 아니라 그 종목 박스 내용 전체(가격 정보 + 모든 차트)를 화면 전체로 넓혀서
 // 폴드폰 펼침 화면 등 넓은 화면을 활용해 더 시원하게 볼 수 있게 한다.
@@ -1419,6 +1436,9 @@ function openFullscreen(symb, detail) {
   renderDetailInto(card.querySelector(".fullscreen-charts"), t, detail, true);
   document.getElementById("fullscreen-backdrop").classList.add("open");
   document.body.classList.add("fullscreen-open");
+  // backdrop이 열려 display:flex가 된 "다음"에 불러야 카드 크기가 0이 아닌 실제
+  // 렌더링된 값으로 잡힌다(그전엔 display:none이라 getBoundingClientRect가 전부 0).
+  positionFullscreenHeader();
 }
 
 function closeFullscreen() {
