@@ -731,6 +731,11 @@ function estimateLeftMargin(vals, yFmt) {
 // 바짝 붙어 잘려 보인다. lineChartSvg/episodeHistogramSvg가 공통으로 쓴다.
 const CHART_MARGIN_RIGHT = 14;
 
+// 히스토그램 라벨(P50/P25/P10·지금·축 눈금)이 진행중 막대(빨강)처럼 색이 진한
+// 막대 위에 겹쳐도 읽히도록, 글자 채우기보다 먼저 배경색 굵은 외곽선을 깔아준다
+// (paint-order:stroke로 외곽선을 먼저 그리는 표준 SVG 텍스트 halo 기법).
+const TEXT_HALO = "paint-order:stroke;stroke:var(--surface-1);stroke-width:3px;stroke-linejoin:round;";
+
 function dateToX(dateStr, domainStart, domainEnd, marginLeft, innerW) {
   const toTime = s => new Date(s + "T00:00:00").getTime();
   const t0 = toTime(domainStart), t1 = toTime(domainEnd);
@@ -1128,7 +1133,7 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
     pItems.forEach(it => {
       svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${it.y}" y2="${it.y}" stroke="${it.color}" stroke-width="1" stroke-dasharray="3 3" opacity="0.8"/>`;
       const tx = it.row === 1 ? W - margin.right - 34 : W - margin.right;
-      svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="${fs}" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
+      svg += `<text x="${tx}" y="${it.y - 2}" text-anchor="end" font-size="${fs}" style="${TEXT_HALO}" fill="${it.color}">${it.k.toUpperCase()} ${(percentiles[it.k] * 100).toFixed(0)}%</text>`;
     });
   }
   // 막대 폭 = 그 국면의 실제 회복 기간(시작일~회복일, 진행중이면 지금까지) -
@@ -1157,11 +1162,11 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
   // 다른 차트의 "지금" 라벨처럼 오른쪽정렬로 그려 글자가 선 왼쪽으로만 자라게 한다.
   const nowX = xAt(nowDate);
   svg += `<line x1="${nowX}" x2="${nowX}" y1="${margin.top}" y2="${margin.top + innerH + 4}" stroke="var(--status-crit)" stroke-width="1" stroke-dasharray="2 2"/>`;
-  svg += `<text x="${nowX}" y="${margin.top + innerH + 13}" text-anchor="end" font-size="${fs}" fill="var(--status-crit)">지금</text>`;
+  svg += `<text x="${nowX}" y="${margin.top + innerH + 13}" text-anchor="end" font-size="${fs}" style="${TEXT_HALO}" fill="var(--status-crit)">지금</text>`;
 
   svg += `<line x1="${margin.left}" x2="${W - margin.right}" y1="${margin.top}" y2="${margin.top}" stroke="var(--grid)" stroke-width="1"/>`;
-  svg += `<text x="${margin.left - 2}" y="${margin.top + 7}" text-anchor="end" font-size="${fs}" fill="var(--text-muted)">0%</text>`;
-  svg += `<text x="${margin.left - 2}" y="${margin.top + innerH}" text-anchor="end" font-size="${fs}" fill="var(--text-muted)">${(yMin * 100).toFixed(0)}%</text>`;
+  svg += `<text x="${margin.left - 2}" y="${margin.top + 7}" text-anchor="end" font-size="${fs}" style="${TEXT_HALO}" fill="var(--text-muted)">0%</text>`;
+  svg += `<text x="${margin.left - 2}" y="${margin.top + innerH}" text-anchor="end" font-size="${fs}" style="${TEXT_HALO}" fill="var(--text-muted)">${(yMin * 100).toFixed(0)}%</text>`;
 
   // 실제 시간 비례축이라 중간 날짜도 몇 개 찍어줘야 "언제쯔음"인지 감이 잡힘.
   // 맨 끝(오늘)은 이미 위의 "지금" 라벨이 표시하므로 시작~중간까지만 찍는다.
@@ -1201,43 +1206,73 @@ function computeDetailEvents(detail) {
     .concat(episodeNotesToEvents(detail.episode_notes));
 }
 
+// 선택한 국면 구간의 낙폭 최저점(들)을 찾는다 - 보통 1개지만, 뚜렷한 이중바닥
+// (primary와 15일 이상 떨어져 있고 낙폭이 primary의 85% 이상으로 비슷하게
+// 깊은 두 번째 지역 최저점)이 있으면 최대 2개까지. 이 날짜(들)를 가격/낙폭/
+// 오실레이터 전 차트가 공유해서 세로 점선을 그리므로, 차트마다 따로 자기
+// 최저값을 찾던 예전 방식(RSI 따로, MFI 따로 - 서로 다른 날짜라 산발적으로
+// 보임)보다 "이 시점에 낙폭도 이 정도였고 RSI·MFI도 이랬다"를 한 번에 보여준다.
+function findDepthTroughs(records, start, end) {
+  const within = (records || []).filter(r => r.date >= start && r.date <= end && r.depth != null);
+  if (!within.length) return [];
+  const locals = within.filter((r, i) => {
+    const prev = within[i - 1], next = within[i + 1];
+    return (!prev || r.depth <= prev.depth) && (!next || r.depth <= next.depth);
+  });
+  const candidates = (locals.length ? locals : within).slice().sort((a, b) => a.depth - b.depth);
+  const primary = candidates[0];
+  const troughs = [primary];
+  const toTime = s => new Date(s + "T00:00:00").getTime();
+  for (const c of candidates.slice(1)) {
+    if (troughs.length >= 2) break;
+    const gapDays = Math.abs(toTime(c.date) - toTime(primary.date)) / 86400000;
+    if (gapDays >= 15 && Math.abs(c.depth) >= Math.abs(primary.depth) * 0.85) troughs.push(c);
+  }
+  return troughs.sort((a, b) => a.date < b.date ? -1 : 1);
+}
+
+// records에서 dateStr과 가장 가까운 날짜의 레코드를 찾는다 - 오실레이터가
+// 주봉/월봉일 때는 낙폭 최저점의 정확한 날짜(일봉 기준)와 딱 맞는 봉이 없을 수
+// 있어서 가장 가까운 봉의 값을 대신 쓴다.
+function nearestRecord(records, dateStr) {
+  if (!records || !records.length) return null;
+  const target = new Date(dateStr + "T00:00:00").getTime();
+  let best = null, bestDiff = Infinity;
+  for (const r of records) {
+    const diff = Math.abs(new Date(r.date + "T00:00:00").getTime() - target);
+    if (diff < bestDiff) { bestDiff = diff; best = r; }
+  }
+  return best;
+}
+
 // 히스토그램에서 낙폭국면을 선택했을 때 각 차트에 겹쳐 그릴 마커를 만든다.
 // isSelection:true로 태깅해 거시이벤트와 같은 배열에 합류시키면(detailContentHtml)
 // lineChartSvg의 겹침방지 로직(layoutLabelsNoOverlap) 한 번으로 함께 배치되어
-// 구조적으로 겹칠 수 없다. kind별로 성격이 다르다:
-// - price: 국면 시작/끝 날짜만(경계 표시).
-// - underwater: 시작/끝 + 그 구간 내 실제 최저점(저점) 1개 - 오실레이터의
-//   RSI/MFI 최저점과 비교하는 기준이 된다. 상단 라벨은 "저점"만 짧게 표시하고
-//   실제 %는 eventDepthLabels가 그 지점에 이미 표시해주므로 중복 안 함.
-// - osc: 시작/끝 대신, 그 구간 내 RSI 최저값 날짜·MFI 최저값 날짜를 각각 표시
-//   (라벨에 값 포함) - 낙폭 저점과 날짜가 다르면(다이버전스) 그 자체가 정보.
-function buildSelectionMarkers(kind, episode, records) {
-  if (!episode) return [];
-  const within = (records || []).filter(r => r.date >= episode.start && r.date <= episode.end);
-  const boundary = () => ([
-    { date: episode.start, label: episode.start.slice(2), val: null, isSelection: true },
-    { date: episode.end, label: episode.end.slice(2), val: null, isSelection: true },
-  ]);
-  if (kind === "price") return boundary();
-  if (kind === "underwater") {
-    const items = boundary();
-    const trough = within.filter(r => r.depth != null).reduce((m, r) => (!m || r.depth < m.depth) ? r : m, null);
-    if (trough) items.push({ date: trough.date, label: "저점", val: trough.depth, isSelection: true });
-    return items;
+// 구조적으로 겹칠 수 없다. price/underwater/osc 세 kind가 모두 같은
+// troughDates(detailContentHtml에서 findDepthTroughs로 한 번만 계산)를 받으므로,
+// 차트들이 이미 공유하는 domainStart/domainEnd/marginLeft 덕에 세 차트에 그려지는
+// 세로 점선이 항상 같은 x좌표에 와서 "그래프 간 점선으로 이어진 것처럼" 보인다.
+function buildSelectionMarkers(kind, records, troughDates) {
+  if (!troughDates || !troughDates.length) return [];
+  const multi = troughDates.length > 1;
+  if (kind === "price" || kind === "underwater") {
+    return troughDates.map((d, i) => {
+      const rec = (records || []).find(r => r.date === d);
+      const label = multi ? `저점${i + 1}` : "저점";
+      const val = (kind === "underwater" && rec) ? rec.depth : null;
+      return { date: d, label, val, isSelection: true };
+    });
   }
   if (kind === "osc") {
-    const items = [];
-    const rsiRows = within.filter(r => r.rsi != null);
-    if (rsiRows.length) {
-      const t = rsiRows.reduce((m, r) => r.rsi < m.rsi ? r : m);
-      items.push({ date: t.date, label: `RSI ${Math.round(t.rsi)}`, val: null, isSelection: true });
-    }
-    const mfiRows = within.filter(r => r.mfi != null);
-    if (mfiRows.length) {
-      const t = mfiRows.reduce((m, r) => r.mfi < m.mfi ? r : m);
-      items.push({ date: t.date, label: `MFI ${Math.round(t.mfi)}`, val: null, isSelection: true });
-    }
-    return items;
+    return troughDates.map((d, i) => {
+      const rec = nearestRecord(records, d);
+      if (!rec) return null;
+      const parts = [];
+      if (rec.rsi != null) parts.push(`RSI ${Math.round(rec.rsi)}`);
+      if (rec.mfi != null) parts.push(`MFI ${Math.round(rec.mfi)}`);
+      if (!parts.length) return null;
+      return { date: rec.date, label: (multi ? `저점${i + 1} ` : "") + parts.join("·"), val: null, isSelection: true };
+    }).filter(Boolean);
   }
   return [];
 }
@@ -1301,8 +1336,11 @@ function detailContentHtml(t, detail, large, selectedEpisode) {
   const completeCount = visibleEpisodes.filter(e => e.is_complete).length;
   const incompleteCount = visibleEpisodes.length - completeCount;
 
-  const priceMarkers = buildSelectionMarkers("price", selectedEpisode);
-  const uwMarkers = buildSelectionMarkers("underwater", selectedEpisode, underwaterSlice);
+  const troughDates = selectedEpisode
+    ? findDepthTroughs(underwaterSlice, selectedEpisode.start, selectedEpisode.end).map(tr => tr.date)
+    : [];
+  const priceMarkers = buildSelectionMarkers("price", priceSlice, troughDates);
+  const uwMarkers = buildSelectionMarkers("underwater", underwaterSlice, troughDates);
   const episodeBoxHtml = selectedEpisode
     ? episodeDetailHtml(selectedEpisode, findEpisodeCause(events, selectedEpisode.start, selectedEpisode.end))
     : "";
@@ -1318,7 +1356,7 @@ function detailContentHtml(t, detail, large, selectedEpisode) {
     <div class="episode-detail-box">${episodeBoxHtml}</div>
     ${tfPlan.map(([key, label]) => {
       const oscRecords = sliceByPeriod(seriesForTf[key], state.period);
-      const oscMarkers = buildSelectionMarkers("osc", selectedEpisode, oscRecords);
+      const oscMarkers = buildSelectionMarkers("osc", oscRecords, troughDates);
       return oscillatorChartBlock(oscRecords, label, bigOsc, oscMarkers);
     }).join("")}
   `;
