@@ -501,11 +501,16 @@ function spanDays(records) {
   return (toTs(records[records.length - 1].date) - toTs(records[0].date)) / 86400000;
 }
 
-// 선택 구간이 길어질수록 일봉은 너무 빽빽해지므로, 실제로 화면에 표시될 기간
-// 길이에 따라 일/주/월봉 중 무엇을 보여줄지 정한다(3년 미만=셋 다, 3년 이상~15년=주봉,
-// 그 이상=월봉).
+// RSI·MFI는 최소 14개 봉을 되돌아봐야 의미가 생기는 지표(RSI-14/MFI-14, 업계 표준
+// lookback)라, 표시 구간에 그 타임프레임 봉이 너무 적으면(추세를 읽을 수 없을 만큼
+// 점이 몇 개 안 됨) 오히려 안 보여주는 게 낫다. 봉 개수 기준으로 4단계:
+// - 6개월 미만: 주봉이면 4~13개 점뿐이라 추세 판단 불가 - 일봉만.
+// - 6개월~3년 미만: 주봉 26개 이상 확보되지만 월봉은 아직 6~35개뿐이라 생략 - 일봉+주봉.
+// - 3~15년: 일봉은 너무 빽빽하고 월봉은 아직 부족 - 주봉만.
+// - 15년 초과: 월봉만.
 function timeframesForSpan(days) {
-  if (days < 365 * 3) return [["daily", "일봉"], ["weekly", "주봉"], ["monthly", "월봉"]];
+  if (days < 182) return [["daily", "일봉"]];
+  if (days < 365 * 3) return [["daily", "일봉"], ["weekly", "주봉"]];
   if (days <= 365 * 15) return [["weekly", "주봉"]];
   return [["monthly", "월봉"]];
 }
