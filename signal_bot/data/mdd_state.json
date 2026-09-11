@@ -97,11 +97,11 @@
   },
   "ASML": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "PLTR": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "CAT": {
     "episode_start_date": "2026-09-04",
@@ -132,7 +132,7 @@
     "last_stage_notified": 0
   },
   "XLE": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-09-10",
     "last_stage_notified": 0
   },
   "XLV": {
@@ -141,7 +141,7 @@
   },
   "XLI": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "XLP": {
     "episode_start_date": "2026-09-04",
