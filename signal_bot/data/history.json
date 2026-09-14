@@ -413413,6 +413413,53 @@
         }
       }
     },
+    "000660": {
+      "category": "한국개별종목",
+      "symb": "000660",
+      "name": "SK하이닉스",
+      "currency": "KRW",
+      "date": "2026-09-14",
+      "close": 1715000.0,
+      "pct_chg": -5.35,
+      "market_regime": "상승장",
+      "depth": -0.4125,
+      "rolling_high": 2919000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 18,
+        "p50": -0.13815,
+        "p25": -0.1904,
+        "p10": -0.3964699999999999,
+        "recovery_days_min": 1,
+        "recovery_days_median": 8,
+        "recovery_days_max": 6478
+      },
+      "episode_count": 19,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 49.6,
+          "mfi": 64.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 51.9,
+          "mfi": 39.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 64.2,
+          "mfi": 65.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
     "SOXX": {
       "category": "섹터ETF",
       "symb": "SOXX",
@@ -413841,11 +413888,11 @@
       "symb": "KOSPI200",
       "name": "코스피200",
       "currency": "KRW",
-      "date": "2026-09-11",
-      "close": 1090.22,
-      "pct_chg": -1.97,
+      "date": "2026-09-14",
+      "close": 1053.21,
+      "pct_chg": -3.39,
       "market_regime": "상승장",
-      "depth": -0.262,
+      "depth": -0.287,
       "rolling_high": 1477.22,
       "stage": 2,
       "percentiles": {
@@ -413861,21 +413908,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 52.2,
-          "mfi": 47.9,
+          "rsi": 47.1,
+          "mfi": 50.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 53.0,
-          "mfi": 34.5,
+          "rsi": 50.3,
+          "mfi": 38.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 65.4,
+          "rsi": 63.9,
           "mfi": 72.7,
           "divergence": false,
           "rsi_oversold": false,
@@ -413888,11 +413935,11 @@
       "symb": "005930",
       "name": "삼성전자",
       "currency": "KRW",
-      "date": "2026-09-11",
-      "close": 259500.0,
-      "pct_chg": -3.53,
+      "date": "2026-09-14",
+      "close": 251000.0,
+      "pct_chg": -3.28,
       "market_regime": "상승장",
-      "depth": -0.2841,
+      "depth": -0.3076,
       "rolling_high": 362500.0,
       "stage": 2,
       "percentiles": {
@@ -413908,69 +413955,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 49.2,
-          "mfi": 44.4,
+          "rsi": 45.5,
+          "mfi": 48.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 52.3,
-          "mfi": 24.8,
+          "rsi": 50.3,
+          "mfi": 27.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 66.4,
-          "mfi": 68.8,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        }
-      }
-    },
-    "000660": {
-      "category": "한국개별종목",
-      "symb": "000660",
-      "name": "SK하이닉스",
-      "currency": "KRW",
-      "date": "2026-09-11",
-      "close": 1812000.0,
-      "pct_chg": -2.21,
-      "market_regime": "상승장",
-      "depth": -0.3792,
-      "rolling_high": 2919000.0,
-      "stage": 2,
-      "percentiles": {
-        "count": 18,
-        "p50": -0.13815,
-        "p25": -0.1904,
-        "p10": -0.3964699999999999,
-        "recovery_days_min": 1,
-        "recovery_days_median": 8,
-        "recovery_days_max": 6478
-      },
-      "episode_count": 19,
-      "is_record_drawdown": false,
-      "timeframes": {
-        "daily": {
-          "rsi": 55.3,
-          "mfi": 60.1,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "weekly": {
-          "rsi": 54.5,
-          "mfi": 35.7,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "monthly": {
-          "rsi": 65.4,
-          "mfi": 65.4,
+          "rsi": 64.7,
+          "mfi": 66.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
