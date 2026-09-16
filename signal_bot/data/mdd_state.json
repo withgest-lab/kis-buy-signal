@@ -132,7 +132,7 @@
     "last_stage_notified": 0
   },
   "XLE": {
-    "episode_start_date": "2026-09-14",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "XLV": {
@@ -236,7 +236,7 @@
     "last_stage_notified": 0
   },
   "CVX": {
-    "episode_start_date": "2026-09-14",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "KO": {
