@@ -132,7 +132,7 @@
     "last_stage_notified": 0
   },
   "XLE": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-09-16",
     "last_stage_notified": 0
   },
   "XLV": {
@@ -149,7 +149,7 @@
   },
   "XLY": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "XLU": {
     "episode_start_date": "2026-09-04",
@@ -172,7 +172,7 @@
     "last_stage_notified": 0
   },
   "BUG": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-09-16",
     "last_stage_notified": 0
   },
   "ICLN": {
@@ -236,7 +236,7 @@
     "last_stage_notified": 0
   },
   "CVX": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-09-16",
     "last_stage_notified": 0
   },
   "KO": {
