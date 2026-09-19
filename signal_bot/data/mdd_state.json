@@ -172,7 +172,7 @@
     "last_stage_notified": 0
   },
   "BUG": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-09-18",
     "last_stage_notified": 0
   },
   "ICLN": {
@@ -233,7 +233,7 @@
   },
   "BAC": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "CVX": {
     "episode_start_date": "2026-09-16",
