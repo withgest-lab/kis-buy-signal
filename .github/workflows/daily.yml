@@ -1,0 +1,118 @@
+name: KIS 매수신호 알림
+
+on:
+  schedule:
+    # UTC 22:30 = KST 07:30 (다음날)
+    - cron: "30 22 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# 예약 실행과 수동 실행이 겹치면 이력 파일 push가 충돌할 수 있어, 동시에 두 개가
+# 돌지 않도록 큐잉한다(취소하지 않고 순서대로 실행).
+concurrency:
+  group: kis-signal-daily
+  cancel-in-progress: false
+
+jobs:
+  run-signal-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Prepare KIS config (secrets -> kis_devlp.yaml)
+        env:
+          KIS_APP_KEY: ${{ secrets.KIS_APP_KEY }}
+          KIS_APP_SECRET: ${{ secrets.KIS_APP_SECRET }}
+          KIS_ACCT_NO: ${{ secrets.KIS_ACCT_NO }}
+        run: |
+          mkdir -p ~/KIS/config
+          cat > ~/KIS/config/kis_devlp.yaml << EOF
+          my_app: "$KIS_APP_KEY"
+          my_sec: "$KIS_APP_SECRET"
+          paper_app: ""
+          paper_sec: ""
+          my_htsid: ""
+          my_acct_stock: "$KIS_ACCT_NO"
+          my_acct_future: ""
+          my_paper_stock: ""
+          my_paper_future: ""
+          my_prod: "01"
+          prod: "https://openapi.koreainvestment.com:9443"
+          ops: "ws://ops.koreainvestment.com:21000"
+          vps: "https://openapivts.koreainvestment.com:29443"
+          vops: "ws://ops.koreainvestment.com:31000"
+          my_token: ""
+          my_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+          EOF
+
+      - name: Fetch latest prices (일봉)
+        run: uv run python -m signal_bot.fetch_universe
+
+      # signal_bot/data/baseline/(20년치 원본 CSV)은 용량 때문에 git에는 커밋하지
+      # 않지만(.gitignore), 그렇다고 매번 새 러너에서 KIS API로 처음부터 다시
+      # 받으면 느리고 API 호출도 많다 - 캐시로 러너 사이에 이어준다. 캐시가
+      # 없거나 오래돼도(baseline_fetch.py의 is_stale()이 파일 존재 여부까지
+      # 확인하도록 되어있어) 안전하게 재수집되므로 안전망은 이미 있음.
+      - name: Restore MDD baseline cache
+        uses: actions/cache@v4
+        with:
+          path: signal_bot/data/baseline
+          key: mdd-baseline-${{ github.run_id }}
+          restore-keys: |
+            mdd-baseline-
+
+      - name: Refresh MDD baseline (내부 staleness 체크로 보통 30일에 1번만 실수집)
+        run: uv run python -m signal_bot.baseline_fetch
+
+      - name: Score(MDD+RSI/MFI/다이버전스) + notify
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: uv run python main.py
+
+      - name: Build dashboard data
+        run: uv run python -m signal_bot.export_dashboard
+
+      - name: Commit updated state (main - 코드/이력 상태 전용, dashboard data는 제외)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add signal_bot/data/history.json
+          for f in notified.json mdd_state.json indicator_state.json mdd_alert_state.json mdd_baseline.json baseline_meta.json universe_cache.json; do
+            if [ -f "signal_bot/data/$f" ]; then
+              git add "signal_bot/data/$f"
+            fi
+          done
+          git diff --cached --quiet || git commit -m "chore: update signal state $(date -u +%Y-%m-%d)"
+          git push
+
+      # STEP 12(섹션 13-3): docs/를 main에 영구 커밋하면 저장소 용량이 계속 불어나므로,
+      # 이력 없이 매번 덮어쓰는 data 브랜치(orphan commit + force push)에만 발행한다.
+      # GitHub Pages 소스도 이 data 브랜치로 전환 완료(사용자 확인함, 2026-07-25).
+      - name: Publish dashboard snapshot to data branch (orphan, no history growth)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          TMP_INDEX="$(mktemp -u)"
+          rm -f "$TMP_INDEX"
+          # docs/scores.json, docs/detail/ 은 main에서는 안 쌓이게 .gitignore
+          # 처리해뒀는데, 그 규칙이 이 스냅샷용 add에도 그대로 적용돼서 정작
+          # 발행돼야 할 파일들이 계속 빠지고 있었다(-f로 강제 포함, 2026-07-26 수정).
+          GIT_INDEX_FILE="$TMP_INDEX" git add -f docs
+          TREE_SHA=$(GIT_INDEX_FILE="$TMP_INDEX" git write-tree)
+          COMMIT_SHA=$(git commit-tree "$TREE_SHA" -m "data: dashboard snapshot $(date -u +%Y-%m-%d)")
+          git push origin "$COMMIT_SHA:refs/heads/data" --force
+          rm -f "$TMP_INDEX"

@@ -1,0 +1,199 @@
+# ===== OS =====
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.manifest
+*.spec
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+*.sage.py
+
+# ===== Testing / Coverage =====
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# ===== Translations =====
+*.mo
+*.pot
+
+# ===== Django =====
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# ===== Flask =====
+instance/
+.webassets-cache
+
+# ===== Scrapy =====
+.scrapy
+
+# ===== Sphinx =====
+docs/_build/
+
+# ===== PyBuilder =====
+.pybuilder/
+target/
+
+# ===== Jupyter / IPython =====
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# ===== pdm =====
+.pdm.toml
+.pdm-python
+.pdm-build/
+
+# ===== PEP 582 =====
+__pypackages__/
+
+# ===== Celery =====
+celerybeat-schedule
+celerybeat.pid
+
+# ===== Virtual environments =====
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# ===== uv =====
+.python-version
+
+# ===== Type checkers =====
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# ===== Cython =====
+cython_debug/
+
+# ===== Spyder =====
+.spyderproject
+.spyproject
+
+# ===== Rope =====
+.ropeproject
+
+# ===== mkdocs =====
+/site
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# ===== Node / Frontend =====
+node_modules/
+.next/
+.vercel
+.pnp
+.pnp.*
+*.tsbuildinfo
+next-env.d.ts
+
+# ===== Environment / Secrets =====
+.env
+.env.local
+.env.*.local
+*.pem
+
+# ===== Logs =====
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*_logs/
+
+# ===== Lock files =====
+*.lock
+
+# ===== KIS (민감 정보) =====
+KIS/
+.master/
+.kis_token*.json
+
+# ===== Lean workspace =====
+.lean-workspace/
+
+# ===== Claude Code =====
+.claude/logs/*.log
+.claude/settings.local.json
+
+# ===== p2 output artifacts (regeneratable) =====
+backtester/examples/output/reports/*.html
+backtester/examples/output/screenshots/
+backtester/examples/output/*.yaml
+backtester/examples/output/*.py
+!backtester/examples/output/.gitkeep
+!backtester/examples/output/reports/.gitkeep
+
+# ===== Claude settings =====
+settings.local.json
+
+.serena/
+kis_devlp.yaml
+
+# ===== signal_bot (KIS 매수신호 알림 시스템) =====
+# 시세 캐시(CSV)/차트용 임시 JSON은 매일 재생성되므로 제외.
+# history.json / notified.json / universe_cache.json은 GitHub Actions 실행 간
+# 상태를 유지해야 하므로 커밋 대상에 포함.
+signal_bot/data/*.csv
+
+# STEP 12(섹션 13-3): 대시보드 데이터는 이제 main이 아니라 data 브랜치(orphan
+# commit)로만 발행하므로, main에서는 매일 재생성되는 이 파일들을 추적하지 않는다.
+docs/scores.json
+docs/detail/
+
+# MDD 계산용 20년치 baseline 원본 CSV - signal_bot/baseline_fetch.py로 언제든
+# 재생성 가능한 데이터라 커밋 대상에서 제외(mdd_baseline.json 집계 결과만 커밋).
+signal_bot/data/baseline/
+
+# 구 전략(삭제된 backtest_fetch.py)이 만들었던 10~13년치 연구용 데이터(약 1.1GB) -
+# 생성 스크립트 자체가 삭제되어 더 이상 재생성 불가하지만, 원본 데이터라 커밋
+# 대상에선 계속 제외. 필요 없으면 수동으로 삭제해도 됨.
+signal_bot/data/backtest/
