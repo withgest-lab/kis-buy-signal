@@ -44,6 +44,7 @@
     --loss:           #c0392b;
     --bar-done:       #d1d1d6;
     --bar-now-op:     0.4;
+    --trace-down:      #9f1d17;
     --depth-line:      #1c1c1e;
     --depth-area:      #8e8e93;
     --on-yellow:      #3a2e00;
@@ -86,6 +87,7 @@
       --loss:           #ff6b5e;
       --bar-done:       #48484a;
       --bar-now-op:     0.5;
+      --trace-down:      #ffb0a8;
       --depth-line:      #ffffff;
       --depth-area:      #8e8e93;
       --shadow-card:    none;
@@ -125,6 +127,7 @@
     --loss:           #ff6b5e;
     --bar-done:       #48484a;
     --bar-now-op:     0.5;
+    --trace-down:      #ffb0a8;
     --depth-line:      #ffffff;
     --depth-area:      #8e8e93;
     --shadow-card:    none;
@@ -589,7 +592,7 @@
         <div class="help-group">
         <p><b>가격 + 롤링 신고가</b> — 가격 위에 지금까지의 최고가선(점선)을 겹쳐서, 지금이 그 선에서 얼마나 떨어져 있는지 한눈에 보여줍니다. 빨간 점은 다이버전스가 감지된 날입니다. 선 색은 <b>선택한 기간의 시작가</b>를 기준으로 시작가보다 위면 초록, 아래면 빨강이고, 짧은 점선이 그 시작가입니다.</p>
         <p><b>낙폭(underwater) 추이</b> — 낙폭%을 시간 흐름에 따라 그린 그래프. 0%(신고가) 아래로 얼마나, 얼마나 오래 내려가 있었는지를 보여줍니다. 기본은 검정 선·회색 영역이고, 아래 히스토그램에서 박스를 선택하면 그 구간만 파란 선·영역으로 강조됩니다. 앰버 점선은 코로나19, 2022 금리인상 하락장처럼 널리 알려진 시장 전체 충격 시기와 겹치는 지점, 또는 그 종목만의 큰 낙폭(-25% 이상)에 대해 실제로 찾아본 개별 원인을 표시한 것입니다(마우스를 올리면 자세한 내용이 보입니다). 명확한 원인을 못 찾은 경우는 "특정 단일 원인 확인 안 됨"이라고 정직하게 표시했고, 아직 조사가 안 된 나머지 낙폭 국면들도 있습니다 - 원인을 안다고 단정하는 게 아니라 참고용입니다.</p>
-        <p><b>낙폭국면 히스토그램</b> — 과거의 낙폭 국면들을 막대로 나열합니다. 막대가 <b>길수록</b>(세로) 더 깊었던 국면이고, <b>두꺼울수록</b>(가로 폭) 신고가로 회복하는 데 오래 걸린 국면입니다 - 얇으면 금방 회복, 두꺼우면 오래 걸림. 점선은 P50/P25/P10 기준선입니다. 진행중 박스는 아래 가장자리의 점이 이번 국면의 저점(그 날짜 위치), 오른쪽 끝의 점이 지금이며, 둘을 잇는 초록 선이 저점에서 회복한 폭입니다. 박스를 선택하면 저점 날짜가 아래 날짜축에 표시됩니다. <span class="dot" style="background:var(--bar-done)"></span>(회색)는 신고가로 회복된(완결) 국면, <span class="dot" style="background:var(--status-crit)"></span>는 아직 회복 전(진행중, "지금"이 여기)인 국면입니다.</p>
+        <p><b>낙폭국면 히스토그램</b> — 과거의 낙폭 국면들을 막대로 나열합니다. 막대가 <b>길수록</b>(세로) 더 깊었던 국면이고, <b>두꺼울수록</b>(가로 폭) 신고가로 회복하는 데 오래 걸린 국면입니다 - 얇으면 금방 회복, 두꺼우면 오래 걸림. 점선은 P50/P25/P10 기준선입니다. 진행중 박스는 아래 가장자리의 점이 이번 국면의 저점(그 날짜 위치), 오른쪽 끝의 점이 지금이며, 둘을 잇는 초록 선이 저점에서 회복한 폭입니다. 박스를 선택하면 저점 날짜가 아래 날짜축에 표시됩니다. 과거 완결 박스도 선택하면 안에 시작 → 최저점 → 신고가 회복을 잇는 선이 나오고(저점이 여러 번이면 그 점들도), 박스가 작으면 글자 없이 선과 점만 보입니다. <span class="dot" style="background:var(--bar-done)"></span>(회색)는 신고가로 회복된(완결) 국면, <span class="dot" style="background:var(--status-crit)"></span>는 아직 회복 전(진행중, "지금"이 여기)인 국면입니다.</p>
         <p><b>RSI·MFI 라인차트</b> — 오버솔드 기준선(RSI 30, MFI 20)을 넘어가면 과매도 구간입니다. 선택한 기간이 3년 이하면 일/주/월봉을 모두, 3~15년이면 주봉, 그보다 길면 월봉만 보여줍니다(기간이 길어질수록 일봉은 너무 빽빽해져서 자동으로 더 굵은 단위로 바꿔 보여드리는 것입니다).</p>
         <p><b>기간 버튼(1Y~ALL)</b> — 이 버튼으로 고른 기간이 그 카드 안의 가격/낙폭/RSI·MFI 차트 전부에 함께 적용됩니다(따로 조절할 필요 없음). 예를 들어 "지금 상승장이 언제부터 시작됐는지", "이번 하락장이 언제부터인지"를 보려면 기간을 길게(10Y 이상) 늘려서 가격 차트의 롤링 신고가선과 낙폭 차트를 함께 보시면 됩니다. 실제로 갖고 있는 데이터보다 긴 기간 버튼은 흐리게 표시되고 눌리지 않습니다.</p>
         <p><b>크게 보기 <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-expand"/></svg></b> — 화면 전체로 넓게 펼쳐서 위에는 요약, 아래로 큰 차트들을 차례로 볼 수 있습니다. 상단 오른쪽 "닫기"(또는 Esc)를 누르면 원래 카드 화면으로 돌아갑니다.</p>
@@ -1396,6 +1399,47 @@ function filterEpisodesToDomain(episodes, domainStart, domainEnd) {
   return (episodes || []).filter(e => (e.recovery_date || domainEnd) >= domainStart);
 }
 
+// 한 낙폭 국면의 "시작 -> 저점(들) -> 끝" 경로 - 히스토그램 박스 안에 선으로 그려 시점과 낙폭이 어떻게 회복됐는지 보여준다.
+// 일별 낙폭을 지그재그(반등 5%p 이상)로 훑어 저점(valley)들을 찾고, 가장 깊은 저점(main)과 그 깊이의 80% 이상 깊은
+// 다른 저점(이중바닥 등)만 남긴다. 저점 사이에는 그 구간에서 가장 높이 반등한 지점(peak)을 꺾이는 점으로 넣는다.
+// 끝점: 완결 국면은 회복 시점(endDepth=0), 진행중 국면은 지금(endDepth=지금 낙폭).
+function episodePathPoints(underwater, startDate, endDate, endDepth) {
+  const recs = (underwater || []).filter(r => r.depth != null && r.date >= startDate && r.date <= endDate);
+  if (recs.length < 2) return null;
+  const REBOUND = 0.05;
+  const valleys = [];
+  let dir = -1, lo = recs[0], hi = recs[0];
+  for (let k = 1; k < recs.length; k++) {
+    const r = recs[k];
+    if (dir < 0) {
+      if (r.depth < lo.depth) lo = r;
+      if (r.depth - lo.depth >= REBOUND) { valleys.push(lo); dir = 1; hi = r; }
+    } else {
+      if (r.depth > hi.depth) hi = r;
+      if (hi.depth - r.depth >= REBOUND) { dir = -1; lo = r; }
+    }
+  }
+  if (dir < 0) valleys.push(lo);
+  if (!valleys.length) return null;
+  const main = valleys.reduce((m, v) => (v.depth < m.depth ? v : m), valleys[0]);
+  let keep = valleys.filter(v => v.depth <= main.depth * 0.8);
+  // 국면이 아주 길면 비슷하게 깊은 저점이 수십 개가 되어 선이 복잡해지므로 가장 깊은 5개까지만 남긴다(시간순 유지).
+  if (keep.length > 5) keep = [...keep].sort((x, y) => x.depth - y.depth).slice(0, 5).sort((x, y) => (x.date < y.date ? -1 : 1));
+  const pts = [{ date: startDate, depth: 0, kind: "start" }];
+  keep.forEach((v, i) => {
+    if (i > 0) {
+      const between = recs.filter(r => r.date > keep[i - 1].date && r.date < v.date);
+      if (between.length) {
+        const pk = between.reduce((m, r) => (r.depth > m.depth ? r : m), between[0]);
+        pts.push({ date: pk.date, depth: pk.depth, kind: "peak" });
+      }
+    }
+    pts.push({ date: v.date, depth: v.depth, kind: "valley", main: v === main });
+  });
+  pts.push({ date: endDate, depth: endDepth, kind: "end" });
+  return pts;
+}
+
 function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, chartOpts, selectedEpisode) {
   const visible = filterEpisodesToDomain(episodes, domainStart, domainEnd);
   if (!visible.length) return '<div class="chart-loading">이 기간에는 낙폭 국면 데이터가 없습니다.</div>';
@@ -1514,24 +1558,78 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
   const nowX = xAt(nowDate);
   svg += `<line x1="${nowX}" x2="${nowX}" y1="${margin.top}" y2="${margin.top + innerH + 4}" stroke="var(--status-crit)" stroke-width="1.5" stroke-dasharray="3 3"/>`;
   svg += `<text x="${nowX}" y="${margin.top + innerH + fs + 3}" text-anchor="${fitAnchor(nowX, textW("지금", fs, true), 2, W - 2)}" font-size="${fs}" font-weight="700" style="${TEXT_HALO}" fill="var(--status-crit)">지금</text>`;
+  // 진행중 박스의 "저점 -29%" 라벨 자리(라벨 자체는 아래 진행중 블록이 그린다) - 같은 그래프에서 선택한 완결 박스의 저점 라벨이
+  // 이 자리와 겹치지 않게 미리 계산해 둔다.
+  let nowLbl = null;
+  if (nowEp && nowDepth != null && chartOpts && chartOpts.nowTroughDate && nowDepth - nowEp.depth > 0.0005) {
+    const trX0 = Math.min(plotR, clampedX(chartOpts.nowTroughDate));
+    const tY0 = margin.top + yAtFixed(nowEp.depth);
+    const text = `저점 ${pctTxt(nowEp.depth)}`;
+    const lw0 = textW(text, fs, true);
+    const onLeft0 = trX0 - 6 - lw0 >= plotL + 2;
+    let ly0 = tY0 + fs + 2;
+    if (ly0 > margin.top + innerH + 4) ly0 = tY0 - 6; // 아래 자리가 없으면 박스 안쪽 위
+    nowLbl = { trX: trX0, tY: tY0, text, onLeft: onLeft0, ly: ly0, l: onLeft0 ? trX0 - 6 - lw0 : trX0 + 6, r: onLeft0 ? trX0 - 6 : trX0 + 6 + lw0, top: ly0 - fs, bot: ly0 + 2 };
+  }
+
+  // ---- 박스 안 경로: 시작 -> 저점(들) -> 회복(완결)/지금(진행중) 을 선으로 잇는다 ----
+  // 진행중 박스는 항상, 완결 박스는 선택했을 때만. 박스가 너무 작으면(약 10px 미만) 그리지 않고, 글자는 박스가 넉넉할 때만
+  // 붙인다(작으면 글자 없이 선과 점만). 하락 구간은 배경(연회색/톤 낮춘 빨강)과 구분되는 진한 빨강, 회복 구간은 초록.
+  visible.forEach(e => {
+    const endDate = e.recovery_date || nowDate;
+    const inProg = !e.is_complete;
+    const isSel = !!selectedEpisode && selectedEpisode.start === e.start_date && selectedEpisode.end === endDate;
+    if (!(inProg || isSel)) return;
+    if (inProg && nowDepth == null) return;
+    const xS = clampedX(e.start_date), xE = Math.min(plotR, xAt(endDate));
+    const bw = xE - xS, bh = yAtFixed(e.depth);
+    if (bw < 10 || bh < 10) return;
+    const pts = episodePathPoints(chartOpts && chartOpts.underwater, e.start_date, endDate, inProg ? nowDepth : 0);
+    if (!pts) return;
+    const P = pts.map(q => ({ ...q, x: Math.min(plotR, clampedX(q.date)), y: margin.top + yAtFixed(Math.max(q.depth, yMin)) }));
+    for (let k = 0; k < P.length - 1; k++) {
+      const a = P[k], b = P[k + 1];
+      const down = b.depth < a.depth;
+      svg += `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="var(--surface-1)" stroke-width="5" stroke-linecap="round" opacity="0.6"/>`;
+      svg += `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${down ? "var(--trace-down)" : "var(--gain)"}" stroke-width="${down ? 2 : 2.5}" stroke-linecap="round"/>`;
+    }
+    P.forEach(q => {
+      if (q.kind === "start") svg += `<circle cx="${q.x}" cy="${q.y}" r="3.5" fill="var(--text-secondary)" stroke="var(--surface-1)" stroke-width="2"/>`;
+      else if (q.kind === "valley") svg += `<circle cx="${q.x}" cy="${q.y}" r="${q.main ? 4 : 3}" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="2"/>`;
+      else if (q.kind === "end" && !inProg) svg += `<circle cx="${q.x}" cy="${q.y}" r="3.5" fill="var(--gain)" stroke="var(--surface-1)" stroke-width="2"/>`;
+    });
+    // 글자(완결 박스 선택 시, 박스가 넉넉할 때만): 시작·회복 날짜는 박스 안쪽 위, 최저점은 "-46% · 24-09-04"를 점 아래(자리가 없으면 위).
+    // 진행중 박스의 저점 라벨/날짜 눈금은 아래 진행중 블록이 따로 그린다.
+    if (!inProg && bw >= 150 && bh >= 40) {
+      const ty = margin.top + fs + 4;
+      svg += `<text x="${xS + 6}" y="${ty}" font-size="${fs}" font-weight="600" style="${TEXT_HALO}" fill="var(--text-secondary)">${e.start_date.slice(2)}</text>`;
+      svg += `<text x="${xE - 6}" y="${ty}" text-anchor="end" font-size="${fs}" font-weight="600" style="${TEXT_HALO}" fill="var(--gain)">${endDate.slice(2)}</text>`;
+      const placed = [];
+      P.filter(q => q.kind === "valley").sort((a, b) => (b.main ? 1 : 0) - (a.main ? 1 : 0)).forEach(q => {
+        const txt = q.main ? `${pctTxt(q.depth)} · ${q.date.slice(2)}` : pctTxt(q.depth);
+        const w = textW(txt, fs, true) + 4; // 실제 글자 폭이 추정보다 조금 클 수 있어 여유를 둔다
+        const cx = Math.max(plotL + 2 + w / 2, Math.min(plotR - 6 - w / 2, q.x));
+        const hitsNow = y => !!nowLbl && cx - w / 2 < nowLbl.r + 2 && cx + w / 2 > nowLbl.l - 2 && y - fs < nowLbl.bot + 1 && y + 2 > nowLbl.top - 1;
+        const hitsPlaced = y => placed.some(o => Math.abs(o.cx - cx) < (o.w + w) / 2 + 6 && Math.abs(o.ly - y) < fs + 2);
+        const cands = [q.y + fs + 3, q.y - 7].filter(y => y <= margin.top + innerH + 4 && y - fs >= margin.top);
+        const ly = cands.find(y => !hitsNow(y) && !hitsPlaced(y));
+        if (ly === undefined) return;
+        placed.push({ cx, w, ly });
+        svg += `<text x="${cx}" y="${ly}" text-anchor="middle" font-size="${fs}" font-weight="700" style="${TEXT_HALO}" fill="var(--trace-down)">${txt}</text>`;
+      });
+    }
+  });
+
   if (nowEp && nowDepth != null) {
-    // 저점과 지금의 시간 차이가 보이도록: 저점 점은 박스 아래 가장자리의 "저점 날짜" x위치에, 지금 점은 오른쪽 끝에 찍고
-    // 둘을 초록 선으로 잇는다(가로 간격 = 저점~지금 경과 시간, 세로 차이 = 회복폭). 저점 날짜가 기간 시작 이전이면 왼쪽 끝에 붙는다.
-    // 지금이 저점과 같으면(하락 진행 중) 저점 점 없이 지금 점만 그린다.
+    // 저점과 지금의 시간 차이가 보이도록 저점은 박스 아래 가장자리의 "저점 날짜" x위치에 표시된다(점과 시작 -> 저점 -> 지금 선은
+    // 위의 박스 안 경로가 그린다). 여기서는 저점 라벨과, 선택했을 때의 날짜 눈금·점선, 지금 점을 그린다.
+    // 지금이 저점과 같으면(하락 진행 중) 저점 라벨 없이 지금 점만 그린다.
     const tY = margin.top + yAtFixed(nowEp.depth), nY = margin.top + yAtFixed(Math.max(nowDepth, yMin));
     const troughDate = chartOpts && chartOpts.nowTroughDate;
     const recovering = nowDepth - nowEp.depth > 0.0005;
-    if (recovering && troughDate) {
-      const trX = Math.min(plotR, clampedX(troughDate));
-      svg += `<line x1="${trX}" x2="${plotR}" y1="${tY}" y2="${nY}" stroke="var(--gain)" stroke-width="2.5" stroke-linecap="round"/>`;
-      svg += `<circle cx="${trX}" cy="${tY}" r="4" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="2"/>`;
-      // "저점 -29%" 라벨은 저점 점 옆(왼쪽 아래, 왼쪽 공간이 모자라면 오른쪽)에 - 선택 시 아래로 내려가는 점선과 안 겹치게 점 옆에 둔다.
-      const lbl = `저점 ${pctTxt(nowEp.depth)}`;
-      const lw = textW(lbl, fs, true);
-      const onLeft = trX - 6 - lw >= plotL + 2;
-      let ly = tY + fs + 2;
-      if (ly > margin.top + innerH + 4) ly = tY - 6; // 아래 자리가 없으면 박스 안쪽 위
-      svg += `<text x="${onLeft ? trX - 6 : trX + 6}" y="${ly}" text-anchor="${onLeft ? "end" : "start"}" font-size="${fs}" font-weight="700" style="${TEXT_HALO}" fill="var(--status-crit)">${lbl}</text>`;
+    if (recovering && troughDate && nowLbl) {
+      const trX = nowLbl.trX;
+      svg += `<text x="${nowLbl.onLeft ? trX - 6 : trX + 6}" y="${nowLbl.ly}" text-anchor="${nowLbl.onLeft ? "end" : "start"}" font-size="${fs}" font-weight="700" style="${TEXT_HALO}" fill="var(--status-crit)">${nowLbl.text}</text>`;
       // 박스를 선택했을 때만: 저점 점에서 날짜축까지 점선을 내리고 저점 날짜를 표시한다("지금" 라벨과 겹치면 왼쪽으로 민다).
       const selected = !!selectedEpisode && !selectedEpisode.isComplete && selectedEpisode.start === nowEp.start_date;
       if (selected) {
@@ -1746,7 +1844,7 @@ function detailContentHtml(t, detail, large, selectedEpisode, availW) {
   // 히스토그램에서 고른 국면(시작~끝)은 낙폭 그래프에서 파란 선·영역으로 강조한다.
   const bigUw = { ...common, height: uwH, domainStart, domainEnd, highlight: selectedEpisode ? { start: selectedEpisode.start, end: selectedEpisode.end } : null };
   const bigOsc = { ...common, height: oscH, domainStart, domainEnd };
-  const bigHist = { ...common, height: histH, nowDepth, nowTroughDate: nowTroughRec ? nowTroughRec.date : null };
+  const bigHist = { ...common, height: histH, nowDepth, nowTroughDate: nowTroughRec ? nowTroughRec.date : null, underwater: fullUnderwater };
 
   const troughDates = selectedEpisode
     ? findDepthTroughs(underwaterSlice, selectedEpisode.start, selectedEpisode.end).map(tr => tr.date)
