@@ -428059,11 +428059,11 @@
       "symb": "KOSPI200",
       "name": "코스피200",
       "currency": "KRW",
-      "date": "2026-09-18",
-      "close": 1090.23,
-      "pct_chg": 3.02,
+      "date": "2026-09-21",
+      "close": 1102.78,
+      "pct_chg": 1.15,
       "market_regime": "상승장",
-      "depth": -0.262,
+      "depth": -0.2535,
       "rolling_high": 1477.22,
       "stage": 2,
       "percentiles": {
@@ -428079,21 +428079,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 53.0,
-          "mfi": 54.6,
+          "rsi": 54.8,
+          "mfi": 52.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 53.0,
-          "mfi": 36.7,
+          "rsi": 53.9,
+          "mfi": 26.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 65.4,
+          "rsi": 65.7,
           "mfi": 73.1,
           "divergence": false,
           "rsi_oversold": false,
@@ -428106,11 +428106,11 @@
       "symb": "005930",
       "name": "삼성전자",
       "currency": "KRW",
-      "date": "2026-09-18",
-      "close": 260000.0,
-      "pct_chg": 2.97,
+      "date": "2026-09-21",
+      "close": 269500.0,
+      "pct_chg": 3.26,
       "market_regime": "상승장",
-      "depth": -0.2828,
+      "depth": -0.2566,
       "rolling_high": 362500.0,
       "stage": 2,
       "percentiles": {
@@ -428126,22 +428126,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 50.7,
-          "mfi": 50.5,
+          "rsi": 55.3,
+          "mfi": 47.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 52.4,
-          "mfi": 26.4,
+          "rsi": 54.6,
+          "mfi": 18.9,
           "divergence": false,
           "rsi_oversold": false,
-          "mfi_oversold": false
+          "mfi_oversold": true
         },
         "monthly": {
-          "rsi": 66.5,
-          "mfi": 69.2,
+          "rsi": 67.5,
+          "mfi": 69.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -428153,11 +428153,11 @@
       "symb": "000660",
       "name": "SK하이닉스",
       "currency": "KRW",
-      "date": "2026-09-18",
-      "close": 1849000.0,
-      "pct_chg": 5.96,
+      "date": "2026-09-21",
+      "close": 1860000.0,
+      "pct_chg": 0.16,
       "market_regime": "상승장",
-      "depth": -0.3666,
+      "depth": -0.3628,
       "rolling_high": 2919000.0,
       "stage": 2,
       "percentiles": {
@@ -428173,21 +428173,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 57.1,
-          "mfi": 69.6,
+          "rsi": 57.6,
+          "mfi": 68.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 55.3,
-          "mfi": 37.3,
+          "rsi": 55.6,
+          "mfi": 30.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 65.8,
+          "rsi": 65.9,
           "mfi": 66.1,
           "divergence": false,
           "rsi_oversold": false,
