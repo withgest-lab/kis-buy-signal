@@ -92,8 +92,8 @@
     "last_stage_notified": 2
   },
   "AMD": {
-    "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "episode_start_date": null,
+    "last_stage_notified": 0
   },
   "ASML": {
     "episode_start_date": "2026-09-04",
@@ -168,11 +168,11 @@
     "last_stage_notified": 0
   },
   "CIBR": {
-    "episode_start_date": "2026-09-04",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "BUG": {
-    "episode_start_date": "2026-09-18",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "ICLN": {
@@ -184,7 +184,7 @@
     "last_stage_notified": 1
   },
   "AAPL": {
-    "episode_start_date": "2026-09-04",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "MSFT": {
