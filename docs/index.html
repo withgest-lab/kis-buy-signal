@@ -739,7 +739,7 @@
         <div class="help-group">
         <p><b>가격 · 돌파/천정</b> — 점선은 신고가 기준선(직전 N봉 최고가)입니다. ▲는 신고가 돌파, ▼는 천정 확정 지점이고, 점선은 위에서 아래까지 이어져 다른 차트와 같은 날짜를 가리킵니다.</p>
         <p><b>천정 대비 낙폭</b> — 0%가 천정이고 아래로 내려갈수록 깊은 조정입니다. 가로선 3개가 주의/경고/매도검토 지점입니다.</p>
-        <p><b>돌파→천정→하락 사이클 히스토그램</b> — 신고가 돌파부터 하락까지 한 사이클을 시간축 위에 나란히 보여줍니다. <b>0% 선 위의 초록 막대는 돌파→천정 상승</b>(높이 = 상승률), <b>아래 박스는 천정 뒤 하락</b>(높이 = 낙폭)이고, 폭은 기간에 비례하며 위 차트들과 같은 날짜축입니다. 그래서 <b>올라갈 때의 기울기(높이÷폭)와 내려올 때의 기울기</b>를 눈으로 비교할 수 있습니다. 위·아래 눈금은 각각 따로 잡히니 정확한 비교는 상세 박스의 "하루 평균 변화율"을 보세요. 영상의 쐐기형·되돌림 개념처럼 <b>위 막대들이 갈수록 낮아지거나(상승이 약해짐) 아래 박스가 위 막대보다 훨씬 가파르면</b> 경계 신호로 읽습니다. 막대를 누르면 가격 차트에 상승(초록)·하락(빨강) 구간이 표시되고, 아래 상세 박스에 돌파·천정·단계 진입일(이후 6·12개월 수익률)·최저점·종료와 상승/하락 속도가 나옵니다. 아직 고르지 않았다면 지금 진행 중인 사이클이 표시됩니다. 빨간 박스는 아직 회복 전인 진행중 사례이고, <b>점선 박스는 천정이 아직 확정되지 않았어도(낙폭이 '주의' 전)</b> 현재 고점 이후의 하락을 보여주며 위 요약 줄에 주의선까지 얼마나 남았는지 나옵니다.</p>
+        <p><b>돌파→천정→하락 사이클 히스토그램</b> — 신고가 돌파부터 하락까지 한 사이클을 시간축 위에 나란히 보여줍니다. <b>0% 선 위의 초록 막대는 돌파→천정 상승</b>(높이 = 상승률), <b>아래 박스는 천정→최저점 하락</b>(높이 = 낙폭)이고, 폭은 기간에 비례하며 위 차트들과 같은 날짜축입니다. 한 사이클은 <b>돌파 → 상승 → 천정 → 하락 → 최저점</b>이고, 저점 이후의 반등은 박스 뒤의 <b>점선 꼬리</b>(초록=천정 수준까지 회복, 회색=회복 못 하고 종료)로 이어 보여줍니다. 그래서 <b>올라갈 때의 기울기(높이÷폭)와 내려올 때의 기울기</b>를 눈으로 비교할 수 있습니다. 위·아래 눈금은 각각 따로 잡히니 정확한 비교는 상세 박스의 "하루 평균 변화율"을 보세요. 영상의 쐐기형·되돌림 개념처럼 <b>위 막대들이 갈수록 낮아지거나(상승이 약해짐) 아래 박스가 위 막대보다 훨씬 가파르면</b> 경계 신호로 읽습니다. 막대를 누르면 가격 차트에 상승(초록)·하락(빨강) 구간이 표시되고, 아래 상세 박스에 돌파·천정·단계 진입일(이후 6·12개월 수익률)·최저점·종료와 상승/하락 속도가 나옵니다. 아직 고르지 않았다면 지금 진행 중인 사이클이 표시됩니다. 빨간 박스는 아직 회복 전인 진행중 사례이고, <b>점선 박스는 천정이 아직 확정되지 않았어도(낙폭이 '주의' 전)</b> 현재 고점 이후의 하락을 보여주며 위 요약 줄에 주의선까지 얼마나 남았는지 나옵니다.</p>
         <p><b>과거 신호 성과</b> — 이 종목에서 같은 단계에 처음 들어갔던 과거 사례들의 이후 6·12개월 수익률과 추가 하락폭 중앙값입니다. 사례가 5건 미만이면 "데이터 부족"으로 표시합니다. 같은 천정에서 나온 사례끼리는 완전히 독립적이지 않으니 참고용으로만 보세요.</p>
         </div>
       </section>
@@ -1760,9 +1760,12 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
     const barH = yAtFixed(e.depth);
     const xStart = clampedX(e.start_date);
     const endDate = e.recovery_date || nowDate;
-    const xEnd = Math.min(plotR, xAt(endDate));
+    // box_end(매도 모드): 박스 폭을 천정→최저점까지로 잡는다(사이클 = 돌파→천정→하락→최저점). 저점 이후 회복은 아래 점선 꼬리로 표시.
+    // 선택 키(data-end)는 그대로 사이클 종료일(endDate)이다.
+    const boxEndDate = e.box_end || endDate;
+    const xEnd = Math.min(plotR, xAt(boxEndDate));
     const width = e.is_complete ? Math.max(4, xEnd - xStart) : Math.max(8, xEnd - xStart);
-    const xDraw = e.is_complete ? xStart : Math.min(xStart, plotR - width);
+    const xDraw = e.is_complete ? xStart : Math.min(xStart, plotR - width);   // 진행중 박스는 최소 폭 때문에 오른쪽 끝(지금)을 넘지 않게
     const fill = e.is_complete ? "var(--bar-done)" : "var(--status-crit)";
     const fo = e.is_complete ? 1 : "var(--bar-now-op)";
     const title = `${e.start_date} ~ ${e.recovery_date || "진행중(아직 회복 전)"} · 낙폭 ${(e.depth * 100).toFixed(1)}%`;
@@ -1772,16 +1775,30 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
     const isSelected = !!selectedEpisode && selectedEpisode.start === e.start_date && selectedEpisode.end === endDate;
     const barClass = isSelected ? "hist-bar hist-bar-selected" : "hist-bar";
     if (!e.is_complete) nowEp = { ...e, xStart };
-    svg += `<rect class="${barClass}" data-start="${e.start_date}" data-end="${endDate}" data-complete="${e.is_complete ? 1 : 0}" data-depth="${e.depth}" x="${xDraw}" y="${margin.top}" width="${width}" height="${Math.max(1, barH)}" rx="${width > 8 ? 3 : 1}" fill="${fill}" style="cursor:pointer;fill-opacity:${fo}" stroke="var(--surface-1)" stroke-width="0.6"><title>${title}</title></rect>`;
+    svg += `<rect class="${barClass}" data-start="${e.start_date}" data-end="${endDate}" data-complete="${e.is_complete ? 1 : 0}" data-depth="${e.depth}" data-boxend="${boxEndDate}" x="${xDraw}" y="${margin.top}" width="${width}" height="${Math.max(1, barH)}" rx="${width > 8 ? 3 : 1}" fill="${fill}" style="cursor:pointer;fill-opacity:${fo}" stroke="var(--surface-1)" stroke-width="0.6"><title>${title}${e.box_end ? ` · 최저점 ${e.box_end}` : ""}</title></rect>`;
+    // 저점 이후 회복 꼬리(점선): 회복했으면 저점→천정 수준(0%)으로 올라가는 초록 점선, 회복 못 하고 끝났으면 저점 높이의 회색 점선.
+    if (e.box_end && e.is_complete && e.box_end < endDate) {
+      const xa = Math.min(plotR, xAt(e.box_end)), xb = Math.min(plotR, xAt(endDate));
+      if (xb - xa > 1) {
+        const yTr = margin.top + Math.max(1, barH);
+        svg += e.recovered === true
+          ? `<line x1="${xa}" y1="${yTr}" x2="${xb}" y2="${margin.top}" stroke="var(--gain)" stroke-width="1.4" stroke-dasharray="3 3" opacity="0.7" style="pointer-events:none"><title>저점 이후 회복 ${e.box_end} ~ ${endDate}</title></line>`
+          : `<line x1="${xa}" y1="${yTr}" x2="${xb}" y2="${yTr}" stroke="var(--text-muted)" stroke-width="1.2" stroke-dasharray="1 4" opacity="0.7" style="pointer-events:none"><title>회복 전 종료 ${e.box_end} ~ ${endDate}</title></line>`;
+      }
+    }
   });
 
   // 미확정 진행 박스(매도 모드): 천정이 아직 확정되지 않았어도(낙폭이 '주의' 임계 전) 현재 고점 이후의 하락을
   // 점선 테두리 박스로 보여준다 - 시작 = 천정 후보일, 끝 = 지금(오른쪽 끝), 높이 = 그 사이 최대 낙폭. 선택 불가.
   if (candidate && !nowEp) {
     const cs = clampedX(candidate.start);
-    const cw = Math.max(8, plotR - cs);
+    const cEnd = candidate.box_end ? Math.min(plotR, xAt(candidate.box_end)) : plotR;
+    const cw = Math.max(8, cEnd - cs);
     const cx = Math.min(cs, plotR - cw);
     const ch = Math.max(1, yAtFixed(Math.max(candidate.depth, yMin)));
+    if (candidate.box_end && plotR - (cx + cw) > 1 && chartOpts.nowDepth != null) {
+      svg += `<line x1="${cx + cw}" y1="${margin.top + ch}" x2="${plotR}" y2="${margin.top + yAtFixed(Math.max(chartOpts.nowDepth, yMin))}" stroke="var(--gain)" stroke-width="1.4" stroke-dasharray="3 3" opacity="0.7" style="pointer-events:none"/>`;
+    }
     svg += `<rect x="${cx}" y="${margin.top}" width="${cw}" height="${ch}" rx="3" fill="var(--status-crit)" fill-opacity="0.10" stroke="var(--status-crit)" stroke-width="1.3" stroke-dasharray="3 2" style="pointer-events:none"><title>미확정: 천정 후보 ${candidate.start} 대비 ${(candidate.depth * 100).toFixed(1)}% (주의 임계 전)</title></rect>`;
     const cn = chartOpts.nowDepth;
     if (cn != null) {
@@ -2647,7 +2664,7 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
   const F = large ? CHART_FONT.large : CHART_FONT.small;
 
   // 히스토그램용 에피소드: 천정일 = 시작, 종료일(회복/창 이탈) = 끝, 낙폭 = 천정 대비 저점. 진행중 1건만 is_complete=false.
-  const episodes = evs.map(e => ({ start_date: e.peak, recovery_date: e.end, depth: e.trough_depth, is_complete: e.recovered !== null }));
+  const episodes = evs.map(e => ({ start_date: e.peak, recovery_date: e.end, depth: e.trough_depth, is_complete: e.recovered !== null, box_end: e.trough, recovered: e.recovered }));
   const visibleEpisodes = filterEpisodesToDomain(episodes, domainStart, domainEnd);
   const completeCount = visibleEpisodes.filter(e => e.is_complete).length;
   const incompleteCount = visibleEpisodes.length - completeCount;
@@ -2655,9 +2672,9 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
   // 확정된 진행 사례가 없어도(정상 단계) 현재 고점 이후 하락이 있으면 "미확정 후보"로 점선 박스를 그린다.
   let candidate = null;
   if (!nowEv && by.current.depth < 0) {
-    let mn = 0;
-    series.forEach(r => { if (r.date >= by.current.high_date && r.depth < mn) mn = r.depth; });
-    candidate = { start: by.current.high_date, depth: Math.min(mn, by.current.depth) };
+    let mn = 0, mnDate = null;
+    series.forEach(r => { if (r.date >= by.current.high_date && r.depth < mn) { mn = r.depth; mnDate = r.date; } });
+    candidate = { start: by.current.high_date, depth: Math.min(mn, by.current.depth), box_end: mnDate };
   }
   const nowDepth = (nowEv || candidate) ? by.current.depth : null;
   const levelLines = [
@@ -2748,7 +2765,7 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
     ...common, height: uwH,
     yFormat: v => Math.round(v * 100) + "%", yCeil: 0, yFloor: -1,
     series: [{ key: "depth", color: "var(--depth-line)", width: large ? 2.2 : 1.8, labelCurrent: true, area: "zero-grad" }],
-    highlight: selectedEpisode ? { start: (selEv && selEv.breakout && selEv.breakout < selEv.peak) ? selEv.breakout : selectedEpisode.start, end: selectedEpisode.end } : null,
+    highlight: selectedEpisode ? { start: (selEv && selEv.breakout && selEv.breakout < selEv.peak) ? selEv.breakout : selectedEpisode.start, end: selEv ? selEv.trough : selectedEpisode.end } : null,
     noBandFill: true, eventDepthLabels: true, arrowSeriesKey: "depth",
     arrowMarkers: sellMarkers(evs, domainStart, false),
     thresholds: [
@@ -2803,7 +2820,7 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
       <div class="chart-label"><span class="ttl">돌파→천정→하락 사이클 히스토그램</span>
         <span class="legend">${upH ? `<span><i style="background:var(--gain)"></i>상승(돌파→천정)</span>` : ""}<span><i style="background:var(--bar-done)"></i>완결 ${completeCount}회</span><span><i style="background:var(--status-crit)"></i>진행중("지금") ${incompleteCount}회</span>${candidate ? `<span><i style="background:transparent;border:1.5px dashed var(--status-crit);box-sizing:border-box"></i>미확정 1건</span>` : ""}</span>
       </div>
-      ${upH ? `<div class="sell-note" style="margin:0 0 6px">위=돌파→천정 상승률, 아래=천정 후 낙폭 · 폭=기간(위 차트와 같은 날짜축) · 위·아래 눈금은 각각(기울기=높이÷폭)</div>` : ""}
+      ${upH ? `<div class="sell-note" style="margin:0 0 6px">위=돌파→천정 상승률, 아래=천정→최저점 낙폭 · 폭=기간(위 차트와 같은 날짜축) · 점선 꼬리=저점 이후 회복 · 위·아래 눈금은 각각(기울기=높이÷폭)</div>` : ""}
       ${nowSummaryHtml}
       ${histSvg}
       <div class="episode-detail-box">${episodeBoxHtml}</div>
