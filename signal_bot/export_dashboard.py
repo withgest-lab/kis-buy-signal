@@ -73,7 +73,7 @@ def _series_records(df: pd.DataFrame, cols: list[str]) -> list[dict]:
         rec: dict = {"date": r["date"].strftime("%Y-%m-%d")}
         for c in cols:
             v = r.get(c)
-            if c == "divergence":
+            if c in ("divergence", "divergence_bear"):
                 rec[c] = bool(v)
             elif v is None or (isinstance(v, float) and pd.isna(v)):
                 rec[c] = None
@@ -100,21 +100,37 @@ def _compute_sell(symb: str, category: str, regime: str, daily: pd.DataFrame,
     return sellmod.compute_sell(combined, category, symb, _bench_daily(symb, category), regime)
 
 
+def _tf_summary(frames: dict) -> dict:
+    """카드용 매도 관점 일/주/월 RSI·MFI·하락 다이버전스(마지막 봉 기준)."""
+    out = {}
+    for key in ("daily", "weekly", "monthly"):
+        df = frames[key]
+        if df.empty:
+            out[key] = None
+            continue
+        last = df.iloc[-1]
+        rsi = None if pd.isna(last["rsi"]) else round(float(last["rsi"]), 1)
+        mfi = None if pd.isna(last["mfi"]) else round(float(last["mfi"]), 1)
+        out[key] = {"rsi": rsi, "mfi": mfi, "div_bear": bool(last["divergence_bear"])}
+    return out
+
+
 def _build_detail(symb: str, baseline_entry: dict | None, episode_notes: dict,
-                  sell: dict | None = None) -> dict | None:
+                  sell: dict | None = None, frames: dict | None = None) -> dict | None:
     daily = _read_daily(symb)
     if daily is None:
         return None
     baseline_daily = _read_baseline_daily(symb)
 
     underwater = _underwater_series(baseline_daily, daily)
-    frames = tf.compute_timeframe_frames(daily, baseline_daily)
+    if frames is None:
+        frames = tf.compute_timeframe_frames(daily, baseline_daily)
 
     return {
         "underwater": _series_records(underwater, ["close", "rolling_high", "depth"]),
-        "daily": _series_records(frames["daily"], ["close", "rsi", "mfi", "divergence"]),
-        "weekly": _series_records(frames["weekly"], ["close", "rsi", "mfi", "divergence"]),
-        "monthly": _series_records(frames["monthly"], ["close", "rsi", "mfi", "divergence"]),
+        "daily": _series_records(frames["daily"], ["close", "rsi", "mfi", "divergence", "divergence_bear"]),
+        "weekly": _series_records(frames["weekly"], ["close", "rsi", "mfi", "divergence", "divergence_bear"]),
+        "monthly": _series_records(frames["monthly"], ["close", "rsi", "mfi", "divergence", "divergence_bear"]),
         "episodes": (baseline_entry or {}).get("episodes", []),
         "percentiles": (baseline_entry or {}).get("percentiles"),
         "episode_notes": episode_notes.get(symb, []),
@@ -122,13 +138,14 @@ def _build_detail(symb: str, baseline_entry: dict | None, episode_notes: dict,
     }
 
 
-def export_details(baseline: dict, sells: dict | None = None) -> int:
+def export_details(baseline: dict, sells: dict | None = None, frames_by: dict | None = None) -> int:
     DETAIL_DIR.mkdir(parents=True, exist_ok=True)
     episode_notes = _load_episode_notes()
     sells = sells or {}
     count = 0
     for _category, symb in TICKERS:
-        detail = _build_detail(symb, baseline.get(symb), episode_notes, sells.get(symb))
+        detail = _build_detail(symb, baseline.get(symb), episode_notes, sells.get(symb),
+                               (frames_by or {}).get(symb))
         if detail is None:
             continue
         with open(DETAIL_DIR / f"{symb}.json", "w", encoding="utf-8") as f:
@@ -161,6 +178,7 @@ def main():
 
     tickers = []
     sells: dict = {}
+    frames_by: dict = {}
     for symb, rec in history[today].items():
         entry = dict(rec)
         entry["is_new"] = symb in new_symbs
@@ -173,7 +191,10 @@ def main():
                                  _read_baseline_daily(symb))
             if sell is not None:
                 sells[symb] = sell
+                frames = tf.compute_timeframe_frames(daily, _read_baseline_daily(symb))
+                frames_by[symb] = frames
                 entry["sell"] = sellmod.summary(sell)
+                entry["sell"]["tf"] = _tf_summary(frames)
         if entry["is_new"]:
             entry["business_summary"] = company_info.get_business_summary(symb, entry["name"])
         if symb in MDD_ALERT_TICKERS:
@@ -206,7 +227,7 @@ def main():
 
     print(f"대시보드 데이터 저장 완료: {OUTPUT_PATH} ({len(tickers)}종목, 신규 알림 {len(new_symbs)}개)")
 
-    detail_count = export_details(baseline, sells)
+    detail_count = export_details(baseline, sells, frames_by)
     print(f"상세 차트 데이터 저장 완료: {DETAIL_DIR}/ ({detail_count}개 종목)")
 
 

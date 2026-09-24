@@ -46,6 +46,9 @@ def _indicator_frame(df: pd.DataFrame) -> pd.DataFrame:
     div_rsi = sig.bullish_divergence(out["close"], out["rsi"])
     div_mfi = sig.bullish_divergence(out["close"], out["mfi"])
     out["divergence"] = (div_rsi["detected"] | div_mfi["detected"]).values
+    bear_rsi = sig.bearish_divergence(out["close"], out["rsi"])
+    bear_mfi = sig.bearish_divergence(out["close"], out["mfi"])
+    out["divergence_bear"] = (bear_rsi["detected"] | bear_mfi["detected"]).values
     return out
 
 
