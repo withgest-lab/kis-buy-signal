@@ -187,32 +187,27 @@
     .topbar .btn .lbl { display: none; }
   }
 
-  /* 도움말 시트 */
-  .help-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.38);
-    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-    z-index: 100; align-items: flex-start; justify-content: center; padding: 24px 12px;
-    overflow-y: auto; overscroll-behavior: contain;
-  }
-  .help-overlay.open { display: flex; }
-  /* 모달이 열려있는 동안 배경 스크롤 잠금 - 모달 안에서 끝까지 스크롤한 뒤
-     반대로 스크롤하면 배경 카드가 같이 움직이던 문제(스크롤 체이닝) 방지. */
-  body.modal-open { overflow: hidden; }
+  /* 도움말: 페이지 안에 펼쳐지는 인라인 패널(모달 아님). 열려 있는 동안은 종목 목록을 숨겨 가이드만 보이게 한다. */
+  .help-overlay { display: none; margin: 4px 0 14px; scroll-margin-top: 64px; }
+  .help-overlay.open { display: block; }
+  body.help-open .toolbar, body.help-open #mdd-alert-banner, body.help-open #banner,
+  body.help-open .grid-count, body.help-open #grid, body.help-open #footer { display: none; }
   .help-panel {
-    background: var(--surface-1); border-radius: 20px; max-width: 600px; width: 100%;
-    border: 0.5px solid var(--hairline); box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    background: var(--surface-1); border-radius: 16px; width: 100%;
+    border: 0.5px solid var(--hairline);
   }
   .help-panel-head {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 16px; border-bottom: 0.5px solid var(--hairline); position: sticky; top: 0;
-    background: var(--glass); border-radius: 20px 20px 0 0;
-    -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    padding: 12px 16px; border-bottom: 0.5px solid var(--hairline);
   }
-  .help-panel-head h2 { font-size: 16px; font-weight: 700; margin: 0; }
+  .help-panel-head h2 { font-size: 15px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 6px; }
+  .help-panel-head h2 .ic { width: 16px; height: 16px; flex: none; }
   .help-close {
-    width: 30px; height: 30px; border-radius: 50%; border: none; background: var(--fill);
+    flex: none; width: 30px; height: 30px; border-radius: 50%; border: none; background: var(--fill);
     color: var(--text-secondary); cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
   }
+  .help-foot { padding: 4px 14px 16px; text-align: center; }
+  #help-btn[aria-expanded="true"] { background: var(--accent); color: #fff; }
   .help-body { padding: 4px 14px 18px; }
   .help-body section { margin-top: 14px; }
   .help-body h3 {
@@ -592,7 +587,7 @@
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/" class="btn btn-gray" aria-label="홈"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-house"/></svg><span class="lbl">홈</span></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/portfolio/" class="btn btn-gray" aria-label="포트폴리오"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-chart-bar"/></svg><span class="lbl">포트폴리오</span></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/retirement/" class="btn btn-gray" aria-label="현금흐름"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-calculator"/></svg><span class="lbl">현금흐름</span></a>
-      <button id="help-btn" class="btn btn-gray" aria-label="데이터 읽는 법 열기"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg><span class="lbl">데이터 읽는 법</span></button>
+      <button id="help-btn" class="btn btn-gray" aria-label="데이터 읽는 법 열기" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg><span class="lbl">데이터 읽는 법</span></button>
       <button id="theme-btn" class="btn btn-gray" aria-label="다크 모드로 전환"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-moon"/></svg><span class="lbl">다크</span></button>
     </div>
   </div>
@@ -616,49 +611,10 @@
     </label>
   </div>
 
-  <div class="toolbar">
-    <div class="toolbar-row">
-      <label class="search">
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-search"/></svg>
-        <input type="search" class="ticker-search" id="ticker-search" placeholder="종목명·티커 검색">
-      </label>
-      <select class="sort-select" id="sort-select" aria-label="정렬">
-        <option value="cap" selected>시가총액순</option>
-        <option value="stage">MDD단계순</option>
-        <option value="depth">낙폭깊은순</option>
-        <option value="pct_chg">등락률순</option>
-        <option value="symb">알파벳순</option>
-      </select>
-    </div>
-    <div class="seg" id="filter-stage">
-      <span class="chip active" data-stage="all">전체</span>
-      <span class="chip" data-stage="1">1단계+</span>
-      <span class="chip" data-stage="2">2단계+</span>
-      <span class="chip" data-stage="3">3단계</span>
-    </div>
-    <div class="chip-group" id="filter-category">
-      <span class="chip active" data-cat="all">모든분류</span>
-      <span class="chip" data-cat="개별종목">미국개별종목</span>
-      <span class="chip" data-cat="섹터ETF">미국ETF</span>
-      <span class="chip" data-cat="한국지수">한국지수</span>
-      <span class="chip" data-cat="한국개별종목">한국개별종목</span>
-      <span class="chip" data-cat="한국ETF">한국ETF</span>
-    </div>
-  </div>
-
-  <div id="mdd-alert-banner"></div>
-  <div id="banner"></div>
-  <div class="grid-count" id="grid-count"></div>
-  <div class="grid" id="grid"></div>
-  <footer id="footer"></footer>
-</div>
-
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
-
 <div id="help-overlay" class="help-overlay">
   <div class="help-panel">
     <div class="help-panel-head">
-      <h2>데이터 읽는 법</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg>데이터 읽는 법 — 매수·매도 전략 가이드</h2>
       <button id="help-close" class="help-close" aria-label="닫기"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-xmark"/></svg></button>
     </div>
     <div class="help-tabs"><div class="seg" id="help-seg" role="tablist" aria-label="도움말 종류"><span class="chip active" data-pane="buy" role="tab">매수 전략</span><span class="chip" data-pane="sell" role="tab">매도 전략</span></div></div>
@@ -861,9 +817,49 @@
         </div>
       </section>
       </div>
+      <div class="help-foot"><button type="button" class="btn btn-gray help-back" id="help-back">닫고 종목 보기</button></div>
     </div>
   </div>
 </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <label class="search">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-search"/></svg>
+        <input type="search" class="ticker-search" id="ticker-search" placeholder="종목명·티커 검색">
+      </label>
+      <select class="sort-select" id="sort-select" aria-label="정렬">
+        <option value="cap" selected>시가총액순</option>
+        <option value="stage">MDD단계순</option>
+        <option value="depth">낙폭깊은순</option>
+        <option value="pct_chg">등락률순</option>
+        <option value="symb">알파벳순</option>
+      </select>
+    </div>
+    <div class="seg" id="filter-stage">
+      <span class="chip active" data-stage="all">전체</span>
+      <span class="chip" data-stage="1">1단계+</span>
+      <span class="chip" data-stage="2">2단계+</span>
+      <span class="chip" data-stage="3">3단계</span>
+    </div>
+    <div class="chip-group" id="filter-category">
+      <span class="chip active" data-cat="all">모든분류</span>
+      <span class="chip" data-cat="개별종목">미국개별종목</span>
+      <span class="chip" data-cat="섹터ETF">미국ETF</span>
+      <span class="chip" data-cat="한국지수">한국지수</span>
+      <span class="chip" data-cat="한국개별종목">한국개별종목</span>
+      <span class="chip" data-cat="한국ETF">한국ETF</span>
+    </div>
+  </div>
+
+  <div id="mdd-alert-banner"></div>
+  <div id="banner"></div>
+  <div class="grid-count" id="grid-count"></div>
+  <div class="grid" id="grid"></div>
+  <footer id="footer"></footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <div id="fullscreen-backdrop" class="fullscreen-backdrop">
   <div class="card fullscreen" id="fullscreen-card"></div>
@@ -3239,26 +3235,31 @@ function render() {
   });
 }
 
-function wireOverlay(btnId, overlayId, closeId) {
-  const overlay = document.getElementById(overlayId);
-  const open = () => { overlay.classList.add("open"); document.body.classList.add("modal-open"); };
-  const close = () => { overlay.classList.remove("open"); document.body.classList.remove("modal-open"); };
-  document.getElementById(btnId).addEventListener("click", open);
-  document.getElementById(closeId).addEventListener("click", close);
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
-}
-
 // 도움말: 매수/매도 패널 전환. 열 때는 항상 지금 화면 모드의 패널로 시작하고, 위 토글로 언제든 바꿀 수 있다.
 function setHelpPane(mode) {
   document.querySelectorAll("#help-overlay .help-pane").forEach(pn => { pn.hidden = pn.dataset.pane !== mode; });
   document.querySelectorAll("#help-seg .chip").forEach(c => c.classList.toggle("active", c.dataset.pane === mode));
+}
+
+// 도움말 인라인 패널 열기/닫기(버튼 토글). 열 때는 지금 화면 모드의 패널로 시작하고 패널 위치로 스크롤한다.
+function setHelpOpen(open) {
   const ov = document.getElementById("help-overlay");
-  if (ov) ov.scrollTop = 0;
+  const btn = document.getElementById("help-btn");
+  ov.classList.toggle("open", open);
+  document.body.classList.toggle("help-open", open);
+  btn.setAttribute("aria-expanded", open ? "true" : "false");
+  if (open) {
+    setHelpPane(state.mode);
+    ov.scrollIntoView({ block: "start" });
+    window.scrollBy(0, -60);
+  }
 }
 
 function wireHelp() {
-  wireOverlay("help-btn", "help-overlay", "help-close");
-  document.getElementById("help-btn").addEventListener("click", () => setHelpPane(state.mode));
+  const isOpen = () => document.getElementById("help-overlay").classList.contains("open");
+  document.getElementById("help-btn").addEventListener("click", () => setHelpOpen(!isOpen()));
+  document.getElementById("help-close").addEventListener("click", () => setHelpOpen(false));
+  document.getElementById("help-back").addEventListener("click", () => { setHelpOpen(false); window.scrollTo(0, 0); });
   document.querySelectorAll("#help-seg .chip").forEach(chip => {
     chip.addEventListener("click", () => setHelpPane(chip.dataset.pane));
   });
@@ -3266,6 +3267,7 @@ function wireHelp() {
   // 닫기 버튼과 Esc로만 닫는다.
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && fullscreenSymb) closeFullscreen();
+    else if (e.key === "Escape" && isOpen()) setHelpOpen(false);
   });
 }
 
