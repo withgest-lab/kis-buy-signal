@@ -17,6 +17,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
+import pandas as pd
+
 from signal_bot import kis_client as kc
 from signal_bot import kis_client_kr as kc_kr
 from signal_bot import mdd
@@ -64,6 +66,29 @@ def needs_full_refresh(force: bool = False) -> bool:
     return date.today() - updated_at > timedelta(days=REFRESH_INTERVAL_DAYS)
 
 
+# 한국 개별종목·ETF 베이스라인 시작일. KIS 국내 일봉은 1990년대 종가가 자본 변동에 대해 수정주가로 일관되지 않는
+# 종목이 있다(예: 기아 1990년 종가 347,656원 vs 2000년 4,000~8,000원) - 이 값이 "사상 최고가"가 되면 낙폭이 실제와
+# 크게 다르게(-66%) 나오고 낙폭 국면 통계도 왜곡된다. 지수(KOSPI200)는 실제 지수라 그대로 둔다.
+KR_HISTORY_START = "2000-01-01"
+
+
+def trim_kr_history() -> list[str]:
+    """한국 개별종목·ETF 베이스라인 CSV를 KR_HISTORY_START 이후로 자른다(이미 잘려 있으면 건드리지 않음). 바뀐 종목 목록 반환."""
+    changed = []
+    for category, symb in TICKERS:
+        if not is_kr(category) or kr_kind(category) != "item":
+            continue
+        path = BASELINE_DIR / f"{symb}_daily.csv"
+        if not path.exists():
+            continue
+        df = pd.read_csv(path, parse_dates=["date"])
+        if df.empty or df["date"].min() >= pd.Timestamp(KR_HISTORY_START):
+            continue
+        df[df["date"] >= pd.Timestamp(KR_HISTORY_START)].to_csv(path, index=False)
+        changed.append(symb)
+    return changed
+
+
 def missing_symbols() -> list[tuple[str, str]]:
     """유니버스에는 있는데 베이스라인 CSV가 없는 종목(유니버스 확대로 새로 들어왔거나 지난번 수집에 실패한 종목).
     종목 구성이 바뀔 때 전체를 다시 받지 않고 이 종목들만 증분 수집한다(103종목 전체는 10분 이상 걸림)."""
@@ -97,7 +122,15 @@ def main(force: bool = False) -> None:
     full = needs_full_refresh(force)
     targets = list(TICKERS) if full else missing_symbols()
     if not targets:
-        print(f"베이스라인이 최신(30일 이내)이라 재수집 생략 (마지막 갱신: {_load_meta()['updated_at']})")
+        trimmed = trim_kr_history()
+        if not trimmed:
+            print(f"베이스라인이 최신(30일 이내)이라 재수집 생략 (마지막 갱신: {_load_meta()['updated_at']})")
+            return
+        print(f"한국 종목 {len(trimmed)}개 베이스라인을 {KR_HISTORY_START} 이후로 보정: {trimmed}")
+        print("\nMDD 베이스라인(낙폭국면/백분위) 다시 계산 중...")
+        baseline = mdd.build_all_baselines(TICKERS)
+        insufficient = [s for s, b in baseline.items() if b.get("insufficient_data")]
+        print(f"완료: {len(baseline)}종목 (데이터 부족 {len(insufficient)}개: {insufficient})")
         return
     if not full:
         print(f"새로 들어온(또는 이전에 실패한) {len(targets)}종목만 증분 수집: {[s for _c, s in targets]}")
@@ -123,6 +156,10 @@ def main(force: bool = False) -> None:
         print(f"가장 긴 종목: {earliest_dates[0]}부터, 가장 짧은 종목: {earliest_dates[-1]}부터")
     if fail:
         print(f"실패 {len(fail)}종목: {[r['symb'] for r in fail]}")
+
+    trimmed = trim_kr_history()
+    if trimmed:
+        print(f"한국 종목 {len(trimmed)}개 베이스라인을 {KR_HISTORY_START} 이후로 보정: {trimmed}")
 
     # 증분 수집이면 마지막 "전체 갱신일"은 그대로 둔다(그래야 기존 종목의 30일 주기 갱신이 밀리지 않는다).
     prev_meta = _load_meta()
