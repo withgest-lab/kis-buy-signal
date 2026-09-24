@@ -1852,7 +1852,8 @@ function detailContentHtml(t, detail, large, selectedEpisode, availW) {
   const priceMarkers = buildSelectionMarkers("price", priceSlice, troughDates, selectedEpisode);
   const uwMarkers = buildSelectionMarkers("underwater", underwaterSlice, troughDates, selectedEpisode);
   const episodeBoxHtml = selectedEpisode
-    ? episodeDetailHtml(selectedEpisode, findEpisodeCause(events, selectedEpisode.start, selectedEpisode.end))
+    ? episodeDetailHtml(selectedEpisode, findEpisodeCause(events, selectedEpisode.start, selectedEpisode.end),
+        findDepthTroughs(fullUnderwater, selectedEpisode.start, selectedEpisode.end)[0])
     : "";
 
   // 히스토그램 위 한 줄 요약(진행중 국면이 있을 때): 저점 대비 지금 위치.
@@ -1916,13 +1917,17 @@ function fmtEpisodeDuration(days) {
 // 선택된 국면의 상세 설명 - 일반 HTML 블록(div/strong/br)이라 SVG와 달리 길이에
 // 따라 자동 줄바꿈되고 아래 내용을 밀어낼 뿐이므로, 그래프나 다른 글자와
 // 겹치거나 잘리는 문제가 애초에 생기지 않는다.
-function episodeDetailHtml(episode, cause) {
+function episodeDetailHtml(episode, cause, trough) {
   const days = Math.max(0, Math.round((new Date(episode.end) - new Date(episode.start)) / 86400000));
   const endLabel = episode.isComplete ? episode.end : `${episode.end}(진행중)`;
   const causeText = cause || "특정 이벤트와 매칭되지 않음";
   const periodText = `${episode.start} ~ ${endLabel} (${fmtEpisodeDuration(days)})`;
+  // 박스가 좁아 차트 안에 날짜 글자를 못 넣는 경우에도 최저점 날짜는 항상 여기서 볼 수 있다.
+  const troughText = trough
+    ? ` · 최저점 <strong style="color:var(--status-crit)">${escapeHtml(trough.date)}</strong> (${(trough.depth * 100).toFixed(1)}%)`
+    : "";
   return `<div class="episode-detail-box-inner">
-    <strong>선택한 낙폭국면</strong> · <strong>${escapeHtml(periodText)}</strong> · 최대낙폭 <strong style="color:var(--status-crit)">${Math.abs(episode.depth * 100).toFixed(1)}%</strong><br>
+    <strong>선택한 낙폭국면</strong> · <strong>${escapeHtml(periodText)}</strong> · 최대낙폭 <strong style="color:var(--status-crit)">${Math.abs(episode.depth * 100).toFixed(1)}%</strong>${troughText}<br>
     사유: <strong>${escapeHtml(causeText)}</strong>
   </div>`;
 }
