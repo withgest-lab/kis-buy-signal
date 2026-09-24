@@ -46,14 +46,13 @@ def _save_meta(meta: dict) -> None:
         json.dump(meta, f, ensure_ascii=False, indent=2)
 
 
-def is_stale(force: bool = False) -> bool:
+def needs_full_refresh(force: bool = False) -> bool:
+    """모든 종목을 처음부터 다시 받아야 하는지 - force, 메타 없음, 베이스라인 CSV가 하나도 없음, 마지막 전체 갱신 후 30일 경과."""
     if force:
         return True
     meta = _load_meta()
     if meta is None:
         return True
-    if sorted(meta.get("symbols", [])) != sorted(symb for _c, symb in TICKERS):
-        return True  # 유니버스 구성이 바뀜(시총 랭킹 변동 등) -> 강제 재수집
     # signal_bot/data/baseline/은 .gitignore 대상이라 커밋되지 않는데, meta.json은
     # 커밋된다 - CI처럼 매번 새 파일시스템으로 시작하는 환경에서는 "meta상 날짜는
     # 최신"인데 실제 CSV 파일은 하나도 없는 상태가 될 수 있다. 이 경우 날짜만 보고
@@ -63,6 +62,16 @@ def is_stale(force: bool = False) -> bool:
         return True
     updated_at = datetime.strptime(meta["updated_at"], "%Y-%m-%d").date()
     return date.today() - updated_at > timedelta(days=REFRESH_INTERVAL_DAYS)
+
+
+def missing_symbols() -> list[tuple[str, str]]:
+    """유니버스에는 있는데 베이스라인 CSV가 없는 종목(유니버스 확대로 새로 들어왔거나 지난번 수집에 실패한 종목).
+    종목 구성이 바뀔 때 전체를 다시 받지 않고 이 종목들만 증분 수집한다(103종목 전체는 10분 이상 걸림)."""
+    return [(c, s) for c, s in TICKERS if not (BASELINE_DIR / f"{s}_daily.csv").exists()]
+
+
+def is_stale(force: bool = False) -> bool:
+    return needs_full_refresh(force) or bool(missing_symbols())
 
 
 def _fetch_one(category: str, symb: str) -> dict:
@@ -85,9 +94,13 @@ def _fetch_one(category: str, symb: str) -> dict:
 
 
 def main(force: bool = False) -> None:
-    if not is_stale(force=force):
+    full = needs_full_refresh(force)
+    targets = list(TICKERS) if full else missing_symbols()
+    if not targets:
         print(f"베이스라인이 최신(30일 이내)이라 재수집 생략 (마지막 갱신: {_load_meta()['updated_at']})")
         return
+    if not full:
+        print(f"새로 들어온(또는 이전에 실패한) {len(targets)}종목만 증분 수집: {[s for _c, s in targets]}")
 
     BASELINE_DIR.mkdir(parents=True, exist_ok=True)
     kc.ensure_auth()
@@ -95,12 +108,12 @@ def main(force: bool = False) -> None:
 
     results = []
     with ThreadPoolExecutor(max_workers=kc.MAX_CONCURRENCY) as pool:
-        futures = {pool.submit(_fetch_one, category, symb): symb for category, symb in TICKERS}
+        futures = {pool.submit(_fetch_one, category, symb): symb for category, symb in targets}
         for future in as_completed(futures):
             results.append(future.result())
             done = len(results)
-            if done % 20 == 0 or done == len(TICKERS):
-                print(f"진행: {done}/{len(TICKERS)}", flush=True)
+            if done % 20 == 0 or done == len(targets):
+                print(f"진행: {done}/{len(targets)}", flush=True)
 
     ok = [r for r in results if r["ok"]]
     fail = [r for r in results if not r["ok"]]
@@ -111,8 +124,10 @@ def main(force: bool = False) -> None:
     if fail:
         print(f"실패 {len(fail)}종목: {[r['symb'] for r in fail]}")
 
+    # 증분 수집이면 마지막 "전체 갱신일"은 그대로 둔다(그래야 기존 종목의 30일 주기 갱신이 밀리지 않는다).
+    prev_meta = _load_meta()
     _save_meta({
-        "updated_at": date.today().strftime("%Y-%m-%d"),
+        "updated_at": date.today().strftime("%Y-%m-%d") if full or not prev_meta else prev_meta["updated_at"],
         "symbols": [symb for _c, symb in TICKERS],
     })
 

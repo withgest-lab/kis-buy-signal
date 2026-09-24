@@ -27,7 +27,7 @@ FWD_6M, FWD_12M = 126, 252
 SPARK_BARS = 250                   # 카드 미니 낙폭 스파크라인(약 1년)
 MIN_REC_EVENTS = 3                 # 회복기간 통계를 보여줄 최소 회복 사례 수
 
-CORE_TICKERS = {"SPY", "QQQ", "DIA", "IWM", "KOSPI200"}   # 계속 모아가는 주요 지수
+CORE_TICKERS = {"SPY", "QQQ", "DIA", "IWM", "KOSPI200", "069500"}   # 계속 모아가는 주요 지수(069500=KODEX 200)
 SIGNAL_KEYS = ("retrace", "wedge", "bigBear", "ma200", "rs", "regime")
 
 
@@ -35,7 +35,7 @@ def symbol_tag(symb: str, category: str) -> str:
     """core=주요 지수(참고용 문구), theme=섹터/테마 ETF(주 대상), stock=개별주."""
     if symb in CORE_TICKERS:
         return "core"
-    if category == "섹터ETF":
+    if category in ("섹터ETF", "한국ETF"):
         return "theme"
     return "stock"
 

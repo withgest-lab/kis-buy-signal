@@ -38,6 +38,20 @@ CURATED_ETFS = [
     ("섹터ETF", "VOLT"),
     ("섹터ETF", "ARKK"),
     ("섹터ETF", "ICLN"),
+
+    # 미국 산업 ETF (GICS 섹터 SPDR 밖의 세부 산업)
+    ("섹터ETF", "XBI"),
+    ("섹터ETF", "KRE"),
+    ("섹터ETF", "ITA"),
+    ("섹터ETF", "ITB"),
+    ("섹터ETF", "XRT"),
+    ("섹터ETF", "IYT"),
+    ("섹터ETF", "XME"),
+    ("섹터ETF", "GDX"),
+    ("섹터ETF", "URA"),
+    ("섹터ETF", "IGV"),
+    ("섹터ETF", "SMH"),
+    ("섹터ETF", "XOP"),
 ]
 
 CURATED_ETF_NAMES = {
@@ -51,6 +65,10 @@ CURATED_ETF_NAMES = {
     "SOXX": "Semiconductor ETF", "BOTZ": "Robotics&AI ETF", "ROBO": "Robotics ETF",
     "AIPO": "AI Infra ETF", "QTUM": "Quantum ETF", "VOLT": "Electrification ETF",
     "ARKK": "ARK Innovation ETF", "ICLN": "Clean Energy ETF",
+    "XBI": "Biotech ETF", "KRE": "Regional Banks ETF", "ITA": "Aerospace & Defense ETF",
+    "ITB": "Home Construction ETF", "XRT": "Retail ETF", "IYT": "Transportation ETF",
+    "XME": "Metals & Mining ETF", "GDX": "Gold Miners ETF", "URA": "Uranium ETF",
+    "IGV": "Software ETF", "SMH": "Semiconductor ETF(SMH)", "XOP": "Oil & Gas Exploration ETF",
 }
 
 CURATED_ETF_DESCRIPTIONS = {
@@ -79,6 +97,18 @@ CURATED_ETF_DESCRIPTIONS = {
     "VOLT": "전기화(전력망·배터리 등) 관련 기업들에 투자하는 테마 ETF",
     "ARKK": "파괴적 혁신 기술 기업들에 투자하는 액티브 운용 ETF",
     "ICLN": "태양광·풍력 등 클린에너지 관련 기업들에 투자하는 테마 ETF",
+    "XBI": "바이오테크 기업들에 동일가중으로 투자하는 ETF",
+    "KRE": "미국 지역은행 주식에 투자하는 ETF",
+    "ITA": "항공우주·방위산업 기업들에 투자하는 ETF",
+    "ITB": "주택건설 기업들에 투자하는 ETF",
+    "XRT": "미국 소매·유통 기업들에 동일가중으로 투자하는 ETF",
+    "IYT": "항공·철도·트럭 등 운송 기업들에 투자하는 ETF",
+    "XME": "금속·광산 기업들에 투자하는 ETF",
+    "GDX": "금광 기업들에 투자하는 ETF",
+    "URA": "우라늄·원자력 관련 기업들에 투자하는 ETF",
+    "IGV": "소프트웨어 기업들에 투자하는 ETF",
+    "SMH": "반도체 대표 기업들에 투자하는 ETF",
+    "XOP": "석유·가스 탐사·생산 기업들에 투자하는 ETF",
 }
 
 DAILY_MIN_ROWS = 250
@@ -142,12 +172,91 @@ MDD_ALERT_LEVELS = [
 # 미국/한국 API 분기를 판단한다(fetch_universe.py/baseline_fetch.py 참고).
 KR_INDEX_CATEGORY = "한국지수"
 KR_STOCK_CATEGORY = "한국개별종목"
+KR_ETF_CATEGORY = "한국ETF"
 KR_TARGETS = [
     (KR_INDEX_CATEGORY, "KOSPI200"),
     (KR_STOCK_CATEGORY, "005930"),   # 삼성전자
     (KR_STOCK_CATEGORY, "000660"),   # SK하이닉스
+    (KR_STOCK_CATEGORY, "005380"),   # 현대차
+    (KR_STOCK_CATEGORY, "000270"),   # 기아
+    (KR_STOCK_CATEGORY, "373220"),   # LG에너지솔루션
+    (KR_STOCK_CATEGORY, "207940"),   # 삼성바이오로직스
+    (KR_STOCK_CATEGORY, "068270"),   # 셀트리온
+    (KR_STOCK_CATEGORY, "105560"),   # KB금융
+    (KR_STOCK_CATEGORY, "055550"),   # 신한지주
+    (KR_STOCK_CATEGORY, "086790"),   # 하나금융지주
+    (KR_STOCK_CATEGORY, "035420"),   # NAVER
+    (KR_STOCK_CATEGORY, "035720"),   # 카카오
+    (KR_STOCK_CATEGORY, "005490"),   # POSCO홀딩스
+    (KR_STOCK_CATEGORY, "006400"),   # 삼성SDI
+    (KR_STOCK_CATEGORY, "051910"),   # LG화학
+    (KR_STOCK_CATEGORY, "012330"),   # 현대모비스
+    (KR_STOCK_CATEGORY, "012450"),   # 한화에어로스페이스
+    (KR_STOCK_CATEGORY, "329180"),   # HD현대중공업
+    (KR_STOCK_CATEGORY, "028260"),   # 삼성물산
+    (KR_STOCK_CATEGORY, "034020"),   # 두산에너빌리티
+    (KR_STOCK_CATEGORY, "015760"),   # 한국전력
+    (KR_STOCK_CATEGORY, "096770"),   # SK이노베이션
+    (KR_ETF_CATEGORY, "069500"),   # KODEX 200
+    (KR_ETF_CATEGORY, "229200"),   # KODEX 코스닥150
+    (KR_ETF_CATEGORY, "091160"),   # KODEX 반도체
+    (KR_ETF_CATEGORY, "305720"),   # KODEX 2차전지산업
+    (KR_ETF_CATEGORY, "091180"),   # KODEX 자동차
+    (KR_ETF_CATEGORY, "091170"),   # KODEX 은행
+    (KR_ETF_CATEGORY, "244580"),   # KODEX 바이오
+    (KR_ETF_CATEGORY, "139260"),   # TIGER 200 IT
+    (KR_ETF_CATEGORY, "117700"),   # KODEX 건설
+    (KR_ETF_CATEGORY, "102970"),   # KODEX 증권
 ]
-KR_NAMES = {"KOSPI200": "코스피200", "005930": "삼성전자", "000660": "SK하이닉스"}
+KR_NAMES = {
+    "KOSPI200": "코스피200", "005930": "삼성전자", "000660": "SK하이닉스",
+    "005380": "현대차",
+    "000270": "기아",
+    "373220": "LG에너지솔루션",
+    "207940": "삼성바이오로직스",
+    "068270": "셀트리온",
+    "105560": "KB금융",
+    "055550": "신한지주",
+    "086790": "하나금융지주",
+    "035420": "NAVER",
+    "035720": "카카오",
+    "005490": "POSCO홀딩스",
+    "006400": "삼성SDI",
+    "051910": "LG화학",
+    "012330": "현대모비스",
+    "012450": "한화에어로스페이스",
+    "329180": "HD현대중공업",
+    "028260": "삼성물산",
+    "034020": "두산에너빌리티",
+    "015760": "한국전력",
+    "096770": "SK이노베이션",
+    "069500": "KODEX 200",
+    "229200": "KODEX 코스닥150",
+    "091160": "KODEX 반도체",
+    "305720": "KODEX 2차전지산업",
+    "091180": "KODEX 자동차",
+    "091170": "KODEX 은행",
+    "244580": "KODEX 바이오",
+    "139260": "TIGER 200 IT",
+    "117700": "KODEX 건설",
+    "102970": "KODEX 증권",
+}
+
+# 한국 ETF 사업요약(알림/카드 설명용) - company_info가 CURATED_ETF_DESCRIPTIONS에서 읽는다.
+KR_ETF_DESCRIPTIONS = {
+    "069500": "코스피200 지수를 추종하는 국내 대표 ETF(KODEX 200)",
+    "229200": "코스닥150 지수를 추종하는 ETF",
+    "091160": "국내 반도체 대표 기업들에 투자하는 ETF",
+    "305720": "국내 2차전지 관련 기업들에 투자하는 ETF",
+    "091180": "국내 자동차 관련 기업들에 투자하는 ETF",
+    "091170": "국내 은행주에 투자하는 ETF",
+    "244580": "국내 바이오 기업들에 투자하는 ETF",
+    "139260": "코스피200 IT 업종(반도체·소프트웨어 등)에 투자하는 ETF",
+    "117700": "국내 건설 기업들에 투자하는 ETF",
+    "102970": "국내 증권주에 투자하는 ETF",
+}
+CURATED_ETF_DESCRIPTIONS.update(KR_ETF_DESCRIPTIONS)
+
 
 _ranked = _us.get_top_n_targets(SP500_TOP_N, NASDAQ100_TOP_N)
 
@@ -159,7 +268,7 @@ TICKER_NAMES.update(KR_NAMES)
 
 
 def is_kr(category: str) -> bool:
-    return category in (KR_INDEX_CATEGORY, KR_STOCK_CATEGORY)
+    return category in (KR_INDEX_CATEGORY, KR_STOCK_CATEGORY, KR_ETF_CATEGORY)
 
 
 def kr_kind(category: str) -> str:
