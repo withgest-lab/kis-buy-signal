@@ -539,6 +539,14 @@
   .src-badge { font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; line-height: 1.4; }
   .src-badge.video { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
   .src-badge.sys { background: var(--fill); color: var(--text-secondary); }
+  .sell-summary {
+    background: var(--surface-2); border-radius: 12px; padding: 10px 14px; margin: 0 0 12px;
+    font-size: 13px; line-height: 1.65; color: var(--text-secondary);
+  }
+  .sell-summary b { color: var(--text-primary); }
+  .sell-summary b.down { color: var(--loss); }
+  .sell-summary b.up { color: var(--gain); }
+  .card.fullscreen .sell-summary { font-size: 14px; }
 </style>
 </head>
 <body>
@@ -731,7 +739,7 @@
         <div class="help-group">
         <p><b>가격 · 돌파/천정</b> — 점선은 신고가 기준선(직전 N봉 최고가)입니다. ▲는 신고가 돌파, ▼는 천정 확정 지점이고, 점선은 위에서 아래까지 이어져 다른 차트와 같은 날짜를 가리킵니다.</p>
         <p><b>천정 대비 낙폭</b> — 0%가 천정이고 아래로 내려갈수록 깊은 조정입니다. 가로선 3개가 주의/경고/매도검토 지점입니다.</p>
-        <p><b>천정 후 조정 낙폭 히스토그램</b> — 과거 조정 사례를 시간축 위 박스로 보여줍니다. 박스는 천정일에서 시작해 회복(또는 신고가 기준 창 이탈)일까지 이어지며, <b>기간이 길수록 넓고</b>(위 차트들과 같은 날짜축) <b>낙폭이 깊을수록 깁니다</b>. 박스를 누르면 가격·낙폭·RSI 차트에 그 구간과 저점이 함께 표시되고, 아래 상세 박스에 천정·단계 진입일(이후 6·12개월 수익률)·최저점·종료가 나옵니다. 빨간 박스는 아직 회복 전인 진행중 사례이고, <b>점선 박스는 천정이 아직 확정되지 않았어도(낙폭이 '주의' 전)</b> 현재 고점 이후의 하락을 보여주며, 위 요약 줄에 주의선까지 얼마나 남았는지 나옵니다.</p>
+        <p><b>돌파→천정→하락 사이클 히스토그램</b> — 신고가 돌파부터 하락까지 한 사이클을 시간축 위에 나란히 보여줍니다. <b>0% 선 위의 초록 막대는 돌파→천정 상승</b>(높이 = 상승률), <b>아래 박스는 천정 뒤 하락</b>(높이 = 낙폭)이고, 폭은 기간에 비례하며 위 차트들과 같은 날짜축입니다. 그래서 <b>올라갈 때의 기울기(높이÷폭)와 내려올 때의 기울기</b>를 눈으로 비교할 수 있습니다. 위·아래 눈금은 각각 따로 잡히니 정확한 비교는 상세 박스의 "하루 평균 변화율"을 보세요. 영상의 쐐기형·되돌림 개념처럼 <b>위 막대들이 갈수록 낮아지거나(상승이 약해짐) 아래 박스가 위 막대보다 훨씬 가파르면</b> 경계 신호로 읽습니다. 막대를 누르면 가격 차트에 상승(초록)·하락(빨강) 구간이 표시되고, 아래 상세 박스에 돌파·천정·단계 진입일(이후 6·12개월 수익률)·최저점·종료와 상승/하락 속도가 나옵니다. 아직 고르지 않았다면 지금 진행 중인 사이클이 표시됩니다. 빨간 박스는 아직 회복 전인 진행중 사례이고, <b>점선 박스는 천정이 아직 확정되지 않았어도(낙폭이 '주의' 전)</b> 현재 고점 이후의 하락을 보여주며 위 요약 줄에 주의선까지 얼마나 남았는지 나옵니다.</p>
         <p><b>과거 신호 성과</b> — 이 종목에서 같은 단계에 처음 들어갔던 과거 사례들의 이후 6·12개월 수익률과 추가 하락폭 중앙값입니다. 사례가 5건 미만이면 "데이터 부족"으로 표시합니다. 같은 천정에서 나온 사례끼리는 완전히 독립적이지 않으니 참고용으로만 보세요.</p>
         </div>
       </section>
@@ -1264,11 +1272,12 @@ function lineChartSvg(records, opts) {
 
   // 히스토그램에서 고른 국면의 구간(시작~끝)은 옅은 인디고 배경 띠로 - 선 아래에 깔려 데이터를 가리지 않는다.
   laidOut.filter(ev => ev.isBand).forEach(ev => {
+    const bc = ev.color || "var(--select)";   // 매도 모드: 상승 띠=초록, 하락 띠=빨강
     if (!opts.noBandFill) {
-      body += `<rect x="${ev.x0}" y="${margin.top}" width="${Math.max(1, ev.x1 - ev.x0)}" height="${innerH}" style="fill:var(--select)" opacity="0.10"/>`;
+      body += `<rect x="${ev.x0}" y="${margin.top}" width="${Math.max(1, ev.x1 - ev.x0)}" height="${innerH}" style="fill:${bc}" opacity="0.10"/>`;
     }
     [ev.x0, ev.x1].forEach(bx => {
-      body += `<line x1="${bx}" x2="${bx}" y1="${margin.top}" y2="${plotB}" stroke="var(--select)" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>`;
+      body += `<line x1="${bx}" x2="${bx}" y1="${margin.top}" y2="${plotB}" stroke="${bc}" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>`;
     });
   });
 
@@ -1406,6 +1415,22 @@ function lineChartSvg(records, opts) {
         body += `<path d="${tri}" fill="${color}" stroke="var(--surface-1)" stroke-width="1" stroke-linejoin="round"><title>${escapeHtml(ev.label)} ${escapeHtml(ev.date)}</title></path>`;
       }
     }
+  });
+
+  // opts.arrowMarkers(매도 모드 ▼천정/▲돌파): 라벨 줄을 쓰지 않고 위~아래 점선 + 그 날짜의 선(opts.arrowSeriesKey) 위 지점을 가리키는 삼각형만
+  // 그린다 - 라벨이 위쪽에 여러 줄로 쌓여 차트를 가리는 것을 막는다(의미는 차트 제목의 ▲돌파 ▼천정 안내와 툴팁).
+  (opts.arrowMarkers || []).forEach(ev => {
+    if (ev.date < records[0].date || ev.date > records[n - 1].date || !opts.arrowSeriesKey) return;
+    let ai = records.findIndex(r => r.date >= ev.date);
+    if (ai === -1) ai = n - 1;
+    const av = records[ai][opts.arrowSeriesKey];
+    if (av == null) return;
+    const ax = xAt(ai), ay = yAt(av);
+    const tri = ev.arrow === "down"
+      ? `M${ax - 4},${ay - 9} L${ax + 4},${ay - 9} L${ax},${ay - 2} Z`
+      : `M${ax - 4},${ay + 9} L${ax + 4},${ay + 9} L${ax},${ay + 2} Z`;
+    body += `<line x1="${ax}" x2="${ax}" y1="${margin.top}" y2="${plotB}" stroke="${ev.color}" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>`;
+    body += `<path d="${tri}" fill="${ev.color}" stroke="var(--surface-1)" stroke-width="1" stroke-linejoin="round"><title>${escapeHtml(ev.label)} ${escapeHtml(ev.date)}</title></path>`;
   });
 
   // 낙폭 차트에서는 그 이벤트 때 실제로 몇 %까지 빠졌는지 숫자도 저점 근처에 표시한다 - 기간을 길게 볼 때는
@@ -1678,7 +1703,10 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
   // 막대 선택 시 위 차트 화살표 위치 계산에 필요). 오른쪽은 "지금"·저점·P50/P25/P10 라벨이 들어가는 거터다.
   const sharedLeft = (chartOpts && chartOpts.marginLeft != null) ? chartOpts.marginLeft : 32;
   const sharedRight = (chartOpts && chartOpts.marginRight != null) ? chartOpts.marginRight : 48;
-  const margin = { top: 10, right: sharedRight, bottom: fs + 22, left: sharedLeft };
+  // riseBars(매도 모드): 0% 선 위쪽에 돌파→천정 상승 막대를 그릴 영역(upH) + 캡션 줄. 호출부가 height에 이 높이를 더해 넘긴다.
+  const riseBars = (chartOpts && chartOpts.riseBars) || [];
+  const upH = riseBars.length ? ((chartOpts && chartOpts.upH) || 46) : 0;
+  const margin = { top: 10 + (upH ? upH + fs + 8 : 0), right: sharedRight, bottom: fs + 22, left: sharedLeft };
   const innerW = W - margin.left - margin.right;
   const innerH = H - margin.top - margin.bottom;
   const plotL = margin.left, plotR = W - margin.right;
@@ -1761,6 +1789,29 @@ function episodeHistogramSvg(episodes, percentiles, domainStart, domainEnd, char
       svg += `<circle cx="${plotR}" cy="${cy}" r="7" fill="var(--status-crit)" opacity="0.16"/>`;
       svg += `<circle cx="${plotR}" cy="${cy}" r="4" fill="var(--status-crit)" stroke="var(--surface-1)" stroke-width="2"/>`;
     }
+  }
+
+  // 상승 막대(돌파→천정): 하락 박스와 같은 날짜축이라 폭=기간(선형), 높이=상승률(보이는 최대 상승률 기준). 하락 박스의 시작(천정일)에서
+  // 바로 이어지며, 누르면 그 사이클의 하락 박스와 같은 선택이 된다(key). key가 없으면(미확정 후보) 선택 불가 점선 막대.
+  if (upH) {
+    const zeroY = margin.top;
+    const vis = riseBars.filter(r => r.end >= domainStart);
+    const maxG = Math.max(0.01, ...vis.map(r => r.gain));
+    svg += `<line x1="${plotL}" x2="${plotR}" y1="${zeroY - upH}" y2="${zeroY - upH}" stroke="var(--grid)" stroke-width="1" stroke-dasharray="1 4"/>`;
+    svg += `<text x="${plotL - 6}" y="${zeroY - upH + fs * 0.35}" text-anchor="end" font-size="${fs}" style="${TEXT_HALO}" fill="var(--text-muted)">+${Math.round(maxG * 100)}%</text>`;
+    svg += `<text x="${plotL + 2}" y="${10 + fs}" font-size="${fs}" font-weight="600" fill="var(--gain)">상승 (돌파→천정) · 높이=상승률</text>`;
+    vis.forEach(r => {
+      const xs = clampedX(r.start), xe = Math.min(plotR, xAt(r.end));
+      const w = Math.max(4, xe - xs);
+      const h = Math.max(1, (r.gain / maxG) * upH);
+      const title = `상승 ${r.start} ~ ${r.end} · +${(r.gain * 100).toFixed(1)}%`;
+      if (r.key) {
+        const sel = !!selectedEpisode && selectedEpisode.start === r.key.start && selectedEpisode.end === r.key.end;
+        svg += `<rect class="hist-bar hist-rise${sel ? " hist-bar-selected" : ""}" data-start="${r.key.start}" data-end="${r.key.end}" data-complete="${r.key.complete ? 1 : 0}" data-depth="${r.key.depth}" x="${xs}" y="${zeroY - h}" width="${w}" height="${h}" rx="${w > 8 ? 3 : 1}" fill="var(--gain)" fill-opacity="0.75" style="cursor:pointer" stroke="var(--surface-1)" stroke-width="0.6"><title>${title}</title></rect>`;
+      } else {
+        svg += `<rect class="hist-rise-pending" x="${xs}" y="${zeroY - h}" width="${w}" height="${h}" rx="${w > 8 ? 3 : 1}" fill="var(--gain)" fill-opacity="0.18" stroke="var(--gain)" stroke-width="1.2" stroke-dasharray="3 2" style="pointer-events:none"><title>${title} (미확정 사이클)</title></rect>`;
+      }
+    });
   }
 
   // P50/P25/P10 기준선은 막대를 다 그린 뒤 맨 위에 그린다 - 막대에 가려지지 않고 박스를 가로지르는 점선이 그대로 보인다.
@@ -2478,7 +2529,27 @@ function sellEventsForChart(detail, series) {
   return macro.concat(notes);
 }
 
-// 선택한 조정 사례(천정~종료) 상세 - 최저점 날짜·낙폭을 항상 보여주고, 단계 진입일과 그 뒤 6·12개월 수익률, 원인 문구를 붙인다.
+// 한 사이클(돌파 → 천정 → 하락)의 상승·하락 속도. 거래일 수는 종가 시계열(series)의 인덱스 차이로 센다.
+// 하루 평균 변화율은 복리 환산 (1+g)^(1/n)-1. rise/fall 각각 없으면 null.
+function sellCycleStats(series, riseFrom, riseFromPrice, peak, peakPrice, fallTo, fallDepth) {
+  const idx = d => { const i = series.findIndex(r => r.date >= d); return i < 0 ? series.length - 1 : i; };
+  const rate = (g, n) => (n > 0 && 1 + g > 0 ? Math.pow(1 + g, 1 / n) - 1 : null);
+  const out = { rise: null, fall: null, ratio: null };
+  if (riseFrom && riseFrom < peak && peakPrice > riseFromPrice) {
+    const gain = peakPrice / riseFromPrice - 1, bars = idx(peak) - idx(riseFrom);
+    out.rise = { gain, bars, rate: rate(gain, bars), start: riseFrom, end: peak };
+  }
+  const fb = idx(fallTo) - idx(peak);
+  if (fb >= 0) out.fall = { depth: fallDepth, bars: fb, rate: rate(fallDepth, fb), start: peak, end: fallTo };
+  if (out.rise && out.fall && out.rise.rate > 0 && out.fall.rate != null && out.fall.rate < 0) {
+    out.ratio = Math.abs(out.fall.rate) / out.rise.rate;
+  }
+  return out;
+}
+
+function fmtRate(r) { return r == null ? "-" : (r >= 0 ? "+" : "") + (r * 100).toFixed(2) + "%"; }
+
+// 선택한 조정 사례(돌파~종료) 상세 - 상승/하락 속도, 최저점 날짜·낙폭, 단계 진입일과 그 뒤 6·12개월 수익률, 원인 문구.
 function sellEpisodeDetailHtml(ev, episode, series, cause, currency) {
   const days = Math.max(0, Math.round((new Date(episode.end) - new Date(episode.start)) / 86400000));
   const fwd = d => {
@@ -2491,12 +2562,66 @@ function sellEpisodeDetailHtml(ev, episode, series, cause, currency) {
     : ev.recovered === false ? `${ev.end} 회복 전 종료(천정이 신고가 기준 창 밖으로 밀림)` : "진행중";
   const stages = [1, 2, 3].filter(k => ev.stages[String(k)])
     .map(k => `${SELL_STAGE_NAME[k]} <strong>${escapeHtml(ev.stages[String(k)])}</strong>${fwd(ev.stages[String(k)])}`).join("<br>");
+  const st = sellCycleStats(series, ev.breakout, ev.breakout_price, ev.peak, ev.peak_price, ev.trough, ev.trough_depth);
+  let speed = "";
+  if (st.rise) {
+    speed += `상승 <strong style="color:var(--gain)">${fmtSignedPct(st.rise.gain)}</strong> · ${st.rise.bars}거래일 (하루 평균 ${fmtRate(st.rise.rate)}) → `;
+  }
+  if (st.fall) {
+    speed += `하락 <strong style="color:var(--status-crit)">${fmtSignedPct(st.fall.depth)}</strong> · ${st.fall.bars}거래일 (하루 평균 ${fmtRate(st.fall.rate)})`;
+  }
+  if (st.ratio != null) speed += ` · 하락 속도는 상승의 <strong>${st.ratio.toFixed(1)}배</strong>(${st.ratio > 1 ? "더 가파름" : "더 완만함"})`;
+  const riseLine = ev.breakout && ev.breakout < ev.peak ? `돌파 <strong>${escapeHtml(ev.breakout)}</strong> (${fmtExactPrice(ev.breakout_price, currency)}) → ` : "";
   return `<div class="episode-detail-box-inner">
-    <strong>선택한 조정 사례</strong> · 천정 <strong>${escapeHtml(ev.peak)}</strong> (${fmtExactPrice(ev.peak_price, currency)}) → <strong>${escapeHtml(endText)}</strong> (${fmtEpisodeDuration(days)})<br>
-    최저점 <strong style="color:var(--status-crit)">${escapeHtml(ev.trough)}</strong> (천정 대비 ${(ev.trough_depth * 100).toFixed(1)}%) · 확정 ${escapeHtml(ev.confirm)}<br>
+    <strong>선택한 사이클</strong> · ${riseLine}천정 <strong>${escapeHtml(ev.peak)}</strong> (${fmtExactPrice(ev.peak_price, currency)}) → <strong>${escapeHtml(endText)}</strong> (천정부터 ${fmtEpisodeDuration(days)})<br>
+    ${speed ? speed + "<br>" : ""}최저점 <strong style="color:var(--status-crit)">${escapeHtml(ev.trough)}</strong> (천정 대비 ${(ev.trough_depth * 100).toFixed(1)}%) · 확정 ${escapeHtml(ev.confirm)}<br>
     단계 진입:<br>${stages}<br>
     사유: <strong>${escapeHtml(cause || "특정 이벤트와 매칭되지 않음")}</strong>
   </div>`;
+}
+
+// 상세 맨 위 한 문장 요약 - 지금 상태(단계·임계까지 남은 폭·보강 신호·이번 사이클의 상승/하락)를 문장으로 풀어 준다.
+function sellSummaryHtml(t, sell, by, series, nowEv, candidate, levels, domainEnd) {
+  const cur = by.current;
+  const pct = v => (v * 100).toFixed(1) + "%";
+  const stageName = SELL_STAGE_NAME[cur.stage];
+  const core = sell.tag === "core";
+  const parts = [];
+  parts.push(`<b>${escapeHtml(t.symb)}</b>는 신고가 기준 <b>${LOOKBACK_LABELS[state.lookback]}</b>로 천정(${cur.high_date.slice(2)}, ${fmtExactPrice(cur.high_price, t.currency)}) 대비 `
+    + `<b class="${cur.depth < 0 ? "down" : "up"}">${pct(cur.depth)}</b> — ` + (cur.stage === 0 ? "<b>정상 범위</b>" : `<b>${stageName} 단계</b>${core ? "(참고용)" : ""}`) + "입니다.");
+  if (cur.stage < 3) {
+    const nxt = levels[cur.stage];   // 다음 단계 임계(음수)
+    parts.push(`${SELL_STAGE_NAME[cur.stage + 1]}(${pct(nxt)})까지 <b>${((cur.depth - nxt) * 100).toFixed(1)}%p</b> 남았습니다.`);
+  } else {
+    parts.push(`이미 가장 깊은 단계입니다(매도검토 ${pct(levels[2])} 이하).`);
+  }
+  const names = [];
+  if (by.retrace && by.retrace.hit) names.push("되돌림률");
+  if (sell.wedge && sell.wedge.hit) names.push("쐐기형");
+  if (sell.bigBear && sell.bigBear.hit) names.push("장대음봉");
+  if (sell.ma200 && sell.ma200.hit) names.push("200일선 이탈");
+  if (sell.rs && sell.rs.hit) names.push("상대강도 약화");
+  if (sell.regime && sell.regime.hit) names.push("하락장");
+  parts.push(`보강 신호는 <b>${by.hits}/${by.avail}개</b>${names.length ? `(${names.join(", ")})` : ""} 해당합니다.`);
+  // 이번 사이클(확정 진행 사례, 없으면 미확정 후보)의 상승·하락
+  let st = null, unconfirmed = false;
+  if (nowEv) {
+    st = sellCycleStats(series, nowEv.breakout, nowEv.breakout_price, nowEv.peak, nowEv.peak_price, domainEnd, cur.depth);
+  } else if (candidate) {
+    unconfirmed = true;
+    st = sellCycleStats(series, cur.breakout, cur.breakout_price, cur.high_date, cur.high_price, domainEnd, cur.depth);
+  }
+  if (st && (st.rise || st.fall)) {
+    let s = "이번 사이클은 ";
+    if (st.rise) s += `돌파(${st.rise.start.slice(2)}) 뒤 <b>${fmtSignedPct(st.rise.gain)}</b>를 ${st.rise.bars}거래일 동안 올랐고`;
+    if (st.fall && st.fall.bars > 0) s += `${st.rise ? ", " : ""}천정 이후 <b>${st.fall.bars}거래일째</b> 하락 중`;
+    s += unconfirmed ? "이며 천정은 아직 확정되지 않았습니다." : "입니다.";
+    parts.push(s);
+  } else if (unconfirmed) {
+    parts.push("천정은 아직 확정되지 않았습니다.");
+  }
+  if (sell.thresholds.fallback) parts.push("(과거 낙폭 표본이 부족해 기본 임계를 씁니다.)");
+  return `<div class="sell-summary">${parts.join(" ")}</div>`;
 }
 
 function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
@@ -2541,12 +2666,29 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
     { value: levels[2], label: SELL_STAGE_NAME[3], color: "var(--stage-3)" },
   ];
 
+  // 돌파 → 천정 상승 막대(히스토그램 0% 선 위쪽). 사례마다 하락 박스와 같은 사이클 키를 달아 누르면 같이 선택된다.
+  const riseAll = [];
+  evs.forEach(e => {
+    if (e.breakout && e.breakout < e.peak && e.peak_price > e.breakout_price) {
+      riseAll.push({ start: e.breakout, end: e.peak, gain: e.peak_price / e.breakout_price - 1,
+        key: { start: e.peak, end: e.end || domainEnd, complete: e.recovered !== null, depth: e.trough_depth } });
+    }
+  });
+  const cur0 = by.current;
+  if (candidate && cur0.breakout && cur0.breakout < cur0.high_date && cur0.high_price > cur0.breakout_price) {
+    riseAll.push({ start: cur0.breakout, end: cur0.high_date, gain: cur0.high_price / cur0.breakout_price - 1, key: null });
+  }
+  const riseBars = riseAll.filter(r => r.end >= domainStart);
+  const upH = riseBars.length ? (large ? 62 : 46) : 0;
+  const upExtra = upH ? upH + F.reg + 8 : 0;
+
   const priceVals = [];
   slice.forEach(r => { priceVals.push(r.close, r.rolling_high); });
   const depthVals = slice.map(r => r.depth).concat(levels);
   const sharedLeft = Math.max(
     estimateLeftMargin(priceVals, v => fmtAxisPrice(v, t.currency), F.reg),
     estimateLeftMargin(depthVals, v => Math.round(v * 100) + "%", F.reg),
+    upH ? estimateLeftMargin([0, Math.max(...riseBars.map(r => r.gain))], v => "+" + Math.round(v * 100) + "%", F.reg) : 0,
   );
   const pctTxt = v => Math.round(v * 100) + "%";
   const rightStrings = ["지금"];
@@ -2563,12 +2705,33 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
   const sharedRight = estimateRightMargin(rightStrings, F.reg, chartW);
   const common = { width: chartW, large, marginLeft: sharedLeft, marginRight: sharedRight, domainStart, domainEnd };
 
-  // 선택한 박스(천정 시작일로 사례를 찾는다)의 저점 날짜 - 가격/낙폭/RSI·MFI 모든 차트가 같은 저점 세로선을 공유한다.
+  // 선택한 사이클(없으면 지금 진행 중인 사이클)의 상승(초록)·하락(빨강) 구간 - 가격/낙폭 차트에 띠와 "상승 +32% · 38일" 라벨로 표시.
+  // 선택한 박스(천정 시작일로 사례를 찾는다)의 저점 날짜는 가격/낙폭/RSI·MFI 모든 차트가 같은 세로선으로 공유한다.
   const selEv = selectedEpisode ? (evs.find(e => e.peak === selectedEpisode.start) || null) : null;
   const troughDates = selEv ? [selEv.trough] : [];
+  const cycEv = selEv || nowEv;
+  const bandMarkers = [];
+  {
+    let st = null, riseStart = null, peakDate = null, fallEnd = null, fallLabelSuffix = "";
+    if (cycEv) {
+      st = sellCycleStats(series, cycEv.breakout, cycEv.breakout_price, cycEv.peak, cycEv.peak_price, cycEv.trough, cycEv.trough_depth);
+      riseStart = cycEv.breakout; peakDate = cycEv.peak; fallEnd = cycEv.trough;
+    } else if (candidate) {
+      st = sellCycleStats(series, cur0.breakout, cur0.breakout_price, cur0.high_date, cur0.high_price, domainEnd, candidate.depth);
+      riseStart = cur0.breakout; peakDate = cur0.high_date; fallEnd = domainEnd; fallLabelSuffix = "(미확정)";
+    }
+    if (st && st.rise) {
+      bandMarkers.push({ date: st.rise.start, endDate: st.rise.end, val: null, isBand: true, priority: true, color: "var(--gain)",
+        label: `상승 ${fmtSignedPct(st.rise.gain)} · ${st.rise.bars}일` });
+    }
+    if (st && st.fall && st.fall.bars > 0) {
+      bandMarkers.push({ date: st.fall.start, endDate: st.fall.end, val: null, isBand: true, priority: true, color: "var(--status-crit)",
+        label: `하락 ${fmtSignedPct(st.fall.depth)} · ${st.fall.bars}일${fallLabelSuffix}` });
+    }
+  }
   const chartEvents = sellEventsForChart(detail, series);
-  const priceMarkers = chartEvents.concat(sellMarkers(evs, domainStart, true), buildSelectionMarkers("price", slice, troughDates, selectedEpisode));
-  const uwMarkers = chartEvents.concat(sellMarkers(evs, domainStart, false), buildSelectionMarkers("underwater", slice, troughDates, selectedEpisode));
+  const priceMarkers = chartEvents.concat(bandMarkers, buildSelectionMarkers("price", slice, troughDates, null));
+  const uwMarkers = chartEvents.concat(bandMarkers, buildSelectionMarkers("underwater", slice, troughDates, null));
 
   const priceChart = lineChartSvg(slice, {
     ...common, height: priceH, yFloor: 0,
@@ -2578,28 +2741,30 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
       { key: "close", color: "var(--gain)", width: large ? 2.2 : 1.8, labelCurrent: true, split: true },
     ],
     markerKey: "divergence_bear", markerMinGap: 14, arrowSeriesKey: "close",
-    eventMarkers: priceMarkers,
+    arrowMarkers: sellMarkers(evs, domainStart, true),
+    eventMarkers: priceMarkers, maxEventRows: 5,
   });
   const uwChart = lineChartSvg(slice, {
     ...common, height: uwH,
     yFormat: v => Math.round(v * 100) + "%", yCeil: 0, yFloor: -1,
     series: [{ key: "depth", color: "var(--depth-line)", width: large ? 2.2 : 1.8, labelCurrent: true, area: "zero-grad" }],
-    highlight: selectedEpisode ? { start: selectedEpisode.start, end: selectedEpisode.end } : null,
+    highlight: selectedEpisode ? { start: (selEv && selEv.breakout && selEv.breakout < selEv.peak) ? selEv.breakout : selectedEpisode.start, end: selectedEpisode.end } : null,
     noBandFill: true, eventDepthLabels: true, arrowSeriesKey: "depth",
+    arrowMarkers: sellMarkers(evs, domainStart, false),
     thresholds: [
       { value: 0, label: "천정", color: "var(--text-muted)" },
       { value: levels[0], label: SELL_STAGE_NAME[1], color: "var(--stage-1-text)" },
       { value: levels[1], label: SELL_STAGE_NAME[2], color: "var(--stage-2)" },
       { value: levels[2], label: SELL_STAGE_NAME[3], color: "var(--stage-3)" },
     ],
-    eventMarkers: uwMarkers,
+    eventMarkers: uwMarkers, maxEventRows: 4,
   });
   const histSvg = episodeHistogramSvg(episodes, null, domainStart, domainEnd, {
-    ...common, height: histH, levelLines, nowDepth, nowTroughDate: nowEv ? nowEv.trough : null, underwater: series, candidate,
+    ...common, height: histH + upExtra, levelLines, nowDepth, nowTroughDate: nowEv ? nowEv.trough : null, underwater: series, candidate,
+    riseBars, upH,
   }, selectedEpisode);
 
-  const cur = by.current;
-  const nowLine = `<div class="hist-now">신고가 기준 <b>${LOOKBACK_LABELS[state.lookback]}</b> · 천정 <b>${cur.high_date.slice(2)}</b> ${fmtExactPrice(cur.high_price, t.currency)} 대비 <b class="${cur.depth < 0 ? "down" : "up"}">${(cur.depth * 100).toFixed(1)}%</b> · 지금 단계 <b>${SELL_STAGE_NAME[cur.stage]}</b>${sell.tag === "core" && cur.stage > 0 ? " (참고용)" : ""}</div>`;
+  const summaryHtml = sellSummaryHtml(t, sell, by, series, nowEv, candidate, levels, domainEnd);
 
   // 히스토그램 위 한 줄 요약(진행중 사례가 있을 때): 저점 대비 지금 위치.
   let nowSummaryHtml = "";
@@ -2625,9 +2790,9 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
 
   return `
     <div class="detail-toolbar">${periodButtonsHtml(maxDays)}</div>
-    ${nowLine}
+    ${summaryHtml}
     <div class="chart-block">
-      <div class="chart-label"><span class="ttl">가격 · 돌파/천정</span> <span class="sub">· 점선=신고가 기준선 · ▲돌파 ▼천정 · 빨간점=하락 다이버전스</span></div>
+      <div class="chart-label"><span class="ttl">가격 · 돌파/천정</span> <span class="sub">· 점선=신고가 기준선 · ▲돌파 ▼천정 · 초록띠=상승 빨간띠=하락 · 빨간점=하락 다이버전스</span></div>
       ${priceChart}
     </div>
     <div class="chart-block">
@@ -2635,9 +2800,10 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
       ${uwChart}
     </div>
     <div class="chart-block">
-      <div class="chart-label"><span class="ttl">천정 후 조정 낙폭 히스토그램</span>
-        <span class="legend"><span><i style="background:var(--bar-done)"></i>완결 ${completeCount}회</span><span><i style="background:var(--status-crit)"></i>진행중("지금") ${incompleteCount}회</span>${candidate ? `<span><i style="background:transparent;border:1.5px dashed var(--status-crit);box-sizing:border-box"></i>미확정 1건</span>` : ""}</span>
+      <div class="chart-label"><span class="ttl">돌파→천정→하락 사이클 히스토그램</span>
+        <span class="legend">${upH ? `<span><i style="background:var(--gain)"></i>상승(돌파→천정)</span>` : ""}<span><i style="background:var(--bar-done)"></i>완결 ${completeCount}회</span><span><i style="background:var(--status-crit)"></i>진행중("지금") ${incompleteCount}회</span>${candidate ? `<span><i style="background:transparent;border:1.5px dashed var(--status-crit);box-sizing:border-box"></i>미확정 1건</span>` : ""}</span>
       </div>
+      ${upH ? `<div class="sell-note" style="margin:0 0 6px">위=돌파→천정 상승률, 아래=천정 후 낙폭 · 폭=기간(위 차트와 같은 날짜축) · 위·아래 눈금은 각각(기울기=높이÷폭)</div>` : ""}
       ${nowSummaryHtml}
       ${histSvg}
       <div class="episode-detail-box">${episodeBoxHtml}</div>
@@ -2657,6 +2823,8 @@ function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
     }).join("")}
   `;
 }
+
+
 
 // ---- 변경 알림(토스트) · 바뀐 카드 강조 ----
 let toastTimer = null;

@@ -111,7 +111,8 @@ def _find_events(c: np.ndarray, n: int, levels: list) -> list[dict]:
                         open_ev["stages"][k] = i
         if open_ev is None:
             d = c[i] / c[h] - 1
-            if d <= attn and newhigh[h]:
+            # 동률 종가로 "회복"한 직후 같은 천정이 다시 사례로 잡히지 않게 직전 사례와 같은 천정은 건너뛴다.
+            if d <= attn and newhigh[h] and not (events and events[-1]["peak_idx"] == h):
                 open_ev = {"peak_idx": int(h), "confirm_idx": i, "trough_depth": d,
                            "trough_idx": i, "stages": {1: i}, "recovered": None, "end_idx": None}
                 for k in (2, 3):
@@ -119,17 +120,27 @@ def _find_events(c: np.ndarray, n: int, levels: list) -> list[dict]:
                         open_ev["stages"][k] = i
     if open_ev is not None:
         events.append(open_ev)      # 진행중(recovered=None)
-    # 돌파 시점 = 천정에서 거슬러 올라가며 '주의' 낙폭 없이 이어진 신고가 봉 중 가장 이른 것
+    # 돌파 시점 = 천정에서 거슬러 올라가며 '주의' 낙폭 없이 이어진 신고가 봉 중 가장 이른 것.
+    # 직전 사례의 종료 위치 이후로만 거슬러 올라가서, 사례들의 상승 구간이 서로 겹치지 않게 한다.
     nh = np.flatnonzero(newhigh)
+    floor = 0
     for ev in events:
-        j = ev["peak_idx"]
-        for p in nh[nh < j][::-1]:
-            if c[p:j + 1].min() / c[p] - 1 > attn:
-                j = int(p)
-            else:
-                break
-        ev["breakout_idx"] = j
+        ev["breakout_idx"] = _breakout_idx(c, nh, ev["peak_idx"], attn, floor)
+        if ev["end_idx"] is not None:
+            floor = ev["end_idx"]
     return events
+
+
+def _breakout_idx(c: np.ndarray, nh: np.ndarray, j: int, attn: float, floor: int = 0) -> int:
+    """j(천정 또는 현재 고점)에서 거슬러 올라가며, 사이에 '주의' 낙폭이 없이 이어진 신고가 봉 중
+    가장 이른 것(= 이번 상승의 시작이 된 신고가 돌파일). floor 이전으로는 가지 않는다."""
+    b = j
+    for p in nh[(nh < j) & (nh >= floor)][::-1]:
+        if c[p:b + 1].min() / c[p] - 1 > attn:
+            b = int(p)
+        else:
+            break
+    return b
 
 
 def _perf(c: np.ndarray, events: list[dict]) -> dict:
@@ -270,14 +281,24 @@ def compute_sell(df: pd.DataFrame, category: str, symb: str,
         sigs = dict(common, retrace=retrace)
         avail = [k for k in SIGNAL_KEYS if sigs.get(k) is not None]
         rec_bars = [e["end_idx"] - e["peak_idx"] for e in events if e["recovered"] is True]
+        # 확정된 진행 사례가 없을 때(미확정 후보)의 현재 고점 돌파일 - 상승 구간을 그리기 위함. 현재 고점이 돌파 봉이 아니면 None.
+        cur_break = None
+        if not any(e["recovered"] is None for e in events):
+            newhigh = _new_high_flags(c, n)
+            if newhigh[h]:
+                floor = max((e["end_idx"] for e in events if e["end_idx"] is not None), default=0)
+                cur_break = _breakout_idx(c, np.flatnonzero(newhigh), h, levels[0], floor)
         by[str(n)] = {
             "spark": [round(float(x), 3) for x in (c / hi - 1)[-SPARK_BARS:]],
             "rec": ({"n": len(rec_bars), "min": int(min(rec_bars)), "med": int(np.median(rec_bars)),
                      "max": int(max(rec_bars))} if len(rec_bars) >= MIN_REC_EVENTS else None),
             "current": {"depth": round(depth, 4), "stage": _stage(depth, levels),
-                        "high_date": dates[h], "high_price": round(float(c[h]), 4)},
+                        "high_date": dates[h], "high_price": round(float(c[h]), 4),
+                        "breakout": dates[cur_break] if cur_break is not None else None,
+                        "breakout_price": round(float(c[cur_break]), 4) if cur_break is not None else None},
             "events": [{
-                "breakout": dates[e["breakout_idx"]], "peak": dates[e["peak_idx"]],
+                "breakout": dates[e["breakout_idx"]], "breakout_price": round(float(c[e["breakout_idx"]]), 4),
+                "peak": dates[e["peak_idx"]],
                 "peak_price": round(float(c[e["peak_idx"]]), 4), "confirm": dates[e["confirm_idx"]],
                 "trough": dates[e["trough_idx"]], "trough_depth": round(float(e["trough_depth"]), 4),
                 "recovered": e["recovered"],

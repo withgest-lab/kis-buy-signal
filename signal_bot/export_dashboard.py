@@ -183,8 +183,17 @@ def main():
         entry = dict(rec)
         entry["is_new"] = symb in new_symbs
         entry["universe_rank"] = universe_rank.get(symb, len(TICKERS))
-        underwater = _underwater_series(_read_baseline_daily(symb), _read_daily(symb)).tail(SPARK_DAYS)
+        full_uw = _underwater_series(_read_baseline_daily(symb), _read_daily(symb))
+        underwater = full_uw.tail(SPARK_DAYS)
         entry["underwater_spark"] = _series_records(underwater, ["depth"])
+        # 카드 낙폭도 상세 차트·매도 모드와 같은 시계열(매일 새로 받는 종가 기준)의 마지막 값으로 맞춘다.
+        # history.json/mdd_baseline.json의 rolling_high는 월 1회 스냅샷이라, 배당락 등으로 과거 종가(수정주가)가
+        # 조금 바뀐 ETF(예: SPY)는 같은 종가인데 카드와 상세의 낙폭이 0.2%p쯤 어긋났다.
+        last_uw = full_uw.iloc[-1]
+        entry["depth"] = round(float(last_uw["depth"]), 4)
+        entry["rolling_high"] = round(float(last_uw["rolling_high"]), 4)
+        entry["stage"] = mdd.classify_stage(entry["depth"], entry.get("percentiles"))
+        entry["is_record_drawdown"] = mdd.is_record_drawdown(entry["depth"], (baseline.get(symb) or {}).get("episodes", []))
         daily = _read_daily(symb)
         if daily is not None:
             sell = _compute_sell(symb, entry["category"], entry["market_regime"], daily,
