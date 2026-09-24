@@ -14,6 +14,7 @@ import pandas as pd
 from signal_bot import alerts
 from signal_bot import company_info
 from signal_bot import mdd
+from signal_bot import sell as sellmod
 from signal_bot import timeframe_signals as tf
 from signal_bot.config import MDD_ALERT_LEVELS, MDD_ALERT_TICKERS, TICKERS, is_kr
 from signal_bot.pipeline import BASELINE_DIR, DATA_DIR, load_history
@@ -82,7 +83,25 @@ def _series_records(df: pd.DataFrame, cols: list[str]) -> list[dict]:
     return records
 
 
-def _build_detail(symb: str, baseline_entry: dict | None, episode_notes: dict) -> dict | None:
+def _bench_daily(symb: str, category: str) -> pd.DataFrame | None:
+    """상대강도 벤치마크: 미국 종목=SPY, 한국 종목=KOSPI200(본인 제외)."""
+    bench = "KOSPI200" if is_kr(category) else "SPY"
+    if bench == symb:
+        return None
+    recent = _read_daily(bench)
+    if recent is None:
+        return None
+    return tf.combined_daily(_read_baseline_daily(bench), recent)
+
+
+def _compute_sell(symb: str, category: str, regime: str, daily: pd.DataFrame,
+                  baseline_daily: pd.DataFrame | None) -> dict | None:
+    combined = tf.combined_daily(baseline_daily, daily)
+    return sellmod.compute_sell(combined, category, symb, _bench_daily(symb, category), regime)
+
+
+def _build_detail(symb: str, baseline_entry: dict | None, episode_notes: dict,
+                  sell: dict | None = None) -> dict | None:
     daily = _read_daily(symb)
     if daily is None:
         return None
@@ -99,15 +118,17 @@ def _build_detail(symb: str, baseline_entry: dict | None, episode_notes: dict) -
         "episodes": (baseline_entry or {}).get("episodes", []),
         "percentiles": (baseline_entry or {}).get("percentiles"),
         "episode_notes": episode_notes.get(symb, []),
+        "sell": sell,
     }
 
 
-def export_details(baseline: dict) -> int:
+def export_details(baseline: dict, sells: dict | None = None) -> int:
     DETAIL_DIR.mkdir(parents=True, exist_ok=True)
     episode_notes = _load_episode_notes()
+    sells = sells or {}
     count = 0
     for _category, symb in TICKERS:
-        detail = _build_detail(symb, baseline.get(symb), episode_notes)
+        detail = _build_detail(symb, baseline.get(symb), episode_notes, sells.get(symb))
         if detail is None:
             continue
         with open(DETAIL_DIR / f"{symb}.json", "w", encoding="utf-8") as f:
@@ -139,12 +160,20 @@ def main():
     universe_rank = {symb: i for i, (_category, symb) in enumerate(TICKERS)}
 
     tickers = []
+    sells: dict = {}
     for symb, rec in history[today].items():
         entry = dict(rec)
         entry["is_new"] = symb in new_symbs
         entry["universe_rank"] = universe_rank.get(symb, len(TICKERS))
         underwater = _underwater_series(_read_baseline_daily(symb), _read_daily(symb)).tail(SPARK_DAYS)
         entry["underwater_spark"] = _series_records(underwater, ["depth"])
+        daily = _read_daily(symb)
+        if daily is not None:
+            sell = _compute_sell(symb, entry["category"], entry["market_regime"], daily,
+                                 _read_baseline_daily(symb))
+            if sell is not None:
+                sells[symb] = sell
+                entry["sell"] = sellmod.summary(sell)
         if entry["is_new"]:
             entry["business_summary"] = company_info.get_business_summary(symb, entry["name"])
         if symb in MDD_ALERT_TICKERS:
@@ -177,7 +206,7 @@ def main():
 
     print(f"대시보드 데이터 저장 완료: {OUTPUT_PATH} ({len(tickers)}종목, 신규 알림 {len(new_symbs)}개)")
 
-    detail_count = export_details(baseline)
+    detail_count = export_details(baseline, sells)
     print(f"상세 차트 데이터 저장 완료: {DETAIL_DIR}/ ({detail_count}개 종목)")
 
 
