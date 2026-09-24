@@ -29,7 +29,6 @@ CURATED_ETFS = [
 
     # 테마/성장 ETF
     ("섹터ETF", "CIBR"),
-    ("섹터ETF", "BUG"),
     ("섹터ETF", "SOXX"),
     ("섹터ETF", "BOTZ"),
     ("섹터ETF", "ROBO"),
@@ -61,7 +60,7 @@ CURATED_ETF_NAMES = {
     "XLV": "Health Care ETF", "XLI": "Industrials ETF", "XLP": "Consumer Staples ETF",
     "XLY": "Consumer Discretionary ETF", "XLU": "Utilities ETF", "XLB": "Materials ETF",
     "XLRE": "Real Estate ETF", "XLC": "Communication Services ETF",
-    "CIBR": "Cybersecurity ETF", "BUG": "Cybersecurity ETF(BUG)",
+    "CIBR": "Cybersecurity ETF",
     "SOXX": "Semiconductor ETF", "BOTZ": "Robotics&AI ETF", "ROBO": "Robotics ETF",
     "AIPO": "AI Infra ETF", "QTUM": "Quantum ETF", "VOLT": "Electrification ETF",
     "ARKK": "ARK Innovation ETF", "ICLN": "Clean Energy ETF",
@@ -88,7 +87,6 @@ CURATED_ETF_DESCRIPTIONS = {
     "XLRE": "리츠(REIT) 등 부동산 섹터 대표 기업들에 투자하는 ETF",
     "XLC": "통신·미디어 등 커뮤니케이션서비스 섹터 대표 기업들에 투자하는 ETF",
     "CIBR": "사이버보안 관련 기업들에 투자하는 테마 ETF",
-    "BUG": "사이버보안 관련 기업들에 투자하는 테마 ETF",
     "SOXX": "반도체 설계·제조 기업들에 투자하는 테마 ETF",
     "BOTZ": "로봇·인공지능 관련 기업들에 투자하는 테마 ETF",
     "ROBO": "로봇·자동화 관련 기업들에 투자하는 테마 ETF",
@@ -258,12 +256,40 @@ KR_ETF_DESCRIPTIONS = {
 CURATED_ETF_DESCRIPTIONS.update(KR_ETF_DESCRIPTIONS)
 
 
-_ranked = _us.get_top_n_targets(SP500_TOP_N, NASDAQ100_TOP_N)
+# 자동 상위 목록에서 뺄 종목: SPCX(신규 상장이라 과거 이력이 없어 매수 통계·매도 분석 불가), GOOG(GOOGL과 같은 회사라
+# 신호가 이중으로 나옴). 순위가 바뀌어 다시 상위에 들어와도 계속 제외된다.
+EXCLUDE_SYMBOLS = {"SPCX", "GOOG"}
 
-TICKERS = CURATED_ETFS + [("개별종목", r["symb"]) for r in _ranked] + KR_TARGETS
+# 섹터 대표주(수동): 시총 상위 자동 목록은 기술·반도체에 쏠려 있어 헬스케어·소비·금융·산업재·유틸리티·소재·부동산·
+# 통신·소프트웨어의 대표 종목을 GICS 섹터별로 2~5개씩 보완한다. 자동 목록에 이미 있으면 중복 없이 한 번만 들어간다.
+CURATED_STOCKS = [
+    # 헬스케어
+    ("UNH", "UnitedHealth Group"), ("MRK", "Merck & Co."), ("ISRG", "Intuitive Surgical"),
+    # 임의소비재 / 필수소비재
+    ("HD", "Home Depot"), ("MCD", "McDonald's"), ("PG", "Procter & Gamble"), ("PEP", "PepsiCo"),
+    # 금융
+    ("GS", "Goldman Sachs"), ("MS", "Morgan Stanley"), ("WFC", "Wells Fargo"),
+    # 산업재
+    ("GE", "GE Aerospace"), ("RTX", "RTX Corp"), ("UNP", "Union Pacific"), ("HON", "Honeywell"),
+    # IT / 소프트웨어 / 반도체
+    ("CRM", "Salesforce"), ("ADBE", "Adobe"), ("NOW", "ServiceNow"), ("QCOM", "Qualcomm"), ("TXN", "Texas Instruments"),
+    # 통신·미디어
+    ("NFLX", "Netflix"), ("TMUS", "T-Mobile US"),
+    # 유틸리티 / 소재 / 부동산 / 에너지
+    ("NEE", "NextEra Energy"), ("SO", "Southern Company"), ("LIN", "Linde"), ("FCX", "Freeport-McMoRan"),
+    ("PLD", "Prologis"), ("AMT", "American Tower"), ("COP", "ConocoPhillips"),
+]
+
+_ranked = [r for r in _us.get_top_n_targets(SP500_TOP_N, NASDAQ100_TOP_N) if r["symb"] not in EXCLUDE_SYMBOLS]
+_auto_symbols = {r["symb"] for r in _ranked}
+_curated = [(sym, name) for sym, name in CURATED_STOCKS if sym not in _auto_symbols]
+
+TICKERS = (CURATED_ETFS + [("개별종목", r["symb"]) for r in _ranked]
+           + [("개별종목", sym) for sym, _n in _curated] + KR_TARGETS)
 
 TICKER_NAMES = dict(CURATED_ETF_NAMES)
 TICKER_NAMES.update({r["symb"]: r["name"] for r in _ranked})
+TICKER_NAMES.update({sym: name for sym, name in _curated})
 TICKER_NAMES.update(KR_NAMES)
 
 
