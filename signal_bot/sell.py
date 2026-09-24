@@ -24,6 +24,8 @@ FALLBACK_THRESHOLDS = (0.08, 0.15, 0.25)
 MIN_STEP = 0.02                    # 단계 간 최소 간격(임계가 겹치지 않게)
 MIN_PERF_EVENTS = 5                # 과거 신호 성과 표를 보여줄 최소 이벤트 수
 FWD_6M, FWD_12M = 126, 252
+SPARK_BARS = 250                   # 카드 미니 낙폭 스파크라인(약 1년)
+MIN_REC_EVENTS = 3                 # 회복기간 통계를 보여줄 최소 회복 사례 수
 
 CORE_TICKERS = {"SPY", "QQQ", "DIA", "IWM", "KOSPI200"}   # 계속 모아가는 주요 지수
 SIGNAL_KEYS = ("retrace", "wedge", "bigBear", "ma200", "rs", "regime")
@@ -267,7 +269,11 @@ def compute_sell(df: pd.DataFrame, category: str, symb: str,
         retrace = _retrace(c, n)
         sigs = dict(common, retrace=retrace)
         avail = [k for k in SIGNAL_KEYS if sigs.get(k) is not None]
+        rec_bars = [e["end_idx"] - e["peak_idx"] for e in events if e["recovered"] is True]
         by[str(n)] = {
+            "spark": [round(float(x), 3) for x in (c / hi - 1)[-SPARK_BARS:]],
+            "rec": ({"n": len(rec_bars), "min": int(min(rec_bars)), "med": int(np.median(rec_bars)),
+                     "max": int(max(rec_bars))} if len(rec_bars) >= MIN_REC_EVENTS else None),
             "current": {"depth": round(depth, 4), "stage": _stage(depth, levels),
                         "high_date": dates[h], "high_price": round(float(c[h]), 4)},
             "events": [{
@@ -275,6 +281,7 @@ def compute_sell(df: pd.DataFrame, category: str, symb: str,
                 "peak_price": round(float(c[e["peak_idx"]]), 4), "confirm": dates[e["confirm_idx"]],
                 "trough": dates[e["trough_idx"]], "trough_depth": round(float(e["trough_depth"]), 4),
                 "recovered": e["recovered"],
+                "end": dates[e["end_idx"]] if e["end_idx"] is not None else None,
                 "stages": {str(k): dates[i] for k, i in e["stages"].items()},
             } for e in events],
             "perf": _perf(c, events),
@@ -291,5 +298,6 @@ def summary(sell: dict) -> dict:
         "tag": sell["tag"], "levels": sell["thresholds"]["levels"],
         "fallback": sell["thresholds"]["fallback"],
         "by": {n: {"depth": v["current"]["depth"], "stage": v["current"]["stage"],
-                   "hits": v["hits"], "avail": v["avail"]} for n, v in sell["byLookback"].items()},
+                   "hits": v["hits"], "avail": v["avail"], "spark": v["spark"], "rec": v["rec"]}
+               for n, v in sell["byLookback"].items()},
     }
