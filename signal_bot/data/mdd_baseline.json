@@ -3135,142 +3135,6 @@
     },
     "insufficient_data": false
   },
-  "BUG": {
-    "as_of_date": "2026-09-04",
-    "rolling_high": 44.46,
-    "episodes": [
-      {
-        "start_date": "2020-02-11",
-        "trough_date": "2020-03-18",
-        "recovery_date": "2020-05-11",
-        "depth": -0.3472,
-        "recovery_days": 62,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-05-12",
-        "trough_date": "2020-05-13",
-        "recovery_date": "2020-05-20",
-        "depth": -0.0501,
-        "recovery_days": 6,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-06-02",
-        "trough_date": "2020-06-11",
-        "recovery_date": "2020-07-01",
-        "depth": -0.0669,
-        "recovery_days": 21,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-08-06",
-        "trough_date": "2020-08-12",
-        "recovery_date": "2020-08-26",
-        "depth": -0.0567,
-        "recovery_days": 14,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-09-03",
-        "trough_date": "2020-11-02",
-        "recovery_date": "2020-12-08",
-        "depth": -0.1303,
-        "recovery_days": 66,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-12-23",
-        "trough_date": "2021-01-06",
-        "recovery_date": "2021-02-02",
-        "depth": -0.0733,
-        "recovery_days": 26,
-        "is_complete": true
-      },
-      {
-        "start_date": "2021-02-16",
-        "trough_date": "2021-03-30",
-        "recovery_date": "2021-06-28",
-        "depth": -0.1639,
-        "recovery_days": 92,
-        "is_complete": true
-      },
-      {
-        "start_date": "2021-09-07",
-        "trough_date": "2021-10-04",
-        "recovery_date": "2021-10-25",
-        "depth": -0.1034,
-        "recovery_days": 34,
-        "is_complete": true
-      },
-      {
-        "start_date": "2021-11-10",
-        "trough_date": "2023-01-05",
-        "recovery_date": "2024-12-04",
-        "depth": -0.4166,
-        "recovery_days": 770,
-        "is_complete": true
-      },
-      {
-        "start_date": "2024-12-05",
-        "trough_date": "2025-01-13",
-        "recovery_date": "2025-01-28",
-        "depth": -0.0846,
-        "recovery_days": 34,
-        "is_complete": true
-      },
-      {
-        "start_date": "2025-02-19",
-        "trough_date": "2025-04-08",
-        "recovery_date": "2025-06-25",
-        "depth": -0.1871,
-        "recovery_days": 87,
-        "is_complete": true
-      },
-      {
-        "start_date": "2025-07-10",
-        "trough_date": "2026-04-10",
-        "recovery_date": "2026-06-01",
-        "depth": -0.3769,
-        "recovery_days": 224,
-        "is_complete": true
-      },
-      {
-        "start_date": "2026-06-02",
-        "trough_date": "2026-06-22",
-        "recovery_date": "2026-07-01",
-        "depth": -0.1359,
-        "recovery_days": 20,
-        "is_complete": true
-      },
-      {
-        "start_date": "2026-07-15",
-        "trough_date": "2026-07-29",
-        "recovery_date": "2026-08-10",
-        "depth": -0.1169,
-        "recovery_days": 18,
-        "is_complete": true
-      },
-      {
-        "start_date": "2026-08-14",
-        "trough_date": "2026-08-25",
-        "recovery_date": null,
-        "depth": -0.1158,
-        "recovery_days": null,
-        "is_complete": false
-      }
-    ],
-    "percentiles": {
-      "count": 14,
-      "p50": -0.1236,
-      "p25": -0.1813,
-      "p10": -0.36799,
-      "recovery_days_min": 6,
-      "recovery_days_median": 34,
-      "recovery_days_max": 770
-    },
-    "insufficient_data": false
-  },
   "SOXX": {
     "as_of_date": "2026-09-04",
     "rolling_high": 655.01,
@@ -8207,270 +8071,6 @@
     },
     "insufficient_data": false
   },
-  "GOOG": {
-    "as_of_date": "2026-09-04",
-    "rolling_high": 398.5414,
-    "episodes": [
-      {
-        "start_date": "2007-11-07",
-        "trough_date": "2008-11-24",
-        "recovery_date": "2012-09-24",
-        "depth": -0.6529,
-        "recovery_days": 1233,
-        "is_complete": true
-      },
-      {
-        "start_date": "2012-10-05",
-        "trough_date": "2012-11-16",
-        "recovery_date": "2013-02-01",
-        "depth": -0.1574,
-        "recovery_days": 79,
-        "is_complete": true
-      },
-      {
-        "start_date": "2013-03-06",
-        "trough_date": "2013-04-18",
-        "recovery_date": "2013-05-03",
-        "depth": -0.0867,
-        "recovery_days": 41,
-        "is_complete": true
-      },
-      {
-        "start_date": "2013-05-16",
-        "trough_date": "2013-06-04",
-        "recovery_date": "2013-07-11",
-        "depth": -0.062,
-        "recovery_days": 38,
-        "is_complete": true
-      },
-      {
-        "start_date": "2013-07-16",
-        "trough_date": "2013-08-30",
-        "recovery_date": "2013-10-18",
-        "depth": -0.0841,
-        "recovery_days": 67,
-        "is_complete": true
-      },
-      {
-        "start_date": "2014-01-23",
-        "trough_date": "2014-01-27",
-        "recovery_date": "2014-01-31",
-        "depth": -0.0548,
-        "recovery_days": 6,
-        "is_complete": true
-      },
-      {
-        "start_date": "2014-02-27",
-        "trough_date": "2015-01-12",
-        "recovery_date": "2015-07-17",
-        "depth": -0.1919,
-        "recovery_days": 349,
-        "is_complete": true
-      },
-      {
-        "start_date": "2015-07-20",
-        "trough_date": "2015-08-25",
-        "recovery_date": "2015-10-23",
-        "depth": -0.135,
-        "recovery_days": 68,
-        "is_complete": true
-      },
-      {
-        "start_date": "2015-12-30",
-        "trough_date": "2016-06-27",
-        "recovery_date": "2016-08-05",
-        "depth": -0.1395,
-        "recovery_days": 151,
-        "is_complete": true
-      },
-      {
-        "start_date": "2016-10-25",
-        "trough_date": "2016-11-14",
-        "recovery_date": "2017-01-23",
-        "depth": -0.0947,
-        "recovery_days": 60,
-        "is_complete": true
-      },
-      {
-        "start_date": "2017-06-06",
-        "trough_date": "2017-07-03",
-        "recovery_date": "2017-10-11",
-        "depth": -0.0864,
-        "recovery_days": 89,
-        "is_complete": true
-      },
-      {
-        "start_date": "2017-11-28",
-        "trough_date": "2017-12-04",
-        "recovery_date": "2017-12-15",
-        "depth": -0.0527,
-        "recovery_days": 13,
-        "is_complete": true
-      },
-      {
-        "start_date": "2018-01-29",
-        "trough_date": "2018-02-08",
-        "recovery_date": "2018-07-12",
-        "depth": -0.1483,
-        "recovery_days": 114,
-        "is_complete": true
-      },
-      {
-        "start_date": "2018-07-27",
-        "trough_date": "2018-12-24",
-        "recovery_date": "2019-04-26",
-        "depth": -0.2303,
-        "recovery_days": 187,
-        "is_complete": true
-      },
-      {
-        "start_date": "2019-04-30",
-        "trough_date": "2019-06-03",
-        "recovery_date": "2019-10-28",
-        "depth": -0.1952,
-        "recovery_days": 126,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-02-20",
-        "trough_date": "2020-03-23",
-        "recovery_date": "2020-07-10",
-        "depth": -0.3079,
-        "recovery_days": 98,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-07-23",
-        "trough_date": "2020-08-04",
-        "recovery_date": "2020-08-20",
-        "depth": -0.066,
-        "recovery_days": 20,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-09-03",
-        "trough_date": "2020-09-23",
-        "recovery_date": "2020-11-04",
-        "depth": -0.1811,
-        "recovery_days": 43,
-        "is_complete": true
-      },
-      {
-        "start_date": "2020-12-07",
-        "trough_date": "2020-12-22",
-        "recovery_date": "2021-01-20",
-        "depth": -0.0572,
-        "recovery_days": 29,
-        "is_complete": true
-      },
-      {
-        "start_date": "2021-04-30",
-        "trough_date": "2021-05-12",
-        "recovery_date": "2021-05-26",
-        "depth": -0.0785,
-        "recovery_days": 18,
-        "is_complete": true
-      },
-      {
-        "start_date": "2021-09-02",
-        "trough_date": "2021-09-30",
-        "recovery_date": "2021-10-27",
-        "depth": -0.0862,
-        "recovery_days": 38,
-        "is_complete": true
-      },
-      {
-        "start_date": "2021-11-19",
-        "trough_date": "2022-11-03",
-        "recovery_date": "2024-01-25",
-        "depth": -0.446,
-        "recovery_days": 546,
-        "is_complete": true
-      },
-      {
-        "start_date": "2024-01-30",
-        "trough_date": "2024-03-06",
-        "recovery_date": "2024-04-01",
-        "depth": -0.1439,
-        "recovery_days": 42,
-        "is_complete": true
-      },
-      {
-        "start_date": "2024-04-29",
-        "trough_date": "2024-04-30",
-        "recovery_date": "2024-05-15",
-        "depth": -0.0521,
-        "recovery_days": 12,
-        "is_complete": true
-      },
-      {
-        "start_date": "2024-07-11",
-        "trough_date": "2024-09-09",
-        "recovery_date": "2024-12-11",
-        "depth": -0.2228,
-        "recovery_days": 107,
-        "is_complete": true
-      },
-      {
-        "start_date": "2025-02-05",
-        "trough_date": "2025-04-08",
-        "recovery_date": "2025-08-25",
-        "depth": -0.2935,
-        "recovery_days": 138,
-        "is_complete": true
-      },
-      {
-        "start_date": "2025-09-22",
-        "trough_date": "2025-10-10",
-        "recovery_date": "2025-10-20",
-        "depth": -0.0695,
-        "recovery_days": 20,
-        "is_complete": true
-      },
-      {
-        "start_date": "2025-11-12",
-        "trough_date": "2025-11-14",
-        "recovery_date": "2025-11-19",
-        "depth": -0.0506,
-        "recovery_days": 5,
-        "is_complete": true
-      },
-      {
-        "start_date": "2025-11-26",
-        "trough_date": "2025-12-17",
-        "recovery_date": "2026-01-08",
-        "depth": -0.0784,
-        "recovery_days": 28,
-        "is_complete": true
-      },
-      {
-        "start_date": "2026-02-03",
-        "trough_date": "2026-03-30",
-        "recovery_date": "2026-04-27",
-        "depth": -0.2075,
-        "recovery_days": 57,
-        "is_complete": true
-      },
-      {
-        "start_date": "2026-05-14",
-        "trough_date": "2026-07-23",
-        "recovery_date": null,
-        "depth": -0.2018,
-        "recovery_days": null,
-        "is_complete": false
-      }
-    ],
-    "percentiles": {
-      "count": 30,
-      "p50": -0.11485000000000001,
-      "p25": -0.19437500000000002,
-      "p10": -0.29494,
-      "recovery_days_min": 5,
-      "recovery_days_median": 58,
-      "recovery_days_max": 1233
-    },
-    "insufficient_data": false
-  },
   "AVGO": {
     "as_of_date": "2026-09-04",
     "rolling_high": 480.8091,
@@ -8982,22 +8582,6 @@
       "recovery_days_max": 348
     },
     "insufficient_data": false
-  },
-  "SPCX": {
-    "as_of_date": "2026-09-04",
-    "rolling_high": 201.8,
-    "episodes": [
-      {
-        "start_date": "2026-06-17",
-        "trough_date": "2026-08-05",
-        "recovery_date": null,
-        "depth": -0.4635,
-        "recovery_days": null,
-        "is_complete": false
-      }
-    ],
-    "percentiles": null,
-    "insufficient_data": true
   },
   "META": {
     "as_of_date": "2026-09-04",
@@ -15676,6 +15260,6566 @@
       "recovery_days_min": 2,
       "recovery_days_median": 23,
       "recovery_days_max": 698
+    },
+    "insufficient_data": false
+  },
+  "UNH": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 596.1052,
+    "episodes": [
+      {
+        "start_date": "2007-09-05",
+        "trough_date": "2007-10-03",
+        "recovery_date": "2007-11-08",
+        "depth": -0.0626,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-12-24",
+        "trough_date": "2008-11-20",
+        "recovery_date": "2012-03-29",
+        "depth": -0.7234,
+        "recovery_days": 1078,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-04-23",
+        "trough_date": "2012-05-18",
+        "recovery_date": "2012-06-18",
+        "depth": -0.0928,
+        "recovery_days": 39,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-06-20",
+        "trough_date": "2012-08-06",
+        "recovery_date": "2013-04-02",
+        "depth": -0.1537,
+        "recovery_days": 194,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-04-15",
+        "trough_date": "2013-04-23",
+        "recovery_date": "2013-05-28",
+        "depth": -0.0712,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-09-12",
+        "trough_date": "2013-09-20",
+        "recovery_date": "2013-10-16",
+        "depth": -0.0613,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-10-17",
+        "trough_date": "2013-10-28",
+        "recovery_date": "2013-12-31",
+        "depth": -0.1097,
+        "recovery_days": 51,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-01-08",
+        "trough_date": "2014-02-10",
+        "recovery_date": "2014-02-28",
+        "depth": -0.0885,
+        "recovery_days": 35,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-04-04",
+        "trough_date": "2014-04-21",
+        "recovery_date": "2014-06-25",
+        "depth": -0.0888,
+        "recovery_days": 56,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-23",
+        "trough_date": "2014-08-07",
+        "recovery_date": "2014-08-27",
+        "depth": -0.0789,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-09-25",
+        "trough_date": "2014-10-15",
+        "recovery_date": "2014-10-20",
+        "depth": -0.0686,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-12-10",
+        "trough_date": "2014-12-16",
+        "recovery_date": "2014-12-18",
+        "depth": -0.0512,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-01-23",
+        "trough_date": "2015-01-30",
+        "recovery_date": "2015-02-23",
+        "depth": -0.0668,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-04-17",
+        "trough_date": "2015-04-30",
+        "recovery_date": "2015-06-16",
+        "depth": -0.0839,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-07-16",
+        "trough_date": "2015-08-25",
+        "recovery_date": "2016-03-11",
+        "depth": -0.1262,
+        "recovery_days": 165,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-07-25",
+        "trough_date": "2016-09-09",
+        "recovery_date": "2016-10-18",
+        "depth": -0.0658,
+        "recovery_days": 60,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-10-24",
+        "trough_date": "2016-11-04",
+        "recovery_date": "2016-11-10",
+        "depth": -0.0527,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-29",
+        "trough_date": "2018-03-23",
+        "recovery_date": "2018-05-21",
+        "depth": -0.1417,
+        "recovery_days": 78,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-10-04",
+        "trough_date": "2018-10-11",
+        "recovery_date": "2018-10-16",
+        "depth": -0.0509,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-10-17",
+        "trough_date": "2018-10-24",
+        "recovery_date": "2018-11-07",
+        "depth": -0.0596,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-11-09",
+        "trough_date": "2018-11-21",
+        "recovery_date": "2018-11-28",
+        "depth": -0.0582,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-12-04",
+        "trough_date": "2019-04-17",
+        "recovery_date": "2019-11-25",
+        "depth": -0.2398,
+        "recovery_days": 245,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-01-17",
+        "trough_date": "2020-01-31",
+        "recovery_date": "2020-02-12",
+        "depth": -0.0941,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-20",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-05-29",
+        "depth": -0.359,
+        "recovery_days": 69,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-06-08",
+        "trough_date": "2020-06-11",
+        "recovery_date": "2020-08-05",
+        "depth": -0.0902,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-08-17",
+        "trough_date": "2020-09-23",
+        "recovery_date": "2020-10-07",
+        "depth": -0.0938,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-10-14",
+        "trough_date": "2020-10-29",
+        "recovery_date": "2020-11-04",
+        "depth": -0.0837,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-11-17",
+        "trough_date": "2020-11-25",
+        "recovery_date": "2021-01-06",
+        "depth": -0.0662,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-08",
+        "trough_date": "2021-02-08",
+        "recovery_date": "2021-03-19",
+        "depth": -0.1115,
+        "recovery_days": 48,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-05-11",
+        "trough_date": "2021-06-18",
+        "recovery_date": "2021-07-15",
+        "depth": -0.0715,
+        "recovery_days": 45,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-08-23",
+        "trough_date": "2021-10-04",
+        "recovery_date": "2021-10-20",
+        "depth": -0.0962,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-10",
+        "trough_date": "2021-11-22",
+        "recovery_date": "2021-12-07",
+        "depth": -0.0577,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-12-30",
+        "trough_date": "2022-02-24",
+        "recovery_date": "2022-03-17",
+        "depth": -0.0983,
+        "recovery_days": 53,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-04-21",
+        "trough_date": "2022-06-17",
+        "recovery_date": "2022-08-15",
+        "depth": -0.1691,
+        "recovery_days": 79,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-08-22",
+        "trough_date": "2022-10-10",
+        "recovery_date": "2022-10-28",
+        "depth": -0.0873,
+        "recovery_days": 48,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-11-01",
+        "trough_date": "2023-07-13",
+        "recovery_date": "2023-11-24",
+        "depth": -0.1848,
+        "recovery_days": 267,
+        "is_complete": true
+      },
+      {
+        "start_date": "2023-12-01",
+        "trough_date": "2024-04-12",
+        "recovery_date": "2024-07-16",
+        "depth": -0.1999,
+        "recovery_days": 154,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-08-05",
+        "trough_date": "2024-08-09",
+        "recovery_date": "2024-08-29",
+        "depth": -0.0527,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-15",
+        "trough_date": "2024-10-15",
+        "recovery_date": "2024-11-07",
+        "depth": -0.0811,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-11-12",
+        "trough_date": "2025-08-01",
+        "recovery_date": null,
+        "depth": -0.6139,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 39,
+      "p50": -0.0873,
+      "p25": -0.1106,
+      "p10": -0.18782,
+      "recovery_days_min": 6,
+      "recovery_days_median": 41,
+      "recovery_days_max": 1078
+    },
+    "insufficient_data": false
+  },
+  "MRK": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 155.532,
+    "episodes": [
+      {
+        "start_date": "2007-11-01",
+        "trough_date": "2007-11-07",
+        "recovery_date": "2007-11-16",
+        "depth": -0.0697,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-12-11",
+        "trough_date": "2009-03-09",
+        "recovery_date": "2013-04-23",
+        "depth": -0.633,
+        "recovery_days": 1353,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-04-24",
+        "trough_date": "2013-05-06",
+        "recovery_date": "2013-06-04",
+        "depth": -0.0751,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-06-05",
+        "trough_date": "2013-06-25",
+        "recovery_date": "2013-10-01",
+        "depth": -0.0563,
+        "recovery_days": 82,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-10-02",
+        "trough_date": "2013-10-31",
+        "recovery_date": "2013-11-22",
+        "depth": -0.0749,
+        "recovery_days": 37,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-03-10",
+        "trough_date": "2014-03-24",
+        "recovery_date": "2014-04-09",
+        "depth": -0.0569,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-05-02",
+        "trough_date": "2014-05-08",
+        "recovery_date": "2014-07-03",
+        "depth": -0.0803,
+        "recovery_days": 43,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-07",
+        "trough_date": "2014-08-07",
+        "recovery_date": "2014-08-20",
+        "depth": -0.0601,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-09-08",
+        "trough_date": "2014-10-16",
+        "recovery_date": "2014-12-02",
+        "depth": -0.1203,
+        "recovery_days": 60,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-12-09",
+        "trough_date": "2014-12-31",
+        "recovery_date": "2015-01-07",
+        "depth": -0.0753,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-01-20",
+        "trough_date": "2015-09-28",
+        "recovery_date": "2016-08-05",
+        "depth": -0.2114,
+        "recovery_days": 390,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-10-11",
+        "trough_date": "2016-11-03",
+        "recovery_date": "2016-11-09",
+        "depth": -0.0856,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-11-11",
+        "trough_date": "2016-12-30",
+        "recovery_date": "2017-02-06",
+        "depth": -0.0868,
+        "recovery_days": 57,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-03-06",
+        "trough_date": "2017-04-21",
+        "recovery_date": "2017-06-22",
+        "depth": -0.0637,
+        "recovery_days": 76,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-06-26",
+        "trough_date": "2017-08-18",
+        "recovery_date": "2017-09-14",
+        "depth": -0.0706,
+        "recovery_days": 56,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-09-18",
+        "trough_date": "2017-11-20",
+        "recovery_date": "2018-07-30",
+        "depth": -0.1823,
+        "recovery_days": 217,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-10-10",
+        "trough_date": "2018-10-11",
+        "recovery_date": "2018-10-19",
+        "depth": -0.0549,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-12-03",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-02-13",
+        "depth": -0.0969,
+        "recovery_days": 48,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-04-02",
+        "trough_date": "2019-04-18",
+        "recovery_date": "2019-06-12",
+        "depth": -0.1214,
+        "recovery_days": 49,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-05",
+        "trough_date": "2019-07-12",
+        "recovery_date": "2019-08-21",
+        "depth": -0.0825,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-08-22",
+        "trough_date": "2019-09-10",
+        "recovery_date": "2019-10-31",
+        "depth": -0.0601,
+        "recovery_days": 49,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-01-03",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2021-10-04",
+        "depth": -0.2726,
+        "recovery_days": 441,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-10-05",
+        "trough_date": "2021-10-18",
+        "recovery_date": "2021-10-28",
+        "depth": -0.0716,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-05",
+        "trough_date": "2021-12-07",
+        "recovery_date": "2022-05-11",
+        "depth": -0.2017,
+        "recovery_days": 128,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-05-25",
+        "trough_date": "2022-06-13",
+        "recovery_date": "2022-06-27",
+        "depth": -0.1019,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-07-18",
+        "trough_date": "2022-09-21",
+        "recovery_date": "2022-10-18",
+        "depth": -0.1027,
+        "recovery_days": 65,
+        "is_complete": true
+      },
+      {
+        "start_date": "2023-01-09",
+        "trough_date": "2023-02-03",
+        "recovery_date": "2023-04-13",
+        "depth": -0.1036,
+        "recovery_days": 65,
+        "is_complete": true
+      },
+      {
+        "start_date": "2023-05-09",
+        "trough_date": "2023-11-28",
+        "recovery_date": "2024-01-04",
+        "depth": -0.1423,
+        "recovery_days": 165,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-02-26",
+        "trough_date": "2024-03-14",
+        "recovery_date": "2024-03-27",
+        "depth": -0.0632,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-04-01",
+        "trough_date": "2024-05-30",
+        "recovery_date": "2024-06-24",
+        "depth": -0.0562,
+        "recovery_days": 58,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-06-25",
+        "trough_date": "2025-05-14",
+        "recovery_date": "2026-06-25",
+        "depth": -0.4344,
+        "recovery_days": 501,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-07-06",
+        "trough_date": "2026-07-14",
+        "recovery_date": "2026-07-23",
+        "depth": -0.0678,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-08-26",
+        "trough_date": "2026-09-11",
+        "recovery_date": null,
+        "depth": -0.08,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 32,
+      "p50": -0.0814,
+      "p25": -0.120575,
+      "p10": -0.21043,
+      "recovery_days_min": 7,
+      "recovery_days_median": 49,
+      "recovery_days_max": 1353
+    },
+    "insufficient_data": false
+  },
+  "ISRG": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 610.45,
+    "episodes": [
+      {
+        "start_date": "2007-09-07",
+        "trough_date": "2007-09-17",
+        "recovery_date": "2007-09-26",
+        "depth": -0.076,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-11",
+        "trough_date": "2007-10-17",
+        "recovery_date": "2007-10-19",
+        "depth": -0.0856,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-26",
+        "trough_date": "2007-11-12",
+        "recovery_date": "2007-12-05",
+        "depth": -0.1912,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-12-10",
+        "trough_date": "2008-01-30",
+        "recovery_date": "2008-04-10",
+        "depth": -0.3343,
+        "recovery_days": 83,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-04-11",
+        "trough_date": "2009-03-02",
+        "recovery_date": "2010-03-01",
+        "depth": -0.7589,
+        "recovery_days": 474,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-03-04",
+        "trough_date": "2010-04-07",
+        "recovery_date": "2010-04-13",
+        "depth": -0.0811,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-04-16",
+        "trough_date": "2010-11-19",
+        "recovery_date": "2011-07-20",
+        "depth": -0.3621,
+        "recovery_days": 322,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-07-22",
+        "trough_date": "2011-08-22",
+        "recovery_date": "2011-10-19",
+        "depth": -0.2231,
+        "recovery_days": 62,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-11-16",
+        "trough_date": "2011-11-25",
+        "recovery_date": "2011-12-23",
+        "depth": -0.0791,
+        "recovery_days": 26,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-01-20",
+        "trough_date": "2012-01-24",
+        "recovery_date": "2012-02-02",
+        "depth": -0.073,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-05-02",
+        "trough_date": "2014-05-08",
+        "recovery_date": "2016-03-14",
+        "depth": -0.4011,
+        "recovery_days": 971,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-03-15",
+        "trough_date": "2016-03-17",
+        "recovery_date": "2016-03-29",
+        "depth": -0.0518,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-10-03",
+        "trough_date": "2016-12-07",
+        "recovery_date": "2017-02-21",
+        "depth": -0.146,
+        "recovery_days": 96,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-11-28",
+        "trough_date": "2017-12-14",
+        "recovery_date": "2018-01-10",
+        "depth": -0.1069,
+        "recovery_days": 29,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-26",
+        "trough_date": "2018-02-08",
+        "recovery_date": "2018-04-18",
+        "depth": -0.151,
+        "recovery_days": 56,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-04-19",
+        "trough_date": "2018-04-24",
+        "recovery_date": "2018-06-01",
+        "depth": -0.0734,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-07-26",
+        "trough_date": "2018-07-30",
+        "recovery_date": "2018-08-24",
+        "depth": -0.065,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-10-02",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-03-21",
+        "depth": -0.2433,
+        "recovery_days": 116,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-04-11",
+        "trough_date": "2019-06-03",
+        "recovery_date": "2019-11-26",
+        "depth": -0.2178,
+        "recovery_days": 159,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-01-24",
+        "trough_date": "2020-01-31",
+        "recovery_date": "2020-02-20",
+        "depth": -0.0898,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-21",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-07-17",
+        "depth": -0.4052,
+        "recovery_days": 102,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-03",
+        "trough_date": "2020-09-21",
+        "recovery_date": "2020-11-09",
+        "depth": -0.161,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-11-10",
+        "trough_date": "2020-11-23",
+        "recovery_date": "2020-12-04",
+        "depth": -0.0703,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-11",
+        "trough_date": "2021-03-08",
+        "recovery_date": "2021-04-21",
+        "depth": -0.1635,
+        "recovery_days": 69,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-04-22",
+        "trough_date": "2021-05-12",
+        "recovery_date": "2021-06-21",
+        "depth": -0.0893,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-09",
+        "trough_date": "2021-10-04",
+        "recovery_date": "2021-10-29",
+        "depth": -0.1035,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-09",
+        "trough_date": "2022-10-14",
+        "recovery_date": "2024-01-18",
+        "depth": -0.499,
+        "recovery_days": 549,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-03-05",
+        "trough_date": "2024-04-19",
+        "recovery_date": "2024-05-21",
+        "depth": -0.0855,
+        "recovery_days": 54,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-06-28",
+        "trough_date": "2024-07-18",
+        "recovery_date": "2024-07-19",
+        "depth": -0.0651,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-07-23",
+        "trough_date": "2024-07-30",
+        "recovery_date": "2024-08-08",
+        "depth": -0.0617,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-11-22",
+        "trough_date": "2024-12-31",
+        "recovery_date": "2025-01-15",
+        "depth": -0.0521,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-01-23",
+        "trough_date": "2026-07-23",
+        "recovery_date": null,
+        "depth": -0.4561,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 31,
+      "p50": -0.1035,
+      "p25": -0.22044999999999998,
+      "p10": -0.4011,
+      "recovery_days_min": 6,
+      "recovery_days_median": 36,
+      "recovery_days_max": 971
+    },
+    "insufficient_data": false
+  },
+  "HD": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 411.9341,
+    "episodes": [
+      {
+        "start_date": "2007-09-04",
+        "trough_date": "2009-03-06",
+        "recovery_date": "2010-04-15",
+        "depth": -0.5087,
+        "recovery_days": 658,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-04-27",
+        "trough_date": "2010-07-19",
+        "recovery_date": "2011-01-14",
+        "depth": -0.2529,
+        "recovery_days": 187,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-02-22",
+        "trough_date": "2011-08-10",
+        "recovery_date": "2011-11-08",
+        "depth": -0.2484,
+        "recovery_days": 181,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-05-03",
+        "trough_date": "2012-05-17",
+        "recovery_date": "2012-06-19",
+        "depth": -0.1079,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-10-08",
+        "trough_date": "2012-10-11",
+        "recovery_date": "2012-11-13",
+        "depth": -0.0663,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-12-03",
+        "trough_date": "2012-12-28",
+        "recovery_date": "2013-01-18",
+        "depth": -0.0679,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-01-28",
+        "trough_date": "2013-02-25",
+        "recovery_date": "2013-02-27",
+        "depth": -0.0575,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-05-29",
+        "trough_date": "2013-06-24",
+        "recovery_date": "2013-07-09",
+        "depth": -0.0745,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-07-15",
+        "trough_date": "2013-09-06",
+        "recovery_date": "2013-11-19",
+        "depth": -0.0926,
+        "recovery_days": 90,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-01-02",
+        "trough_date": "2014-02-04",
+        "recovery_date": "2014-03-04",
+        "depth": -0.0895,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-03-06",
+        "trough_date": "2014-04-11",
+        "recovery_date": "2014-07-02",
+        "depth": -0.0817,
+        "recovery_days": 82,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-10-09",
+        "trough_date": "2014-10-15",
+        "recovery_date": "2014-10-21",
+        "depth": -0.0663,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-01-09",
+        "trough_date": "2015-01-15",
+        "recovery_date": "2015-01-29",
+        "depth": -0.0535,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-03-23",
+        "trough_date": "2015-04-30",
+        "recovery_date": "2015-07-29",
+        "depth": -0.0895,
+        "recovery_days": 89,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-08-19",
+        "trough_date": "2015-08-25",
+        "recovery_date": "2015-10-16",
+        "depth": -0.0963,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-12-07",
+        "trough_date": "2016-02-08",
+        "recovery_date": "2016-04-01",
+        "depth": -0.1686,
+        "recovery_days": 79,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-05-11",
+        "trough_date": "2016-06-27",
+        "recovery_date": "2016-07-19",
+        "depth": -0.0887,
+        "recovery_days": 47,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-08-02",
+        "trough_date": "2016-11-01",
+        "recovery_date": "2017-01-23",
+        "depth": -0.1316,
+        "recovery_days": 119,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-06-20",
+        "trough_date": "2017-07-24",
+        "recovery_date": "2017-09-07",
+        "depth": -0.0896,
+        "recovery_days": 55,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-29",
+        "trough_date": "2018-03-23",
+        "recovery_date": "2018-09-04",
+        "depth": -0.1662,
+        "recovery_days": 151,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-09-12",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-06-20",
+        "depth": -0.2561,
+        "recovery_days": 193,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-16",
+        "trough_date": "2019-08-14",
+        "recovery_date": "2019-08-21",
+        "depth": -0.0782,
+        "recovery_days": 26,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-11-19",
+        "trough_date": "2019-12-11",
+        "recovery_date": "2020-02-05",
+        "depth": -0.1067,
+        "recovery_days": 52,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-21",
+        "trough_date": "2020-03-20",
+        "recovery_date": "2020-05-27",
+        "depth": -0.3799,
+        "recovery_days": 66,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-06-09",
+        "trough_date": "2020-06-11",
+        "recovery_date": "2020-07-14",
+        "depth": -0.0674,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-08-27",
+        "trough_date": "2021-03-04",
+        "recovery_date": "2021-03-19",
+        "depth": -0.1312,
+        "recovery_days": 140,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-05-11",
+        "trough_date": "2021-06-18",
+        "recovery_date": "2021-09-27",
+        "depth": -0.1082,
+        "recovery_days": 96,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-12-08",
+        "trough_date": "2022-09-26",
+        "recovery_date": "2024-03-21",
+        "depth": -0.3473,
+        "recovery_days": 573,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-03-22",
+        "trough_date": "2024-05-24",
+        "recovery_date": "2024-09-19",
+        "depth": -0.1774,
+        "recovery_days": 124,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-17",
+        "trough_date": "2024-11-06",
+        "recovery_date": "2024-11-22",
+        "depth": -0.0722,
+        "recovery_days": 26,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-12-09",
+        "trough_date": "2026-05-15",
+        "recovery_date": null,
+        "depth": -0.2884,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 30,
+      "p50": -0.09445,
+      "p25": -0.16799999999999998,
+      "p10": -0.26521999999999996,
+      "recovery_days_min": 8,
+      "recovery_days_median": 60,
+      "recovery_days_max": 658
+    },
+    "insufficient_data": false
+  },
+  "MCD": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 334.5031,
+    "episodes": [
+      {
+        "start_date": "2007-12-12",
+        "trough_date": "2008-01-29",
+        "recovery_date": "2008-08-05",
+        "depth": -0.1961,
+        "recovery_days": 162,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-08-12",
+        "trough_date": "2008-10-15",
+        "recovery_date": "2009-11-13",
+        "depth": -0.2136,
+        "recovery_days": 318,
+        "is_complete": true
+      },
+      {
+        "start_date": "2009-11-17",
+        "trough_date": "2009-12-09",
+        "recovery_date": "2010-02-02",
+        "depth": -0.0528,
+        "recovery_days": 51,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-04-30",
+        "trough_date": "2010-05-26",
+        "recovery_date": "2010-07-15",
+        "depth": -0.077,
+        "recovery_days": 54,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-12-08",
+        "trough_date": "2011-01-13",
+        "recovery_date": "2011-05-10",
+        "depth": -0.0955,
+        "recovery_days": 105,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-07-25",
+        "trough_date": "2011-08-08",
+        "recovery_date": "2011-08-23",
+        "depth": -0.0728,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-08-31",
+        "trough_date": "2011-09-09",
+        "recovery_date": "2011-10-21",
+        "depth": -0.0633,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-01-23",
+        "trough_date": "2012-11-15",
+        "recovery_date": "2013-03-08",
+        "depth": -0.155,
+        "recovery_days": 282,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-04-15",
+        "trough_date": "2013-10-09",
+        "recovery_date": "2014-04-15",
+        "depth": -0.0852,
+        "recovery_days": 253,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-05-14",
+        "trough_date": "2014-12-15",
+        "recovery_date": "2015-03-04",
+        "depth": -0.1236,
+        "recovery_days": 202,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-03-05",
+        "trough_date": "2015-04-21",
+        "recovery_date": "2015-05-19",
+        "depth": -0.0537,
+        "recovery_days": 52,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-05-20",
+        "trough_date": "2015-06-15",
+        "recovery_date": "2015-08-17",
+        "depth": -0.0567,
+        "recovery_days": 61,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-08-20",
+        "trough_date": "2015-08-25",
+        "recovery_date": "2015-10-05",
+        "depth": -0.0978,
+        "recovery_days": 31,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-02-02",
+        "trough_date": "2016-02-05",
+        "recovery_date": "2016-03-18",
+        "depth": -0.0739,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-05-11",
+        "trough_date": "2016-10-20",
+        "recovery_date": "2017-02-24",
+        "depth": -0.147,
+        "recovery_days": 199,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-09-12",
+        "trough_date": "2017-09-26",
+        "recovery_date": "2017-10-11",
+        "depth": -0.0506,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-29",
+        "trough_date": "2018-03-02",
+        "recovery_date": "2018-10-23",
+        "depth": -0.1634,
+        "recovery_days": 186,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-12-03",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-03-26",
+        "depth": -0.0967,
+        "recovery_days": 76,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-09-09",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-09-02",
+        "depth": -0.369,
+        "recovery_days": 249,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-10-16",
+        "trough_date": "2021-03-04",
+        "recovery_date": "2021-03-29",
+        "depth": -0.0972,
+        "recovery_days": 111,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-07-28",
+        "trough_date": "2021-08-10",
+        "recovery_date": "2021-09-24",
+        "depth": -0.0524,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-01-07",
+        "trough_date": "2022-03-10",
+        "recovery_date": "2022-08-17",
+        "depth": -0.1723,
+        "recovery_days": 152,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-08-18",
+        "trough_date": "2022-09-30",
+        "recovery_date": "2022-10-28",
+        "depth": -0.1305,
+        "recovery_days": 50,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-11-09",
+        "trough_date": "2023-02-09",
+        "recovery_date": "2023-03-28",
+        "depth": -0.0584,
+        "recovery_days": 94,
+        "is_complete": true
+      },
+      {
+        "start_date": "2023-07-03",
+        "trough_date": "2023-10-12",
+        "recovery_date": "2023-12-13",
+        "depth": -0.1706,
+        "recovery_days": 114,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-01-22",
+        "trough_date": "2024-07-09",
+        "recovery_date": "2024-09-13",
+        "depth": -0.1721,
+        "recovery_days": 163,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-21",
+        "trough_date": "2025-01-16",
+        "recovery_date": "2025-03-07",
+        "depth": -0.111,
+        "recovery_days": 93,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-03-10",
+        "trough_date": "2025-06-25",
+        "recovery_date": "2025-12-12",
+        "depth": -0.1062,
+        "recovery_days": 193,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-12-19",
+        "trough_date": "2026-01-05",
+        "recovery_date": "2026-02-04",
+        "depth": -0.0619,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-03-02",
+        "trough_date": "2026-09-23",
+        "recovery_date": null,
+        "depth": -0.2875,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 29,
+      "p50": -0.0972,
+      "p25": -0.155,
+      "p10": -0.17706,
+      "recovery_days_min": 21,
+      "recovery_days_median": 94,
+      "recovery_days_max": 318
+    },
+    "insufficient_data": false
+  },
+  "PG": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 171.265,
+    "episodes": [
+      {
+        "start_date": "2007-12-13",
+        "trough_date": "2009-03-09",
+        "recovery_date": "2011-12-23",
+        "depth": -0.3901,
+        "recovery_days": 1020,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-12-30",
+        "trough_date": "2012-02-03",
+        "recovery_date": "2012-02-24",
+        "depth": -0.0552,
+        "recovery_days": 37,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-03-14",
+        "trough_date": "2012-06-26",
+        "recovery_date": "2012-08-10",
+        "depth": -0.1197,
+        "recovery_days": 104,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-10-26",
+        "trough_date": "2012-11-15",
+        "recovery_date": "2012-12-07",
+        "depth": -0.0535,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-12-13",
+        "trough_date": "2012-12-28",
+        "recovery_date": "2013-01-23",
+        "depth": -0.051,
+        "recovery_days": 26,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-04-24",
+        "trough_date": "2013-06-20",
+        "recovery_date": "2013-07-19",
+        "depth": -0.0816,
+        "recovery_days": 60,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-08-09",
+        "trough_date": "2013-09-30",
+        "recovery_date": "2013-10-29",
+        "depth": -0.0801,
+        "recovery_days": 56,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-11-26",
+        "trough_date": "2014-02-03",
+        "recovery_date": "2014-08-25",
+        "depth": -0.107,
+        "recovery_days": 186,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-12-29",
+        "trough_date": "2015-09-14",
+        "recovery_date": "2016-09-06",
+        "depth": -0.2554,
+        "recovery_days": 425,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-10-10",
+        "trough_date": "2016-12-01",
+        "recovery_date": "2017-02-09",
+        "depth": -0.0834,
+        "recovery_days": 84,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-02-22",
+        "trough_date": "2017-05-18",
+        "recovery_date": "2017-07-27",
+        "depth": -0.0561,
+        "recovery_days": 108,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-09-21",
+        "trough_date": "2018-05-02",
+        "recovery_date": "2018-11-05",
+        "depth": -0.2301,
+        "recovery_days": 283,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-12-17",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-01-31",
+        "depth": -0.096,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-31",
+        "trough_date": "2019-08-05",
+        "recovery_date": "2019-08-27",
+        "depth": -0.0609,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-09-30",
+        "trough_date": "2019-10-15",
+        "recovery_date": "2019-10-24",
+        "depth": -0.0592,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-07",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-07-23",
+        "depth": -0.2316,
+        "recovery_days": 115,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-11-16",
+        "trough_date": "2021-03-04",
+        "recovery_date": "2021-07-30",
+        "depth": -0.1483,
+        "recovery_days": 176,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-02-04",
+        "trough_date": "2022-03-11",
+        "recovery_date": "2022-04-28",
+        "depth": -0.1275,
+        "recovery_days": 57,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-04-29",
+        "trough_date": "2022-10-10",
+        "recovery_date": "2024-01-30",
+        "depth": -0.2377,
+        "recovery_days": 439,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-07-30",
+        "trough_date": "2024-07-31",
+        "recovery_date": "2024-08-02",
+        "depth": -0.054,
+        "recovery_days": 3,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-09-11",
+        "trough_date": "2024-11-06",
+        "recovery_date": "2024-11-25",
+        "depth": -0.0888,
+        "recovery_days": 53,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-12-03",
+        "trough_date": "2026-01-07",
+        "recovery_date": null,
+        "depth": -0.2115,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 21,
+      "p50": -0.0888,
+      "p25": -0.1483,
+      "p10": -0.2377,
+      "recovery_days_min": 3,
+      "recovery_days_median": 60,
+      "recovery_days_max": 1020
+    },
+    "insufficient_data": false
+  },
+  "PEP": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 173.5526,
+    "episodes": [
+      {
+        "start_date": "2018-01-29",
+        "trough_date": "2018-05-09",
+        "recovery_date": "2018-11-19",
+        "depth": -0.2044,
+        "recovery_days": 205,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-12-03",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-03-26",
+        "depth": -0.1305,
+        "recovery_days": 76,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-11",
+        "trough_date": "2019-08-05",
+        "recovery_date": "2019-08-27",
+        "depth": -0.0745,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-10-07",
+        "trough_date": "2019-11-12",
+        "recovery_date": "2020-01-16",
+        "depth": -0.0592,
+        "recovery_days": 70,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-18",
+        "trough_date": "2020-03-20",
+        "recovery_date": "2020-11-11",
+        "depth": -0.2882,
+        "recovery_days": 187,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-04",
+        "trough_date": "2021-03-03",
+        "recovery_date": "2021-05-20",
+        "depth": -0.1292,
+        "recovery_days": 95,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-01-18",
+        "trough_date": "2022-03-11",
+        "recovery_date": "2022-04-20",
+        "depth": -0.119,
+        "recovery_days": 64,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-04-29",
+        "trough_date": "2022-06-14",
+        "recovery_date": "2022-08-01",
+        "depth": -0.1143,
+        "recovery_days": 63,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-08-19",
+        "trough_date": "2022-10-07",
+        "recovery_date": "2022-10-28",
+        "depth": -0.0981,
+        "recovery_days": 49,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-12-02",
+        "trough_date": "2023-01-23",
+        "recovery_date": "2023-04-18",
+        "depth": -0.0903,
+        "recovery_days": 92,
+        "is_complete": true
+      },
+      {
+        "start_date": "2023-05-15",
+        "trough_date": "2025-05-14",
+        "recovery_date": null,
+        "depth": -0.3032,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 10,
+      "p50": -0.11665,
+      "p25": -0.130175,
+      "p10": -0.21278,
+      "recovery_days_min": 33,
+      "recovery_days_median": 73,
+      "recovery_days_max": 205
+    },
+    "insufficient_data": false
+  },
+  "GS": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 1146.4548,
+    "episodes": [
+      {
+        "start_date": "2007-10-10",
+        "trough_date": "2007-10-19",
+        "recovery_date": "2007-10-29",
+        "depth": -0.0899,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-11-01",
+        "trough_date": "2008-11-20",
+        "recovery_date": "2016-12-01",
+        "depth": -0.7884,
+        "recovery_days": 2291,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-01-12",
+        "trough_date": "2017-01-31",
+        "recovery_date": "2017-02-13",
+        "depth": -0.0669,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-03-06",
+        "trough_date": "2017-05-31",
+        "recovery_date": "2017-12-04",
+        "depth": -0.1618,
+        "recovery_days": 190,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-30",
+        "trough_date": "2018-02-08",
+        "recovery_date": "2018-03-12",
+        "depth": -0.0959,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-03-13",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-12-28",
+        "depth": -0.4875,
+        "recovery_days": 704,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-15",
+        "trough_date": "2021-01-29",
+        "recovery_date": "2021-02-16",
+        "depth": -0.1192,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-03-15",
+        "trough_date": "2021-04-05",
+        "recovery_date": "2021-04-29",
+        "depth": -0.0724,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-06-07",
+        "trough_date": "2021-06-18",
+        "recovery_date": "2021-08-06",
+        "depth": -0.1089,
+        "recovery_days": 43,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-08-13",
+        "trough_date": "2021-08-19",
+        "recovery_date": "2021-08-27",
+        "depth": -0.0516,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-08-30",
+        "trough_date": "2021-10-04",
+        "recovery_date": "2021-11-02",
+        "depth": -0.1042,
+        "recovery_days": 45,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-03",
+        "trough_date": "2022-06-17",
+        "recovery_date": "2024-03-20",
+        "depth": -0.3284,
+        "recovery_days": 596,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-04-01",
+        "trough_date": "2024-04-12",
+        "recovery_date": "2024-04-23",
+        "depth": -0.0675,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-08-01",
+        "trough_date": "2024-08-05",
+        "recovery_date": "2024-08-23",
+        "depth": -0.0982,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-09-03",
+        "trough_date": "2024-09-10",
+        "recovery_date": "2024-10-11",
+        "depth": -0.0845,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-12-02",
+        "trough_date": "2024-12-18",
+        "recovery_date": "2025-01-15",
+        "depth": -0.0914,
+        "recovery_days": 29,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-02-19",
+        "trough_date": "2025-04-08",
+        "recovery_date": "2025-06-25",
+        "depth": -0.309,
+        "recovery_days": 87,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-09-24",
+        "trough_date": "2025-10-22",
+        "recovery_date": "2025-11-11",
+        "depth": -0.0765,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-11-13",
+        "trough_date": "2025-11-20",
+        "recovery_date": "2025-12-03",
+        "depth": -0.0778,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-01-16",
+        "trough_date": "2026-03-13",
+        "recovery_date": "2026-05-20",
+        "depth": -0.1942,
+        "recovery_days": 85,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-06-05",
+        "trough_date": "2026-06-10",
+        "recovery_date": "2026-06-17",
+        "depth": -0.0836,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-06-23",
+        "trough_date": "2026-06-30",
+        "recovery_date": "2026-07-14",
+        "depth": -0.0859,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-07-16",
+        "trough_date": "2026-09-24",
+        "recovery_date": null,
+        "depth": -0.1862,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 22,
+      "p50": -0.09365,
+      "p25": -0.15115,
+      "p10": -0.32646000000000003,
+      "recovery_days_min": 8,
+      "recovery_days_median": 28,
+      "recovery_days_max": 2291
+    },
+    "insufficient_data": false
+  },
+  "MS": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 227.2987,
+    "episodes": [
+      {
+        "start_date": "2007-08-27",
+        "trough_date": "2007-08-30",
+        "recovery_date": "2007-09-13",
+        "depth": -0.0679,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-09-19",
+        "trough_date": "2007-09-25",
+        "recovery_date": "2007-10-05",
+        "depth": -0.1042,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-10",
+        "trough_date": "2008-11-20",
+        "recovery_date": "2018-03-12",
+        "depth": -0.8621,
+        "recovery_days": 2626,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-03-13",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2020-01-16",
+        "depth": -0.3606,
+        "recovery_days": 465,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-01-21",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-11-09",
+        "depth": -0.5133,
+        "recovery_days": 204,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-15",
+        "trough_date": "2021-01-29",
+        "recovery_date": "2021-02-22",
+        "depth": -0.1187,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-03-15",
+        "trough_date": "2021-04-20",
+        "recovery_date": "2021-05-05",
+        "depth": -0.0836,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-06-07",
+        "trough_date": "2021-06-18",
+        "recovery_date": "2021-07-21",
+        "depth": -0.105,
+        "recovery_days": 31,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-08-30",
+        "trough_date": "2021-11-30",
+        "recovery_date": "2022-01-11",
+        "depth": -0.0946,
+        "recovery_days": 93,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-01-12",
+        "trough_date": "2022-01-18",
+        "recovery_date": "2022-02-08",
+        "depth": -0.1124,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-02-10",
+        "trough_date": "2022-06-17",
+        "recovery_date": "2024-05-15",
+        "depth": -0.3238,
+        "recovery_days": 567,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-05-22",
+        "trough_date": "2024-06-13",
+        "recovery_date": "2024-07-09",
+        "depth": -0.0622,
+        "recovery_days": 31,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-07-18",
+        "trough_date": "2024-08-05",
+        "recovery_date": "2024-10-04",
+        "depth": -0.1315,
+        "recovery_days": 55,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-11-22",
+        "trough_date": "2024-12-19",
+        "recovery_date": "2025-01-16",
+        "depth": -0.1073,
+        "recovery_days": 35,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-02-07",
+        "trough_date": "2025-04-04",
+        "recovery_date": "2025-06-27",
+        "depth": -0.2924,
+        "recovery_days": 96,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-09-30",
+        "trough_date": "2025-10-10",
+        "recovery_date": "2025-10-15",
+        "depth": -0.0577,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-11-13",
+        "trough_date": "2025-11-21",
+        "recovery_date": "2025-12-03",
+        "depth": -0.0692,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-01-16",
+        "trough_date": "2026-03-12",
+        "recovery_date": "2026-04-15",
+        "depth": -0.1883,
+        "recovery_days": 60,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-06-05",
+        "trough_date": "2026-06-10",
+        "recovery_date": "2026-06-16",
+        "depth": -0.0532,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-06-23",
+        "trough_date": "2026-06-30",
+        "recovery_date": "2026-07-14",
+        "depth": -0.0795,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-07-16",
+        "trough_date": "2026-09-24",
+        "recovery_date": null,
+        "depth": -0.1272,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 20,
+      "p50": -0.10615,
+      "p25": -0.214325,
+      "p10": -0.37587,
+      "recovery_days_min": 7,
+      "recovery_days_median": 33,
+      "recovery_days_max": 2626
+    },
+    "insufficient_data": false
+  },
+  "WFC": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 94.8289,
+    "episodes": [
+      {
+        "start_date": "2007-08-22",
+        "trough_date": "2007-09-10",
+        "recovery_date": "2007-10-05",
+        "depth": -0.0597,
+        "recovery_days": 31,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-08",
+        "trough_date": "2008-07-15",
+        "recovery_date": "2008-09-18",
+        "depth": -0.4362,
+        "recovery_days": 239,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-09-22",
+        "trough_date": "2009-03-05",
+        "recovery_date": "2013-03-07",
+        "depth": -0.7901,
+        "recovery_days": 1125,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-03-18",
+        "trough_date": "2013-04-18",
+        "recovery_date": "2013-05-07",
+        "depth": -0.0505,
+        "recovery_days": 35,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-07-23",
+        "trough_date": "2013-10-08",
+        "recovery_date": "2013-11-21",
+        "depth": -0.0922,
+        "recovery_days": 86,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-07",
+        "trough_date": "2014-08-07",
+        "recovery_date": "2014-09-18",
+        "depth": -0.0557,
+        "recovery_days": 52,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-09-22",
+        "trough_date": "2014-10-15",
+        "recovery_date": "2014-11-03",
+        "depth": -0.1033,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-12-30",
+        "trough_date": "2015-01-15",
+        "recovery_date": "2015-02-17",
+        "depth": -0.0896,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-07-23",
+        "trough_date": "2016-10-04",
+        "recovery_date": "2016-12-07",
+        "depth": -0.2245,
+        "recovery_days": 348,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-12-09",
+        "trough_date": "2017-01-17",
+        "recovery_date": "2017-02-03",
+        "depth": -0.0613,
+        "recovery_days": 37,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-03-02",
+        "trough_date": "2017-09-08",
+        "recovery_date": "2017-12-05",
+        "depth": -0.158,
+        "recovery_days": 193,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-29",
+        "trough_date": "2020-10-29",
+        "recovery_date": "2022-02-08",
+        "depth": -0.6446,
+        "recovery_days": 1015,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-02-10",
+        "trough_date": "2023-03-24",
+        "recovery_date": "2024-03-05",
+        "depth": -0.371,
+        "recovery_days": 517,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-05-16",
+        "trough_date": "2024-09-12",
+        "recovery_date": "2024-10-14",
+        "depth": -0.1664,
+        "recovery_days": 103,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-11-27",
+        "trough_date": "2024-12-18",
+        "recovery_date": "2025-01-21",
+        "depth": -0.1111,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-02-07",
+        "trough_date": "2025-04-04",
+        "recovery_date": "2025-07-01",
+        "depth": -0.2473,
+        "recovery_days": 98,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-07-07",
+        "trough_date": "2025-07-15",
+        "recovery_date": "2025-07-23",
+        "depth": -0.0567,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-07-28",
+        "trough_date": "2025-08-07",
+        "recovery_date": "2025-09-19",
+        "depth": -0.0862,
+        "recovery_days": 38,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-09-23",
+        "trough_date": "2025-10-10",
+        "recovery_date": "2025-10-15",
+        "depth": -0.0885,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-11-04",
+        "trough_date": "2025-11-20",
+        "recovery_date": "2025-12-03",
+        "depth": -0.0512,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-01-07",
+        "trough_date": "2026-05-15",
+        "recovery_date": null,
+        "depth": -0.2302,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 20,
+      "p50": -0.09775,
+      "p25": -0.23020000000000002,
+      "p10": -0.45703999999999995,
+      "recovery_days_min": 12,
+      "recovery_days_median": 45,
+      "recovery_days_max": 1125
+    },
+    "insufficient_data": false
+  },
+  "GE": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 381.22,
+    "episodes": [
+      {
+        "start_date": "2007-10-03",
+        "trough_date": "2009-03-05",
+        "recovery_date": "2015-12-29",
+        "depth": -0.827,
+        "recovery_days": 2078,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-12-30",
+        "trough_date": "2016-02-11",
+        "recovery_date": "2016-03-21",
+        "depth": -0.1224,
+        "recovery_days": 55,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-04-04",
+        "trough_date": "2016-05-19",
+        "recovery_date": "2016-07-06",
+        "depth": -0.0805,
+        "recovery_days": 65,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-07-20",
+        "trough_date": "2020-05-15",
+        "recovery_date": "2024-03-27",
+        "depth": -0.8118,
+        "recovery_days": 1934,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-04-12",
+        "trough_date": "2024-04-19",
+        "recovery_date": "2024-04-23",
+        "depth": -0.0593,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-05-09",
+        "trough_date": "2024-06-13",
+        "recovery_date": "2024-07-23",
+        "depth": -0.078,
+        "recovery_days": 50,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-07-24",
+        "trough_date": "2024-08-05",
+        "recovery_date": "2024-08-29",
+        "depth": -0.0793,
+        "recovery_days": 26,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-09-03",
+        "trough_date": "2024-09-06",
+        "recovery_date": "2024-09-13",
+        "depth": -0.0767,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-22",
+        "trough_date": "2024-12-18",
+        "recovery_date": "2025-01-23",
+        "depth": -0.1765,
+        "recovery_days": 62,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-02-20",
+        "trough_date": "2025-03-11",
+        "recovery_date": "2025-03-24",
+        "depth": -0.0875,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-03-26",
+        "trough_date": "2025-04-04",
+        "recovery_date": "2025-05-08",
+        "depth": -0.2136,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-06-09",
+        "trough_date": "2025-06-17",
+        "recovery_date": "2025-06-30",
+        "depth": -0.0778,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-10-30",
+        "trough_date": "2025-12-10",
+        "recovery_date": "2025-12-22",
+        "depth": -0.0976,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-01-07",
+        "trough_date": "2026-01-28",
+        "recovery_date": "2026-02-18",
+        "depth": -0.107,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-03-03",
+        "trough_date": "2026-03-30",
+        "recovery_date": "2026-06-16",
+        "depth": -0.2085,
+        "recovery_days": 73,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-07-07",
+        "trough_date": "2026-07-21",
+        "recovery_date": "2026-08-05",
+        "depth": -0.1003,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-08-06",
+        "trough_date": "2026-09-15",
+        "recovery_date": null,
+        "depth": -0.1946,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 16,
+      "p50": -0.09895000000000001,
+      "p25": -0.1845,
+      "p10": -0.5126999999999999,
+      "recovery_days_min": 7,
+      "recovery_days_median": 33,
+      "recovery_days_max": 2078
+    },
+    "insufficient_data": false
+  },
+  "RTX": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 225.49,
+    "episodes": [
+      {
+        "start_date": "2020-04-20",
+        "trough_date": "2020-04-21",
+        "recovery_date": "2020-04-29",
+        "depth": -0.0518,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-04-30",
+        "trough_date": "2020-05-15",
+        "recovery_date": "2020-06-03",
+        "depth": -0.2165,
+        "recovery_days": 23,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-06-09",
+        "trough_date": "2020-10-28",
+        "recovery_date": "2020-11-24",
+        "depth": -0.289,
+        "recovery_days": 118,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-12-09",
+        "trough_date": "2021-01-27",
+        "recovery_date": "2021-02-24",
+        "depth": -0.1206,
+        "recovery_days": 51,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-02-25",
+        "trough_date": "2021-02-26",
+        "recovery_date": "2021-03-12",
+        "depth": -0.0674,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-03-16",
+        "trough_date": "2021-03-23",
+        "recovery_date": "2021-04-23",
+        "depth": -0.0552,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-06-09",
+        "trough_date": "2021-07-19",
+        "recovery_date": "2021-10-06",
+        "depth": -0.0939,
+        "recovery_days": 83,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-10-25",
+        "trough_date": "2021-12-01",
+        "recovery_date": "2022-01-13",
+        "depth": -0.1344,
+        "recovery_days": 56,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-01-18",
+        "trough_date": "2022-01-21",
+        "recovery_date": "2022-02-02",
+        "depth": -0.0555,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-03-02",
+        "trough_date": "2022-03-08",
+        "recovery_date": "2022-04-13",
+        "depth": -0.0767,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-04-21",
+        "trough_date": "2022-09-27",
+        "recovery_date": "2023-04-17",
+        "depth": -0.2192,
+        "recovery_days": 247,
+        "is_complete": true
+      },
+      {
+        "start_date": "2023-04-19",
+        "trough_date": "2023-10-05",
+        "recovery_date": "2024-04-08",
+        "depth": -0.3284,
+        "recovery_days": 243,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-06-06",
+        "trough_date": "2024-07-01",
+        "recovery_date": "2024-07-25",
+        "depth": -0.082,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-24",
+        "trough_date": "2025-01-06",
+        "recovery_date": "2025-01-28",
+        "depth": -0.0983,
+        "recovery_days": 63,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-02-04",
+        "trough_date": "2025-02-14",
+        "recovery_date": "2025-02-27",
+        "depth": -0.0578,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-03-26",
+        "trough_date": "2025-04-22",
+        "recovery_date": "2025-05-19",
+        "depth": -0.1615,
+        "recovery_days": 37,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-08-29",
+        "trough_date": "2025-09-09",
+        "recovery_date": "2025-09-24",
+        "depth": -0.0555,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-10-08",
+        "trough_date": "2025-10-15",
+        "recovery_date": "2025-10-21",
+        "depth": -0.0725,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-10-24",
+        "trough_date": "2025-12-01",
+        "recovery_date": "2025-12-15",
+        "depth": -0.0599,
+        "recovery_days": 35,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-03-03",
+        "trough_date": "2026-05-15",
+        "recovery_date": "2026-07-24",
+        "depth": -0.1932,
+        "recovery_days": 99,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-08-19",
+        "trough_date": "2026-09-22",
+        "recovery_date": null,
+        "depth": -0.153,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 20,
+      "p50": -0.08795,
+      "p25": -0.169425,
+      "p10": -0.22618,
+      "recovery_days_min": 7,
+      "recovery_days_median": 34,
+      "recovery_days_max": 247
+    },
+    "insufficient_data": false
+  },
+  "UNP": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 309.1852,
+    "episodes": [
+      {
+        "start_date": "2007-08-23",
+        "trough_date": "2007-08-28",
+        "recovery_date": "2007-09-04",
+        "depth": -0.0506,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-09-05",
+        "trough_date": "2007-09-10",
+        "recovery_date": "2007-09-13",
+        "depth": -0.0589,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-24",
+        "trough_date": "2007-11-26",
+        "recovery_date": "2007-12-06",
+        "depth": -0.0662,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-12-11",
+        "trough_date": "2008-01-17",
+        "recovery_date": "2008-04-16",
+        "depth": -0.1938,
+        "recovery_days": 86,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-06-02",
+        "trough_date": "2008-07-15",
+        "recovery_date": "2008-07-30",
+        "depth": -0.151,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-07-31",
+        "trough_date": "2008-08-12",
+        "recovery_date": "2008-08-28",
+        "depth": -0.0854,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-09-02",
+        "trough_date": "2009-03-09",
+        "recovery_date": "2010-09-20",
+        "depth": -0.5944,
+        "recovery_days": 519,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-01-14",
+        "trough_date": "2011-01-25",
+        "recovery_date": "2011-02-11",
+        "depth": -0.0606,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-02-14",
+        "trough_date": "2011-03-16",
+        "recovery_date": "2011-03-29",
+        "depth": -0.0724,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-06-01",
+        "trough_date": "2011-06-16",
+        "recovery_date": "2011-07-01",
+        "depth": -0.0589,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-07-05",
+        "trough_date": "2011-10-03",
+        "recovery_date": "2011-12-23",
+        "depth": -0.2483,
+        "recovery_days": 121,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-02-06",
+        "trough_date": "2012-04-10",
+        "recovery_date": "2012-06-18",
+        "depth": -0.091,
+        "recovery_days": 92,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-09-17",
+        "trough_date": "2012-11-14",
+        "recovery_date": "2013-01-02",
+        "depth": -0.0854,
+        "recovery_days": 72,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-05-20",
+        "trough_date": "2013-06-24",
+        "recovery_date": "2013-07-09",
+        "depth": -0.062,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-08-05",
+        "trough_date": "2013-10-29",
+        "recovery_date": "2013-11-27",
+        "depth": -0.0736,
+        "recovery_days": 81,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-23",
+        "trough_date": "2014-08-07",
+        "recovery_date": "2014-08-18",
+        "depth": -0.0523,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-09-18",
+        "trough_date": "2014-10-13",
+        "recovery_date": "2014-10-23",
+        "depth": -0.1049,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-11-28",
+        "trough_date": "2015-01-15",
+        "recovery_date": "2015-02-05",
+        "depth": -0.0978,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-02-13",
+        "trough_date": "2016-01-25",
+        "recovery_date": "2017-10-27",
+        "depth": -0.4351,
+        "recovery_days": 682,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-23",
+        "trough_date": "2018-02-05",
+        "recovery_date": "2018-05-10",
+        "depth": -0.1256,
+        "recovery_days": 75,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-06-18",
+        "trough_date": "2018-07-17",
+        "recovery_date": "2018-07-26",
+        "depth": -0.0596,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-09-24",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-02-11",
+        "depth": -0.2188,
+        "recovery_days": 95,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-02-20",
+        "trough_date": "2019-03-22",
+        "recovery_date": "2019-04-01",
+        "depth": -0.0576,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-05-06",
+        "trough_date": "2019-07-17",
+        "recovery_date": "2019-07-30",
+        "depth": -0.0769,
+        "recovery_days": 59,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-08-01",
+        "trough_date": "2019-10-08",
+        "recovery_date": "2019-11-25",
+        "depth": -0.1531,
+        "recovery_days": 81,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-11-26",
+        "trough_date": "2019-12-03",
+        "recovery_date": "2019-12-16",
+        "depth": -0.061,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-01-24",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-08-10",
+        "depth": -0.3872,
+        "recovery_days": 137,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-10-19",
+        "trough_date": "2020-10-28",
+        "recovery_date": "2021-01-06",
+        "depth": -0.1738,
+        "recovery_days": 54,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-11",
+        "trough_date": "2021-01-27",
+        "recovery_date": "2021-03-26",
+        "depth": -0.1119,
+        "recovery_days": 52,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-05-10",
+        "trough_date": "2021-09-30",
+        "recovery_date": "2021-10-20",
+        "depth": -0.1376,
+        "recovery_days": 114,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-24",
+        "trough_date": "2021-12-01",
+        "recovery_date": "2021-12-07",
+        "depth": -0.0571,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-01-10",
+        "trough_date": "2022-01-18",
+        "recovery_date": "2022-03-03",
+        "depth": -0.0657,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-03-31",
+        "trough_date": "2022-10-20",
+        "recovery_date": "2026-02-09",
+        "depth": -0.3183,
+        "recovery_days": 967,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-03-03",
+        "trough_date": "2026-03-19",
+        "recovery_date": "2026-04-23",
+        "depth": -0.1228,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-05-28",
+        "trough_date": "2026-06-18",
+        "recovery_date": "2026-07-02",
+        "depth": -0.0758,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-07-27",
+        "trough_date": "2026-07-30",
+        "recovery_date": "2026-08-21",
+        "depth": -0.0581,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-08-27",
+        "trough_date": "2026-09-21",
+        "recovery_date": null,
+        "depth": -0.1279,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 36,
+      "p50": -0.0854,
+      "p25": -0.151525,
+      "p10": -0.2833,
+      "recovery_days_min": 6,
+      "recovery_days_median": 38,
+      "recovery_days_max": 967
+    },
+    "insufficient_data": false
+  },
+  "HON": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 257.8086,
+    "episodes": [
+      {
+        "start_date": "2021-06-02",
+        "trough_date": "2021-06-18",
+        "recovery_date": "2021-07-30",
+        "depth": -0.0878,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-08-17",
+        "trough_date": "2022-09-30",
+        "recovery_date": "2024-10-17",
+        "depth": -0.2713,
+        "recovery_days": 797,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-23",
+        "trough_date": "2024-10-30",
+        "recovery_date": "2024-11-11",
+        "depth": -0.0816,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-12-17",
+        "trough_date": "2025-04-08",
+        "recovery_date": "2025-07-01",
+        "depth": -0.221,
+        "recovery_days": 132,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-07-07",
+        "trough_date": "2025-11-20",
+        "recovery_date": "2026-01-29",
+        "depth": -0.16,
+        "recovery_days": 143,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-03-03",
+        "trough_date": "2026-09-14",
+        "recovery_date": null,
+        "depth": -0.2189,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 5,
+      "p50": -0.16,
+      "p25": -0.221,
+      "p10": -0.25118,
+      "recovery_days_min": 13,
+      "recovery_days_median": 132,
+      "recovery_days_max": 797
+    },
+    "insufficient_data": false
+  },
+  "CRM": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 362.5813,
+    "episodes": [
+      {
+        "start_date": "2007-10-15",
+        "trough_date": "2007-11-08",
+        "recovery_date": "2007-11-16",
+        "depth": -0.1495,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-11-19",
+        "trough_date": "2007-11-19",
+        "recovery_date": "2007-11-20",
+        "depth": -0.0568,
+        "recovery_days": 1,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-11-21",
+        "trough_date": "2007-11-26",
+        "recovery_date": "2007-12-07",
+        "depth": -0.0923,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-12-21",
+        "trough_date": "2008-02-06",
+        "recovery_date": "2008-04-04",
+        "depth": -0.2633,
+        "recovery_days": 70,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-04-11",
+        "trough_date": "2008-04-15",
+        "recovery_date": "2008-04-23",
+        "depth": -0.0957,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-05-07",
+        "trough_date": "2008-05-21",
+        "recovery_date": "2008-05-28",
+        "depth": -0.107,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-06-06",
+        "trough_date": "2008-06-11",
+        "recovery_date": "2008-06-23",
+        "depth": -0.0606,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-06-24",
+        "trough_date": "2008-11-19",
+        "recovery_date": "2009-12-29",
+        "depth": -0.705,
+        "recovery_days": 382,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-01-05",
+        "trough_date": "2010-02-05",
+        "recovery_date": "2010-03-10",
+        "depth": -0.1703,
+        "recovery_days": 44,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-04-23",
+        "trough_date": "2010-05-07",
+        "recovery_date": "2010-06-03",
+        "depth": -0.126,
+        "recovery_days": 29,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-06-04",
+        "trough_date": "2010-06-07",
+        "recovery_date": "2010-06-11",
+        "depth": -0.0767,
+        "recovery_days": 5,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-06-18",
+        "trough_date": "2010-06-29",
+        "recovery_date": "2010-07-23",
+        "depth": -0.1204,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-08-10",
+        "trough_date": "2010-08-19",
+        "recovery_date": "2010-08-20",
+        "depth": -0.0735,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-09-21",
+        "trough_date": "2010-10-11",
+        "recovery_date": "2010-11-19",
+        "depth": -0.1886,
+        "recovery_days": 43,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-12-09",
+        "trough_date": "2011-03-18",
+        "recovery_date": "2011-05-24",
+        "depth": -0.203,
+        "recovery_days": 114,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-05-27",
+        "trough_date": "2011-06-13",
+        "recovery_date": "2011-07-05",
+        "depth": -0.1072,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-07-20",
+        "trough_date": "2012-01-04",
+        "recovery_date": "2012-04-13",
+        "depth": -0.3882,
+        "recovery_days": 185,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-04-20",
+        "trough_date": "2012-08-02",
+        "recovery_date": "2012-11-21",
+        "depth": -0.2394,
+        "recovery_days": 148,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-01-29",
+        "trough_date": "2013-02-26",
+        "recovery_date": "2013-03-01",
+        "depth": -0.0826,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-03-07",
+        "trough_date": "2013-04-22",
+        "recovery_date": "2013-05-17",
+        "depth": -0.1346,
+        "recovery_days": 50,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-05-21",
+        "trough_date": "2013-06-20",
+        "recovery_date": "2013-08-30",
+        "depth": -0.2183,
+        "recovery_days": 71,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-09-20",
+        "trough_date": "2013-10-09",
+        "recovery_date": "2013-10-18",
+        "depth": -0.065,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-11-18",
+        "trough_date": "2013-12-12",
+        "recovery_date": "2014-01-14",
+        "depth": -0.1105,
+        "recovery_days": 38,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-01-23",
+        "trough_date": "2014-01-27",
+        "recovery_date": "2014-02-05",
+        "depth": -0.0664,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-02-28",
+        "trough_date": "2014-04-28",
+        "recovery_date": "2015-02-26",
+        "depth": -0.2581,
+        "recovery_days": 250,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-02-27",
+        "trough_date": "2015-03-11",
+        "recovery_date": "2015-04-29",
+        "depth": -0.0934,
+        "recovery_days": 42,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-06-19",
+        "trough_date": "2015-08-24",
+        "recovery_date": "2015-10-12",
+        "depth": -0.1392,
+        "recovery_days": 79,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-12-07",
+        "trough_date": "2016-02-08",
+        "recovery_date": "2016-05-24",
+        "depth": -0.342,
+        "recovery_days": 116,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-05-31",
+        "trough_date": "2016-12-02",
+        "recovery_date": "2017-03-01",
+        "depth": -0.1834,
+        "recovery_days": 189,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-06-08",
+        "trough_date": "2017-06-16",
+        "recovery_date": "2017-08-16",
+        "depth": -0.059,
+        "recovery_days": 48,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-09-12",
+        "trough_date": "2017-09-26",
+        "recovery_date": "2017-10-20",
+        "depth": -0.055,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-11-22",
+        "trough_date": "2017-12-04",
+        "recovery_date": "2018-01-08",
+        "depth": -0.0823,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-02-01",
+        "trough_date": "2018-02-08",
+        "recovery_date": "2018-02-20",
+        "depth": -0.0867,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-03-15",
+        "trough_date": "2018-03-28",
+        "recovery_date": "2018-05-08",
+        "depth": -0.1181,
+        "recovery_days": 37,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-07-26",
+        "trough_date": "2018-07-31",
+        "recovery_date": "2018-08-24",
+        "depth": -0.0787,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-09-28",
+        "trough_date": "2018-11-20",
+        "recovery_date": "2019-02-12",
+        "depth": -0.2478,
+        "recovery_days": 92,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-03-04",
+        "trough_date": "2019-03-08",
+        "recovery_date": "2019-03-21",
+        "depth": -0.0576,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-03-22",
+        "trough_date": "2019-08-14",
+        "recovery_date": "2020-01-02",
+        "depth": -0.1631,
+        "recovery_days": 197,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-21",
+        "trough_date": "2020-03-16",
+        "recovery_date": "2020-07-06",
+        "depth": -0.3572,
+        "recovery_days": 93,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-07-10",
+        "trough_date": "2020-07-16",
+        "recovery_date": "2020-08-03",
+        "depth": -0.0759,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-08-07",
+        "trough_date": "2020-08-11",
+        "recovery_date": "2020-08-20",
+        "depth": -0.076,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-02",
+        "trough_date": "2021-03-04",
+        "recovery_date": "2021-09-24",
+        "depth": -0.2699,
+        "recovery_days": 267,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-27",
+        "trough_date": "2021-09-29",
+        "recovery_date": "2021-10-14",
+        "depth": -0.053,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-09",
+        "trough_date": "2022-12-16",
+        "recovery_date": "2024-03-01",
+        "depth": -0.5862,
+        "recovery_days": 579,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-03-04",
+        "trough_date": "2024-05-30",
+        "recovery_date": "2024-11-08",
+        "depth": -0.3111,
+        "recovery_days": 174,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-11-12",
+        "trough_date": "2024-11-18",
+        "recovery_date": "2024-11-22",
+        "depth": -0.057,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-12-05",
+        "trough_date": "2026-06-22",
+        "recovery_date": null,
+        "depth": -0.5867,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 46,
+      "p50": -0.1143,
+      "p25": -0.214475,
+      "p10": -0.32655,
+      "recovery_days_min": 1,
+      "recovery_days_median": 33,
+      "recovery_days_max": 579
+    },
+    "insufficient_data": false
+  },
+  "ADBE": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 688.37,
+    "episodes": [
+      {
+        "start_date": "2007-09-20",
+        "trough_date": "2007-09-24",
+        "recovery_date": "2007-10-01",
+        "depth": -0.0532,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-25",
+        "trough_date": "2009-03-03",
+        "recovery_date": "2013-07-12",
+        "depth": -0.6671,
+        "recovery_days": 1441,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-07-15",
+        "trough_date": "2013-08-19",
+        "recovery_date": "2013-09-18",
+        "depth": -0.0723,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-09-19",
+        "trough_date": "2013-10-09",
+        "recovery_date": "2013-10-14",
+        "depth": -0.0595,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-11-14",
+        "trough_date": "2013-12-12",
+        "recovery_date": "2013-12-13",
+        "depth": -0.0619,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-12-16",
+        "trough_date": "2013-12-17",
+        "recovery_date": "2014-01-15",
+        "depth": -0.0529,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-01-23",
+        "trough_date": "2014-02-03",
+        "recovery_date": "2014-02-07",
+        "depth": -0.0596,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-02-28",
+        "trough_date": "2014-05-07",
+        "recovery_date": "2014-06-18",
+        "depth": -0.1615,
+        "recovery_days": 76,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-07",
+        "trough_date": "2014-10-14",
+        "recovery_date": "2014-11-28",
+        "depth": -0.1725,
+        "recovery_days": 102,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-12-02",
+        "trough_date": "2014-12-11",
+        "recovery_date": "2014-12-12",
+        "depth": -0.0544,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-12-15",
+        "trough_date": "2015-01-14",
+        "recovery_date": "2015-02-13",
+        "depth": -0.0793,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-03-03",
+        "trough_date": "2015-03-26",
+        "recovery_date": "2015-05-19",
+        "depth": -0.0855,
+        "recovery_days": 54,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-08-18",
+        "trough_date": "2015-08-24",
+        "recovery_date": "2015-10-15",
+        "depth": -0.1441,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-12-17",
+        "trough_date": "2016-02-09",
+        "recovery_date": "2016-04-18",
+        "depth": -0.2272,
+        "recovery_days": 82,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-06-03",
+        "trough_date": "2016-06-27",
+        "recovery_date": "2016-08-10",
+        "depth": -0.093,
+        "recovery_days": 47,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-10-25",
+        "trough_date": "2016-12-01",
+        "recovery_date": "2017-01-23",
+        "depth": -0.102,
+        "recovery_days": 60,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-09-12",
+        "trough_date": "2017-09-25",
+        "recovery_date": "2017-10-19",
+        "depth": -0.0784,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-11-29",
+        "trough_date": "2017-12-05",
+        "recovery_date": "2018-01-09",
+        "depth": -0.0963,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-29",
+        "trough_date": "2018-02-08",
+        "recovery_date": "2018-02-15",
+        "depth": -0.0802,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-03-21",
+        "trough_date": "2018-04-02",
+        "recovery_date": "2018-04-17",
+        "depth": -0.076,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-04-18",
+        "trough_date": "2018-04-25",
+        "recovery_date": "2018-05-08",
+        "depth": -0.0599,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-06-15",
+        "trough_date": "2018-06-27",
+        "recovery_date": "2018-07-13",
+        "depth": -0.0791,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-07-26",
+        "trough_date": "2018-07-30",
+        "recovery_date": "2018-08-29",
+        "depth": -0.0792,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-09-17",
+        "trough_date": "2018-09-21",
+        "recovery_date": "2018-10-01",
+        "depth": -0.0503,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-10-02",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-04-23",
+        "depth": -0.2553,
+        "recovery_days": 138,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-05-01",
+        "trough_date": "2019-06-03",
+        "recovery_date": "2019-06-19",
+        "depth": -0.1045,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-29",
+        "trough_date": "2019-10-22",
+        "recovery_date": "2019-12-13",
+        "depth": -0.1612,
+        "recovery_days": 97,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-20",
+        "trough_date": "2020-03-12",
+        "recovery_date": "2020-05-20",
+        "depth": -0.2564,
+        "recovery_days": 63,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-07-13",
+        "trough_date": "2020-07-16",
+        "recovery_date": "2020-08-20",
+        "depth": -0.0856,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-03",
+        "trough_date": "2021-03-08",
+        "recovery_date": "2021-06-10",
+        "depth": -0.2109,
+        "recovery_days": 192,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-07",
+        "trough_date": "2021-10-04",
+        "recovery_date": "2021-11-04",
+        "depth": -0.1622,
+        "recovery_days": 42,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-22",
+        "trough_date": "2026-06-25",
+        "recovery_date": null,
+        "depth": -0.719,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 31,
+      "p50": -0.0855,
+      "p25": -0.16135,
+      "p10": -0.2272,
+      "recovery_days_min": 7,
+      "recovery_days_median": 34,
+      "recovery_days_max": 1441
+    },
+    "insufficient_data": false
+  },
+  "NOW": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 234.078,
+    "episodes": [
+      {
+        "start_date": "2012-07-06",
+        "trough_date": "2012-07-11",
+        "recovery_date": "2012-07-31",
+        "depth": -0.0857,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-08-03",
+        "trough_date": "2012-08-08",
+        "recovery_date": "2012-08-09",
+        "depth": -0.0519,
+        "recovery_days": 4,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-08-14",
+        "trough_date": "2012-08-23",
+        "recovery_date": "2012-09-04",
+        "depth": -0.1048,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-09-10",
+        "trough_date": "2012-09-11",
+        "recovery_date": "2012-09-13",
+        "depth": -0.0969,
+        "recovery_days": 3,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-09-17",
+        "trough_date": "2012-09-18",
+        "recovery_date": "2012-09-21",
+        "depth": -0.0579,
+        "recovery_days": 4,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-09-25",
+        "trough_date": "2013-01-14",
+        "recovery_date": "2013-04-25",
+        "depth": -0.3542,
+        "recovery_days": 144,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-04-26",
+        "trough_date": "2013-06-05",
+        "recovery_date": "2013-07-10",
+        "depth": -0.1724,
+        "recovery_days": 51,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-08-02",
+        "trough_date": "2013-08-13",
+        "recovery_date": "2013-08-26",
+        "depth": -0.1037,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-10-07",
+        "trough_date": "2013-10-09",
+        "recovery_date": "2013-10-24",
+        "depth": -0.1167,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-10-25",
+        "trough_date": "2013-12-12",
+        "recovery_date": "2014-01-10",
+        "depth": -0.1605,
+        "recovery_days": 52,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-01-24",
+        "trough_date": "2014-01-29",
+        "recovery_date": "2014-01-30",
+        "depth": -0.0778,
+        "recovery_days": 4,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-03-05",
+        "trough_date": "2014-04-28",
+        "recovery_date": "2015-01-29",
+        "depth": -0.3444,
+        "recovery_days": 228,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-02-27",
+        "trough_date": "2015-03-10",
+        "recovery_date": "2015-03-17",
+        "depth": -0.0747,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-03-20",
+        "trough_date": "2015-04-01",
+        "recovery_date": "2015-04-08",
+        "depth": -0.0598,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-04-17",
+        "trough_date": "2015-08-24",
+        "recovery_date": "2015-11-04",
+        "depth": -0.1829,
+        "recovery_days": 140,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-12-07",
+        "trough_date": "2016-02-08",
+        "recovery_date": "2017-01-27",
+        "depth": -0.4762,
+        "recovery_days": 287,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-02-16",
+        "trough_date": "2017-03-21",
+        "recovery_date": "2017-04-27",
+        "depth": -0.1068,
+        "recovery_days": 48,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-06-09",
+        "trough_date": "2017-06-16",
+        "recovery_date": "2017-07-12",
+        "depth": -0.0773,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-07-13",
+        "trough_date": "2017-08-10",
+        "recovery_date": "2017-08-30",
+        "depth": -0.0698,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-09-08",
+        "trough_date": "2017-09-26",
+        "recovery_date": "2017-10-03",
+        "depth": -0.0509,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-11-27",
+        "trough_date": "2017-12-04",
+        "recovery_date": "2017-12-15",
+        "depth": -0.1144,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-02-08",
+        "trough_date": "2018-02-08",
+        "recovery_date": "2018-02-16",
+        "depth": -0.0853,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-03-15",
+        "trough_date": "2018-04-25",
+        "recovery_date": "2018-05-07",
+        "depth": -0.0989,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-05-10",
+        "trough_date": "2018-05-22",
+        "recovery_date": "2018-06-01",
+        "depth": -0.0543,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-06-07",
+        "trough_date": "2018-06-27",
+        "recovery_date": "2018-07-11",
+        "depth": -0.099,
+        "recovery_days": 23,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-07-13",
+        "trough_date": "2018-07-31",
+        "recovery_date": "2018-08-29",
+        "depth": -0.0961,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-09-14",
+        "trough_date": "2018-11-19",
+        "recovery_date": "2019-01-31",
+        "depth": -0.2336,
+        "recovery_days": 94,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-03-22",
+        "trough_date": "2019-04-17",
+        "recovery_date": "2019-04-25",
+        "depth": -0.0587,
+        "recovery_days": 23,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-05-13",
+        "trough_date": "2019-05-13",
+        "recovery_date": "2019-05-16",
+        "depth": -0.0538,
+        "recovery_days": 3,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-05-17",
+        "trough_date": "2019-06-03",
+        "recovery_date": "2019-06-18",
+        "depth": -0.1064,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-12",
+        "trough_date": "2019-10-23",
+        "recovery_date": "2020-01-13",
+        "depth": -0.2722,
+        "recovery_days": 127,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-20",
+        "trough_date": "2020-04-03",
+        "recovery_date": "2020-05-05",
+        "depth": -0.3023,
+        "recovery_days": 52,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-05-12",
+        "trough_date": "2020-05-13",
+        "recovery_date": "2020-05-20",
+        "depth": -0.0583,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-06-11",
+        "trough_date": "2020-06-11",
+        "recovery_date": "2020-06-22",
+        "depth": -0.0663,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-07-10",
+        "trough_date": "2020-07-13",
+        "recovery_date": "2020-07-20",
+        "depth": -0.0575,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-07-21",
+        "trough_date": "2020-08-11",
+        "recovery_date": "2020-08-20",
+        "depth": -0.0621,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-03",
+        "trough_date": "2020-09-08",
+        "recovery_date": "2020-10-05",
+        "depth": -0.1132,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-10-19",
+        "trough_date": "2020-11-02",
+        "recovery_date": "2020-11-05",
+        "depth": -0.0931,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-11-09",
+        "trough_date": "2020-11-10",
+        "recovery_date": "2020-12-01",
+        "depth": -0.1007,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-12-21",
+        "trough_date": "2021-01-06",
+        "recovery_date": "2021-02-02",
+        "depth": -0.1029,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-02-12",
+        "trough_date": "2021-05-17",
+        "recovery_date": "2021-08-05",
+        "depth": -0.2356,
+        "recovery_days": 120,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-07",
+        "trough_date": "2021-09-28",
+        "recovery_date": "2021-10-19",
+        "depth": -0.0974,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-05",
+        "trough_date": "2022-10-14",
+        "recovery_date": "2023-12-11",
+        "depth": -0.513,
+        "recovery_days": 526,
+        "is_complete": true
+      },
+      {
+        "start_date": "2023-12-13",
+        "trough_date": "2024-01-04",
+        "recovery_date": "2024-01-11",
+        "depth": -0.0623,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-02-12",
+        "trough_date": "2024-05-30",
+        "recovery_date": "2024-07-25",
+        "depth": -0.2087,
+        "recovery_days": 113,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-07-26",
+        "trough_date": "2024-08-07",
+        "recovery_date": "2024-08-15",
+        "depth": -0.0634,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-09-23",
+        "trough_date": "2024-10-01",
+        "recovery_date": "2024-10-09",
+        "depth": -0.0749,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-12-13",
+        "trough_date": "2025-01-13",
+        "recovery_date": "2025-01-28",
+        "depth": -0.1155,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-01-29",
+        "trough_date": "2026-04-10",
+        "recovery_date": null,
+        "depth": -0.6454,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 48,
+      "p50": -0.09815,
+      "p25": -0.12764999999999999,
+      "p10": -0.28123,
+      "recovery_days_min": 3,
+      "recovery_days_median": 21,
+      "recovery_days_max": 526
+    },
+    "insufficient_data": false
+  },
+  "QCOM": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 248.7425,
+    "episodes": [
+      {
+        "start_date": "2007-09-05",
+        "trough_date": "2007-09-10",
+        "recovery_date": "2007-09-19",
+        "depth": -0.081,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-08",
+        "trough_date": "2008-01-08",
+        "recovery_date": "2008-02-20",
+        "depth": -0.167,
+        "recovery_days": 92,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-02-28",
+        "trough_date": "2008-03-19",
+        "recovery_date": "2008-05-01",
+        "depth": -0.1356,
+        "recovery_days": 44,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-06-06",
+        "trough_date": "2008-06-11",
+        "recovery_date": "2008-06-13",
+        "depth": -0.0624,
+        "recovery_days": 5,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-06-20",
+        "trough_date": "2008-07-22",
+        "recovery_date": "2008-07-24",
+        "depth": -0.1243,
+        "recovery_days": 23,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-08-18",
+        "trough_date": "2008-11-20",
+        "recovery_date": "2011-01-27",
+        "depth": -0.4803,
+        "recovery_days": 620,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-03-01",
+        "trough_date": "2011-03-16",
+        "recovery_date": "2011-07-08",
+        "depth": -0.1524,
+        "recovery_days": 90,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-07-11",
+        "trough_date": "2011-08-22",
+        "recovery_date": "2012-01-25",
+        "depth": -0.2183,
+        "recovery_days": 137,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-03-27",
+        "trough_date": "2012-06-25",
+        "recovery_date": "2013-03-05",
+        "depth": -0.2158,
+        "recovery_days": 234,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-03-06",
+        "trough_date": "2013-07-09",
+        "recovery_date": "2013-09-04",
+        "depth": -0.1181,
+        "recovery_days": 126,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-09-11",
+        "trough_date": "2013-10-09",
+        "recovery_date": "2013-11-14",
+        "depth": -0.0625,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-01-24",
+        "trough_date": "2014-01-29",
+        "recovery_date": "2014-02-12",
+        "depth": -0.0626,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-24",
+        "trough_date": "2016-02-10",
+        "recovery_date": "2018-09-05",
+        "depth": -0.452,
+        "recovery_days": 1037,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-09-17",
+        "trough_date": "2019-01-29",
+        "recovery_date": "2019-04-17",
+        "depth": -0.3421,
+        "recovery_days": 146,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-05-06",
+        "trough_date": "2019-05-28",
+        "recovery_date": "2019-11-07",
+        "depth": -0.2679,
+        "recovery_days": 130,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-11-11",
+        "trough_date": "2019-12-03",
+        "recovery_date": "2020-01-17",
+        "depth": -0.143,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-01-21",
+        "trough_date": "2020-03-20",
+        "recovery_date": "2020-07-30",
+        "depth": -0.3599,
+        "recovery_days": 133,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-03",
+        "trough_date": "2020-09-08",
+        "recovery_date": "2020-10-09",
+        "depth": -0.1089,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-10-15",
+        "trough_date": "2020-10-28",
+        "recovery_date": "2020-11-05",
+        "depth": -0.0639,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-12-09",
+        "trough_date": "2020-12-11",
+        "recovery_date": "2021-01-14",
+        "depth": -0.0914,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-22",
+        "trough_date": "2021-01-27",
+        "recovery_date": "2021-02-02",
+        "depth": -0.0673,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-02-03",
+        "trough_date": "2021-03-08",
+        "recovery_date": "2021-11-05",
+        "depth": -0.2488,
+        "recovery_days": 192,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-19",
+        "trough_date": "2021-11-26",
+        "recovery_date": "2021-12-15",
+        "depth": -0.0568,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-12-16",
+        "trough_date": "2022-11-03",
+        "recovery_date": "2024-05-02",
+        "depth": -0.4429,
+        "recovery_days": 596,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-06-20",
+        "trough_date": "2025-04-08",
+        "recovery_date": "2026-05-08",
+        "depth": -0.4423,
+        "recovery_days": 472,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-05-12",
+        "trough_date": "2026-05-19",
+        "recovery_date": "2026-05-22",
+        "depth": -0.1765,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-05-27",
+        "trough_date": "2026-05-27",
+        "recovery_date": "2026-05-29",
+        "depth": -0.062,
+        "recovery_days": 2,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-06-01",
+        "trough_date": "2026-07-31",
+        "recovery_date": null,
+        "depth": -0.4098,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 27,
+      "p50": -0.143,
+      "p25": -0.25835,
+      "p10": -0.44254000000000004,
+      "recovery_days_min": 2,
+      "recovery_days_median": 46,
+      "recovery_days_max": 1037
+    },
+    "insufficient_data": false
+  },
+  "TXN": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 330.5874,
+    "episodes": [
+      {
+        "start_date": "2007-10-02",
+        "trough_date": "2009-03-02",
+        "recovery_date": "2011-01-18",
+        "depth": -0.6157,
+        "recovery_days": 830,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-03-04",
+        "trough_date": "2011-08-19",
+        "recovery_date": "2013-03-05",
+        "depth": -0.3157,
+        "recovery_days": 502,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-04-15",
+        "trough_date": "2013-04-18",
+        "recovery_date": "2013-04-24",
+        "depth": -0.0538,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-05-09",
+        "trough_date": "2013-06-24",
+        "recovery_date": "2013-07-11",
+        "depth": -0.0782,
+        "recovery_days": 43,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-01-23",
+        "trough_date": "2014-02-04",
+        "recovery_date": "2014-02-24",
+        "depth": -0.0769,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-04-04",
+        "trough_date": "2014-04-11",
+        "recovery_date": "2014-04-24",
+        "depth": -0.0568,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-04-25",
+        "trough_date": "2014-05-15",
+        "recovery_date": "2014-06-13",
+        "depth": -0.0678,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-14",
+        "trough_date": "2014-08-07",
+        "recovery_date": "2014-09-18",
+        "depth": -0.0675,
+        "recovery_days": 47,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-09-19",
+        "trough_date": "2014-10-13",
+        "recovery_date": "2014-10-31",
+        "depth": -0.1439,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-12-04",
+        "trough_date": "2015-01-06",
+        "recovery_date": "2015-02-05",
+        "depth": -0.069,
+        "recovery_days": 42,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-03-03",
+        "trough_date": "2015-08-25",
+        "recovery_date": "2015-12-04",
+        "depth": -0.2653,
+        "recovery_days": 193,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-12-07",
+        "trough_date": "2016-01-15",
+        "recovery_date": "2016-04-12",
+        "depth": -0.1843,
+        "recovery_days": 86,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-04-28",
+        "trough_date": "2016-05-04",
+        "recovery_date": "2016-05-24",
+        "depth": -0.0522,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-06-24",
+        "trough_date": "2016-06-27",
+        "recovery_date": "2016-07-11",
+        "depth": -0.0668,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-07-27",
+        "trough_date": "2016-09-09",
+        "recovery_date": "2016-10-24",
+        "depth": -0.0615,
+        "recovery_days": 62,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-10-27",
+        "trough_date": "2016-11-04",
+        "recovery_date": "2016-11-17",
+        "depth": -0.0573,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-11-29",
+        "trough_date": "2016-12-01",
+        "recovery_date": "2016-12-27",
+        "depth": -0.0553,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-03-20",
+        "trough_date": "2017-04-13",
+        "recovery_date": "2017-04-25",
+        "depth": -0.053,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-06-09",
+        "trough_date": "2017-07-03",
+        "recovery_date": "2017-09-15",
+        "depth": -0.094,
+        "recovery_days": 68,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-24",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-04-12",
+        "depth": -0.2532,
+        "recovery_days": 306,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-04-25",
+        "trough_date": "2019-05-28",
+        "recovery_date": "2019-07-12",
+        "depth": -0.1228,
+        "recovery_days": 54,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-30",
+        "trough_date": "2019-08-05",
+        "recovery_date": "2019-09-12",
+        "depth": -0.095,
+        "recovery_days": 31,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-10-16",
+        "trough_date": "2019-11-21",
+        "recovery_date": "2020-01-09",
+        "depth": -0.1117,
+        "recovery_days": 58,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-01-24",
+        "trough_date": "2020-03-16",
+        "recovery_date": "2020-06-08",
+        "depth": -0.2985,
+        "recovery_days": 93,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-06-09",
+        "trough_date": "2020-06-26",
+        "recovery_date": "2020-07-17",
+        "depth": -0.0714,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-07-21",
+        "trough_date": "2020-07-31",
+        "recovery_date": "2020-08-11",
+        "depth": -0.0597,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-03",
+        "trough_date": "2020-09-23",
+        "recovery_date": "2020-10-08",
+        "depth": -0.0845,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-10-13",
+        "trough_date": "2020-10-28",
+        "recovery_date": "2020-11-05",
+        "depth": -0.0768,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-22",
+        "trough_date": "2021-01-27",
+        "recovery_date": "2021-02-02",
+        "depth": -0.0695,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-02-17",
+        "trough_date": "2021-03-08",
+        "recovery_date": "2021-03-26",
+        "depth": -0.1032,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-04-06",
+        "trough_date": "2021-05-12",
+        "recovery_date": "2021-09-14",
+        "depth": -0.0983,
+        "recovery_days": 112,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-27",
+        "trough_date": "2021-10-13",
+        "recovery_date": "2021-10-21",
+        "depth": -0.0675,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-10-22",
+        "trough_date": "2023-10-30",
+        "recovery_date": "2024-05-10",
+        "depth": -0.2552,
+        "recovery_days": 640,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-07-17",
+        "trough_date": "2024-08-05",
+        "recovery_date": "2024-08-21",
+        "depth": -0.1174,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-09-03",
+        "trough_date": "2024-10-22",
+        "recovery_date": "2024-11-06",
+        "depth": -0.095,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-11-11",
+        "trough_date": "2025-04-21",
+        "recovery_date": "2025-07-10",
+        "depth": -0.3341,
+        "recovery_days": 163,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-07-14",
+        "trough_date": "2025-11-20",
+        "recovery_date": "2026-01-29",
+        "depth": -0.2957,
+        "recovery_days": 138,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-02-12",
+        "trough_date": "2026-03-30",
+        "recovery_date": "2026-04-17",
+        "depth": -0.1772,
+        "recovery_days": 44,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-04-24",
+        "trough_date": "2026-04-28",
+        "recovery_date": "2026-05-05",
+        "depth": -0.061,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-05-27",
+        "trough_date": "2026-06-10",
+        "recovery_date": "2026-06-22",
+        "depth": -0.132,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-06-23",
+        "trough_date": "2026-09-01",
+        "recovery_date": null,
+        "depth": -0.2337,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 40,
+      "p50": -0.08925,
+      "p25": -0.152225,
+      "p10": -0.29598,
+      "recovery_days_min": 7,
+      "recovery_days_median": 32,
+      "recovery_days_max": 830
+    },
+    "insufficient_data": false
+  },
+  "NFLX": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 133.913,
+    "episodes": [
+      {
+        "start_date": "2007-09-27",
+        "trough_date": "2007-09-28",
+        "recovery_date": "2007-10-05",
+        "depth": -0.0543,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-18",
+        "trough_date": "2007-10-22",
+        "recovery_date": "2007-10-23",
+        "depth": -0.0523,
+        "recovery_days": 3,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-11-07",
+        "trough_date": "2007-11-26",
+        "recovery_date": "2007-12-20",
+        "depth": -0.2117,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-12-27",
+        "trough_date": "2008-01-17",
+        "recovery_date": "2008-02-26",
+        "depth": -0.2415,
+        "recovery_days": 40,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-02-28",
+        "trough_date": "2008-03-06",
+        "recovery_date": "2008-03-10",
+        "depth": -0.0557,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-03-25",
+        "trough_date": "2008-03-31",
+        "recovery_date": "2008-04-16",
+        "depth": -0.0922,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-04-18",
+        "trough_date": "2008-10-27",
+        "recovery_date": "2009-03-17",
+        "depth": -0.5592,
+        "recovery_days": 229,
+        "is_complete": true
+      },
+      {
+        "start_date": "2009-03-25",
+        "trough_date": "2009-03-27",
+        "recovery_date": "2009-04-06",
+        "depth": -0.0862,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2009-04-14",
+        "trough_date": "2009-04-15",
+        "recovery_date": "2009-04-20",
+        "depth": -0.0573,
+        "recovery_days": 4,
+        "is_complete": true
+      },
+      {
+        "start_date": "2009-04-21",
+        "trough_date": "2009-05-14",
+        "recovery_date": "2009-10-15",
+        "depth": -0.2526,
+        "recovery_days": 124,
+        "is_complete": true
+      },
+      {
+        "start_date": "2009-11-19",
+        "trough_date": "2010-01-25",
+        "recovery_date": "2010-01-28",
+        "depth": -0.1963,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-04-27",
+        "trough_date": "2010-05-07",
+        "recovery_date": "2010-05-13",
+        "depth": -0.1579,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-05-14",
+        "trough_date": "2010-05-20",
+        "recovery_date": "2010-05-28",
+        "depth": -0.1365,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-06-15",
+        "trough_date": "2010-07-29",
+        "recovery_date": "2010-08-12",
+        "depth": -0.227,
+        "recovery_days": 42,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-08-17",
+        "trough_date": "2010-08-24",
+        "recovery_date": "2010-09-02",
+        "depth": -0.1162,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-09-14",
+        "trough_date": "2010-09-17",
+        "recovery_date": "2010-09-22",
+        "depth": -0.0506,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-09-30",
+        "trough_date": "2010-10-19",
+        "recovery_date": "2010-10-21",
+        "depth": -0.1248,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-10-28",
+        "trough_date": "2010-11-16",
+        "recovery_date": "2010-11-22",
+        "depth": -0.0734,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-12-01",
+        "trough_date": "2010-12-31",
+        "recovery_date": "2011-01-27",
+        "depth": -0.1467,
+        "recovery_days": 39,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-02-15",
+        "trough_date": "2011-03-09",
+        "recovery_date": "2011-04-21",
+        "depth": -0.2204,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-04-25",
+        "trough_date": "2011-04-26",
+        "recovery_date": "2011-05-25",
+        "depth": -0.0924,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-06-06",
+        "trough_date": "2011-06-20",
+        "recovery_date": "2011-07-05",
+        "depth": -0.1026,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-07-14",
+        "trough_date": "2012-09-25",
+        "recovery_date": "2013-09-10",
+        "depth": -0.8199,
+        "recovery_days": 542,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-10-03",
+        "trough_date": "2013-10-09",
+        "recovery_date": "2013-10-18",
+        "depth": -0.1279,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-10-22",
+        "trough_date": "2013-10-28",
+        "recovery_date": "2013-11-26",
+        "depth": -0.1155,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-12-24",
+        "trough_date": "2014-01-21",
+        "recovery_date": "2014-01-23",
+        "depth": -0.1363,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-03-05",
+        "trough_date": "2014-04-28",
+        "recovery_date": "2014-07-01",
+        "depth": -0.3094,
+        "recovery_days": 82,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-02",
+        "trough_date": "2014-07-25",
+        "recovery_date": "2014-08-22",
+        "depth": -0.1083,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-09-11",
+        "trough_date": "2014-12-16",
+        "recovery_date": "2015-04-16",
+        "depth": -0.3467,
+        "recovery_days": 149,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-06-24",
+        "trough_date": "2015-06-29",
+        "recovery_date": "2015-07-13",
+        "depth": -0.0522,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-07-17",
+        "trough_date": "2015-07-27",
+        "recovery_date": "2015-08-04",
+        "depth": -0.081,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-08-07",
+        "trough_date": "2015-09-08",
+        "recovery_date": "2015-12-02",
+        "depth": -0.2491,
+        "recovery_days": 81,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-12-07",
+        "trough_date": "2016-02-05",
+        "recovery_date": "2017-01-05",
+        "depth": -0.3677,
+        "recovery_days": 272,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-03-31",
+        "trough_date": "2017-04-19",
+        "recovery_date": "2017-04-25",
+        "depth": -0.0561,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-06-09",
+        "trough_date": "2017-07-03",
+        "recovery_date": "2017-07-18",
+        "depth": -0.1188,
+        "recovery_days": 26,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-07-27",
+        "trough_date": "2017-08-25",
+        "recovery_date": "2017-10-05",
+        "depth": -0.1223,
+        "recovery_days": 49,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-10-17",
+        "trough_date": "2017-12-04",
+        "recovery_date": "2018-01-03",
+        "depth": -0.092,
+        "recovery_days": 53,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-01-30",
+        "trough_date": "2018-02-09",
+        "recovery_date": "2018-02-23",
+        "depth": -0.1234,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-03-12",
+        "trough_date": "2018-04-02",
+        "recovery_date": "2018-04-17",
+        "depth": -0.1543,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-04-18",
+        "trough_date": "2018-04-25",
+        "recovery_date": "2018-05-23",
+        "depth": -0.0902,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-06-21",
+        "trough_date": "2018-06-25",
+        "recovery_date": "2018-07-09",
+        "depth": -0.0775,
+        "recovery_days": 11,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-07-10",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2020-04-15",
+        "depth": -0.4418,
+        "recovery_days": 444,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-04-17",
+        "trough_date": "2020-04-28",
+        "recovery_date": "2020-05-11",
+        "depth": -0.0805,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-05-18",
+        "trough_date": "2020-05-28",
+        "recovery_date": "2020-06-22",
+        "depth": -0.0897,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-06-23",
+        "trough_date": "2020-06-26",
+        "recovery_date": "2020-07-01",
+        "depth": -0.0526,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-07-13",
+        "trough_date": "2020-08-11",
+        "recovery_date": "2020-09-01",
+        "depth": -0.1491,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-02",
+        "trough_date": "2020-09-18",
+        "recovery_date": "2021-01-20",
+        "depth": -0.1556,
+        "recovery_days": 95,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-21",
+        "trough_date": "2021-05-12",
+        "recovery_date": "2021-09-02",
+        "depth": -0.1729,
+        "recovery_days": 156,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-08",
+        "trough_date": "2021-09-21",
+        "recovery_date": "2021-09-30",
+        "depth": -0.0553,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-01",
+        "trough_date": "2021-11-05",
+        "recovery_date": "2021-11-17",
+        "depth": -0.0646,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-11-18",
+        "trough_date": "2022-05-11",
+        "recovery_date": "2024-08-20",
+        "depth": -0.7595,
+        "recovery_days": 690,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-09-03",
+        "trough_date": "2024-09-06",
+        "recovery_date": "2024-09-17",
+        "depth": -0.0507,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-11",
+        "trough_date": "2024-10-17",
+        "recovery_date": "2024-10-18",
+        "depth": -0.0584,
+        "recovery_days": 5,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-12-12",
+        "trough_date": "2025-01-14",
+        "recovery_date": "2025-01-22",
+        "depth": -0.1155,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-02-18",
+        "trough_date": "2025-04-04",
+        "recovery_date": "2025-04-24",
+        "depth": -0.1915,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-07-01",
+        "trough_date": "2026-07-20",
+        "recovery_date": null,
+        "depth": -0.4952,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 55,
+      "p50": -0.1188,
+      "p25": -0.19390000000000002,
+      "p10": -0.33178,
+      "recovery_days_min": 3,
+      "recovery_days_median": 24,
+      "recovery_days_max": 690
+    },
+    "insufficient_data": false
+  },
+  "TMUS": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 265.2684,
+    "episodes": [
+      {
+        "start_date": "2015-11-06",
+        "trough_date": "2015-12-03",
+        "recovery_date": "2015-12-23",
+        "depth": -0.1237,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-01-08",
+        "trough_date": "2016-01-21",
+        "recovery_date": "2016-02-01",
+        "depth": -0.0842,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-02-02",
+        "trough_date": "2016-02-09",
+        "recovery_date": "2016-04-25",
+        "depth": -0.1651,
+        "recovery_days": 57,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-04-26",
+        "trough_date": "2016-05-04",
+        "recovery_date": "2016-05-20",
+        "depth": -0.0505,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-06-09",
+        "trough_date": "2016-06-24",
+        "recovery_date": "2016-07-11",
+        "depth": -0.064,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-09-06",
+        "trough_date": "2016-09-20",
+        "recovery_date": "2016-09-23",
+        "depth": -0.059,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-05-02",
+        "trough_date": "2017-05-17",
+        "recovery_date": "2017-06-02",
+        "depth": -0.0644,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-06-05",
+        "trough_date": "2017-11-07",
+        "recovery_date": "2018-09-13",
+        "depth": -0.1897,
+        "recovery_days": 322,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-09-28",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-02-14",
+        "depth": -0.1375,
+        "recovery_days": 94,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-03-19",
+        "trough_date": "2019-04-03",
+        "recovery_date": "2019-04-12",
+        "depth": -0.0635,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-05-21",
+        "trough_date": "2019-06-26",
+        "recovery_date": "2019-07-10",
+        "depth": -0.0671,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-29",
+        "trough_date": "2019-12-11",
+        "recovery_date": "2020-02-07",
+        "depth": -0.1143,
+        "recovery_days": 134,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-20",
+        "trough_date": "2020-03-18",
+        "recovery_date": "2020-05-18",
+        "depth": -0.2604,
+        "recovery_days": 61,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-05-19",
+        "trough_date": "2020-05-21",
+        "recovery_date": "2020-06-08",
+        "depth": -0.0737,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-06-26",
+        "trough_date": "2020-06-30",
+        "recovery_date": "2020-08-07",
+        "depth": -0.0548,
+        "recovery_days": 29,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-03",
+        "trough_date": "2020-09-23",
+        "recovery_date": "2020-10-12",
+        "depth": -0.0831,
+        "recovery_days": 26,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-10-14",
+        "trough_date": "2020-10-29",
+        "recovery_date": "2020-11-06",
+        "depth": -0.0992,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-11",
+        "trough_date": "2021-02-22",
+        "recovery_date": "2021-05-06",
+        "depth": -0.127,
+        "recovery_days": 80,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-05-17",
+        "trough_date": "2021-05-19",
+        "recovery_date": "2021-06-01",
+        "depth": -0.0507,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-07-19",
+        "trough_date": "2022-01-21",
+        "recovery_date": "2022-10-28",
+        "depth": -0.3199,
+        "recovery_days": 324,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-12-05",
+        "trough_date": "2023-06-07",
+        "recovery_date": "2023-12-01",
+        "depth": -0.1697,
+        "recovery_days": 249,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-08-28",
+        "trough_date": "2024-09-06",
+        "recovery_date": "2024-09-16",
+        "depth": -0.051,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-12-02",
+        "trough_date": "2025-01-10",
+        "recovery_date": "2025-02-06",
+        "depth": -0.1443,
+        "recovery_days": 44,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-03-04",
+        "trough_date": "2026-09-22",
+        "recovery_date": null,
+        "depth": -0.3878,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 23,
+      "p50": -0.0842,
+      "p25": -0.14090000000000003,
+      "p10": -0.1857,
+      "recovery_days_min": 10,
+      "recovery_days_median": 29,
+      "recovery_days_max": 324
+    },
+    "insufficient_data": false
+  },
+  "NEE": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 96.4426,
+    "episodes": [
+      {
+        "start_date": "2007-08-23",
+        "trough_date": "2007-08-28",
+        "recovery_date": "2007-09-04",
+        "depth": -0.0574,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-12-06",
+        "trough_date": "2008-10-10",
+        "recovery_date": "2012-04-04",
+        "depth": -0.4781,
+        "recovery_days": 1093,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-07-31",
+        "trough_date": "2012-08-23",
+        "recovery_date": "2012-10-04",
+        "depth": -0.0561,
+        "recovery_days": 46,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-10-19",
+        "trough_date": "2012-11-15",
+        "recovery_date": "2013-01-10",
+        "depth": -0.0772,
+        "recovery_days": 54,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-05-01",
+        "trough_date": "2013-05-29",
+        "recovery_date": "2013-06-18",
+        "depth": -0.0769,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-06-19",
+        "trough_date": "2013-06-20",
+        "recovery_date": "2013-07-10",
+        "depth": -0.0522,
+        "recovery_days": 14,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-08-02",
+        "trough_date": "2013-09-17",
+        "recovery_date": "2013-11-01",
+        "depth": -0.0979,
+        "recovery_days": 64,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-11-19",
+        "trough_date": "2013-12-11",
+        "recovery_date": "2014-01-21",
+        "depth": -0.0676,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-05-02",
+        "trough_date": "2014-05-19",
+        "recovery_date": "2014-06-18",
+        "depth": -0.0527,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-01",
+        "trough_date": "2014-08-06",
+        "recovery_date": "2014-11-05",
+        "depth": -0.0988,
+        "recovery_days": 89,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-01-30",
+        "trough_date": "2015-09-04",
+        "recovery_date": "2016-01-28",
+        "depth": -0.1316,
+        "recovery_days": 250,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-03-30",
+        "trough_date": "2016-04-21",
+        "recovery_date": "2016-05-04",
+        "depth": -0.0513,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-07-07",
+        "trough_date": "2016-11-11",
+        "recovery_date": "2017-02-23",
+        "depth": -0.1264,
+        "recovery_days": 159,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-12-12",
+        "trough_date": "2018-02-08",
+        "recovery_date": "2018-03-15",
+        "depth": -0.0877,
+        "recovery_days": 63,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-06-01",
+        "trough_date": "2018-06-11",
+        "recovery_date": "2018-06-25",
+        "depth": -0.0564,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-09-14",
+        "trough_date": "2018-09-26",
+        "recovery_date": "2018-10-24",
+        "depth": -0.0581,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-12-12",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-02-08",
+        "depth": -0.0814,
+        "recovery_days": 39,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-11-01",
+        "trough_date": "2019-11-08",
+        "recovery_date": "2019-12-16",
+        "depth": -0.0682,
+        "recovery_days": 30,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-19",
+        "trough_date": "2020-02-28",
+        "recovery_date": "2020-03-04",
+        "depth": -0.0991,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-03-05",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-07-23",
+        "depth": -0.3563,
+        "recovery_days": 97,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-09-16",
+        "trough_date": "2020-09-23",
+        "recovery_date": "2020-10-07",
+        "depth": -0.0757,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-11-17",
+        "trough_date": "2020-12-04",
+        "recovery_date": "2021-01-06",
+        "depth": -0.0629,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-26",
+        "trough_date": "2021-03-05",
+        "recovery_date": "2021-08-20",
+        "depth": -0.1819,
+        "recovery_days": 144,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-03",
+        "trough_date": "2021-09-28",
+        "recovery_date": "2021-11-15",
+        "depth": -0.1065,
+        "recovery_days": 50,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-01-03",
+        "trough_date": "2023-10-09",
+        "recovery_date": "2025-10-14",
+        "depth": -0.4497,
+        "recovery_days": 948,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-10-28",
+        "trough_date": "2025-10-31",
+        "recovery_date": "2025-11-26",
+        "depth": -0.0538,
+        "recovery_days": 21,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-12-01",
+        "trough_date": "2026-01-07",
+        "recovery_date": "2026-01-27",
+        "depth": -0.0918,
+        "recovery_days": 38,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-02-25",
+        "trough_date": "2026-03-20",
+        "recovery_date": "2026-04-23",
+        "depth": -0.0582,
+        "recovery_days": 40,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-05-01",
+        "trough_date": "2026-09-23",
+        "recovery_date": null,
+        "depth": -0.2014,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 28,
+      "p50": -0.07705000000000001,
+      "p25": -0.10095,
+      "p10": -0.23421999999999998,
+      "recovery_days_min": 7,
+      "recovery_days_median": 39,
+      "recovery_days_max": 1093
+    },
+    "insufficient_data": false
+  },
+  "SO": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 97.4911,
+    "episodes": [
+      {
+        "start_date": "2007-09-20",
+        "trough_date": "2007-10-19",
+        "recovery_date": "2007-11-16",
+        "depth": -0.0525,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-01-10",
+        "trough_date": "2008-03-10",
+        "recovery_date": "2008-09-18",
+        "depth": -0.1481,
+        "recovery_days": 174,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-09-19",
+        "trough_date": "2009-03-12",
+        "recovery_date": "2010-07-26",
+        "depth": -0.3045,
+        "recovery_days": 466,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-05-20",
+        "trough_date": "2011-08-10",
+        "recovery_date": "2011-08-15",
+        "depth": -0.0573,
+        "recovery_days": 59,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-07-30",
+        "trough_date": "2012-11-23",
+        "recovery_date": "2013-04-04",
+        "depth": -0.1181,
+        "recovery_days": 169,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-04-24",
+        "trough_date": "2013-10-07",
+        "recovery_date": "2014-04-28",
+        "depth": -0.1492,
+        "recovery_days": 254,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-04-29",
+        "trough_date": "2014-08-06",
+        "recovery_date": "2014-10-13",
+        "depth": -0.0752,
+        "recovery_days": 116,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-01-30",
+        "trough_date": "2015-06-25",
+        "recovery_date": "2016-03-15",
+        "depth": -0.1957,
+        "recovery_days": 282,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-04-01",
+        "trough_date": "2016-05-18",
+        "recovery_date": "2016-06-14",
+        "depth": -0.0609,
+        "recovery_days": 51,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-07-26",
+        "trough_date": "2016-12-01",
+        "recovery_date": "2017-10-19",
+        "depth": -0.1265,
+        "recovery_days": 312,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-11-03",
+        "trough_date": "2018-02-07",
+        "recovery_date": "2019-02-20",
+        "depth": -0.1769,
+        "recovery_days": 323,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-01-31",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2021-08-16",
+        "depth": -0.3843,
+        "recovery_days": 388,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-08-23",
+        "trough_date": "2021-11-30",
+        "recovery_date": "2021-12-15",
+        "depth": -0.0828,
+        "recovery_days": 80,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-02-01",
+        "trough_date": "2022-02-23",
+        "recovery_date": "2022-03-07",
+        "depth": -0.0864,
+        "recovery_days": 23,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-05-31",
+        "trough_date": "2022-06-17",
+        "recovery_date": "2022-07-29",
+        "depth": -0.1404,
+        "recovery_days": 41,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-08-22",
+        "trough_date": "2022-10-12",
+        "recovery_date": "2024-05-03",
+        "depth": -0.2328,
+        "recovery_days": 427,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-24",
+        "trough_date": "2025-01-06",
+        "recovery_date": "2025-03-10",
+        "depth": -0.133,
+        "recovery_days": 91,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-03-11",
+        "trough_date": "2025-05-14",
+        "recovery_date": "2025-07-01",
+        "depth": -0.0866,
+        "recovery_days": 77,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-10-16",
+        "trough_date": "2025-12-10",
+        "recovery_date": "2026-03-16",
+        "depth": -0.1499,
+        "recovery_days": 102,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-03-17",
+        "trough_date": "2026-09-23",
+        "recovery_date": null,
+        "depth": -0.1438,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 19,
+      "p50": -0.133,
+      "p25": -0.1634,
+      "p10": -0.24714,
+      "recovery_days_min": 23,
+      "recovery_days_median": 116,
+      "recovery_days_max": 466
+    },
+    "insufficient_data": false
+  },
+  "LIN": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 544.8459,
+    "episodes": [
+      {
+        "start_date": "2023-12-13",
+        "trough_date": "2024-02-05",
+        "recovery_date": "2024-02-15",
+        "depth": -0.0611,
+        "recovery_days": 43,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-03-14",
+        "trough_date": "2024-05-02",
+        "recovery_date": "2024-08-30",
+        "depth": -0.1164,
+        "recovery_days": 117,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-10-21",
+        "trough_date": "2025-01-06",
+        "recovery_date": "2025-08-20",
+        "depth": -0.1486,
+        "recovery_days": 207,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-09-12",
+        "trough_date": "2025-12-08",
+        "recovery_date": "2026-02-17",
+        "depth": -0.1918,
+        "recovery_days": 107,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-03-03",
+        "trough_date": "2026-03-10",
+        "recovery_date": "2026-04-13",
+        "depth": -0.0616,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-07-06",
+        "trough_date": "2026-09-21",
+        "recovery_date": null,
+        "depth": -0.1603,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 5,
+      "p50": -0.1164,
+      "p25": -0.1486,
+      "p10": -0.17452,
+      "recovery_days_min": 28,
+      "recovery_days_median": 107,
+      "recovery_days_max": 207
+    },
+    "insufficient_data": false
+  },
+  "FCX": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 79.91,
+    "episodes": [
+      {
+        "start_date": "2007-08-27",
+        "trough_date": "2007-08-28",
+        "recovery_date": "2007-08-31",
+        "depth": -0.0584,
+        "recovery_days": 4,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-11",
+        "trough_date": "2007-10-22",
+        "recovery_date": "2007-10-29",
+        "depth": -0.0885,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-30",
+        "trough_date": "2008-01-23",
+        "recovery_date": "2008-04-22",
+        "depth": -0.3412,
+        "recovery_days": 119,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-04-23",
+        "trough_date": "2008-05-01",
+        "recovery_date": "2008-05-15",
+        "depth": -0.0901,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-05-21",
+        "trough_date": "2008-12-05",
+        "recovery_date": "2011-01-11",
+        "depth": -0.8642,
+        "recovery_days": 670,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-01-13",
+        "trough_date": "2016-01-13",
+        "recovery_date": "2022-03-02",
+        "depth": -0.9252,
+        "recovery_days": 2801,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-03-07",
+        "trough_date": "2022-03-15",
+        "recovery_date": "2022-03-24",
+        "depth": -0.1163,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-03-28",
+        "trough_date": "2022-07-14",
+        "recovery_date": "2024-04-09",
+        "depth": -0.5126,
+        "recovery_days": 510,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-04-10",
+        "trough_date": "2024-04-23",
+        "recovery_date": "2024-04-29",
+        "depth": -0.0617,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-04-30",
+        "trough_date": "2024-05-02",
+        "recovery_date": "2024-05-14",
+        "depth": -0.0693,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-05-21",
+        "trough_date": "2025-04-04",
+        "recovery_date": "2026-01-05",
+        "depth": -0.4634,
+        "recovery_days": 406,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-01-30",
+        "trough_date": "2026-02-05",
+        "recovery_date": "2026-02-11",
+        "depth": -0.0907,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-02-12",
+        "trough_date": "2026-02-17",
+        "recovery_date": "2026-02-23",
+        "depth": -0.0668,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-02-26",
+        "trough_date": "2026-03-20",
+        "recovery_date": "2026-04-15",
+        "depth": -0.2431,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-04-23",
+        "trough_date": "2026-05-04",
+        "recovery_date": "2026-06-02",
+        "depth": -0.2102,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-06-03",
+        "trough_date": "2026-07-08",
+        "recovery_date": "2026-08-21",
+        "depth": -0.1983,
+        "recovery_days": 55,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-08-26",
+        "trough_date": "2026-09-16",
+        "recovery_date": null,
+        "depth": -0.1335,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 16,
+      "p50": -0.1573,
+      "p25": -0.37175,
+      "p10": -0.6883999999999999,
+      "recovery_days_min": 4,
+      "recovery_days_median": 21,
+      "recovery_days_max": 2801
+    },
+    "insufficient_data": false
+  },
+  "PLD": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 150.6803,
+    "episodes": [
+      {
+        "start_date": "2007-10-12",
+        "trough_date": "2009-03-06",
+        "recovery_date": "2016-05-10",
+        "depth": -0.847,
+        "recovery_days": 2162,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-06-17",
+        "trough_date": "2016-06-27",
+        "recovery_date": "2016-07-13",
+        "depth": -0.0678,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-08-02",
+        "trough_date": "2016-09-13",
+        "recovery_date": "2016-09-22",
+        "depth": -0.0634,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-09-29",
+        "trough_date": "2016-11-11",
+        "recovery_date": "2017-01-06",
+        "depth": -0.1491,
+        "recovery_days": 68,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-01-09",
+        "trough_date": "2017-02-01",
+        "recovery_date": "2017-04-10",
+        "depth": -0.1048,
+        "recovery_days": 63,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-11-22",
+        "trough_date": "2018-02-08",
+        "recovery_date": "2018-04-27",
+        "depth": -0.1288,
+        "recovery_days": 106,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-04-30",
+        "trough_date": "2018-05-18",
+        "recovery_date": "2018-07-06",
+        "depth": -0.0502,
+        "recovery_days": 47,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-07-09",
+        "trough_date": "2018-07-24",
+        "recovery_date": "2018-08-03",
+        "depth": -0.058,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-10-01",
+        "trough_date": "2018-10-12",
+        "recovery_date": "2018-12-03",
+        "depth": -0.0774,
+        "recovery_days": 44,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-12-04",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-01-30",
+        "depth": -0.1791,
+        "recovery_days": 37,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-05-02",
+        "trough_date": "2019-05-29",
+        "recovery_date": "2019-06-06",
+        "depth": -0.0573,
+        "recovery_days": 24,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-06-21",
+        "trough_date": "2019-06-26",
+        "recovery_date": "2019-07-03",
+        "depth": -0.0526,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-07-11",
+        "trough_date": "2019-08-05",
+        "recovery_date": "2019-08-19",
+        "depth": -0.0528,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-10-25",
+        "trough_date": "2019-10-28",
+        "recovery_date": "2019-11-26",
+        "depth": -0.0673,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-11-29",
+        "trough_date": "2019-12-17",
+        "recovery_date": "2020-01-15",
+        "depth": -0.0551,
+        "recovery_days": 31,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-24",
+        "trough_date": "2020-03-20",
+        "recovery_date": "2020-07-21",
+        "depth": -0.3616,
+        "recovery_days": 103,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-07-30",
+        "trough_date": "2020-09-23",
+        "recovery_date": "2020-10-07",
+        "depth": -0.0973,
+        "recovery_days": 48,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-10-13",
+        "trough_date": "2021-01-06",
+        "recovery_date": "2021-02-11",
+        "depth": -0.1277,
+        "recovery_days": 83,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-02-12",
+        "trough_date": "2021-03-04",
+        "recovery_date": "2021-04-01",
+        "depth": -0.1125,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-07",
+        "trough_date": "2021-09-30",
+        "recovery_date": "2021-10-18",
+        "depth": -0.0933,
+        "recovery_days": 29,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-01-03",
+        "trough_date": "2022-02-23",
+        "recovery_date": "2022-04-06",
+        "depth": -0.1639,
+        "recovery_days": 65,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-04-29",
+        "trough_date": "2025-04-08",
+        "recovery_date": null,
+        "depth": -0.433,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 21,
+      "p50": -0.0933,
+      "p25": -0.1288,
+      "p10": -0.1791,
+      "recovery_days_min": 8,
+      "recovery_days_median": 37,
+      "recovery_days_max": 2162
+    },
+    "insufficient_data": false
+  },
+  "AMT": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 259.6932,
+    "episodes": [
+      {
+        "start_date": "2007-09-05",
+        "trough_date": "2007-09-10",
+        "recovery_date": "2007-09-17",
+        "depth": -0.0564,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-02",
+        "trough_date": "2007-10-19",
+        "recovery_date": "2007-10-25",
+        "depth": -0.0533,
+        "recovery_days": 17,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-10-30",
+        "trough_date": "2008-11-20",
+        "recovery_date": "2010-07-07",
+        "depth": -0.5654,
+        "recovery_days": 677,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-07-08",
+        "trough_date": "2010-07-19",
+        "recovery_date": "2010-08-04",
+        "depth": -0.0587,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-11-12",
+        "trough_date": "2011-01-19",
+        "recovery_date": "2011-02-04",
+        "depth": -0.0745,
+        "recovery_days": 58,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-02-14",
+        "trough_date": "2011-08-08",
+        "recovery_date": "2011-10-24",
+        "depth": -0.183,
+        "recovery_days": 175,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-11-16",
+        "trough_date": "2011-11-23",
+        "recovery_date": "2011-11-30",
+        "depth": -0.0512,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-05-16",
+        "trough_date": "2012-06-04",
+        "recovery_date": "2012-06-18",
+        "depth": -0.0691,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-07-18",
+        "trough_date": "2012-07-24",
+        "recovery_date": "2012-08-03",
+        "depth": -0.0533,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-08-06",
+        "trough_date": "2012-08-23",
+        "recovery_date": "2012-10-15",
+        "depth": -0.0528,
+        "recovery_days": 49,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-01-28",
+        "trough_date": "2013-02-14",
+        "recovery_date": "2013-04-10",
+        "depth": -0.0804,
+        "recovery_days": 50,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-05-22",
+        "trough_date": "2013-08-19",
+        "recovery_date": "2014-02-19",
+        "depth": -0.1894,
+        "recovery_days": 187,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-02-21",
+        "trough_date": "2014-02-25",
+        "recovery_date": "2014-05-01",
+        "depth": -0.0515,
+        "recovery_days": 48,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-08-19",
+        "trough_date": "2014-10-15",
+        "recovery_date": "2014-11-06",
+        "depth": -0.0747,
+        "recovery_days": 56,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-12-01",
+        "trough_date": "2015-09-29",
+        "recovery_date": "2015-11-02",
+        "depth": -0.1572,
+        "recovery_days": 232,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-11-03",
+        "trough_date": "2016-02-11",
+        "recovery_date": "2016-04-01",
+        "depth": -0.1918,
+        "recovery_days": 102,
+        "is_complete": true
+      },
+      {
+        "start_date": "2016-07-25",
+        "trough_date": "2016-12-06",
+        "recovery_date": "2017-03-21",
+        "depth": -0.14,
+        "recovery_days": 165,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-09-01",
+        "trough_date": "2017-09-27",
+        "recovery_date": "2017-11-06",
+        "depth": -0.0899,
+        "recovery_days": 45,
+        "is_complete": true
+      },
+      {
+        "start_date": "2017-11-09",
+        "trough_date": "2018-01-12",
+        "recovery_date": "2018-08-03",
+        "depth": -0.1248,
+        "recovery_days": 183,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-08-20",
+        "trough_date": "2018-10-11",
+        "recovery_date": "2018-10-23",
+        "depth": -0.0643,
+        "recovery_days": 45,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-10-31",
+        "trough_date": "2018-11-02",
+        "recovery_date": "2018-11-12",
+        "depth": -0.0552,
+        "recovery_days": 8,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-12-07",
+        "trough_date": "2018-12-24",
+        "recovery_date": "2019-01-25",
+        "depth": -0.0838,
+        "recovery_days": 32,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-06-21",
+        "trough_date": "2019-07-01",
+        "recovery_date": "2019-08-08",
+        "depth": -0.07,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2019-09-05",
+        "trough_date": "2019-11-07",
+        "recovery_date": "2020-02-10",
+        "depth": -0.1431,
+        "recovery_days": 108,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-02-14",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2020-04-09",
+        "depth": -0.3029,
+        "recovery_days": 38,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-04-13",
+        "trough_date": "2020-05-21",
+        "recovery_date": "2020-06-01",
+        "depth": -0.1174,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-06-04",
+        "trough_date": "2020-06-26",
+        "recovery_date": "2020-07-28",
+        "depth": -0.0743,
+        "recovery_days": 37,
+        "is_complete": true
+      },
+      {
+        "start_date": "2020-07-30",
+        "trough_date": "2021-03-08",
+        "recovery_date": "2021-06-07",
+        "depth": -0.2601,
+        "recovery_days": 214,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-09-09",
+        "trough_date": "2023-10-04",
+        "recovery_date": null,
+        "depth": -0.4534,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 28,
+      "p50": -0.07755000000000001,
+      "p25": -0.146625,
+      "p10": -0.21228999999999998,
+      "recovery_days_min": 8,
+      "recovery_days_median": 46,
+      "recovery_days_max": 677
+    },
+    "insufficient_data": false
+  },
+  "COP": {
+    "as_of_date": "2026-09-24",
+    "rolling_high": 141.22,
+    "episodes": [
+      {
+        "start_date": "2007-09-25",
+        "trough_date": "2007-11-27",
+        "recovery_date": "2007-12-26",
+        "depth": -0.143,
+        "recovery_days": 64,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-12-31",
+        "trough_date": "2008-01-22",
+        "recovery_date": "2008-05-06",
+        "depth": -0.2014,
+        "recovery_days": 87,
+        "is_complete": true
+      },
+      {
+        "start_date": "2008-06-18",
+        "trough_date": "2009-03-02",
+        "recovery_date": "2013-01-25",
+        "depth": -0.6234,
+        "recovery_days": 1163,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-01-30",
+        "trough_date": "2013-04-17",
+        "recovery_date": "2013-05-03",
+        "depth": -0.0682,
+        "recovery_days": 65,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-05-22",
+        "trough_date": "2013-06-24",
+        "recovery_date": "2013-07-11",
+        "depth": -0.0676,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2013-10-30",
+        "trough_date": "2014-02-05",
+        "recovery_date": "2014-04-16",
+        "depth": -0.1464,
+        "recovery_days": 115,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-07-24",
+        "trough_date": "2016-02-11",
+        "recovery_date": "2018-09-24",
+        "depth": -0.606,
+        "recovery_days": 1050,
+        "is_complete": true
+      },
+      {
+        "start_date": "2018-10-02",
+        "trough_date": "2020-03-18",
+        "recovery_date": "2021-10-08",
+        "depth": -0.7066,
+        "recovery_days": 760,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-10-27",
+        "trough_date": "2021-12-20",
+        "recovery_date": "2022-01-04",
+        "depth": -0.1041,
+        "recovery_days": 47,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-01-19",
+        "trough_date": "2022-01-21",
+        "recovery_date": "2022-01-27",
+        "depth": -0.0547,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-02-14",
+        "trough_date": "2022-02-24",
+        "recovery_date": "2022-02-28",
+        "depth": -0.0619,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-03-08",
+        "trough_date": "2022-03-16",
+        "recovery_date": "2022-03-21",
+        "depth": -0.0637,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-03-28",
+        "trough_date": "2022-04-26",
+        "recovery_date": "2022-05-06",
+        "depth": -0.148,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-05-09",
+        "trough_date": "2022-05-09",
+        "recovery_date": "2022-05-23",
+        "depth": -0.0974,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-06-08",
+        "trough_date": "2022-07-14",
+        "recovery_date": "2022-10-13",
+        "depth": -0.3298,
+        "recovery_days": 88,
+        "is_complete": true
+      },
+      {
+        "start_date": "2022-11-08",
+        "trough_date": "2023-03-17",
+        "recovery_date": "2024-04-01",
+        "depth": -0.2903,
+        "recovery_days": 348,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-04-08",
+        "trough_date": "2025-04-08",
+        "recovery_date": "2026-03-19",
+        "depth": -0.363,
+        "recovery_days": 488,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-03-30",
+        "trough_date": "2026-07-01",
+        "recovery_date": "2026-08-20",
+        "depth": -0.2228,
+        "recovery_days": 99,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-09-16",
+        "trough_date": "2026-09-22",
+        "recovery_date": null,
+        "depth": -0.1129,
+        "recovery_days": null,
+        "is_complete": false
+      }
+    ],
+    "percentiles": {
+      "count": 18,
+      "p50": -0.1472,
+      "p25": -0.319925,
+      "p10": -0.61122,
+      "recovery_days_min": 6,
+      "recovery_days_median": 76,
+      "recovery_days_max": 1163
     },
     "insufficient_data": false
   },
