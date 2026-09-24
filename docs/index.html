@@ -547,6 +547,24 @@
   .sell-summary b.down { color: var(--loss); }
   .sell-summary b.up { color: var(--gain); }
   .card.fullscreen .sell-summary { font-size: 14px; }
+  /* 의견 요약(카드 맨 위 2~3줄) */
+  .opinion { background: var(--surface-2); border-radius: 12px; padding: 10px 12px; margin-top: 10px; font-size: 12.5px; line-height: 1.55; color: var(--text-secondary); }
+  .opinion b { color: var(--text-primary); }
+  .op-head { display: flex; gap: 8px; align-items: baseline; }
+  .op-chip { flex: none; font-size: 11.5px; font-weight: 700; padding: 2px 10px; border-radius: 999px; color: #fff; line-height: 1.4; white-space: nowrap; }
+  .op-l1 { font-weight: 700; color: var(--text-primary); font-size: 13px; }
+  .op-l2 { margin-top: 3px; }
+  .op-l3 { margin-top: 3px; }
+  .op-l3.op-more { color: var(--accent); font-weight: 600; }
+  .op-l3 .ic { width: 12px; height: 12px; vertical-align: -2px; margin-left: 2px; }
+  .op-strong .op-chip { background: var(--gain); }
+  .op-watch .op-chip { background: var(--stage-1); color: var(--on-yellow); }
+  .op-wait .op-chip, .op-ok .op-chip, .op-ref .op-chip, .op-unknown .op-chip { background: var(--fill); color: var(--text-secondary); }
+  .op-caution .op-chip { background: var(--status-crit); }
+  .op-mixed .op-chip { background: var(--stage-2); }
+  .op-alert .op-chip { background: var(--status-crit); }
+  .card.fullscreen .opinion { font-size: 14px; }
+  .card.fullscreen .op-l1 { font-size: 15px; }
 </style>
 </head>
 <body>
@@ -647,6 +665,14 @@
     <div class="help-body">
       <div class="help-pane" data-pane="buy">
       <section>
+        <h3>카드 맨 위 "의견 요약"은 뭔가요?</h3>
+        <div class="help-group">
+        <p>카드 위쪽 2~3줄 박스는 아래 <b>사실</b>(낙폭 위치, RSI·MFI, 다이버전스)을 정해진 규칙대로 요약한 것입니다. 매수 지시가 아니라 판단을 돕는 참고입니다.</p>
+        <p><b>매수 관심</b> — 낙폭이 과거 조정의 하위 25% 이상 깊고(2단계+) RSI·MFI 과매도 확인이나 다이버전스가 함께 있을 때. <b>관찰</b> — 낙폭이 평소를 넘었거나 깊어도 반등 확인 전, 또는 낙폭은 평소인데 지표만 과매도일 때. <b>대기</b> — 낙폭이 평소 범위 안. <b>주의</b> — 과거 어떤 조정보다 깊음. <b>판단 보류</b> — 과거 표본 부족.</p>
+        <p>맨 아래 <b>"펼쳐서 … 확인"</b> 문구가 보이면 근거가 엇갈리거나 부족하다는 뜻이니, 카드를 펼쳐 차트와 지표를 직접 확인하세요.</p>
+        </div>
+      </section>
+      <section>
         <h3>MDD 단계는 뭘 의미하나요?</h3>
         <div class="help-group">
         <p>각 종목의 역대 가능한 만큼(대개 수십 년치) 낙폭 국면(고점→저점→신고가 복귀)을 모두 뽑아서, 그 깊이(depth)들의 분포를 계산합니다. 오늘의 낙폭이 그 분포에서 어디쯤 있는지로 단계를 매깁니다.</p>
@@ -715,6 +741,14 @@
       </section>
       </div>
       <div class="help-pane" data-pane="sell" hidden>
+      <section>
+        <h3>카드 맨 위 "의견 요약"은 뭔가요?</h3>
+        <div class="help-group">
+        <p>카드 위쪽 2~3줄 박스는 <b>천정 대비 낙폭 단계</b>와 <b>보강 신호 개수</b>를 규칙대로 요약한 것입니다. 매도 지시가 아니라 "정리를 고민해 볼 자리인가"를 점검하는 참고입니다.</p>
+        <p><b>경계</b> — 경고 단계 이상이면서 보강 신호가 2개 이상 겹칠 때. <b>점검</b> — 낙폭은 경고 이상인데 추세 신호가 적을 때(단순 조정일 수 있음). <b>관찰</b> — 주의 단계이거나, 낙폭은 정상인데 약화 신호가 2개 이상 쌓일 때. <b>정상</b> — 낙폭이 정상 범위. <b>참고</b> — 주요 지수(계속 모아가는 대상).</p>
+        <p>맨 아래 <b>"펼쳐서 … 확인"</b> 문구가 보이면 낙폭과 신호가 엇갈린다는 뜻이니, 카드를 펼쳐 사이클과 보강 신호를 확인하세요.</p>
+        </div>
+      </section>
       <section>
         <h3>매도 전략 모드, 한눈에</h3>
         <div class="help-group">
@@ -2474,6 +2508,92 @@ function sellTimeframeBadgesHtml(tfSummary) {
   }).join("");
 }
 
+// ---- 의견 요약(카드 맨 위 2~3줄) ----
+// 매수/매도 전략의 목적(매수: 낙폭이 과거보다 깊을 때 장기 매수 관심 / 매도: 천정 뒤 조정이 커질 때 경고·부분 축소 검토)에 맞춰
+// 사실(낙폭 위치·RSI/MFI·보강 신호)을 정해진 규칙대로 요약한다. 지시가 아니라 참고이며, 근거가 엇갈리거나 부족하면
+// 마지막 줄에 "펼쳐서 …" 문구로 상세 확인을 유도한다.
+function opinionBox(kind, label, l1, l2, l3, more) {
+  return `<div class="opinion op-${kind}">
+    <div class="op-head"><span class="op-chip">${escapeHtml(label)}</span><span class="op-l1">${l1}</span></div>
+    <div class="op-l2">${l2}</div>
+    ${l3 ? `<div class="op-l3${more ? " op-more" : ""}">${l3}${more ? ic("chevron") : ""}</div>` : ""}
+  </div>`;
+}
+
+// 일/주/월 RSI·MFI 상태(카드의 RSI·MFI 배지와 같은 기준): 과매도 확인(RSI≤30 그리고 MFI≤20) / 근접(≤35·≤25) / 다이버전스.
+function tfSignals(t) {
+  const out = { confirmed: [], near: [], div: [] };
+  [["daily", "일봉"], ["weekly", "주봉"], ["monthly", "월봉"]].forEach(([k, label]) => {
+    const x = (t.timeframes || {})[k] || {};
+    if (x.rsi != null && x.mfi != null && x.rsi <= RSI_OVERSOLD && x.mfi <= MFI_OVERSOLD) out.confirmed.push(label);
+    else if (x.rsi != null && x.mfi != null && x.rsi <= RSI_NEAR_OVERSOLD && x.mfi <= MFI_NEAR_OVERSOLD) out.near.push(label);
+    if (x.divergence) out.div.push(label);
+  });
+  return out;
+}
+
+function buyOpinion(t) {
+  const pct = v => (v * 100).toFixed(1) + "%";
+  const d = pct(t.depth);
+  const p = t.percentiles;
+  if (!p) {
+    return opinionBox("unknown", "판단 보류", "과거 낙폭 표본이 부족해 단계를 판정할 수 없습니다.",
+      `현재 낙폭 ${d}`, "펼쳐서 차트로 직접 확인", true);
+  }
+  const sg = tfSignals(t);
+  const posText = [
+    "평소 범위 안",
+    `평소(중간값 ${pct(p.p50)})를 넘음`,
+    `과거 조정 하위 25%(${pct(p.p25)})보다 깊음`,
+    `과거 조정 하위 10%(${pct(p.p10)})보다 깊은 극단`,
+  ][t.stage] || "";
+  const tech = sg.confirmed.length ? `${sg.confirmed.join("·")} RSI·MFI 과매도 확인`
+    : sg.near.length ? `${sg.near.join("·")} 과매도 근접` : "RSI·MFI는 아직 과매도 아님";
+  const div = sg.div.length ? ` · ${sg.div.join("·")} 다이버전스` : "";
+  const l2 = `낙폭 <b>${d}</b> — ${posText}. ${tech}${div}.`;
+  const rec = p.recovery_days_median ? `과거 이런 조정은 회복까지 보통 ${fmtDays(p.recovery_days_median)}` : "";
+  const confirmed = sg.confirmed.length > 0 || sg.div.length > 0;
+  if (t.is_record_drawdown) {
+    return opinionBox("caution", "주의", "과거 어떤 조정보다 깊습니다 — 회복 근거가 약함", l2, "펼쳐서 회복기간·차트 확인", true);
+  }
+  if (t.stage >= 2 && confirmed) {
+    return opinionBox("strong", "매수 관심", t.stage === 3 ? "극단적 낙폭 + 반등 신호 확인" : "깊은 낙폭 + 반등 신호 확인", l2, rec, false);
+  }
+  if (t.stage >= 2) {
+    return opinionBox("watch", "관찰", "낙폭은 깊지만 반등 확인 전", l2, "펼쳐서 RSI·MFI·다이버전스 확인", true);
+  }
+  if (t.stage === 1) {
+    return confirmed
+      ? opinionBox("watch", "관찰", "평소보다 깊은 낙폭 + 지표 신호", l2, rec, false)
+      : opinionBox("watch", "관찰", "평소 수준을 넘는 낙폭, 반등 신호는 아직", l2, "펼쳐서 회복기간·차트 확인", true);
+  }
+  return sg.confirmed.length
+    ? opinionBox("watch", "관찰", "낙폭은 평소 범위지만 지표는 과매도", l2, "펼쳐서 차트 확인", true)
+    : opinionBox("wait", "대기", "낙폭이 평소 범위 안 — 아직 매수 기회 아님", l2, "", false);
+}
+
+function sellOpinion(t) {
+  const s = sellInfo(t);
+  if (!s) return "";
+  const pct = v => (v * 100).toFixed(1) + "%";
+  const names = s.names || [];
+  const sig = `보강 신호 <b>${s.hits}/${s.avail}</b>` + (names.length ? `(${escapeHtml(names.join(", "))})` : " 해당 없음");
+  const next = s.stage < 3
+    ? `${SELL_STAGE_NAME[s.stage + 1]}(${pct(s.levels[s.stage])})까지 ${((s.depth - s.levels[s.stage]) * 100).toFixed(1)}%p`
+    : "매도검토 임계를 넘음";
+  const l2 = `천정 대비 <b>${pct(s.depth)}</b> — ${s.stage === 0 ? "정상 범위" : SELL_STAGE_NAME[s.stage] + " 단계"}, ${next}.`;
+  if (s.tag === "core") {
+    return opinionBox("ref", "참고", s.stage > 0 ? "주요 지수 — 계속 모아가는 대상이라 조정은 참고용" : "주요 지수 — 정상 범위", l2, sig, false);
+  }
+  if (s.stage >= 2 && s.hits >= 2) return opinionBox("alert", "경계", "경고권 낙폭 + 추세 약화 신호가 겹침", l2, sig, false);
+  if (s.stage >= 2) return opinionBox("mixed", "점검", "낙폭은 경고권이나 추세 신호는 적음(단순 조정 가능)", l2, `${sig} — 펼쳐서 사이클·과거 성과 확인`, true);
+  if (s.stage === 1) return opinionBox("watch", "관찰", "천정이 확정됐고 조정 초기", l2, sig, false);
+  if (s.hits >= 2) return opinionBox("watch", "관찰", "낙폭은 정상이나 약화 신호가 쌓이는 중", l2, `${sig} — 펼쳐서 신호 확인`, true);
+  return opinionBox("ok", "정상", "천정 대비 낙폭이 정상 범위", l2, s.hits ? sig : "", false);
+}
+
+function opinionHtml(t) { return isSell() ? sellOpinion(t) : buyOpinion(t); }
+
 function sellStatsBlockHtml(t, opts) {
   const biz = t.business_summary ? `<div class="biz-summary">${escapeHtml(t.business_summary)}</div>` : "";
   const s = sellInfo(t);
@@ -2497,10 +2617,11 @@ function sellStatsBlockHtml(t, opts) {
       ${underwaterSparkSvg((s.spark || []).map(d => ({ depth: d })))}
     </div>`;
   const tfb = `<div class="tf-badges">${sellTimeframeBadgesHtml(t.sell && t.sell.tf)}</div>`;
+  const op = sellOpinion(t);
   if (opts && opts.large) {
-    return `<div class="fs-stats"><div class="stats-col">${biz}${note}${fb}${recovery}${badges}</div><div class="stats-col">${gauge}${count}${tfb}</div></div>`;
+    return `<div class="fs-stats"><div class="stats-col">${op}${biz}${note}${fb}${recovery}${badges}</div><div class="stats-col">${gauge}${count}${tfb}</div></div>`;
   }
-  return `${biz}${gauge}${count}${recovery}${badges}${spark}${tfb}${note}${fb}`;
+  return `${op}${biz}${gauge}${count}${recovery}${badges}${spark}${tfb}${note}${fb}`;
 }
 
 // 백엔드 정의와 동일: i번째 봉을 포함한 직전 n봉 최고 종가(n=0이면 전체 누적). 결과는 detail에 캐시한다.
@@ -2602,28 +2723,8 @@ function sellEpisodeDetailHtml(ev, episode, series, cause, currency) {
 
 // 상세 맨 위 한 문장 요약 - 지금 상태(단계·임계까지 남은 폭·보강 신호·이번 사이클의 상승/하락)를 문장으로 풀어 준다.
 function sellSummaryHtml(t, sell, by, series, nowEv, candidate, levels, domainEnd) {
+  // 단계·임계까지 남은 폭·보강 신호는 카드 맨 위 "의견 요약"에 있으므로, 여기서는 이번 사이클(돌파→천정→하락)만 짧게 풀어 준다.
   const cur = by.current;
-  const pct = v => (v * 100).toFixed(1) + "%";
-  const stageName = SELL_STAGE_NAME[cur.stage];
-  const core = sell.tag === "core";
-  const parts = [];
-  parts.push(`<b>${escapeHtml(t.symb)}</b>는 신고가 기준 <b>${LOOKBACK_LABELS[state.lookback]}</b>로 천정(${cur.high_date.slice(2)}, ${fmtExactPrice(cur.high_price, t.currency)}) 대비 `
-    + `<b class="${cur.depth < 0 ? "down" : "up"}">${pct(cur.depth)}</b> — ` + (cur.stage === 0 ? "<b>정상 범위</b>" : `<b>${stageName} 단계</b>${core ? "(참고용)" : ""}`) + "입니다.");
-  if (cur.stage < 3) {
-    const nxt = levels[cur.stage];   // 다음 단계 임계(음수)
-    parts.push(`${SELL_STAGE_NAME[cur.stage + 1]}(${pct(nxt)})까지 <b>${((cur.depth - nxt) * 100).toFixed(1)}%p</b> 남았습니다.`);
-  } else {
-    parts.push(`이미 가장 깊은 단계입니다(매도검토 ${pct(levels[2])} 이하).`);
-  }
-  const names = [];
-  if (by.retrace && by.retrace.hit) names.push("되돌림률");
-  if (sell.wedge && sell.wedge.hit) names.push("쐐기형");
-  if (sell.bigBear && sell.bigBear.hit) names.push("장대음봉");
-  if (sell.ma200 && sell.ma200.hit) names.push("200일선 이탈");
-  if (sell.rs && sell.rs.hit) names.push("상대강도 약화");
-  if (sell.regime && sell.regime.hit) names.push("하락장");
-  parts.push(`보강 신호는 <b>${by.hits}/${by.avail}개</b>${names.length ? `(${names.join(", ")})` : ""} 해당합니다.`);
-  // 이번 사이클(확정 진행 사례, 없으면 미확정 후보)의 상승·하락
   let st = null, unconfirmed = false;
   if (nowEv) {
     st = sellCycleStats(series, nowEv.breakout, nowEv.breakout_price, nowEv.peak, nowEv.peak_price, domainEnd, cur.depth);
@@ -2631,17 +2732,18 @@ function sellSummaryHtml(t, sell, by, series, nowEv, candidate, levels, domainEn
     unconfirmed = true;
     st = sellCycleStats(series, cur.breakout, cur.breakout_price, cur.high_date, cur.high_price, domainEnd, cur.depth);
   }
+  const parts = [];
   if (st && (st.rise || st.fall)) {
-    let s = "이번 사이클은 ";
-    if (st.rise) s += `돌파(${st.rise.start.slice(2)}) 뒤 <b>${fmtSignedPct(st.rise.gain)}</b>를 ${st.rise.bars}거래일 동안 올랐고`;
-    if (st.fall && st.fall.bars > 0) s += `${st.rise ? ", " : ""}천정 이후 <b>${st.fall.bars}거래일째</b> 하락 중`;
-    s += unconfirmed ? "이며 천정은 아직 확정되지 않았습니다." : "입니다.";
-    parts.push(s);
+    let line = "이번 사이클: ";
+    if (st.rise) line += `돌파(${st.rise.start.slice(2)}) 뒤 <b>${fmtSignedPct(st.rise.gain)}</b>를 ${st.rise.bars}거래일 올랐고`;
+    if (st.fall && st.fall.bars > 0) line += `${st.rise ? ", " : ""}천정 이후 <b>${st.fall.bars}거래일째</b> 하락 중`;
+    line += unconfirmed ? "이며 천정은 아직 확정되지 않았습니다." : "입니다.";
+    parts.push(line);
   } else if (unconfirmed) {
     parts.push("천정은 아직 확정되지 않았습니다.");
   }
   if (sell.thresholds.fallback) parts.push("(과거 낙폭 표본이 부족해 기본 임계를 씁니다.)");
-  return `<div class="sell-summary">${parts.join(" ")}</div>`;
+  return parts.length ? `<div class="sell-summary">${parts.join(" ")}</div>` : "";
 }
 
 function sellDetailContentHtml(t, detail, large, selectedEpisode, availW) {
@@ -2962,10 +3064,11 @@ function statsBlockHtml(t, opts) {
     </div>`;
   const tf = `<div class="tf-badges">${timeframeBadgesHtml(t.timeframes)}</div>`;
   // 크게 보기 요약은 넓은 화면에서 두 묶음(설명 / 게이지·배지)이 나란히 놓이고, 좁으면 자동으로 세로로 쌓인다.
+  const op = buyOpinion(t);
   if (opts && opts.large) {
-    return `<div class="fs-stats"><div class="stats-col">${biz}${recovery}${badges}</div><div class="stats-col">${gauge}${tf}</div></div>`;
+    return `<div class="fs-stats"><div class="stats-col">${op}${biz}${recovery}${badges}</div><div class="stats-col">${gauge}${tf}</div></div>`;
   }
-  return `${biz}${gauge}${recovery}${badges}${spark}${tf}`;
+  return `${op}${biz}${gauge}${recovery}${badges}${spark}${tf}`;
 }
 
 function cardHtml(t) {

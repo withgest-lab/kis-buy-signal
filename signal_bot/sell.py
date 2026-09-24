@@ -29,6 +29,8 @@ MIN_REC_EVENTS = 3                 # 회복기간 통계를 보여줄 최소 회
 
 CORE_TICKERS = {"SPY", "QQQ", "DIA", "IWM", "KOSPI200", "069500"}   # 계속 모아가는 주요 지수(069500=KODEX 200)
 SIGNAL_KEYS = ("retrace", "wedge", "bigBear", "ma200", "rs", "regime")
+SIGNAL_NAMES = {"retrace": "되돌림률", "wedge": "쐐기형", "bigBear": "장대음봉", "ma200": "200일선 이탈",
+                "rs": "상대강도 약화", "regime": "하락장"}
 
 
 def symbol_tag(symb: str, category: str) -> str:
@@ -308,6 +310,7 @@ def compute_sell(df: pd.DataFrame, category: str, symb: str,
             "perf": _perf(c, events),
             "retrace": retrace,
             "hits": sum(1 for k in avail if sigs[k]["hit"]),
+            "hit_names": [SIGNAL_NAMES[k] for k in avail if sigs[k]["hit"]],
             "avail": len(avail),
         }
     return {"tag": symbol_tag(symb, category), "thresholds": th, "byLookback": by, **common}
@@ -319,6 +322,6 @@ def summary(sell: dict) -> dict:
         "tag": sell["tag"], "levels": sell["thresholds"]["levels"],
         "fallback": sell["thresholds"]["fallback"],
         "by": {n: {"depth": v["current"]["depth"], "stage": v["current"]["stage"],
-                   "hits": v["hits"], "avail": v["avail"], "spark": v["spark"], "rec": v["rec"]}
+                   "hits": v["hits"], "avail": v["avail"], "names": v["hit_names"], "spark": v["spark"], "rec": v["rec"]}
                for n, v in sell["byLookback"].items()},
     }
