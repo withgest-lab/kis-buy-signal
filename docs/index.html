@@ -511,6 +511,34 @@
     100% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent); }
   }
   .episode-detail-box-inner .fwd { color: var(--text-muted); font-weight: 500; }
+
+  /* 데이터 읽는 법: 매수/매도 토글 · 보강 신호 카드 */
+  .help-tabs { padding: 10px 14px 2px; }
+  .help-tabs .seg { max-width: 320px; }
+  .help-tabs .seg .chip { flex: 1; }
+  .help-pane[hidden] { display: none; }
+  .help-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .sig-card { background: var(--surface-1); border: 0.5px solid var(--hairline); border-radius: 12px; margin: 8px 0; }
+  .sig-card summary {
+    list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    padding: 10px 12px; font-size: 13.5px; font-weight: 700; color: var(--text-primary); -webkit-tap-highlight-color: transparent;
+  }
+  .sig-card summary::-webkit-details-marker { display: none; }
+  .sig-card summary::after {
+    content: ""; margin-left: auto; width: 7px; height: 7px; flex: none;
+    border-right: 2px solid var(--text-muted); border-bottom: 2px solid var(--text-muted);
+    transform: rotate(45deg) translateY(-2px); transition: transform .15s;
+  }
+  .sig-card[open] summary::after { transform: rotate(-135deg) translateY(-1px); }
+  .sig-card summary:active { opacity: 0.6; }
+  .sig-no {
+    flex: none; width: 20px; height: 20px; border-radius: 50%; background: var(--fill); color: var(--text-secondary);
+    font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;
+  }
+  .sig-card .sig-body { padding: 0 12px 6px; border-top: 0.5px solid var(--hairline); }
+  .src-badge { font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; white-space: nowrap; line-height: 1.4; }
+  .src-badge.video { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+  .src-badge.sys { background: var(--fill); color: var(--text-secondary); }
 </style>
 </head>
 <body>
@@ -606,7 +634,9 @@
       <h2>데이터 읽는 법</h2>
       <button id="help-close" class="help-close" aria-label="닫기"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-xmark"/></svg></button>
     </div>
+    <div class="help-tabs"><div class="seg" id="help-seg" role="tablist" aria-label="도움말 종류"><span class="chip active" data-pane="buy" role="tab">매수 전략</span><span class="chip" data-pane="sell" role="tab">매도 전략</span></div></div>
     <div class="help-body">
+      <div class="help-pane" data-pane="buy">
       <section>
         <h3>MDD 단계는 뭘 의미하나요?</h3>
         <div class="help-group">
@@ -670,25 +700,125 @@
         </div>
       </section>
       <section>
-        <h3>매도 전략 모드는 뭔가요?</h3>
-        <div class="help-group">
-        <p>위의 <b>[매도 전략]</b>을 누르면 같은 종목들을 "신고가 돌파 → 추가 상승 → 천정 → 천정 대비 하락" 관점으로 다시 보여줍니다. 우량 종목 장기보유가 기본 원칙이라 <b>매도 지시가 아니라 경고·부분 축소 검토용</b>입니다.</p>
-        <p><b>천정</b> — 신고가를 돌파한 뒤 찍은 최고 종가입니다. 이후 낙폭이 '주의' 선에 닿으면 확정(▼)되고, 다시 넘어서면 취소됩니다. 그래서 천정은 실제보다 며칠~몇 주 늦게 확정됩니다.</p>
-        <p><b>주의 / 경고 / 매도검토</b> — 그 종목이 과거에 겪은 천정 대비 낙폭(완결 국면)의 하위 25% / 50% / 75% 지점입니다(주의는 최소 -5%). 과거 표본이 5개 미만이면 기본값 -8% / -15% / -25%를 씁니다.</p>
-        <p><b>신고가 기준</b> — 60일·120일·52주·사상최고 중 무엇을 넘어야 "신고가 돌파"로 볼지 고릅니다.</p>
-        <p><b>보강 신호 N/M</b> — 되돌림률(상승분 50% 이상 반납), 쐐기형(상승폭 3연속 감소), 장대음봉(거래량 급증한 큰 음봉의 중심선 아래), 200일선 이탈, 벤치마크(SPY/KOSPI200) 대비 상대강도 약화, 시장 하락장 중 몇 개가 해당되는지입니다. 등급을 바꾸지 않고 참고만 합니다.</p>
-        <p><b>히스토그램 박스</b> — 천정 후 조정 사례를 시간축 위 박스로 보여줍니다. 박스는 천정일에서 시작해 회복(또는 신고가 기준 창 이탈)일까지, <b>기간이 길수록 넓고</b>(위 차트들과 같은 날짜축) <b>낙폭이 깊을수록 깁니다</b>. 박스를 누르면 가격·낙폭·RSI 차트에 그 구간과 저점이 함께 표시되고, 아래 상세 박스에 천정·단계 진입일(이후 6·12개월 수익률)·최저점·종료가 나옵니다. 천정이 아직 확정되지 않았어도(낙폭이 '주의' 전) 현재 고점 이후 하락이 <b>점선 박스(미확정)</b>로 표시되고, 주의선까지 얼마나 남았는지 위에 나옵니다.</p>
-        <p><b>과열 기준(RSI·MFI)</b> — 매도 모드의 일/주/월 배지는 <b>RSI 70 이상이고 동시에 MFI 80 이상</b>이면 확정 과열(빨강), RSI 65·MFI 75 이상이면 근접(주황)입니다. <b>하락 다이버전스(●)</b>는 가격은 신고가인데 RSI/MFI는 이전 고점보다 낮은 경우입니다.</p>
-        <p><b>참고(주요 지수)</b> — SPY·QQQ·DIA·IWM·KOSPI200은 계속 모아가는 대상이라 같은 계산이지만 "참고"로만 표시합니다.</p>
-        <p><b>과거 신호 성과</b> — 이 종목에서 같은 단계에 처음 들어갔던 과거 사례들의 이후 6·12개월 수익률과 추가 하락폭 중앙값입니다. 사례가 5건 미만이면 "데이터 부족"으로 표시하며, 같은 천정에서 나온 사례끼리는 완전히 독립적이지 않으니 참고용으로만 보세요.</p>
-        </div>
-      </section>
-      <section>
         <h3>참고해주세요</h3>
         <div class="help-group">
         <p>이 시스템은 <b>종목을 조회하고 알림만 보내주는 용도</b>입니다. 실제로 사고파는 주문은 절대 하지 않으며, 신호를 참고해서 최종 판단과 매매는 사용자가 직접 합니다. 개별종목의 낙폭은 반드시 회복된다는 보장이 없습니다(지수와 달리 개별기업은 구조적으로 재기하지 못하는 경우도 있습니다) - 회복기간 통계와 사상최대낙폭 배지를 참고해서 직접 판단해주세요.</p>
         </div>
       </section>
+      </div>
+      <div class="help-pane" data-pane="sell" hidden>
+      <section>
+        <h3>매도 전략 모드, 한눈에</h3>
+        <div class="help-group">
+        <p>위 [매도 전략]을 누르면 같은 종목들을 <b>"신고가 돌파 → 추가 상승 → 천정 → 천정 대비 하락"</b> 흐름으로 다시 보여줍니다. 목적은 <b>"지금이 정리를 고민해 볼 자리인가"를 점검</b>하는 것이고, 전량 매도 신호가 아닙니다. 우량 종목 장기보유가 기본 원칙이라 화면에서도 "경고·부분 축소 검토"로만 표현합니다.</p>
+        <p>이 화면은 유튜브 <b>전업투자자 하승훈</b>(김작가TV, 2부·3부)의 매도 관점을 참고했습니다. 그 영상의 핵심 태도는 <b>"예단하지 말고 확인한 뒤 대응하라, 100%는 없고 확률이다"</b>입니다. 그래서 이 화면도 한 가지 신호로 결론 내지 않고 <b>여러 신호를 겹쳐서</b> 보게 만들었습니다.</p>
+        <p class="note">영상은 "고점 대비 -몇 %" 같은 고정 규칙 대신 패턴과 구조로 판단합니다. 이 화면의 주의/경고/매도검토 낙폭 단계는 <b>그 종목의 과거 낙폭 통계로 만든 이 시스템의 자체 기준</b>이지 영상의 기준이 아닙니다.</p>
+        </div>
+      </section>
+      <section>
+        <h3>배지·게이지 읽는 법</h3>
+        <div class="help-group">
+        <p><b>천정</b> — 신고가를 돌파한 뒤 찍은 최고 종가입니다. 이후 낙폭이 '주의' 선에 닿으면 확정(▼)되고, 다시 넘어서면 취소됩니다. 그래서 천정은 실제보다 며칠~몇 주 늦게 확정됩니다.</p>
+        <p><span class="dot" style="background:var(--stage-3)"></span> <b>매도검토</b> · <span class="dot" style="background:var(--stage-2)"></span> <b>경고</b> · <span class="dot" style="background:var(--stage-1)"></span> <b>주의</b> · <span class="dot" style="background:var(--text-muted)"></span> <b>정상</b> — 천정 대비 낙폭이 그 종목의 <b>과거 조정 낙폭 하위 25% / 50% / 75%</b> 지점(주의는 최소 -5%)에 닿았는지입니다. 과거 표본이 5개 미만이면 기본값 -8% / -15% / -25%를 씁니다. 카드의 세로선 3개가 그 지점입니다.</p>
+        <p><b>신고가 기준</b>(60일 / 120일 / 52주 / 사상최고) — 무엇을 넘어야 "신고가 돌파"로 볼지 고릅니다. 영상은 시장 상황에 따라 기준을 바꿉니다. 하락 뒤 반등장에서는 52주 신고가가 잘 안 나오니 3~6개월(60·120봉) 신고가를, 강한 상승장에서는 사상 최고가 신고가를 더 중요하게 봅니다.</p>
+        <p><b>참고(주요 지수)</b> — SPY·QQQ·DIA·IWM·KOSPI200은 계속 모아가는 대상이라 같은 계산이지만 "참고"로만 표시합니다.</p>
+        <p><b>일/주/월 RSI·MFI 배지</b> — 매수 모드와 반대로 <b>과열</b> 기준입니다. RSI 70 이상 <b>이고 동시에</b> MFI 80 이상이면 확정 과열(빨강), RSI 65·MFI 75 이상이면 근접(주황)입니다. <b>●하락다이버전스</b>는 가격은 신고가인데 RSI/MFI는 이전 고점보다 낮은 경우로, 오르는 힘이 식고 있다는 뜻입니다. 상세 RSI·MFI 차트에는 70/80 기준선이, 가격 차트에는 하락 다이버전스 점(빨강)이 찍힙니다.</p>
+        <p><b>사상 최대 낙폭 · 회복기간</b> — 카드의 배지와 통계 줄은 매수 모드와 같은 의미입니다. 회복기간은 과거 조정이 천정을 다시 넘기까지 걸린 기간(최소·중간·최장)입니다.</p>
+        </div>
+      </section>
+      <section>
+        <h3>상세 차트 읽는 법</h3>
+        <div class="help-group">
+        <p><b>가격 · 돌파/천정</b> — 점선은 신고가 기준선(직전 N봉 최고가)입니다. ▲는 신고가 돌파, ▼는 천정 확정 지점이고, 점선은 위에서 아래까지 이어져 다른 차트와 같은 날짜를 가리킵니다.</p>
+        <p><b>천정 대비 낙폭</b> — 0%가 천정이고 아래로 내려갈수록 깊은 조정입니다. 가로선 3개가 주의/경고/매도검토 지점입니다.</p>
+        <p><b>천정 후 조정 낙폭 히스토그램</b> — 과거 조정 사례를 시간축 위 박스로 보여줍니다. 박스는 천정일에서 시작해 회복(또는 신고가 기준 창 이탈)일까지 이어지며, <b>기간이 길수록 넓고</b>(위 차트들과 같은 날짜축) <b>낙폭이 깊을수록 깁니다</b>. 박스를 누르면 가격·낙폭·RSI 차트에 그 구간과 저점이 함께 표시되고, 아래 상세 박스에 천정·단계 진입일(이후 6·12개월 수익률)·최저점·종료가 나옵니다. 빨간 박스는 아직 회복 전인 진행중 사례이고, <b>점선 박스는 천정이 아직 확정되지 않았어도(낙폭이 '주의' 전)</b> 현재 고점 이후의 하락을 보여주며, 위 요약 줄에 주의선까지 얼마나 남았는지 나옵니다.</p>
+        <p><b>과거 신호 성과</b> — 이 종목에서 같은 단계에 처음 들어갔던 과거 사례들의 이후 6·12개월 수익률과 추가 하락폭 중앙값입니다. 사례가 5건 미만이면 "데이터 부족"으로 표시합니다. 같은 천정에서 나온 사례끼리는 완전히 독립적이지 않으니 참고용으로만 보세요.</p>
+        </div>
+      </section>
+      <section>
+        <h3>보강 신호 6개 — 눌러서 자세히</h3>
+        <div class="help-group">
+        <p>카드의 <b>"보강 N/M 해당"</b>은 아래 6개 신호 중 지금 해당하는 개수입니다(M은 데이터가 있는 신호 수). 등급(주의/경고/매도검토)은 낙폭으로만 정해지고, 보강 신호는 <b>그 낙폭이 "단순 조정"인지 "추세가 꺾이는 중"인지 가늠하는 참고 자료</b>입니다. 배지 색은 신호의 출처입니다 — <span class="src-badge video">영상 개념</span>은 하승훈 영상에서 설명한 개념을 옮긴 것, <span class="src-badge sys">시스템 보조 기준</span>은 이 시스템이 덧붙인 기준입니다.</p>
+        <details class="sig-card" open>
+          <summary><span class="sig-no">1</span><span class="sig-ttl">되돌림률</span><span class="src-badge video">영상 개념</span></summary>
+          <div class="sig-body">
+            <p><b>한 줄로</b> — 오른 만큼 얼마나 도로 내줬는지의 비율입니다. 100만큼 올랐다가 30을 내줬으면 30%입니다.</p>
+            <p><b>왜 매도 관점에서 의미 있나</b> — 영상에서는 건강한 조정은 직전 상승의 대략 <b>3분의 1 이하</b>로 얕게 끝난다고 봅니다. 반대로 상승분을 <b>대부분 되돌리면</b> 사는 힘보다 파는 힘이 세졌다는 경고로 읽습니다.</p>
+            <p><b>화면에서 읽는 법</b> — 천정까지의 상승분(그 전 저점~천정) 대비 지금까지 내준 비율을 보여줍니다. 예: 저점 100 → 천정 200으로 100 올랐고 지금 145라면 55를 내줬으니 <b>55% → 해당</b>. 이 화면은 <b>50% 이상</b>이면 "해당"으로 표시합니다(영상의 "1/3 이하 정상, 대부분이면 경고" 사이를 이 시스템이 절반으로 자른 값). 33% 이하면 정상적인 조정 범위로 봅니다.</p>
+            <p><b>주의할 점</b> — 신고가 기준을 바꾸면 "직전 상승"의 범위가 달라져 비율도 바뀝니다. 오른 폭이 작았던 종목은 조금만 내려도 비율이 커집니다.</p>
+          </div>
+        </details>
+        <details class="sig-card">
+          <summary><span class="sig-no">2</span><span class="sig-ttl">쐐기형</span><span class="src-badge video">영상 개념</span></summary>
+          <div class="sig-body">
+            <p><b>한 줄로</b> — 오를 때마다 오름폭이 점점 작아지는데 고점만 겨우 높아지는 모양입니다. 위로 갈수록 좁아지는 쐐기처럼 보입니다.</p>
+            <p><b>왜 매도 관점에서 의미 있나</b> — 영상은 상승이 갈수록 약해진다는 것을 <b>"올라올 때마다 큰손이 팔고 있다"</b>는 뜻으로 봅니다. 쐐기 아래쪽이 깨지면 급하게 빠지는 경우가 많다고 설명합니다(2022년 6월 코스피 예). 대응은 쐐기 위쪽에서 부딪힐 때 리스크를 관리하거나, 더 확인하려면 아래쪽이 깨질 때 정리하는 것입니다.</p>
+            <p><b>화면에서 읽는 법</b> — "최근 상승파동 +24% → +12% → +6%"처럼 최근 세 번의 상승폭(저점→고점)이 나옵니다. <b>세 번이 연속으로 작아지고, 고점은 계속 높아질 때만 "해당"</b>입니다. 예: +20% → +4% → +7%은 다시 커졌으므로 비해당.</p>
+            <p><b>주의할 점</b> — 파동은 종가 기준 좌우 10봉 고저점으로 자동 계산해서 눈으로 그은 쐐기선과 다를 수 있습니다. 해당이어도 "곧 하락"이 아니라 "상승이 약해지는 중이니 지켜볼 것"입니다.</p>
+          </div>
+        </details>
+        <details class="sig-card">
+          <summary><span class="sig-no">3</span><span class="sig-ttl">장대음봉</span><span class="src-badge video">영상 개념</span></summary>
+          <div class="sig-body">
+            <p><b>한 줄로</b> — 거래량이 크게 늘면서 몸통이 길게 내려앉은 음봉(큰 하락일)입니다. 그 봉의 종가와 중심(시가·종가의 가운데)이 위에서 누르는 <b>저항선</b>이 됩니다.</p>
+            <p><b>왜 매도 관점에서 의미 있나</b> — 영상에서는 장대음봉 뒤 반등이 오면 <b>종가 → 중심 → 시가</b> 순서로 저항을 만난다고 봅니다. 반등이 중심에서 막히면 힘이 약하다는 뜻이고, 중심을 넘으면 시가가 더 강한 저항입니다. 카카오 사례에서는 고점이 낮아지고 저점이 깨지는 장대음봉이 "대세 상승이 끝났다"를 뒤늦게라도 확인해 주는 자리였고, 셀트리온 사례에서는 반등이 그 음봉의 중심에 막혀 "반등 시 매도" 종목으로 봤습니다.</p>
+            <p><b>화면에서 읽는 법</b> — "최근 26-06-05 종가 539.5 · 중심선 558.6"처럼 가장 최근 장대음봉이 나옵니다. 조건은 <b>최근 120봉 안, 거래량이 20일 평균의 1.5배 이상, 하락폭이 평균 일변동의 3배 이상</b>입니다. 그 봉이 최근 60봉 이내이고 <b>현재가가 중심선 아래</b>면 "해당"(아직 저항 아래에 있음), 중심선 위로 회복했으면 비해당입니다.</p>
+            <p><b>주의할 점</b> — 영상이 말하는 "평균의 3배" 기준(원래는 장대양봉 기준)을 음봉에 옮겨 쓴 것입니다. 이 화면은 시가선은 따로 그리지 않고 중심선으로만 판정합니다. 갭 하락일이나 이벤트성 하락일도 걸릴 수 있습니다.</p>
+          </div>
+        </details>
+        <details class="sig-card">
+          <summary><span class="sig-no">4</span><span class="sig-ttl">200일선 이탈</span><span class="src-badge sys">시스템 보조 기준</span></summary>
+          <div class="sig-body">
+            <p><b>한 줄로</b> — 종가가 최근 200일 평균선 아래로 내려간 상태입니다.</p>
+            <p><b>왜 매도 관점에서 의미 있나</b> — 장기 추세가 꺾였는지 보는 가장 흔한 기준선입니다. 영상은 20주선, 60일선, <b>우하향하는 120일선</b> 같은 이동평균이 저항이 되고, 여러 선이 <b>겹칠수록 저항이 강해진다</b>고 설명합니다(200일선 자체를 말하지는 않았습니다). 그래서 이 화면은 "장기 이동평균 아래 = 반등이 저항을 만나기 쉬운 위치"로 보조 사용하고, 시장 국면 판정과 같은 기준으로 맞췄습니다.</p>
+            <p><b>화면에서 읽는 법</b> — "200일선 대비 +20.5% (아래면 해당)"처럼 현재가가 200일선보다 몇 % 위/아래인지 나옵니다. 마이너스면 "해당"입니다.</p>
+            <p><b>주의할 점</b> — 후행 지표라 이미 많이 빠진 뒤에 켜질 수 있습니다. 켜졌다고 바로 팔라는 뜻이 아니라 장기 추세가 무너졌는지 확인하는 용도입니다. 데이터가 200일 미만이면 "데이터 없음"입니다.</p>
+          </div>
+        </details>
+        <details class="sig-card">
+          <summary><span class="sig-no">5</span><span class="sig-ttl">상대강도 약화</span><span class="src-badge video">영상 개념</span></summary>
+          <div class="sig-body">
+            <p><b>한 줄로</b> — 시장(미국은 SPY, 한국은 KOSPI200)과 비교해 이 종목이 상대적으로 약해지고 있는지입니다.</p>
+            <p><b>왜 매도 관점에서 의미 있나</b> — 영상은 차트 기법이 <b>시장 대비 강한 주도주</b>에서 잘 맞고, 약한 종목에서는 확률이 떨어진다고 강조합니다. 셀트리온 사례는 오를 때도 시장보다 힘이 약하고 거래도 줄어드는 "기술적 반등"이라, 반등 시 매도 후보로 봤습니다. 즉 시장보다 약해지는 종목은 <b>먼저 점검할 대상</b>입니다.</p>
+            <p><b>화면에서 읽는 법</b> — "SPY 대비 최근 60일 상대수익 -9.8%"는 (종목 가격 ÷ 지수 가격) 비율이 60일 전보다 9.8% 낮아졌다는 뜻입니다. <b>60일 변화가 마이너스이고, 비율이 최근 120일 평균 아래일 때 "해당"</b>입니다.</p>
+            <p><b>주의할 점</b> — 시장이 크게 오를 때는 좋은 종목도 잠깐 약해 보일 수 있습니다. 비교할 지수가 없는 종목(SPY, KOSPI200 자신)이나 데이터가 짧으면 "데이터 없음"입니다.</p>
+          </div>
+        </details>
+        <details class="sig-card">
+          <summary><span class="sig-no">6</span><span class="sig-ttl">시장 국면</span><span class="src-badge video">영상 개념</span></summary>
+          <div class="sig-body">
+            <p><b>한 줄로</b> — 시장 전체(미국 SPY, 한국 KOSPI200)가 200일선보다 <b>3% 넘게 아래</b>에 있는 하락장인지입니다.</p>
+            <p><b>왜 매도 관점에서 의미 있나</b> — 영상 3부는 하락장 중의 반등을 <b>"베어마켓 랠리"</b>로 봅니다. 그 반등이 저항 자리에서 고점 패턴을 만들면 비중을 줄이고, 고점 패턴이 확인되기 전에는 단기 상승이 이어지는 것으로 봅니다. 바닥이나 천정은 지나 봐야 알 수 있으니 예단하지 말고 그때그때 대응하라는 것이 핵심입니다. 그래서 시장이 하락장이면 종목의 반등이 "정리할 기회"가 될 가능성이 커집니다.</p>
+            <p><b>화면에서 읽는 법</b> — 화면 맨 위 "시장국면(참고용) 미국 상승장 · 한국 상승장"과 같은 값입니다. 200일선보다 3% 이상 위면 상승장, ±3% 안이면 횡보장, 3% 이상 아래면 하락장이고 <b>하락장일 때만 "해당"</b>입니다. 그래서 평소에는 대부분 비해당입니다.</p>
+            <p><b>주의할 점</b> — 지수 기준이라 개별 종목의 사정은 반영하지 않습니다. 횡보장은 해당이 아닙니다.</p>
+          </div>
+        </details>
+        </div>
+      </section>
+      <section>
+        <h3>여섯 신호를 종합해서 읽는 법</h3>
+        <div class="help-group">
+        <p>영상은 <b>"선이 여러 개 겹칠수록 저항이 강해지고, 패턴이 겹쳐 나올수록 진짜 패턴"</b>이라고 말합니다. 같은 원칙을 빌려 <b>신호가 여러 개 겹칠수록 경계를 높이는</b> 방식으로 읽어 보세요. (통계로 검증된 규칙이 아니라 읽기 위한 지침입니다.)</p>
+        <p><b>0~1개</b> — 낙폭 단계만 참고하세요. 낙폭이 깊어도 보강 신호가 거의 없으면 단순 조정일 가능성도 함께 고려합니다.</p>
+        <p><b>2~3개</b> — 추세가 흔들리는 신호가 몇 개 겹쳤습니다. 부분 축소를 검토한다면 근거가 조금 보강된 상태입니다.</p>
+        <p><b>4개 이상</b> — 신호가 크게 겹쳤습니다. 낙폭 단계·과거 신호 성과·히스토그램과 함께 꼼꼼히 점검할 자리입니다.</p>
+        <p class="note">여기서도 최종 판단은 직접 하세요. 이 화면은 조회·참고용이며 자동 매매는 하지 않습니다.</p>
+        </div>
+      </section>
+      <section>
+        <h3>영상에는 있지만 아직 반영하지 않은 것</h3>
+        <div class="help-group">
+        <p>쌍봉(M자)·헤드앤숄더·프랙탈(큰 패턴 안에 작은 패턴이 겹친 것) 같은 <b>고점 패턴</b>, <b>저항 겹침</b>(지지였다 깨진 자리 + 하락 추세선 + 우하향 이동평균이 겹치는 곳), 강한 하락 뒤 반등에서 나오는 <b>M자와 5일선 이탈</b>, <b>엔벨로프(60일선 -11%) + RSI 30 복귀</b>를 보는 바닥 확인, 신고가 조건검색(전일 +3%, 거래대금·거래량 증가, 전일은 신고가 아님) 등은 이 화면에 아직 없습니다. 패턴을 자동으로 정확히 잡기 어려운 것들이라 다음 단계 후보로 남겨 두었습니다.</p>
+        </div>
+      </section>
+      <section>
+        <h3>출처와 참고</h3>
+        <div class="help-group">
+        <p>김작가TV · 전업투자자 하승훈 <a href="https://www.youtube.com/watch?v=z8JsPqV3_-c" target="_blank" rel="noopener">2부(지지·저항, 매수·매도 타이밍)</a> · <a href="https://www.youtube.com/watch?v=8DXVEHOn954" target="_blank" rel="noopener">3부(종목 사례와 시장 전망)</a>, 2022년 11월 20일 촬영. 위 설명은 영상 개념을 이 시스템의 계산으로 옮기고 쉬운 말로 풀어 쓴 것이며, <b>영상의 주장과 완전히 같지는 않습니다</b>(임계값·계산 방식은 이 시스템이 정한 것이 많습니다).</p>
+        <p class="note">투자 권유가 아닙니다. 어떤 신호도 100%가 아니라 확률이며, 개별종목의 낙폭이 반드시 회복된다는 보장도 없습니다. 최종 판단과 매매는 직접 하세요.</p>
+        </div>
+      </section>
+      </div>
     </div>
   </div>
 </div>
@@ -2827,8 +2957,20 @@ function wireOverlay(btnId, overlayId, closeId) {
   overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
 }
 
+// 도움말: 매수/매도 패널 전환. 열 때는 항상 지금 화면 모드의 패널로 시작하고, 위 토글로 언제든 바꿀 수 있다.
+function setHelpPane(mode) {
+  document.querySelectorAll("#help-overlay .help-pane").forEach(pn => { pn.hidden = pn.dataset.pane !== mode; });
+  document.querySelectorAll("#help-seg .chip").forEach(c => c.classList.toggle("active", c.dataset.pane === mode));
+  const ov = document.getElementById("help-overlay");
+  if (ov) ov.scrollTop = 0;
+}
+
 function wireHelp() {
   wireOverlay("help-btn", "help-overlay", "help-close");
+  document.getElementById("help-btn").addEventListener("click", () => setHelpPane(state.mode));
+  document.querySelectorAll("#help-seg .chip").forEach(chip => {
+    chip.addEventListener("click", () => setHelpPane(chip.dataset.pane));
+  });
   // "크게 보기"는 화면 전체를 채우는 화면이라(카드 바깥 빈 영역을 눌러 닫으면 오조작이 잦다) 상단의
   // 닫기 버튼과 Esc로만 닫는다.
   document.addEventListener("keydown", (e) => {
