@@ -447,7 +447,7 @@
   .fs-title .name { font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   .fs-hero { padding: 18px 18px 16px; margin-bottom: 12px; cursor: default; }
-  .fs-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4px 28px; }
+  .fs-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 4px 28px; }
   .card.fullscreen .fs-hero .symb { font-size: 22px; }
   .card.fullscreen .fs-hero .name { font-size: 13.5px; }
   .card.fullscreen .price-row { font-size: 24px; font-weight: 700; margin-top: 12px; gap: 6px 12px; letter-spacing: -0.01em; }
@@ -467,6 +467,33 @@
   .card.fullscreen .chart-label .ttl { font-size: 14px; color: var(--text-primary); }
   .card.fullscreen .episode-detail-box { margin-bottom: 12px; }
   .card.fullscreen .episode-detail-box-inner { font-size: 13.5px; }
+
+  /* 매도 전략 모드 */
+  .mode-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 12px; }
+  .mode-bar .seg { flex: 0 0 auto; }
+  .mode-bar .seg .chip { flex: none; padding: 6px 16px; }
+  .lookback-wrap { display: flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12.5px; color: var(--text-secondary); }
+  .lookback-wrap[hidden] { display: none; }
+  .stage-ref { background: var(--fill); color: var(--text-secondary); }
+  .sell-note { font-size: 12px; color: var(--text-secondary); margin: 8px 0 0; line-height: 1.55; }
+  .sell-count { font-size: 12.5px; font-weight: 600; color: var(--text-primary); margin: 8px 0 0; }
+  .sell-table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .sell-table th, .sell-table td { padding: 6px 4px; text-align: right; border-bottom: 0.5px solid var(--hairline); }
+  .sell-table th:first-child, .sell-table td:first-child { text-align: left; }
+  .sell-table th { color: var(--text-muted); font-weight: 500; }
+  .sell-table td.up { color: var(--gain); }
+  .sell-table td.down { color: var(--loss); }
+  .sell-table td.muted { color: var(--text-muted); text-align: left; }
+  .sig-list { list-style: none; padding: 0; margin: 0; }
+  .sig-item { display: flex; gap: 8px; align-items: baseline; font-size: 12.5px; padding: 6px 0; border-bottom: 0.5px solid var(--hairline); line-height: 1.5; }
+  .sig-item:last-child { border-bottom: 0; }
+  .sig-item .dot { flex: none; margin-right: 0; background: var(--fill); }
+  .sig-item.hit .dot { background: var(--status-crit); }
+  .sig-item .sig-name { flex: none; font-weight: 600; color: var(--text-primary); min-width: 4.6em; }
+  .sig-item .sig-txt { flex: 1; min-width: 0; color: var(--text-secondary); }
+  .sig-item .sig-state { flex: none; font-weight: 600; color: var(--text-muted); }
+  .sig-item.hit .sig-state { color: var(--status-crit); }
+  .card.fullscreen .sell-note, .card.fullscreen .sig-item, .card.fullscreen .sell-table { font-size: 13.5px; }
 </style>
 </head>
 <body>
@@ -502,6 +529,21 @@
 
 <div class="wrap">
   <div class="meta" id="meta-line">불러오는 중...</div>
+
+  <div class="mode-bar">
+    <div class="seg" id="mode-seg" role="tablist" aria-label="전략 모드">
+      <span class="chip active" data-mode="buy" role="tab">매수 전략</span>
+      <span class="chip" data-mode="sell" role="tab">매도 전략</span>
+    </div>
+    <label class="lookback-wrap" id="lookback-wrap" hidden>신고가 기준
+      <select class="sort-select" id="lookback-select" aria-label="신고가 기준">
+        <option value="60">60일</option>
+        <option value="120">120일</option>
+        <option value="250" selected>52주(250일)</option>
+        <option value="0">사상최고</option>
+      </select>
+    </label>
+  </div>
 
   <div class="toolbar">
     <div class="toolbar-row">
@@ -609,6 +651,18 @@
         </div>
       </section>
       <section>
+        <h3>매도 전략 모드는 뭔가요?</h3>
+        <div class="help-group">
+        <p>위의 <b>[매도 전략]</b>을 누르면 같은 종목들을 "신고가 돌파 → 추가 상승 → 천정 → 천정 대비 하락" 관점으로 다시 보여줍니다. 우량 종목 장기보유가 기본 원칙이라 <b>매도 지시가 아니라 경고·부분 축소 검토용</b>입니다.</p>
+        <p><b>천정</b> — 신고가를 돌파한 뒤 찍은 최고 종가입니다. 이후 낙폭이 '주의' 선에 닿으면 확정(▼)되고, 다시 넘어서면 취소됩니다. 그래서 천정은 실제보다 며칠~몇 주 늦게 확정됩니다.</p>
+        <p><b>주의 / 경고 / 매도검토</b> — 그 종목이 과거에 겪은 천정 대비 낙폭(완결 국면)의 하위 25% / 50% / 75% 지점입니다(주의는 최소 -5%). 과거 표본이 5개 미만이면 기본값 -8% / -15% / -25%를 씁니다.</p>
+        <p><b>신고가 기준</b> — 60일·120일·52주·사상최고 중 무엇을 넘어야 "신고가 돌파"로 볼지 고릅니다.</p>
+        <p><b>보강 신호 N/M</b> — 되돌림률(상승분 50% 이상 반납), 쐐기형(상승폭 3연속 감소), 장대음봉(거래량 급증한 큰 음봉의 중심선 아래), 200일선 이탈, 벤치마크(SPY/KOSPI200) 대비 상대강도 약화, 시장 하락장 중 몇 개가 해당되는지입니다. 등급을 바꾸지 않고 참고만 합니다.</p>
+        <p><b>참고(주요 지수)</b> — SPY·QQQ·DIA·IWM·KOSPI200은 계속 모아가는 대상이라 같은 계산이지만 "참고"로만 표시합니다.</p>
+        <p><b>과거 신호 성과</b> — 이 종목에서 같은 단계에 처음 들어갔던 과거 사례들의 이후 6·12개월 수익률과 추가 하락폭 중앙값입니다. 사례가 5건 미만이면 "데이터 부족"으로 표시하며, 같은 천정에서 나온 사례끼리는 완전히 독립적이지 않으니 참고용으로만 보세요.</p>
+        </div>
+      </section>
+      <section>
         <h3>참고해주세요</h3>
         <div class="help-group">
         <p>이 시스템은 <b>종목을 조회하고 알림만 보내주는 용도</b>입니다. 실제로 사고파는 주문은 절대 하지 않으며, 신호를 참고해서 최종 판단과 매매는 사용자가 직접 합니다. 개별종목의 낙폭은 반드시 회복된다는 보장이 없습니다(지수와 달리 개별기업은 구조적으로 재기하지 못하는 경우도 있습니다) - 회복기간 통계와 사상최대낙폭 배지를 참고해서 직접 판단해주세요.</p>
@@ -624,7 +678,7 @@
 
 <script>
 let DATA = null;
-let state = { stage: "all", category: new Set(), sort: "cap", period: "3Y", search: "" };
+let state = { stage: "all", category: new Set(), sort: "cap", period: "3Y", search: "", mode: "buy", lookback: "250" };
 const detailCache = {};
 let fullscreenSymb = null;
 
@@ -1772,6 +1826,7 @@ const LARGE_PANEL_PAD = 14;
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 function detailContentHtml(t, detail, large, selectedEpisode, availW) {
+  if (isSell()) return sellDetailContentHtml(t, detail, large, availW);
   const fullUnderwater = detail.underwater || [];
   const asOfDate = fullUnderwater.length ? fullUnderwater[fullUnderwater.length - 1].date : null;
   const maxDays = spanDays(fullUnderwater);
@@ -2020,12 +2075,12 @@ function openFullscreen(symb, detail) {
           <div class="name">${escapeHtml(t.name)}</div>
           <div class="cat-tag">${escapeHtml(t.category)}</div>
         </div>
-        <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+        ${stageBadgeHtml(t)}
       </div>
       <div class="price-row">
         <span>${fmtPrice(t)}</span>
         <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
-        <span class="dd">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
+        <span class="dd">${ddTextHtml(t)}</span>
       </div>
       ${statsBlockHtml(t, { skipSpark: true, large: true })}
     </section>
@@ -2067,6 +2122,298 @@ async function ensureDetailCharts(symb, cardEl) {
   }
 }
 
+
+// ---- 매도 전략 모드 ----
+const SELL_STAGE_NAME = { 0: "정상", 1: "주의", 2: "경고", 3: "매도검토" };
+const LOOKBACK_LABELS = { "60": "60일", "120": "120일", "250": "52주", "0": "사상최고" };
+const SELL_TAG_NOTE = {
+  core: "주요 지수: 계속 모아가는 대상이라 같은 계산이지만 참고용으로만 봅니다.",
+  theme: "섹터/테마: 추세가 꺾이면 회복이 오래 걸릴 수 있어 경고 단계부터 부분 축소를 검토해 볼 대상입니다.",
+  stock: "개별주: 경고 단계부터 부분 축소를 검토해 볼 수 있습니다(전량 매도 신호 아님).",
+};
+
+function isSell() { return state.mode === "sell"; }
+
+// 카드용 요약(scores.json의 t.sell)에서 지금 선택한 신고가 기준의 값을 꺼낸다. 데이터가 없으면 null.
+function sellInfo(t) {
+  const s = t.sell;
+  const b = s && s.by ? s.by[state.lookback] : null;
+  return b ? { ...b, tag: s.tag, levels: s.levels, fallback: s.fallback } : null;
+}
+function curStage(t) { if (!isSell()) return t.stage; const s = sellInfo(t); return s ? s.stage : 0; }
+function curDepth(t) { if (!isSell()) return t.depth; const s = sellInfo(t); return s ? s.depth : 0; }
+
+function stageBadgeHtml(t) {
+  if (!isSell()) return `<div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>`;
+  const s = sellInfo(t);
+  if (!s) return `<div class="stage-badge stage-0">데이터 부족</div>`;
+  if (s.stage === 0) return `<div class="stage-badge stage-0">정상</div>`;
+  const pct = (s.depth * 100).toFixed(1) + "%";
+  if (s.tag === "core") return `<div class="stage-badge stage-ref">참고 ${pct}</div>`;
+  return `<div class="stage-badge stage-${s.stage}">${SELL_STAGE_NAME[s.stage]} ${pct}</div>`;
+}
+
+function ddTextHtml(t) {
+  if (!isSell()) return `낙폭 ${(t.depth * 100).toFixed(1)}%`;
+  const s = sellInfo(t);
+  return s ? `천정 대비 ${(s.depth * 100).toFixed(1)}%` : "천정 대비 -";
+}
+
+// 천정 대비 낙폭 게이지: 채운 막대 = 지금, 세로선 3개 = 주의/경고/매도검토 임계.
+function sellGaugeSvg(depth, levels) {
+  const W = 280, H = 50, margin = { left: 6, right: 6, top: 22, bottom: 13 };
+  const innerW = W - margin.left - margin.right;
+  let domainMin = Math.min(depth, levels[2]) * 1.15;
+  if (domainMin >= 0) domainMin = -0.1;
+  const x = v => margin.left + ((v - domainMin) / (0 - domainMin)) * innerW;
+  const barY = margin.top, barH = H - margin.top - margin.bottom;
+  let svg = `<svg class="gauge" viewBox="0 0 ${W} ${H}">`;
+  svg += `<rect x="${margin.left}" y="${barY}" width="${innerW}" height="${barH}" style="fill:var(--fill)" rx="5"/>`;
+  // 0%(천정)쪽 오른쪽 끝에서 지금 낙폭만큼만 채운다(얕을수록 짧음). 색은 현재 단계 색.
+  const stageNow = levels.filter(lv => depth <= lv).length;
+  const fillColor = stageNow ? ["var(--stage-1)", "var(--stage-2)", "var(--stage-3)"][stageNow - 1] : "var(--text-muted)";
+  svg += `<rect x="${x(depth)}" y="${barY}" width="${Math.max(0, W - margin.right - x(depth))}" height="${barH}" fill="${fillColor}" rx="5" opacity="0.85"/>`;
+  const colors = ["var(--stage-1-text)", "var(--stage-2)", "var(--stage-3)"];
+  const items = layoutLabelsByExtent(levels.map((lv, i) => {
+    const label = `${SELL_STAGE_NAME[i + 1]}(${(lv * 100).toFixed(0)}%)`;
+    return { color: colors[i], label, x: x(lv), w: textW(label, 8) };
+  }), 0, W, 2);
+  items.forEach(it => {
+    svg += `<line x1="${it.x}" x2="${it.x}" y1="${barY - 3}" y2="${barY + barH + 3}" stroke="${it.color}" stroke-width="2"/>`;
+    const ty = it.row === 1 ? barY - 13 : barY - 5;
+    svg += `<text x="${it.x}" y="${ty}" font-size="8" text-anchor="${it.anchor}" fill="${it.color}">${it.label}</text>`;
+  });
+  svg += `<text x="${margin.left}" y="${H - 2}" font-size="9" fill="var(--text-muted)">${(domainMin * 100).toFixed(0)}%</text>`;
+  svg += `<text x="${W - margin.right}" y="${H - 2}" font-size="9" text-anchor="end" fill="var(--text-muted)">0%(천정)</text>`;
+  return svg + `</svg>`;
+}
+
+function sellStatsBlockHtml(t, opts) {
+  const biz = t.business_summary ? `<div class="biz-summary">${escapeHtml(t.business_summary)}</div>` : "";
+  const s = sellInfo(t);
+  if (!s) {
+    const none = `<div class="recovery-line">매도 분석 데이터 부족(상장 후 데이터 1년 미만)</div>`;
+    return opts && opts.large ? `<div class="fs-stats"><div class="stats-col">${biz}${none}</div></div>` : `${biz}${none}`;
+  }
+  const gauge = `
+    <div class="mini-chart-block">
+      <div class="chart-label">천정 대비 낙폭 <span class="sub">· 신고가 기준 ${LOOKBACK_LABELS[state.lookback]}</span></div>
+      ${sellGaugeSvg(s.depth, s.levels)}
+    </div>`;
+  const count = `<div class="sell-count">보강 신호 ${s.hits}/${s.avail} 해당</div>`;
+  const fb = s.fallback ? `<div class="sell-note">과거 낙폭 표본이 부족해 기본 임계(-8/-15/-25%)를 씁니다.</div>` : "";
+  const note = `<div class="sell-note">${SELL_TAG_NOTE[s.tag] || ""}</div>`;
+  if (opts && opts.large) {
+    return `<div class="fs-stats"><div class="stats-col">${biz}${note}${fb}</div><div class="stats-col">${gauge}${count}</div></div>`;
+  }
+  return `${biz}${gauge}${count}${note}${fb}`;
+}
+
+// 백엔드 정의와 동일: i번째 봉을 포함한 직전 n봉 최고 종가(n=0이면 전체 누적). 결과는 detail에 캐시한다.
+function sellSeries(detail, n) {
+  detail._sellSeries = detail._sellSeries || {};
+  if (detail._sellSeries[n]) return detail._sellSeries[n];
+  const uw = detail.underwater || [];
+  const out = new Array(uw.length);
+  let run = -Infinity;
+  for (let i = 0; i < uw.length; i++) {
+    const c = uw[i].close;
+    let hi;
+    if (n === 0) { run = Math.max(run, c); hi = run; }
+    else { hi = c; for (let k = Math.max(0, i - n + 1); k < i; k++) if (uw[k].close > hi) hi = uw[k].close; }
+    out[i] = { date: uw[i].date, close: c, rolling_high: hi, depth: c / hi - 1 };
+  }
+  detail._sellSeries[n] = out;
+  return out;
+}
+
+// 라벨이 차트 위에 여러 줄로 쌓여 데이터를 가리지 않게 최근 것만 표시한다(가격: 최신 돌파·천정 + 직전 천정, 낙폭: 최근 천정 2개).
+function sellMarkers(events, firstDate, withBreakout) {
+  const vis = events.filter(e => e.peak >= firstDate).slice(-2).reverse();  // 최근 2건(최신순)
+  const items = [];
+  vis.forEach((e, i) => {
+    items.push({ date: e.peak, label: "▼천정", val: null });
+    if (withBreakout && i === 0) items.push({ date: e.breakout, label: "▲돌파", val: null });
+  });
+  return items;
+}
+
+function sellHistogramSvg(by, levels, opts) {
+  const W = opts.width, H = opts.height;
+  const done = by.events.filter(e => e.recovered !== null).map(e => e.trough_depth);
+  if (!done.length) return '<div class="chart-loading">과거 천정 후 조정 사례가 없습니다.</div>';
+  const F = opts.large ? CHART_FONT.large : CHART_FONT.small;
+  const step = 0.05, cur = by.current.depth;
+  const deepest = Math.min(...done, cur, levels[2]);
+  const nBins = Math.max(4, Math.ceil(-deepest / step));
+  const counts = new Array(nBins).fill(0);
+  done.forEach(d => { counts[Math.min(nBins - 1, Math.floor(-d / step))]++; });
+  const m = { left: 8, right: 8, top: 2 * F.rowGap + 8, bottom: F.reg + 8 };
+  const innerW = W - m.left - m.right, innerH = H - m.top - m.bottom;
+  const maxC = Math.max(...counts);
+  const xOf = d => m.left + (-d / (nBins * step)) * innerW;
+  const baseY = m.top + innerH;
+  const colorOf = d => d <= levels[2] ? "var(--stage-3)" : d <= levels[1] ? "var(--stage-2)" : "var(--stage-1)";
+  let svg = `<svg viewBox="0 0 ${W} ${H}" class="detail-chart">`;
+  svg += `<line x1="${m.left}" x2="${W - m.right}" y1="${baseY}" y2="${baseY}" stroke="var(--grid)"/>`;
+  counts.forEach((c, i) => {
+    if (!c) return;
+    const x0 = xOf(-i * step), x1 = xOf(-(i + 1) * step);
+    const h = (c / maxC) * (innerH - F.reg - 2);
+    svg += `<rect x="${x0 + 1}" y="${baseY - h}" width="${Math.max(1, x1 - x0 - 2)}" height="${h}" fill="${colorOf(-(i + 0.5) * step)}" opacity="0.85" rx="2"/>`;
+    svg += `<text x="${(x0 + x1) / 2}" y="${baseY - h - 3}" font-size="${F.small}" text-anchor="middle" fill="var(--text-secondary)">${c}</text>`;
+  });
+  for (let i = 0; i <= nBins; i += (nBins > 8 ? 2 : 1)) {
+    const tx = xOf(-i * step);
+    svg += `<text x="${tx}" y="${H - 3}" font-size="${F.small}" text-anchor="${i === 0 ? "start" : "middle"}" fill="var(--text-muted)">${i === 0 ? "0%" : "-" + Math.round(i * step * 100) + "%"}</text>`;
+  }
+  const marks = levels.map((lv, i) => ({ x: xOf(lv), label: SELL_STAGE_NAME[i + 1], color: ["var(--stage-1-text)", "var(--stage-2)", "var(--stage-3)"][i], dash: "3 3" }));
+  if (cur < 0) marks.push({ x: xOf(cur), label: "지금", color: "var(--select)", dash: "", bold: true });
+  layoutLabelsByExtent(marks.map(k => ({ ...k, w: textW(k.label, F.small, k.bold) })), 2, W - 2, 2).forEach(k => {
+    svg += `<line x1="${k.x}" x2="${k.x}" y1="${m.top - 2}" y2="${baseY}" stroke="${k.color}" stroke-width="${k.bold ? 2 : 1}" ${k.dash ? `stroke-dasharray="${k.dash}"` : ""}/>`;
+    svg += `<text x="${k.x}" y="${m.top - 4 - (k.row === 1 ? 0 : F.rowGap)}" font-size="${F.small}" font-weight="${k.bold ? 700 : 500}" text-anchor="${k.anchor}" style="${TEXT_HALO}" fill="${k.color}">${k.label}</text>`;
+  });
+  return svg + `</svg>`;
+}
+
+function fmtSignedPct(v) { return v == null ? "-" : (v >= 0 ? "+" : "") + (v * 100).toFixed(1) + "%"; }
+
+function sellPerfTableHtml(perf) {
+  const rows = ["1", "2", "3"].map(k => {
+    const p = perf[k];
+    if (!p || p.insufficient) return `<tr><td>${SELL_STAGE_NAME[k]}</td><td class="muted" colspan="4">데이터 부족(사례 ${p ? p.n : 0}건)</td></tr>`;
+    const cls = v => (v == null ? "" : v >= 0 ? "up" : "down");
+    return `<tr><td>${SELL_STAGE_NAME[k]}</td><td>${p.n}건</td><td class="${cls(p.r6)}">${fmtSignedPct(p.r6)}</td><td class="${cls(p.r12)}">${fmtSignedPct(p.r12)}</td><td class="${cls(p.dd)}">${fmtSignedPct(p.dd)}</td></tr>`;
+  }).join("");
+  return `<table class="sell-table"><thead><tr><th>진입 단계</th><th>사례</th><th>6개월 후</th><th>12개월 후</th><th>이후 최대하락</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function sellSignalsHtml(sell, by, t) {
+  const bench = /^한국/.test(t.category || "") ? "KOSPI200" : "SPY";
+  const row = (name, sig, txt) => {
+    if (!sig) return `<li class="sig-item"><span class="dot"></span><span class="sig-name">${name}</span><span class="sig-txt">데이터 없음</span><span class="sig-state">-</span></li>`;
+    return `<li class="sig-item${sig.hit ? " hit" : ""}"><span class="dot"></span><span class="sig-name">${name}</span><span class="sig-txt">${txt}</span><span class="sig-state">${sig.hit ? "해당" : "비해당"}</span></li>`;
+  };
+  const bb = sell.bigBear;
+  const last = bb && bb.candles.length ? bb.candles[bb.candles.length - 1] : null;
+  return `<ul class="sig-list">
+    ${row("되돌림률", by.retrace, by.retrace ? `천정까지 상승분의 ${Math.round(by.retrace.ratio * 100)}% 반납 (50% 이상이면 해당)` : "")}
+    ${row("쐐기형", sell.wedge, sell.wedge ? `최근 상승파동 ${sell.wedge.waves.map(w => fmtSignedPct(w)).join(" → ")} (3연속 감소+고점 갱신이면 해당)` : "")}
+    ${row("장대음봉", bb, last ? `최근 ${last.date.slice(2)} 종가 ${last.close.toLocaleString()} · 중심선 ${last.mid.toLocaleString()} (현재가가 중심선 아래면 해당)` : "최근 120봉 안에 없음")}
+    ${row("200일선", sell.ma200, sell.ma200 ? `200일선 대비 ${fmtSignedPct(sell.ma200.dist)} (아래면 해당)` : "")}
+    ${row("상대강도", sell.rs, sell.rs ? `${bench} 대비 최근 60일 상대수익 ${fmtSignedPct(sell.rs.chg60)}` : "")}
+    ${row("시장 국면", sell.regime, sell.regime ? `${escapeHtml(sell.regime.label)} (하락장이면 해당)` : "")}
+  </ul>`;
+}
+
+function sellDetailContentHtml(t, detail, large, availW) {
+  const sell = detail.sell;
+  const by = sell && sell.byLookback ? sell.byLookback[state.lookback] : null;
+  if (!by) return `<div class="chart-loading">매도 분석 데이터가 부족합니다(상장 후 데이터 1년 미만).</div>`;
+  const levels = sell.thresholds.levels;
+  const n = Number(state.lookback);
+  const series = sellSeries(detail, n);
+  const slice = sliceByPeriod(series, state.period);
+  const maxDays = spanDays(series);
+  const domainStart = slice.length ? slice[0].date : (series[0] && series[0].date);
+  const domainEnd = series.length ? series[series.length - 1].date : null;
+
+  const seriesForTf = { daily: detail.daily, weekly: detail.weekly, monthly: detail.monthly };
+  const tfPlan = timeframesForSpan(spanDays(slice));
+  const chartW = Math.max(240, Math.round(availW > 0 ? availW : (large ? 640 : 320)));
+  const priceH = large ? Math.round(clamp(chartW * 0.34, 210, 300)) : 130;
+  const uwH = large ? Math.round(clamp(chartW * 0.34, 210, 300)) : 120;
+  const oscH = large ? Math.round(clamp(chartW * 0.24, 150, 200)) : 100;
+  const histH = large ? Math.round(clamp(chartW * 0.32, 200, 270)) : 150;
+  const F = large ? CHART_FONT.large : CHART_FONT.small;
+
+  const priceVals = [];
+  slice.forEach(r => { priceVals.push(r.close, r.rolling_high); });
+  const depthVals = slice.map(r => r.depth).concat(levels);
+  const sharedLeft = Math.max(
+    estimateLeftMargin(priceVals, v => fmtAxisPrice(v, t.currency), F.reg),
+    estimateLeftMargin(depthVals, v => Math.round(v * 100) + "%", F.reg),
+  );
+  const rightStrings = ["지금"];
+  const lastRec = slice[slice.length - 1];
+  if (lastRec) { rightStrings.push(fmtExactPrice(lastRec.close, t.currency), Math.round(lastRec.depth * 100) + "%"); }
+  tfPlan.forEach(([key]) => {
+    const last = [...sliceByPeriod(seriesForTf[key], state.period)].reverse().find(r => r.rsi != null || r.mfi != null);
+    if (!last) return;
+    if (last.rsi != null) rightStrings.push(`RSI ${Math.round(last.rsi)}`);
+    if (last.mfi != null) rightStrings.push(`MFI ${Math.round(last.mfi)}`);
+  });
+  const sharedRight = estimateRightMargin(rightStrings, F.reg, chartW);
+  const common = { width: chartW, large, marginLeft: sharedLeft, marginRight: sharedRight, domainStart, domainEnd };
+
+  const priceMarkers = sellMarkers(by.events, domainStart, true);
+  const uwMarkers = sellMarkers(by.events, domainStart, false);
+  const priceChart = lineChartSvg(slice, {
+    ...common, height: priceH, yFloor: 0,
+    yFormat: v => fmtAxisPrice(v, t.currency), nowFormat: v => fmtExactPrice(v, t.currency),
+    series: [
+      { key: "rolling_high", color: "var(--text-muted)", width: 1.2, dashed: true },
+      { key: "close", color: "var(--gain)", width: large ? 2.2 : 1.8, labelCurrent: true, split: true },
+    ],
+    eventMarkers: priceMarkers, maxEventRows: 3,
+  });
+  const uwChart = lineChartSvg(slice, {
+    ...common, height: uwH,
+    yFormat: v => Math.round(v * 100) + "%", yCeil: 0, yFloor: -1,
+    series: [{ key: "depth", color: "var(--depth-line)", width: large ? 2.2 : 1.8, labelCurrent: true, area: "zero-grad" }],
+    thresholds: [
+      { value: 0, label: "천정", color: "var(--text-muted)" },
+      { value: levels[0], label: "주의", color: "var(--stage-1-text)" },
+      { value: levels[1], label: "경고", color: "var(--stage-2)" },
+      { value: levels[2], label: "매도검토", color: "var(--stage-3)" },
+    ],
+    eventMarkers: uwMarkers, maxEventRows: 2,
+  });
+  const cur = by.current;
+  const stageName = SELL_STAGE_NAME[cur.stage];
+  const nowLine = `<div class="hist-now">신고가 기준 <b>${LOOKBACK_LABELS[state.lookback]}</b> · 천정 <b>${cur.high_date.slice(2)}</b> ${fmtExactPrice(cur.high_price, t.currency)} 대비 <b class="${cur.depth < 0 ? "down" : "up"}">${(cur.depth * 100).toFixed(1)}%</b> · 지금 단계 <b>${stageName}</b>${sell.tag === "core" && cur.stage > 0 ? " (참고용)" : ""}</div>`;
+  const doneCount = by.events.filter(e => e.recovered !== null).length;
+
+  return `
+    <div class="detail-toolbar">${periodButtonsHtml(maxDays)}</div>
+    ${nowLine}
+    <div class="chart-block">
+      <div class="chart-label"><span class="ttl">가격 · 돌파/천정</span> <span class="sub">· 점선=신고가 기준선 · ▲돌파 ▼천정</span></div>
+      ${priceChart}
+    </div>
+    <div class="chart-block">
+      <div class="chart-label"><span class="ttl">천정 대비 낙폭</span> <span class="sub">· 0%=천정 · 세로선=주의/경고/매도검토</span></div>
+      ${uwChart}
+    </div>
+    <div class="chart-block">
+      <div class="chart-label"><span class="ttl">천정 후 조정 낙폭 분포</span> <span class="sub">· 과거 ${doneCount}건 저점 기준 · 세로선=임계·지금</span></div>
+      ${sellHistogramSvg(by, levels, { ...common, height: histH })}
+    </div>
+    <div class="chart-block">
+      <div class="chart-label"><span class="ttl">과거 신호 성과</span> <span class="sub">· 같은 단계에 처음 들어간 뒤(중앙값)</span></div>
+      ${sellPerfTableHtml(by.perf)}
+      <div class="sell-note">같은 천정에서 나온 사례끼리는 완전히 독립적이지 않습니다. 참고용입니다.</div>
+    </div>
+    <div class="chart-block">
+      <div class="chart-label"><span class="ttl">보강 신호</span> <span class="sub">· ${by.hits}/${by.avail} 해당 · 등급에는 반영하지 않음</span></div>
+      ${sellSignalsHtml(sell, by, t)}
+    </div>
+    ${tfPlan.map(([key, label]) => oscillatorChartBlock(sliceByPeriod(seriesForTf[key], state.period), label, { ...common, height: oscH }, [])).join("")}
+  `;
+}
+
+function applyModeUI() {
+  const sell = isSell();
+  document.querySelectorAll("#mode-seg .chip").forEach(c => c.classList.toggle("active", c.dataset.mode === state.mode));
+  document.getElementById("lookback-wrap").hidden = !sell;
+  document.getElementById("lookback-select").value = state.lookback;
+  const labels = sell ? ["전체", "주의+", "경고+", "매도검토"] : ["전체", "1단계+", "2단계+", "3단계"];
+  document.querySelectorAll("#filter-stage .chip").forEach((c, i) => { c.textContent = labels[i]; });
+  document.querySelector('#sort-select option[value="stage"]').textContent = sell ? "위험단계순" : "MDD단계순";
+  const h1 = document.querySelector(".logo");
+  if (h1) h1.innerHTML = sell ? "<span>MDD</span> 매도경고" : "<span>MDD</span> 매수신호";
+}
+
 // ---- 카드 렌더 ----
 
 function recoveryLineHtml(p) {
@@ -2078,6 +2425,7 @@ function recoveryLineHtml(p) {
 // 전체화면 정보란에서는 낙폭 스파크라인만 뺀다(같은 정보를 담은 큰 낙폭 차트가
 // 차트 영역에 이미 있어서 중복).
 function statsBlockHtml(t, opts) {
+  if (isSell()) return sellStatsBlockHtml(t, opts);
   const skipSpark = opts && opts.skipSpark;
   const biz = t.business_summary ? `<div class="biz-summary">${escapeHtml(t.business_summary)}</div>` : "";
   const gauge = `
@@ -2114,13 +2462,13 @@ function cardHtml(t) {
       </div>
       <div class="top-actions">
         <button type="button" class="btn btn-tint corner-btn" data-action="fullscreen" aria-label="크게 보기" title="크게 보기">${ic("expand")}크게 보기</button>
-        <div class="stage-badge stage-${t.stage}">${stageLabel(t.stage)}</div>
+        ${stageBadgeHtml(t)}
       </div>
     </div>
     <div class="price-row">
       <span>${fmtPrice(t)}</span>
       <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
-      <span class="dd">낙폭 ${(t.depth * 100).toFixed(1)}%</span>
+      <span class="dd">${ddTextHtml(t)}</span>
     </div>
     ${statsBlockHtml(t)}
     <div class="detail">
@@ -2175,14 +2523,14 @@ function bannerHtml(newOnes) {
 function applyFilters(tickers) {
   const q = state.search.trim().toLowerCase();
   let list = tickers.filter(t => {
-    if (state.stage !== "all" && t.stage < Number(state.stage)) return false;
+    if (state.stage !== "all" && curStage(t) < Number(state.stage)) return false;
     if (state.category.size > 0 && !state.category.has(t.category)) return false;
     if (q && !t.symb.toLowerCase().includes(q) && !t.name.toLowerCase().includes(q)) return false;
     return true;
   });
   if (state.sort === "cap") list.sort((a, b) => (a.universe_rank ?? 999) - (b.universe_rank ?? 999));
-  else if (state.sort === "stage") list.sort((a, b) => (b.stage - a.stage) || (a.depth - b.depth));
-  else if (state.sort === "depth") list.sort((a, b) => a.depth - b.depth);
+  else if (state.sort === "stage") list.sort((a, b) => (curStage(b) - curStage(a)) || (curDepth(a) - curDepth(b)));
+  else if (state.sort === "depth") list.sort((a, b) => curDepth(a) - curDepth(b));
   else if (state.sort === "pct_chg") list.sort((a, b) => b.pct_chg - a.pct_chg);
   else if (state.sort === "symb") list.sort((a, b) => a.symb.localeCompare(b.symb));
   return list;
@@ -2221,15 +2569,15 @@ function render() {
   // "필터가 안 먹힌다"고 느껴지는 문제를 해결한다.
   const list = applyFilters(DATA.tickers);
   const newOnes = list.filter(t => t.is_new);
-  document.getElementById("banner").innerHTML = bannerHtml(newOnes);
+  document.getElementById("banner").innerHTML = isSell() ? "" : bannerHtml(newOnes);
   // 지수 낙폭 경보는 그리드 필터/검색과 무관하게(전체 데이터 기준) 항상 표시 -
   // "지금 시장 전체가 어느 낙폭 구간인지"를 놓치지 않게 하기 위함.
-  document.getElementById("mdd-alert-banner").innerHTML = mddAlertBannerHtml(DATA.tickers);
+  document.getElementById("mdd-alert-banner").innerHTML = isSell() ? "" : mddAlertBannerHtml(DATA.tickers);
   document.querySelectorAll("#mdd-alert-banner .mdd-alert-item").forEach(el => {
     el.addEventListener("click", () => goToTicker(el.dataset.symb));
   });
 
-  const SORT_LABELS = { cap: "시가총액순", stage: "MDD단계순", depth: "낙폭깊은순", pct_chg: "등락률순", symb: "알파벳순" };
+  const SORT_LABELS = { cap: "시가총액순", stage: isSell() ? "위험단계순" : "MDD단계순", depth: "낙폭깊은순", pct_chg: "등락률순", symb: "알파벳순" };
   const filterActive = state.stage !== "all" || state.category.size > 0 || state.search.trim() !== "";
   const countEl = document.getElementById("grid-count");
   countEl.innerHTML = (filterActive
@@ -2295,6 +2643,20 @@ function updateCategoryChipUI() {
 }
 
 function wireToolbar() {
+  document.querySelectorAll("#mode-seg .chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      if (state.mode === chip.dataset.mode) return;
+      state.mode = chip.dataset.mode;
+      try { localStorage.setItem("kis-mode", state.mode); } catch (e) { /* 저장 불가여도 이번 화면에서는 바뀐다 */ }
+      applyModeUI();
+      render();
+    });
+  });
+  document.getElementById("lookback-select").addEventListener("change", (e) => {
+    state.lookback = e.target.value;
+    try { localStorage.setItem("kis-lookback", state.lookback); } catch (err) { /* 무시 */ }
+    render();
+  });
   document.querySelectorAll("#filter-stage .chip").forEach(chip => {
     chip.addEventListener("click", () => {
       document.querySelectorAll("#filter-stage .chip").forEach(c => c.classList.remove("active"));
@@ -2326,7 +2688,13 @@ function wireToolbar() {
 }
 
 async function init() {
+  try {
+    if (localStorage.getItem("kis-mode") === "sell") state.mode = "sell";
+    const lb = localStorage.getItem("kis-lookback");
+    if (lb in LOOKBACK_LABELS) state.lookback = lb;
+  } catch (e) { /* 저장값 없이 기본(매수/52주)으로 */ }
   wireToolbar();
+  applyModeUI();
   wireHelp();
   try {
     const res = await fetch("scores.json", { cache: "no-store" });
