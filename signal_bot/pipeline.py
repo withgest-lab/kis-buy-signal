@@ -192,6 +192,10 @@ def main():
 
     mdd_state = alerts.load_mdd_state()
     indicator_state = alerts.load_indicator_state()
+    # 유니버스에 새로 들어온 종목은 이미 낙폭/과매도 상태여도 알림이 쏟아지지 않게 현재 상태로 조용히 시드한다.
+    seeded = alerts.seed_new_symbols(results, mdd_state, indicator_state)
+    if seeded:
+        print(f"\n처음 보는 종목 {len(seeded)}개는 알림 없이 현재 상태로 초기화: {seeded}")
     # find_alert_candidates가 mdd_state/indicator_state를 in-place로 갱신하지만,
     # 발송이 실패하면 다음 실행에서 같은 이벤트를 재시도할 수 있도록 실제
     # 발송(텔레그램 API 호출)이 성공한 뒤에만 디스크에 저장한다(아래).

@@ -621,9 +621,10 @@
     <div class="chip-group" id="filter-category">
       <span class="chip active" data-cat="all">모든분류</span>
       <span class="chip" data-cat="개별종목">미국개별종목</span>
-      <span class="chip" data-cat="섹터ETF">섹터ETF</span>
+      <span class="chip" data-cat="섹터ETF">미국ETF</span>
       <span class="chip" data-cat="한국지수">한국지수</span>
       <span class="chip" data-cat="한국개별종목">한국개별종목</span>
+      <span class="chip" data-cat="한국ETF">한국ETF</span>
     </div>
   </div>
 
@@ -703,7 +704,7 @@
         <p><b>낙폭국면(episode)</b> — 신고가를 찍은 시점부터, 떨어졌다가 다시 신고가로 돌아오기까지의 한 구간("한 번의 하락→회복 사이클").</p>
         <p><b>NEW 신호</b> — 오늘 새로 이 종목에 알림이 발생했다는 표시. 텔레그램으로도 같은 내용이 발송됩니다.</p>
         <p><b>베이스라인 데이터 부족</b> — 최근 상장 등의 이유로 과거 낙폭국면이 5개 미만이라, MDD 백분위를 믿을 만하게 계산할 수 없는 상태. 이 경우 MDD 신호 계산을 생략합니다.</p>
-        <p><b>필터 칩(1단계+/2단계+/3단계, 분류)</b> — 상단 "분류" 칩(미국개별종목/섹터ETF/한국지수/한국개별종목)은 여러 개를 동시에 눌러 함께 볼 수 있습니다(다중 선택). "전체"를 누르면 선택이 초기화됩니다. 단계 필터는 "1단계+"를 고르면 1단계 이상, "3단계"를 고르면 가장 극단적인 3단계 종목만 걸러서 보여줍니다.</p>
+        <p><b>필터 칩(1단계+/2단계+/3단계, 분류)</b> — 상단 "분류" 칩(미국개별종목/미국ETF/한국지수/한국개별종목/한국ETF)은 여러 개를 동시에 눌러 함께 볼 수 있습니다(다중 선택). "전체"를 누르면 선택이 초기화됩니다. 단계 필터는 "1단계+"를 고르면 1단계 이상, "3단계"를 고르면 가장 극단적인 3단계 종목만 걸러서 보여줍니다.</p>
         </div>
       </section>
       <section>
@@ -2334,7 +2335,7 @@ function openFullscreen(symb, detail) {
         <div class="ticker-block">
           <div class="symb">${escapeHtml(t.symb)}</div>
           <div class="name">${escapeHtml(t.name)}</div>
-          <div class="cat-tag">${escapeHtml(t.category)}</div>
+          <div class="cat-tag">${escapeHtml(catLabel(t.category))}</div>
         </div>
         ${stageBadgeHtml(t)}
       </div>
@@ -2394,6 +2395,9 @@ const SELL_TAG_NOTE = {
 };
 
 function isSell() { return state.mode === "sell"; }
+
+// 데이터의 분류 값 "섹터ETF"는 미국 ETF 전체(시장·섹터·산업·테마)라서 화면에서는 "미국ETF"로 부른다.
+function catLabel(c) { return c === "섹터ETF" ? "미국ETF" : c; }
 
 // 카드용 요약(scores.json의 t.sell)에서 지금 선택한 신고가 기준의 값을 꺼낸다. 데이터가 없으면 null.
 function sellInfo(t) {
@@ -2973,7 +2977,7 @@ function cardHtml(t) {
       <div class="ticker-block">
         <div class="symb">${escapeHtml(t.symb)}</div>
         <div class="name">${escapeHtml(t.name)}</div>
-        <div class="cat-tag">${escapeHtml(t.category)}</div>
+        <div class="cat-tag">${escapeHtml(catLabel(t.category))}</div>
       </div>
       <div class="top-actions">
         <button type="button" class="btn btn-tint corner-btn" data-action="fullscreen" aria-label="크게 보기" title="크게 보기">${ic("expand")}크게 보기</button>

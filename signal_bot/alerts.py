@@ -219,6 +219,30 @@ def format_mdd_level_message(events: list[dict], today: str) -> str:
     return "\n".join(lines).rstrip()
 
 
+def seed_new_symbols(results: list[dict], mdd_state: dict, indicator_state: dict) -> list[str]:
+    """처음 보는 종목(유니버스 확대 직후 등)은 이미 낙폭 국면이거나 과매도 상태여도 "신규 알림"으로
+    쏟아지지 않게, 알림 판정 전에 현재 값으로 상태를 조용히 채워 둔다. mdd_state에도 indicator_state에도
+    없는 종목만 대상이라 기존 종목의 동작은 그대로다. 반환: 시드한 종목 목록."""
+    seeded: list[str] = []
+    for r in results:
+        symb = r["symb"]
+        if symb in mdd_state or symb in indicator_state:
+            continue
+        in_episode = r["depth"] < EPISODE_CLOSE_BAND
+        mdd_state[symb] = {
+            "episode_start_date": r["date"] if in_episode else None,
+            "last_stage_notified": r["stage"] if in_episode else 0,
+        }
+        cur = _empty_indicator_state()
+        for tf in _TIMEFRAMES:
+            now = (r.get("timeframes") or {}).get(tf, {})
+            for m in _METRICS:
+                cur[tf][m] = bool(now.get(m))
+        indicator_state[symb] = cur
+        seeded.append(symb)
+    return seeded
+
+
 def find_alert_candidates(results: list[dict], mdd_state: dict, indicator_state: dict) -> list[dict]:
     """두 트리거(MDD 단계상승, RSI/MFI/다이버전스 이벤트)를 합쳐서 종목당 1건으로
     합침(같은 종목이 둘 다 발생하면 trigger_reasons를 합침)."""
