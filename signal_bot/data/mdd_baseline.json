@@ -15924,190 +15924,6 @@
     "rolling_high": 362500.0,
     "episodes": [
       {
-        "start_date": "1990-01-05",
-        "trough_date": "1990-01-19",
-        "recovery_date": "1990-03-30",
-        "depth": -0.0893,
-        "recovery_days": 68,
-        "is_complete": true
-      },
-      {
-        "start_date": "1990-04-02",
-        "trough_date": "1992-05-25",
-        "recovery_date": "1993-11-02",
-        "depth": -0.4385,
-        "recovery_days": 1053,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-11-10",
-        "trough_date": "1993-11-16",
-        "recovery_date": "1993-12-01",
-        "depth": -0.0537,
-        "recovery_days": 18,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-12-09",
-        "trough_date": "1993-12-13",
-        "recovery_date": "1993-12-16",
-        "depth": -0.0609,
-        "recovery_days": 6,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-12-20",
-        "trough_date": "1994-01-03",
-        "recovery_date": "1994-01-12",
-        "depth": -0.077,
-        "recovery_days": 15,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-01-15",
-        "trough_date": "1994-01-17",
-        "recovery_date": "1994-01-19",
-        "depth": -0.0529,
-        "recovery_days": 3,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-02-03",
-        "trough_date": "1994-02-14",
-        "recovery_date": "1994-02-21",
-        "depth": -0.1471,
-        "recovery_days": 12,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-02-24",
-        "trough_date": "1994-04-02",
-        "recovery_date": "1994-04-28",
-        "depth": -0.1901,
-        "recovery_days": 52,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-05-27",
-        "trough_date": "1994-06-25",
-        "recovery_date": "1994-07-05",
-        "depth": -0.0954,
-        "recovery_days": 32,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-07-06",
-        "trough_date": "1994-07-21",
-        "recovery_date": "1994-08-05",
-        "depth": -0.0649,
-        "recovery_days": 26,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-09-22",
-        "trough_date": "1995-01-09",
-        "recovery_date": "1995-03-16",
-        "depth": -0.3892,
-        "recovery_days": 141,
-        "is_complete": true
-      },
-      {
-        "start_date": "1995-03-29",
-        "trough_date": "1995-04-13",
-        "recovery_date": "1995-04-21",
-        "depth": -0.093,
-        "recovery_days": 19,
-        "is_complete": true
-      },
-      {
-        "start_date": "1995-04-22",
-        "trough_date": "1995-05-27",
-        "recovery_date": "1995-07-07",
-        "depth": -0.1653,
-        "recovery_days": 61,
-        "is_complete": true
-      },
-      {
-        "start_date": "1995-07-14",
-        "trough_date": "1995-08-05",
-        "recovery_date": "1995-09-02",
-        "depth": -0.1098,
-        "recovery_days": 41,
-        "is_complete": true
-      },
-      {
-        "start_date": "1995-10-26",
-        "trough_date": "1998-09-22",
-        "recovery_date": "1999-06-21",
-        "depth": -0.7412,
-        "recovery_days": 1044,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-07-07",
-        "trough_date": "1999-07-12",
-        "recovery_date": "1999-07-16",
-        "depth": -0.1308,
-        "recovery_days": 7,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-07-20",
-        "trough_date": "1999-07-23",
-        "recovery_date": "1999-07-28",
-        "depth": -0.0983,
-        "recovery_days": 6,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-07-30",
-        "trough_date": "1999-08-06",
-        "recovery_date": "1999-08-10",
-        "depth": -0.1015,
-        "recovery_days": 7,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-08-11",
-        "trough_date": "1999-08-20",
-        "recovery_date": "1999-08-26",
-        "depth": -0.12,
-        "recovery_days": 11,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-09-07",
-        "trough_date": "1999-09-10",
-        "recovery_date": "1999-09-13",
-        "depth": -0.0551,
-        "recovery_days": 4,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-09-14",
-        "trough_date": "1999-10-25",
-        "recovery_date": "1999-12-01",
-        "depth": -0.282,
-        "recovery_days": 54,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-12-08",
-        "trough_date": "1999-12-16",
-        "recovery_date": "1999-12-23",
-        "depth": -0.1418,
-        "recovery_days": 11,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-12-24",
-        "trough_date": "1999-12-27",
-        "recovery_date": "2000-01-04",
-        "depth": -0.0645,
-        "recovery_days": 3,
-        "is_complete": true
-      },
-      {
         "start_date": "2000-01-05",
         "trough_date": "2000-02-28",
         "recovery_date": "2000-03-22",
@@ -16461,12 +16277,12 @@
       }
     ],
     "percentiles": {
-      "count": 66,
-      "p50": -0.1143,
-      "p25": -0.22325,
-      "p10": -0.37255,
+      "count": 43,
+      "p50": -0.1285,
+      "p25": -0.264,
+      "p10": -0.36422,
       "recovery_days_min": 3,
-      "recovery_days_median": 25,
+      "recovery_days_median": 28,
       "recovery_days_max": 1162
     },
     "insufficient_data": false
@@ -16476,115 +16292,27 @@
     "rolling_high": 2919000.0,
     "episodes": [
       {
-        "start_date": "1997-01-03",
-        "trough_date": "1997-01-03",
-        "recovery_date": "1997-01-21",
-        "depth": -0.1304,
-        "recovery_days": 15,
+        "start_date": "2000-01-05",
+        "trough_date": "2000-01-10",
+        "recovery_date": "2000-01-20",
+        "depth": -0.165,
+        "recovery_days": 11,
         "is_complete": true
       },
       {
-        "start_date": "1997-02-18",
-        "trough_date": "1997-02-18",
-        "recovery_date": "1997-02-25",
-        "depth": -0.0798,
-        "recovery_days": 6,
-        "is_complete": true
-      },
-      {
-        "start_date": "1997-02-28",
-        "trough_date": "1997-03-14",
-        "recovery_date": "1997-03-26",
-        "depth": -0.1459,
-        "recovery_days": 21,
-        "is_complete": true
-      },
-      {
-        "start_date": "1997-04-10",
-        "trough_date": "1997-05-02",
-        "recovery_date": "1997-05-15",
-        "depth": -0.179,
-        "recovery_days": 27,
-        "is_complete": true
-      },
-      {
-        "start_date": "1997-05-21",
-        "trough_date": "1997-05-26",
-        "recovery_date": "1997-05-30",
-        "depth": -0.0905,
-        "recovery_days": 8,
-        "is_complete": true
-      },
-      {
-        "start_date": "1997-06-03",
-        "trough_date": "1997-06-11",
-        "recovery_date": "1997-06-13",
-        "depth": -0.0844,
-        "recovery_days": 8,
-        "is_complete": true
-      },
-      {
-        "start_date": "1997-06-20",
-        "trough_date": "1998-05-25",
-        "recovery_date": "1999-07-16",
-        "depth": -0.7016,
-        "recovery_days": 581,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-07-20",
-        "trough_date": "1999-07-20",
-        "recovery_date": "1999-07-21",
-        "depth": -0.0643,
-        "recovery_days": 1,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-07-22",
-        "trough_date": "1999-07-26",
-        "recovery_date": "1999-07-30",
-        "depth": -0.2215,
-        "recovery_days": 6,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-08-05",
-        "trough_date": "1999-08-05",
-        "recovery_date": "1999-08-09",
-        "depth": -0.0955,
-        "recovery_days": 2,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-08-11",
-        "trough_date": "1999-08-19",
-        "recovery_date": "1999-08-27",
-        "depth": -0.1877,
-        "recovery_days": 12,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-09-01",
-        "trough_date": "1999-09-02",
-        "recovery_date": "1999-09-03",
-        "depth": -0.0533,
-        "recovery_days": 2,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-09-10",
-        "trough_date": "1999-09-16",
-        "recovery_date": "1999-09-22",
-        "depth": -0.1556,
-        "recovery_days": 8,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-09-27",
+        "start_date": "2000-01-31",
         "trough_date": "2003-03-26",
-        "recovery_date": "2026-01-06",
-        "depth": -0.9963,
-        "recovery_days": 6478,
+        "recovery_date": "2025-10-29",
+        "depth": -0.9951,
+        "recovery_days": 6346,
+        "is_complete": true
+      },
+      {
+        "start_date": "2025-11-04",
+        "trough_date": "2025-11-25",
+        "recovery_date": "2025-12-29",
+        "depth": -0.1629,
+        "recovery_days": 38,
         "is_complete": true
       },
       {
@@ -16629,13 +16357,13 @@
       }
     ],
     "percentiles": {
-      "count": 18,
-      "p50": -0.13815,
-      "p25": -0.1904,
-      "p10": -0.3964699999999999,
-      "recovery_days_min": 1,
-      "recovery_days_median": 8,
-      "recovery_days_max": 6478
+      "count": 7,
+      "p50": -0.165,
+      "p25": -0.22849999999999998,
+      "p10": -0.55746,
+      "recovery_days_min": 7,
+      "recovery_days_median": 11,
+      "recovery_days_max": 6346
     },
     "insufficient_data": false
   },
@@ -16644,99 +16372,59 @@
     "rolling_high": 750000.0,
     "episodes": [
       {
-        "start_date": "1990-01-05",
-        "trough_date": "1990-01-19",
-        "recovery_date": "1990-01-24",
-        "depth": -0.0574,
-        "recovery_days": 16,
+        "start_date": "2000-01-06",
+        "trough_date": "2000-04-27",
+        "recovery_date": "2001-05-02",
+        "depth": -0.5481,
+        "recovery_days": 319,
         "is_complete": true
       },
       {
-        "start_date": "1990-01-25",
-        "trough_date": "1992-06-02",
-        "recovery_date": "1993-11-02",
-        "depth": -0.5329,
-        "recovery_days": 1106,
+        "start_date": "2001-05-15",
+        "trough_date": "2001-05-16",
+        "recovery_date": "2001-05-21",
+        "depth": -0.0649,
+        "recovery_days": 4,
         "is_complete": true
       },
       {
-        "start_date": "1993-11-12",
-        "trough_date": "1993-11-23",
-        "recovery_date": "1993-12-03",
-        "depth": -0.0799,
-        "recovery_days": 18,
+        "start_date": "2001-05-25",
+        "trough_date": "2001-05-28",
+        "recovery_date": "2001-05-31",
+        "depth": -0.06,
+        "recovery_days": 4,
         "is_complete": true
       },
       {
-        "start_date": "1993-12-09",
-        "trough_date": "1993-12-13",
-        "recovery_date": "1993-12-16",
-        "depth": -0.0639,
-        "recovery_days": 6,
+        "start_date": "2001-06-26",
+        "trough_date": "2001-09-21",
+        "recovery_date": "2002-01-08",
+        "depth": -0.4932,
+        "recovery_days": 132,
         "is_complete": true
       },
       {
-        "start_date": "1993-12-18",
-        "trough_date": "1994-01-10",
-        "recovery_date": "1994-01-13",
-        "depth": -0.0696,
-        "recovery_days": 17,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-01-14",
-        "trough_date": "1994-01-17",
-        "recovery_date": "1994-01-26",
-        "depth": -0.0725,
+        "start_date": "2002-01-10",
+        "trough_date": "2002-01-18",
+        "recovery_date": "2002-01-24",
+        "depth": -0.1131,
         "recovery_days": 10,
         "is_complete": true
       },
       {
-        "start_date": "1994-02-03",
-        "trough_date": "1994-02-07",
-        "recovery_date": "1994-02-21",
-        "depth": -0.1404,
-        "recovery_days": 12,
+        "start_date": "2002-01-25",
+        "trough_date": "2002-02-05",
+        "recovery_date": "2002-02-14",
+        "depth": -0.0629,
+        "recovery_days": 11,
         "is_complete": true
       },
       {
-        "start_date": "1994-02-24",
-        "trough_date": "1994-04-02",
-        "recovery_date": "1994-08-18",
-        "depth": -0.2347,
-        "recovery_days": 144,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-08-23",
-        "trough_date": "1995-02-16",
-        "recovery_date": "1995-04-21",
-        "depth": -0.3249,
-        "recovery_days": 194,
-        "is_complete": true
-      },
-      {
-        "start_date": "1995-04-22",
-        "trough_date": "1998-08-10",
-        "recovery_date": "1999-07-02",
-        "depth": -0.745,
-        "recovery_days": 1204,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-07-12",
-        "trough_date": "1999-07-23",
-        "recovery_date": "1999-07-29",
-        "depth": -0.1856,
-        "recovery_days": 13,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-08-03",
-        "trough_date": "2000-04-27",
-        "recovery_date": "2002-03-13",
-        "depth": -0.7564,
-        "recovery_days": 637,
+        "start_date": "2002-02-20",
+        "trough_date": "2002-02-20",
+        "recovery_date": "2002-02-28",
+        "depth": -0.0535,
+        "recovery_days": 6,
         "is_complete": true
       },
       {
@@ -17029,31 +16717,295 @@
       }
     ],
     "percentiles": {
-      "count": 47,
-      "p50": -0.1101,
-      "p25": -0.2131,
-      "p10": -0.56018,
+      "count": 42,
+      "p50": -0.10445,
+      "p25": -0.170825,
+      "p10": -0.48432,
       "recovery_days_min": 2,
-      "recovery_days_median": 19,
+      "recovery_days_median": 18,
       "recovery_days_max": 2966
     },
     "insufficient_data": false
   },
   "000270": {
     "as_of_date": "2026-09-23",
-    "rolling_high": 347656.0,
+    "rolling_high": 206000.0,
     "episodes": [
       {
-        "start_date": "1990-01-10",
+        "start_date": "2000-01-05",
+        "trough_date": "2000-01-07",
+        "recovery_date": "2000-01-11",
+        "depth": -0.1156,
+        "recovery_days": 4,
+        "is_complete": true
+      },
+      {
+        "start_date": "2000-01-12",
+        "trough_date": "2000-01-13",
+        "recovery_date": "2000-01-18",
+        "depth": -0.0676,
+        "recovery_days": 4,
+        "is_complete": true
+      },
+      {
+        "start_date": "2000-01-19",
         "trough_date": "2000-03-03",
+        "recovery_date": "2000-11-14",
+        "depth": -0.4583,
+        "recovery_days": 200,
+        "is_complete": true
+      },
+      {
+        "start_date": "2000-11-21",
+        "trough_date": "2000-12-20",
+        "recovery_date": "2001-02-21",
+        "depth": -0.2453,
+        "recovery_days": 58,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-02-22",
+        "trough_date": "2001-03-05",
+        "recovery_date": "2001-03-08",
+        "depth": -0.0613,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-03-09",
+        "trough_date": "2001-04-12",
+        "recovery_date": "2001-05-02",
+        "depth": -0.1438,
+        "recovery_days": 36,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-05-16",
+        "trough_date": "2001-05-16",
+        "recovery_date": "2001-05-18",
+        "depth": -0.0597,
+        "recovery_days": 2,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-05-22",
+        "trough_date": "2001-06-18",
+        "recovery_date": "2001-07-02",
+        "depth": -0.13,
+        "recovery_days": 28,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-07-03",
+        "trough_date": "2001-09-17",
+        "recovery_date": "2002-02-19",
+        "depth": -0.4464,
+        "recovery_days": 154,
+        "is_complete": true
+      },
+      {
+        "start_date": "2002-03-06",
+        "trough_date": "2002-03-07",
+        "recovery_date": "2002-03-08",
+        "depth": -0.0508,
+        "recovery_days": 2,
+        "is_complete": true
+      },
+      {
+        "start_date": "2002-03-19",
+        "trough_date": "2002-03-20",
+        "recovery_date": "2002-03-22",
+        "depth": -0.0528,
+        "recovery_days": 3,
+        "is_complete": true
+      },
+      {
+        "start_date": "2002-03-25",
+        "trough_date": "2002-04-01",
+        "recovery_date": "2002-04-03",
+        "depth": -0.0521,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2002-04-09",
+        "trough_date": "2002-04-12",
+        "recovery_date": "2002-04-17",
+        "depth": -0.0943,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2002-04-24",
+        "trough_date": "2003-03-17",
+        "recovery_date": "2005-03-14",
+        "depth": -0.579,
+        "recovery_days": 711,
+        "is_complete": true
+      },
+      {
+        "start_date": "2005-03-15",
+        "trough_date": "2005-04-29",
+        "recovery_date": "2005-07-29",
+        "depth": -0.2109,
+        "recovery_days": 95,
+        "is_complete": true
+      },
+      {
+        "start_date": "2005-08-02",
+        "trough_date": "2005-08-05",
+        "recovery_date": "2005-09-07",
+        "depth": -0.0826,
+        "recovery_days": 25,
+        "is_complete": true
+      },
+      {
+        "start_date": "2005-09-23",
+        "trough_date": "2005-10-19",
+        "recovery_date": "2005-11-11",
+        "depth": -0.1967,
+        "recovery_days": 34,
+        "is_complete": true
+      },
+      {
+        "start_date": "2005-11-29",
+        "trough_date": "2005-12-12",
+        "recovery_date": "2005-12-15",
+        "depth": -0.0928,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2006-01-03",
+        "trough_date": "2008-11-25",
+        "recovery_date": "2010-05-04",
+        "depth": -0.7911,
+        "recovery_days": 1077,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-05-17",
+        "trough_date": "2010-05-25",
+        "recovery_date": "2010-06-04",
+        "depth": -0.1223,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-06-08",
+        "trough_date": "2010-07-22",
+        "recovery_date": "2010-09-08",
+        "depth": -0.1335,
+        "recovery_days": 66,
+        "is_complete": true
+      },
+      {
+        "start_date": "2010-11-22",
+        "trough_date": "2010-11-26",
+        "recovery_date": "2010-12-08",
+        "depth": -0.082,
+        "recovery_days": 12,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-01-11",
+        "trough_date": "2011-01-31",
+        "recovery_date": "2011-03-03",
+        "depth": -0.0838,
+        "recovery_days": 33,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-03-08",
+        "trough_date": "2011-03-15",
+        "recovery_date": "2011-03-22",
+        "depth": -0.0603,
+        "recovery_days": 10,
+        "is_complete": true
+      },
+      {
+        "start_date": "2011-04-27",
+        "trough_date": "2011-08-22",
+        "recovery_date": "2012-04-30",
+        "depth": -0.284,
+        "recovery_days": 251,
+        "is_complete": true
+      },
+      {
+        "start_date": "2012-05-03",
+        "trough_date": "2020-03-23",
+        "recovery_date": "2021-01-20",
+        "depth": -0.7434,
+        "recovery_days": 2144,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-01-26",
+        "trough_date": "2021-01-29",
+        "recovery_date": "2021-02-03",
+        "depth": -0.1158,
+        "recovery_days": 6,
+        "is_complete": true
+      },
+      {
+        "start_date": "2021-02-08",
+        "trough_date": "2022-12-29",
+        "recovery_date": "2024-01-31",
+        "depth": -0.4158,
+        "recovery_days": 735,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-02-05",
+        "trough_date": "2024-02-06",
+        "recovery_date": "2024-02-29",
+        "depth": -0.0661,
+        "recovery_days": 16,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-03-15",
+        "trough_date": "2024-04-03",
+        "recovery_date": "2024-06-17",
+        "depth": -0.2078,
+        "recovery_days": 61,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-06-20",
+        "trough_date": "2025-04-11",
+        "recovery_date": "2026-01-09",
+        "depth": -0.3802,
+        "recovery_days": 377,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-01-22",
+        "trough_date": "2026-01-28",
+        "recovery_date": "2026-02-23",
+        "depth": -0.1302,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-02-27",
+        "trough_date": "2026-09-23",
         "recovery_date": null,
-        "depth": -0.9878,
+        "depth": -0.4359,
         "recovery_days": null,
         "is_complete": false
       }
     ],
-    "percentiles": null,
-    "insufficient_data": true
+    "percentiles": {
+      "count": 32,
+      "p50": -0.12615,
+      "p25": -0.254975,
+      "p10": -0.45710999999999996,
+      "recovery_days_min": 2,
+      "recovery_days_median": 26,
+      "recovery_days_max": 2144
+    },
+    "insufficient_data": false
   },
   "373220": {
     "as_of_date": "2026-09-23",
@@ -18500,11 +18452,11 @@
     "rolling_high": 169500.0,
     "episodes": [
       {
-        "start_date": "2000-01-04",
+        "start_date": "2000-01-05",
         "trough_date": "2000-01-27",
-        "recovery_date": "2000-02-08",
-        "depth": -0.4981,
-        "recovery_days": 24,
+        "recovery_date": "2000-02-07",
+        "depth": -0.4303,
+        "recovery_days": 22,
         "is_complete": true
       },
       {
@@ -18592,7 +18544,7 @@
       "count": 10,
       "p50": -0.11545,
       "p25": -0.18564999999999998,
-      "p10": -0.54333,
+      "p10": -0.48231,
       "recovery_days_min": 5,
       "recovery_days_median": 18,
       "recovery_days_max": 5003
@@ -18604,131 +18556,27 @@
     "rolling_high": 765000.0,
     "episodes": [
       {
-        "start_date": "1990-01-13",
-        "trough_date": "1992-08-21",
-        "recovery_date": "1993-11-08",
-        "depth": -0.5038,
-        "recovery_days": 1121,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-11-12",
-        "trough_date": "1993-11-23",
-        "recovery_date": "1993-12-01",
-        "depth": -0.0704,
-        "recovery_days": 16,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-12-11",
-        "trough_date": "1993-12-13",
-        "recovery_date": "1993-12-16",
-        "depth": -0.0546,
-        "recovery_days": 4,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-12-28",
-        "trough_date": "1994-01-10",
-        "recovery_date": "1994-01-13",
-        "depth": -0.1044,
-        "recovery_days": 10,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-02-03",
-        "trough_date": "1994-02-14",
-        "recovery_date": "1994-02-22",
-        "depth": -0.1225,
-        "recovery_days": 13,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-02-24",
-        "trough_date": "1994-04-02",
-        "recovery_date": "1994-05-03",
-        "depth": -0.2772,
-        "recovery_days": 56,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-05-11",
-        "trough_date": "1994-05-24",
-        "recovery_date": "1994-06-02",
-        "depth": -0.0551,
-        "recovery_days": 18,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-06-03",
-        "trough_date": "1994-06-25",
-        "recovery_date": "1994-07-04",
-        "depth": -0.0899,
-        "recovery_days": 25,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-07-06",
-        "trough_date": "1994-07-20",
-        "recovery_date": "1994-07-29",
-        "depth": -0.0563,
-        "recovery_days": 20,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-08-24",
-        "trough_date": "1994-08-29",
-        "recovery_date": "1994-09-02",
-        "depth": -0.0864,
-        "recovery_days": 8,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-09-09",
-        "trough_date": "1996-12-17",
-        "recovery_date": "1999-04-19",
-        "depth": -0.5984,
-        "recovery_days": 1331,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-04-27",
-        "trough_date": "1999-04-30",
-        "recovery_date": "1999-06-01",
-        "depth": -0.1082,
-        "recovery_days": 24,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-06-09",
-        "trough_date": "1999-06-14",
-        "recovery_date": "1999-06-16",
-        "depth": -0.0909,
-        "recovery_days": 5,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-07-08",
-        "trough_date": "1999-08-20",
-        "recovery_date": "1999-09-06",
-        "depth": -0.1994,
-        "recovery_days": 42,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-09-07",
-        "trough_date": "1999-09-09",
-        "recovery_date": "1999-09-13",
-        "depth": -0.0537,
-        "recovery_days": 4,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-09-14",
+        "start_date": "2000-01-06",
         "trough_date": "2000-10-23",
-        "recovery_date": "2004-03-02",
-        "depth": -0.6732,
-        "recovery_days": 1090,
+        "recovery_date": "2002-02-22",
+        "depth": -0.612,
+        "recovery_days": 519,
+        "is_complete": true
+      },
+      {
+        "start_date": "2002-02-25",
+        "trough_date": "2003-03-12",
+        "recovery_date": "2003-12-30",
+        "depth": -0.4225,
+        "recovery_days": 455,
+        "is_complete": true
+      },
+      {
+        "start_date": "2004-01-07",
+        "trough_date": "2004-01-30",
+        "recovery_date": "2004-02-27",
+        "depth": -0.0848,
+        "recovery_days": 34,
         "is_complete": true
       },
       {
@@ -18861,13 +18709,13 @@
       }
     ],
     "percentiles": {
-      "count": 31,
-      "p50": -0.1044,
-      "p25": -0.20729999999999998,
-      "p10": -0.2772,
+      "count": 18,
+      "p50": -0.1231,
+      "p25": -0.22345,
+      "p10": -0.32009,
       "recovery_days_min": 3,
-      "recovery_days_median": 20,
-      "recovery_days_max": 1331
+      "recovery_days_median": 30,
+      "recovery_days_max": 519
     },
     "insufficient_data": false
   },
@@ -18876,123 +18724,51 @@
     "rolling_high": 799869.0,
     "episodes": [
       {
-        "start_date": "1990-01-05",
-        "trough_date": "1990-01-19",
-        "recovery_date": "1990-03-30",
-        "depth": -0.1007,
-        "recovery_days": 68,
-        "is_complete": true
-      },
-      {
-        "start_date": "1990-04-02",
-        "trough_date": "1990-08-24",
-        "recovery_date": "1991-07-19",
-        "depth": -0.3264,
-        "recovery_days": 378,
-        "is_complete": true
-      },
-      {
-        "start_date": "1991-08-03",
-        "trough_date": "1991-12-04",
-        "recovery_date": "1992-11-09",
-        "depth": -0.2356,
-        "recovery_days": 373,
-        "is_complete": true
-      },
-      {
-        "start_date": "1992-11-10",
-        "trough_date": "1992-12-09",
-        "recovery_date": "1993-01-25",
-        "depth": -0.1192,
-        "recovery_days": 56,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-01-26",
-        "trough_date": "1993-03-06",
-        "recovery_date": "1993-04-17",
-        "depth": -0.1146,
-        "recovery_days": 67,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-05-20",
-        "trough_date": "1993-08-14",
-        "recovery_date": "1993-10-14",
-        "depth": -0.1492,
-        "recovery_days": 121,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-11-22",
-        "trough_date": "1993-11-26",
-        "recovery_date": "1993-12-06",
-        "depth": -0.1079,
-        "recovery_days": 12,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-12-22",
-        "trough_date": "1994-01-03",
-        "recovery_date": "1994-01-13",
-        "depth": -0.0983,
-        "recovery_days": 14,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-01-15",
-        "trough_date": "1994-02-14",
-        "recovery_date": "1994-04-27",
-        "depth": -0.2081,
+        "start_date": "2000-01-05",
+        "trough_date": "2000-02-29",
+        "recovery_date": "2000-05-08",
+        "depth": -0.3472,
         "recovery_days": 82,
         "is_complete": true
       },
       {
-        "start_date": "1994-05-04",
-        "trough_date": "1995-01-05",
-        "recovery_date": "1995-10-24",
-        "depth": -0.3936,
-        "recovery_days": 435,
+        "start_date": "2000-05-09",
+        "trough_date": "2000-05-15",
+        "recovery_date": "2000-05-16",
+        "depth": -0.0575,
+        "recovery_days": 4,
         "is_complete": true
       },
       {
-        "start_date": "1995-11-07",
-        "trough_date": "1995-12-16",
-        "recovery_date": "1996-02-05",
-        "depth": -0.1173,
-        "recovery_days": 71,
+        "start_date": "2000-05-17",
+        "trough_date": "2000-05-29",
+        "recovery_date": "2000-06-09",
+        "depth": -0.2161,
+        "recovery_days": 16,
         "is_complete": true
       },
       {
-        "start_date": "1996-02-06",
-        "trough_date": "1996-03-28",
-        "recovery_date": "1996-04-15",
-        "depth": -0.0922,
-        "recovery_days": 54,
+        "start_date": "2000-07-12",
+        "trough_date": "2000-10-13",
+        "recovery_date": "2001-01-15",
+        "depth": -0.382,
+        "recovery_days": 122,
         "is_complete": true
       },
       {
-        "start_date": "1996-04-30",
-        "trough_date": "1997-12-24",
-        "recovery_date": "1998-02-19",
-        "depth": -0.6586,
-        "recovery_days": 526,
+        "start_date": "2001-01-26",
+        "trough_date": "2001-01-26",
+        "recovery_date": "2001-02-09",
+        "depth": -0.0764,
+        "recovery_days": 10,
         "is_complete": true
       },
       {
-        "start_date": "1998-03-02",
-        "trough_date": "1998-09-22",
-        "recovery_date": "1999-07-09",
-        "depth": -0.6607,
-        "recovery_days": 374,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-07-12",
-        "trough_date": "2000-02-29",
-        "recovery_date": "2002-03-12",
-        "depth": -0.5938,
-        "recovery_days": 652,
+        "start_date": "2001-02-27",
+        "trough_date": "2001-09-25",
+        "recovery_date": "2002-03-04",
+        "depth": -0.4452,
+        "recovery_days": 248,
         "is_complete": true
       },
       {
@@ -19181,12 +18957,12 @@
       }
     ],
     "percentiles": {
-      "count": 37,
-      "p50": -0.1478,
-      "p25": -0.2849,
-      "p10": -0.60344,
-      "recovery_days_min": 6,
-      "recovery_days_median": 67,
+      "count": 28,
+      "p50": -0.1538,
+      "p25": -0.300475,
+      "p10": -0.4858,
+      "recovery_days_min": 4,
+      "recovery_days_median": 31,
       "recovery_days_max": 1555
     },
     "insufficient_data": false
@@ -19484,27 +19260,83 @@
     "rolling_high": 768000.0,
     "episodes": [
       {
-        "start_date": "1990-01-04",
-        "trough_date": "1990-01-19",
-        "recovery_date": "1990-01-24",
-        "depth": -0.1082,
-        "recovery_days": 17,
+        "start_date": "2000-01-06",
+        "trough_date": "2000-05-29",
+        "recovery_date": "2001-02-21",
+        "depth": -0.5634,
+        "recovery_days": 272,
         "is_complete": true
       },
       {
-        "start_date": "1990-01-25",
-        "trough_date": "1990-02-05",
-        "recovery_date": "1990-03-20",
-        "depth": -0.0614,
-        "recovery_days": 42,
+        "start_date": "2001-02-23",
+        "trough_date": "2001-03-19",
+        "recovery_date": "2001-04-10",
+        "depth": -0.1554,
+        "recovery_days": 30,
         "is_complete": true
       },
       {
-        "start_date": "1990-04-02",
-        "trough_date": "1998-05-26",
-        "recovery_date": "2002-02-26",
-        "depth": -0.9214,
-        "recovery_days": 3339,
+        "start_date": "2001-04-17",
+        "trough_date": "2001-04-17",
+        "recovery_date": "2001-04-23",
+        "depth": -0.0571,
+        "recovery_days": 4,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-05-08",
+        "trough_date": "2001-05-09",
+        "recovery_date": "2001-05-15",
+        "depth": -0.0769,
+        "recovery_days": 5,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-05-28",
+        "trough_date": "2001-06-01",
+        "recovery_date": "2001-06-19",
+        "depth": -0.1012,
+        "recovery_days": 15,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-06-26",
+        "trough_date": "2001-06-28",
+        "recovery_date": "2001-07-05",
+        "depth": -0.0845,
+        "recovery_days": 7,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-07-13",
+        "trough_date": "2001-09-17",
+        "recovery_date": "2001-11-02",
+        "depth": -0.433,
+        "recovery_days": 75,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-11-06",
+        "trough_date": "2001-11-08",
+        "recovery_date": "2001-11-19",
+        "depth": -0.0798,
+        "recovery_days": 9,
+        "is_complete": true
+      },
+      {
+        "start_date": "2001-11-27",
+        "trough_date": "2001-11-28",
+        "recovery_date": "2001-12-28",
+        "depth": -0.071,
+        "recovery_days": 22,
+        "is_complete": true
+      },
+      {
+        "start_date": "2002-01-08",
+        "trough_date": "2002-02-06",
+        "recovery_date": "2002-02-18",
+        "depth": -0.1616,
+        "recovery_days": 26,
         "is_complete": true
       },
       {
@@ -19813,12 +19645,12 @@
       }
     ],
     "percentiles": {
-      "count": 40,
-      "p50": -0.10185,
-      "p25": -0.1982,
-      "p10": -0.3946799999999999,
+      "count": 47,
+      "p50": -0.0987,
+      "p25": -0.18745,
+      "p10": -0.40252,
       "recovery_days_min": 1,
-      "recovery_days_median": 23,
+      "recovery_days_median": 22,
       "recovery_days_max": 3567
     },
     "insufficient_data": false
@@ -19828,43 +19660,59 @@
     "rolling_high": 1537000.0,
     "episodes": [
       {
-        "start_date": "1990-01-08",
-        "trough_date": "1990-01-19",
-        "recovery_date": "1990-01-25",
-        "depth": -0.0742,
-        "recovery_days": 15,
+        "start_date": "2000-01-12",
+        "trough_date": "2000-01-26",
+        "recovery_date": "2000-02-07",
+        "depth": -0.1898,
+        "recovery_days": 17,
         "is_complete": true
       },
       {
-        "start_date": "1990-01-29",
-        "trough_date": "1990-02-03",
-        "recovery_date": "1990-02-15",
-        "depth": -0.0652,
-        "recovery_days": 15,
+        "start_date": "2000-02-08",
+        "trough_date": "2001-09-21",
+        "recovery_date": "2003-12-30",
+        "depth": -0.8057,
+        "recovery_days": 953,
         "is_complete": true
       },
       {
-        "start_date": "1990-02-17",
-        "trough_date": "1990-03-13",
-        "recovery_date": "1990-03-22",
-        "depth": -0.0538,
-        "recovery_days": 26,
+        "start_date": "2004-01-15",
+        "trough_date": "2004-10-27",
+        "recovery_date": "2005-10-11",
+        "depth": -0.5076,
+        "recovery_days": 431,
         "is_complete": true
       },
       {
-        "start_date": "1990-04-02",
-        "trough_date": "1992-08-21",
-        "recovery_date": "1994-01-07",
-        "depth": -0.4876,
-        "recovery_days": 1105,
+        "start_date": "2005-10-14",
+        "trough_date": "2005-10-20",
+        "recovery_date": "2005-10-24",
+        "depth": -0.0565,
+        "recovery_days": 6,
         "is_complete": true
       },
       {
-        "start_date": "1994-01-14",
-        "trough_date": "1998-06-17",
-        "recovery_date": "2006-02-20",
-        "depth": -0.9097,
-        "recovery_days": 3215,
+        "start_date": "2005-12-14",
+        "trough_date": "2005-12-27",
+        "recovery_date": "2006-01-03",
+        "depth": -0.0838,
+        "recovery_days": 13,
+        "is_complete": true
+      },
+      {
+        "start_date": "2006-01-04",
+        "trough_date": "2006-01-05",
+        "recovery_date": "2006-01-09",
+        "depth": -0.05,
+        "recovery_days": 3,
+        "is_complete": true
+      },
+      {
+        "start_date": "2006-01-18",
+        "trough_date": "2006-01-23",
+        "recovery_date": "2006-02-14",
+        "depth": -0.1573,
+        "recovery_days": 18,
         "is_complete": true
       },
       {
@@ -20221,13 +20069,13 @@
       }
     ],
     "percentiles": {
-      "count": 48,
-      "p50": -0.118,
-      "p25": -0.186025,
-      "p10": -0.34621999999999997,
+      "count": 50,
+      "p50": -0.1197,
+      "p25": -0.18795,
+      "p10": -0.34234,
       "recovery_days_min": 2,
       "recovery_days_median": 15,
-      "recovery_days_max": 3215
+      "recovery_days_max": 3147
     },
     "insufficient_data": false
   },
@@ -20740,75 +20588,75 @@
     "rolling_high": 67900.0,
     "episodes": [
       {
-        "start_date": "1990-01-05",
-        "trough_date": "1992-08-17",
-        "recovery_date": "1992-11-06",
-        "depth": -0.5504,
-        "recovery_days": 832,
+        "start_date": "2000-01-05",
+        "trough_date": "2000-01-05",
+        "recovery_date": "2000-01-07",
+        "depth": -0.0556,
+        "recovery_days": 2,
         "is_complete": true
       },
       {
-        "start_date": "1992-11-10",
-        "trough_date": "1992-11-16",
-        "recovery_date": "1992-11-21",
-        "depth": -0.1397,
-        "recovery_days": 10,
-        "is_complete": true
-      },
-      {
-        "start_date": "1992-11-24",
-        "trough_date": "1993-08-14",
-        "recovery_date": "1993-12-17",
-        "depth": -0.3339,
-        "recovery_days": 315,
-        "is_complete": true
-      },
-      {
-        "start_date": "1993-12-18",
-        "trough_date": "1994-01-10",
-        "recovery_date": "1994-01-28",
-        "depth": -0.1685,
-        "recovery_days": 30,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-02-03",
-        "trough_date": "1994-02-14",
-        "recovery_date": "1994-02-21",
-        "depth": -0.125,
-        "recovery_days": 12,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-02-24",
-        "trough_date": "1994-03-25",
-        "recovery_date": "1994-09-13",
-        "depth": -0.3012,
-        "recovery_days": 166,
-        "is_complete": true
-      },
-      {
-        "start_date": "1994-09-28",
-        "trough_date": "1997-11-24",
-        "recovery_date": "1999-06-01",
-        "depth": -0.6685,
-        "recovery_days": 1348,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-06-08",
-        "trough_date": "1999-06-09",
-        "recovery_date": "1999-06-21",
-        "depth": -0.0917,
-        "recovery_days": 9,
-        "is_complete": true
-      },
-      {
-        "start_date": "1999-06-29",
+        "start_date": "2000-01-10",
         "trough_date": "2003-03-10",
+        "recovery_date": "2005-07-25",
+        "depth": -0.5353,
+        "recovery_days": 1361,
+        "is_complete": true
+      },
+      {
+        "start_date": "2005-08-05",
+        "trough_date": "2005-08-29",
+        "recovery_date": "2005-12-20",
+        "depth": -0.1629,
+        "recovery_days": 94,
+        "is_complete": true
+      },
+      {
+        "start_date": "2006-01-20",
+        "trough_date": "2006-02-08",
+        "recovery_date": "2006-02-17",
+        "depth": -0.1008,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2006-03-07",
+        "trough_date": "2006-03-30",
+        "recovery_date": "2006-04-07",
+        "depth": -0.0596,
+        "recovery_days": 23,
+        "is_complete": true
+      },
+      {
+        "start_date": "2006-05-09",
+        "trough_date": "2006-07-19",
+        "recovery_date": "2007-07-13",
+        "depth": -0.2544,
+        "recovery_days": 293,
+        "is_complete": true
+      },
+      {
+        "start_date": "2007-07-26",
+        "trough_date": "2011-09-26",
+        "recovery_date": "2014-09-30",
+        "depth": -0.5713,
+        "recovery_days": 1782,
+        "is_complete": true
+      },
+      {
+        "start_date": "2014-10-14",
+        "trough_date": "2015-01-16",
+        "recovery_date": "2015-07-20",
+        "depth": -0.2083,
+        "recovery_days": 190,
+        "is_complete": true
+      },
+      {
+        "start_date": "2015-07-22",
+        "trough_date": "2015-07-27",
         "recovery_date": "2015-07-31",
-        "depth": -0.6614,
-        "recovery_days": 3982,
+        "depth": -0.0546,
+        "recovery_days": 7,
         "is_complete": true
       },
       {
@@ -20862,12 +20710,12 @@
     ],
     "percentiles": {
       "count": 14,
-      "p50": -0.15410000000000001,
-      "p25": -0.496275,
-      "p10": -0.66637,
-      "recovery_days_min": 9,
+      "p50": -0.1109,
+      "p25": -0.242875,
+      "p10": -0.5605,
+      "recovery_days_min": 2,
       "recovery_days_median": 58,
-      "recovery_days_max": 3982
+      "recovery_days_max": 2365
     },
     "insufficient_data": false
   },
