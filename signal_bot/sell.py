@@ -5,7 +5,7 @@
 
 - 천정 = 종가 기준 러닝하이(직전 N봉 최고). 그 봉이 신고가 돌파였고, 이후 낙폭이
   '주의' 임계에 닿으면 확정(이벤트 1건). 천정을 다시 넘으면 이벤트는 회복 처리된다.
-- 임계 = 종목별 완결 낙폭 에피소드 |depth| 분포의 P25/P50/P75(하한 -5%),
+- 임계 = 종목별 완결 낙폭 에피소드 분포의 P50/P25/P10(매수와 같은 자; |depth| 기준 50/75/90분위, 하한 -5%),
   에피소드가 부족하면 고정 폴백값. 모든 종목 동일한 방식(종목 성격은 문구에만 반영).
 - 보강 신호 6종은 등급을 바꾸지 않고 패널/카운터로만 표시한다.
 """
@@ -20,7 +20,7 @@ from signal_bot import mdd
 LOOKBACKS = (60, 120, 250, 0)      # 0 = 사상최고(전체 기간)
 DEFAULT_LOOKBACK = 250
 MIN_ATTN = 0.05                    # '주의' 하한
-FALLBACK_THRESHOLDS = (0.08, 0.15, 0.25)
+FALLBACK_THRESHOLDS = (0.10, 0.17, 0.30)
 MIN_STEP = 0.02                    # 단계 간 최소 간격(임계가 겹치지 않게)
 MIN_PERF_EVENTS = 5                # 과거 신호 성과 표를 보여줄 최소 이벤트 수
 FWD_6M, FWD_12M = 126, 252
@@ -44,16 +44,16 @@ def symbol_tag(symb: str, category: str) -> str:
 
 def compute_thresholds(close: pd.Series, dates: pd.Series) -> dict:
     """완결 낙폭 에피소드 |depth| 분포로 주의/경고/매도검토 임계(음수)를 계산.
-    (mdd.percentile_stats의 p25/p50은 '깊이' 기준이라 순서가 반대라 직접 계산한다.)"""
+    = 매수의 P50/P25/P10과 같은 지점(음수 깊이 기준 P50/P25/P10 = |depth| 50/75/90분위)."""
     dd = mdd.compute_drawdown(close.reset_index(drop=True))
     episodes = mdd.extract_episodes(dates.reset_index(drop=True), dd["drawdown"])
     depths = np.array([abs(e["depth"]) for e in episodes if e["is_complete"]])
     if len(depths) < mdd.MIN_EPISODES_REQUIRED:
         a, w, s = FALLBACK_THRESHOLDS
         return {"levels": [-a, -w, -s], "fallback": True, "episodes": int(len(depths))}
-    a = max(float(np.percentile(depths, 25)), MIN_ATTN)
-    w = max(float(np.percentile(depths, 50)), a + MIN_STEP)
-    s = max(float(np.percentile(depths, 75)), w + MIN_STEP)
+    a = max(float(np.percentile(depths, 50)), MIN_ATTN)
+    w = max(float(np.percentile(depths, 75)), a + MIN_STEP)
+    s = max(float(np.percentile(depths, 90)), w + MIN_STEP)
     return {"levels": [round(-a, 4), round(-w, 4), round(-s, 4)],
             "fallback": False, "episodes": int(len(depths))}
 
