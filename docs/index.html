@@ -200,6 +200,14 @@
   }
   .card:not(.expanded):not(.fullscreen):not(:has(button:active)):active { transform: scale(0.98); filter: brightness(0.96); }
   .seg .chip:active, .period-btn:active { opacity: 0.6; }
+  /* 다크 모드 ON/OFF 스위치 — 포트폴리오·현금흐름의 스위치와 같은 모양(같은 localStorage 키 kis-theme 공유) */
+  .theme-sw { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px;
+    background: var(--fill); color: var(--text-primary); font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+  .theme-sw .sw { width: 26px; height: 15px; border-radius: 999px; background: #c7c7cc; position: relative; transition: .15s; flex-shrink: 0; }
+  .theme-sw .sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 11px; height: 11px; border-radius: 50%; background: #fff; transition: .15s; }
+  .theme-sw[aria-checked="true"] .sw { background: var(--accent); }
+  .theme-sw[aria-checked="true"] .sw::after { left: 13px; }
+  @media (max-width: 560px) { .theme-sw .ico, .theme-sw .lbl { display: none; } .topbar .theme-sw { padding: 0 8px; } }
   @media (max-width: 560px) {
     .topbar .btn { width: 32px; padding: 0; }
     .topbar .btn .lbl { display: none; }
@@ -612,7 +620,7 @@
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/" class="btn btn-gray" aria-label="홈"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-house"/></svg><span class="lbl">홈</span></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/portfolio/" class="btn btn-gray" aria-label="포트폴리오"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-chart-bar"/></svg><span class="lbl">포트폴리오</span></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/retirement/" class="btn btn-gray" aria-label="현금흐름"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-calculator"/></svg><span class="lbl">현금흐름</span></a>
-      <button id="theme-btn" class="btn btn-gray" aria-label="다크 모드로 전환"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-moon"/></svg><span class="lbl">다크</span></button>
+      <button id="theme-btn" class="theme-sw" role="switch" aria-checked="false" aria-label="다크 모드 켜기/끄기" title="다크 모드 켜기/끄기 (모든 화면에 적용)"><span class="ico">🌙</span><span class="lbl">다크 모드</span><span class="sw"></span></button>
     </div>
   </div>
 </header>
@@ -3505,14 +3513,16 @@ async function init() {
   const current = () => root.dataset.theme || (mq.matches ? "dark" : "light");
   function paint() {
     const dark = current() === "dark";
-    btn.innerHTML = `${ic(dark ? "sun" : "moon")}<span class="lbl">${dark ? "라이트" : "다크"}</span>`;
-    btn.setAttribute("aria-label", dark ? "라이트 모드로 전환" : "다크 모드로 전환");
-    btn.title = dark ? "라이트 모드로 전환" : "다크 모드로 전환";
+    btn.setAttribute("aria-checked", dark ? "true" : "false");
   }
   btn.addEventListener("click", () => {
     root.dataset.theme = current() === "dark" ? "light" : "dark";
     try { localStorage.setItem("kis-theme", root.dataset.theme); } catch (e) { /* 저장 불가(비공개 창 등)여도 이번 화면에서는 바뀐다 */ }
     paint();
+  });
+  // 다른 화면(포트폴리오·현금흐름·홈)에서 바꾼 모드를 즉시 반영
+  window.addEventListener("storage", (e) => {
+    if (e.key === "kis-theme" && (e.newValue === "dark" || e.newValue === "light")) { root.dataset.theme = e.newValue; paint(); }
   });
   mq.addEventListener("change", paint);
   paint();
