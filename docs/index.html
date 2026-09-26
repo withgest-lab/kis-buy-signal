@@ -191,6 +191,7 @@
     text-decoration: none; white-space: nowrap; flex-shrink: 0;
   }
   .btn-gray { background: var(--fill); color: var(--text-primary); }
+  .btn-gray:active, .btn-gray:focus-visible { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); outline: none; }
   @media (hover: hover) { .btn-gray:hover { background: var(--fill-hover); } }
   .btn-tint { background: color-mix(in srgb, var(--accent) 13%, transparent); color: var(--accent); }
   .btn-red { background: color-mix(in srgb, var(--status-crit) 13%, transparent); color: var(--status-crit); }
@@ -277,7 +278,7 @@
     flex: 1; text-align: center; font-size: 12.5px; font-weight: 600; padding: 6px 4px;
     border-radius: 8px; color: var(--text-secondary);
   }
-  .seg .chip.active { background: var(--seg-active); color: var(--text-primary); box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+  .seg .chip.active { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
   /* 분류 필터는 여러 개를 동시에 켤 수 있어서 캡슐 칩(켜짐 = 파랑 틴트 + 파랑 글자) */
   .chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
   .chip-group .chip {
