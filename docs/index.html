@@ -181,7 +181,8 @@
   .topbar-actions { margin-left: auto; display: flex; gap: 6px; }
   .meta { color: var(--text-muted); font-size: 12px; margin: 0; min-width: 0; flex: 1; }
   .meta-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 2px 12px; }
-  .meta-row .btn { height: 28px; padding: 0 11px; font-size: 12px; }
+  .meta-row .btn { height: 26px; padding: 0 9px; font-size: 11px; gap: 4px; }
+  .meta-row .btn .ic { width: 13px; height: 13px; }
 
   /* 캡슐 버튼 + 눌림 피드백(작게 줄며 어두워짐) - 포트폴리오 shared/icons.js와 같은 규칙 */
   .btn {
@@ -202,9 +203,9 @@
   .card:not(.expanded):not(.fullscreen):not(:has(button:active)):active { transform: scale(0.98); filter: brightness(0.96); }
   .seg .chip:active, .period-btn:active { opacity: 0.6; }
   /* 다크 모드: 초승달 아이콘만. OFF = 회색 윤곽, ON = 안이 흰색으로 채워진 초승달(포트폴리오·현금흐름과 같은 모양, kis-theme 키 공유) */
-  .theme-sw { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 999px;
+  .theme-sw { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; margin-left: 6px; padding: 0; border: 0; border-radius: 999px;
     background: transparent; color: #8e8e93; cursor: pointer; flex-shrink: 0; }
-  .theme-sw svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: .15s; }
+  .theme-sw svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: .15s; }
   .theme-sw[aria-checked="true"] { color: #fff; }
   .theme-sw[aria-checked="true"] svg { fill: #fff; }
   @media (max-width: 560px) {
@@ -616,7 +617,7 @@
   <div class="topbar-inner">
     <h1 class="logo"><span>MDD</span> 매수신호</h1>
     <div class="topbar-actions">
-      <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/" class="btn btn-gray" aria-label="홈"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-house"/></svg><span class="lbl">홈</span></a>
+      <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/" class="btn btn-gray" aria-label="홈" title="홈" style="width:32px;padding:0"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-house"/></svg></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/portfolio/" class="btn btn-gray" aria-label="포트폴리오"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-chart-bar"/></svg><span class="lbl">포트폴리오</span></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/retirement/" class="btn btn-gray" aria-label="현금흐름"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-calculator"/></svg><span class="lbl">현금흐름</span></a>
       <button id="theme-btn" class="theme-sw" role="switch" aria-checked="false" aria-label="다크 모드 켜기/끄기" title="다크 모드 켜기/끄기 (모든 화면에 적용)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
