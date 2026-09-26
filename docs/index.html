@@ -179,7 +179,9 @@
   .logo { font-size: 17px; font-weight: 800; margin: 0; letter-spacing: -0.01em; white-space: nowrap; }
   .logo span { color: inherit; }
   .topbar-actions { margin-left: auto; display: flex; gap: 6px; }
-  .meta { color: var(--text-muted); font-size: 12px; margin: 0 2px 12px; }
+  .meta { color: var(--text-muted); font-size: 12px; margin: 0; min-width: 0; flex: 1; }
+  .meta-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 2px 12px; }
+  .meta-row .btn { height: 28px; padding: 0 11px; font-size: 12px; }
 
   /* 캡슐 버튼 + 눌림 피드백(작게 줄며 어두워짐) - 포트폴리오 shared/icons.js와 같은 규칙 */
   .btn {
@@ -610,14 +612,16 @@
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/" class="btn btn-gray" aria-label="홈"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-house"/></svg><span class="lbl">홈</span></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/portfolio/" class="btn btn-gray" aria-label="포트폴리오"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-chart-bar"/></svg><span class="lbl">포트폴리오</span></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/retirement/" class="btn btn-gray" aria-label="현금흐름"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-calculator"/></svg><span class="lbl">현금흐름</span></a>
-      <button id="help-btn" class="btn btn-gray" aria-label="데이터 읽는 법 열기" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg><span class="lbl">데이터 읽는 법</span></button>
       <button id="theme-btn" class="btn btn-gray" aria-label="다크 모드로 전환"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-moon"/></svg><span class="lbl">다크</span></button>
     </div>
   </div>
 </header>
 
 <div class="wrap">
-  <div class="meta" id="meta-line">불러오는 중...</div>
+  <div class="meta-row">
+    <div class="meta" id="meta-line">불러오는 중...</div>
+    <button id="help-btn" class="btn btn-gray" aria-label="데이터 읽는 법 열기" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg><span class="lbl">데이터 읽는 법</span></button>
+  </div>
 
   <div class="mode-bar">
     <div class="seg" id="mode-seg" role="tablist" aria-label="전략 모드">
@@ -3517,7 +3521,7 @@ async function init() {
 (function wireTopbarPress() {
   const PRESS_DELAY = 150;
   document.addEventListener("click", (e) => {
-    const el = e.target.closest && e.target.closest(".topbar .btn");
+    const el = e.target.closest && e.target.closest(".topbar .btn, .meta-row .btn");
     if (!el) return;
     if (el.__pressReplay) { el.__pressReplay = false; return; }
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
