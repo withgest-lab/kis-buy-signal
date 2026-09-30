@@ -228,7 +228,7 @@
     "last_stage_notified": 0
   },
   "ABBV": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-09-29",
     "last_stage_notified": 0
   },
   "BAC": {
@@ -485,7 +485,7 @@
   },
   "RTX": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "UNP": {
     "episode_start_date": "2026-09-24",
@@ -497,7 +497,7 @@
   },
   "QCOM": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "SO": {
     "episode_start_date": "2026-09-24",
