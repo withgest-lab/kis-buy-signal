@@ -129,7 +129,7 @@
   },
   "XLF": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "XLE": {
     "episode_start_date": "2026-09-16",
@@ -145,7 +145,7 @@
   },
   "XLP": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "XLY": {
     "episode_start_date": "2026-09-04",
@@ -289,7 +289,7 @@
   },
   "ITA": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "ITB": {
     "episode_start_date": "2026-09-24",
@@ -509,7 +509,7 @@
   },
   "PLD": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "MRK": {
     "episode_start_date": "2026-09-24",
