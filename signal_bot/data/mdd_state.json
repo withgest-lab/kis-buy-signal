@@ -124,7 +124,7 @@
     "last_stage_notified": 0
   },
   "XLK": {
-    "episode_start_date": "2026-09-04",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "XLF": {
@@ -168,7 +168,7 @@
     "last_stage_notified": 0
   },
   "CIBR": {
-    "episode_start_date": "2026-09-24",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "BUG": {
