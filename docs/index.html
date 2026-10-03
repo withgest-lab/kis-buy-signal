@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MDD 매수신호 대시보드</title>
+<title>매매 전략 대시보드</title>
 <script>try{var t=localStorage.getItem("kis-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <style>
@@ -177,10 +177,11 @@
     display: flex; align-items: center; gap: 8px;
   }
   .logo { font-size: 17px; font-weight: 800; margin: 0; letter-spacing: -0.01em; white-space: nowrap; }
-  .logo span { color: inherit; }
   .topbar-actions { margin-left: auto; display: flex; gap: 6px; }
-  .meta { color: var(--text-muted); font-size: 12px; margin: 0; min-width: 0; flex: 1; }
-  .meta-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 2px 12px; }
+  .meta { color: var(--text-muted); font-size: 12px; margin: 0; min-width: 0; flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .meta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; row-gap: 8px; margin: 0 2px 12px; }
+  .meta-row .seg { flex: none; }
+  .meta-row .seg .chip { flex: none; padding: 6px 16px; }
   .meta-row .btn { height: 26px; padding: 0 9px; font-size: 11px; gap: 4px; }
   .meta-row .btn .ic { width: 13px; height: 13px; }
 
@@ -496,10 +497,7 @@
   .card.fullscreen .episode-detail-box-inner { font-size: 13.5px; }
 
   /* 매도 전략 모드 */
-  .mode-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 0 0 12px; }
-  .mode-bar .seg { flex: 0 0 auto; }
-  .mode-bar .seg .chip { flex: none; padding: 6px 16px; }
-  .lookback-wrap { display: flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12.5px; color: var(--text-secondary); }
+  .lookback-wrap { display: flex; align-items: center; gap: 6px; flex: none; font-size: 12.5px; color: var(--text-secondary); }
   .lookback-wrap[hidden] { display: none; }
   .stage-ref { background: var(--fill); color: var(--text-secondary); }
   .sell-note { font-size: 12px; color: var(--text-secondary); margin: 8px 0 0; line-height: 1.55; }
@@ -615,7 +613,7 @@
 
 <header class="topbar">
   <div class="topbar-inner">
-    <h1 class="logo"><span>MDD</span> 매수신호</h1>
+    <h1 class="logo">매매 전략</h1>
     <div class="topbar-actions">
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/" class="btn btn-gray" aria-label="홈" title="홈" style="width:32px;padding:0"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-house"/></svg></a>
       <a href="https://withgest-lab.github.io/portfolio-retirement-dashboard/portfolio/" class="btn btn-gray" aria-label="포트폴리오"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-chart-bar"/></svg><span class="lbl">포트폴리오</span></a>
@@ -627,11 +625,6 @@
 
 <div class="wrap">
   <div class="meta-row">
-    <div class="meta" id="meta-line">불러오는 중...</div>
-    <button id="help-btn" class="btn btn-gray" aria-label="데이터 읽는 법 열기" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg><span class="lbl">데이터 읽는 법</span></button>
-  </div>
-
-  <div class="mode-bar">
     <div class="seg" id="mode-seg" role="tablist" aria-label="전략 모드">
       <span class="chip active" data-mode="buy" role="tab">매수 전략</span>
       <span class="chip" data-mode="sell" role="tab">매도 전략</span>
@@ -644,6 +637,8 @@
         <option value="0">사상최고</option>
       </select>
     </label>
+    <div class="meta" id="meta-line">불러오는 중...</div>
+    <button id="help-btn" class="btn btn-gray" aria-label="데이터 읽는 법 열기" aria-expanded="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg><span class="lbl">데이터 읽는 법</span></button>
   </div>
 
 <div id="help-overlay" class="help-overlay">
@@ -3170,8 +3165,6 @@ function applyModeUI() {
   const labels = sell ? ["전체", "주의+", "경고+", "매도검토"] : ["전체", "1단계+", "2단계+", "3단계"];
   document.querySelectorAll("#filter-stage .chip").forEach((c, i) => { c.textContent = labels[i]; });
   document.querySelector('#sort-select option[value="stage"]').textContent = sell ? "위험단계순" : "MDD단계순";
-  const h1 = document.querySelector(".logo");
-  if (h1) h1.innerHTML = sell ? "<span>MDD</span> 매도경고" : "<span>MDD</span> 매수신호";
 }
 
 // ---- 카드 렌더 ----
@@ -3489,7 +3482,7 @@ async function init() {
     if (!res.ok) throw new Error("scores.json 로드 실패: " + res.status);
     DATA = await res.json();
     document.getElementById("meta-line").textContent =
-      `기준일 ${fmtDateFull(DATA.as_of_date)} · 생성 ${fmtDateFull(String(DATA.generated_at).slice(0, 10))}${String(DATA.generated_at).slice(10)} · 총 ${DATA.tickers.length}종목`;
+      `기준일 ${fmtDateFull(DATA.as_of_date)} · 총 ${DATA.tickers.length}종목`;
     document.getElementById("footer").textContent =
       "매일 한국시간 07:30 자동 갱신 · 조회/알림 전용 시스템(자동매매 없음) · " +
       "MDD/RSI/MFI/다이버전스는 참고 지표이며 최종 매수판단은 사용자가 직접 합니다";
