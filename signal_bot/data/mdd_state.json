@@ -522,5 +522,109 @@
   "COP": {
     "episode_start_date": "2026-09-24",
     "last_stage_notified": 0
+  },
+  "MCHI": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 3
+  },
+  "7974": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 3
+  },
+  "6367": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 3
+  },
+  "GLD": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "7203": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "9984": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "9983": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "8035": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "4063": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "6954": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "6981": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "8058": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "6902": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "7741": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 2
+  },
+  "6758": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 1
+  },
+  "IEF": {
+    "episode_start_date": null,
+    "last_stage_notified": 0
+  },
+  "TLT": {
+    "episode_start_date": null,
+    "last_stage_notified": 0
+  },
+  "SCHD": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 0
+  },
+  "EWJ": {
+    "episode_start_date": null,
+    "last_stage_notified": 0
+  },
+  "6268": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 0
+  },
+  "7267": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 0
+  },
+  "6861": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 0
+  },
+  "8306": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 0
+  },
+  "6098": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 0
+  },
+  "6501": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 0
+  },
+  "9432": {
+    "episode_start_date": "2026-10-02",
+    "last_stage_notified": 0
   }
 }
