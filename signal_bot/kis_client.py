@@ -28,6 +28,8 @@ logger = logging.getLogger(__name__)
 API_URL = "/uapi/overseas-price/v1/quotations/dailyprice"
 TR_ID = "HHDFS76240000"
 EXCHANGE_CANDIDATES = ["NAS", "NYS", "AMS"]
+JP_EXCHANGE_CANDIDATES = ["TSE"]
+_JP_CODE_RE = re.compile(r"^\d{4}$")
 MAX_PAGES = 15
 
 _COLUMN_MAP = {
@@ -124,6 +126,11 @@ def _normalize(df: pd.DataFrame) -> pd.DataFrame:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
     df["date"] = pd.to_datetime(df["date"], format="%Y%m%d")
+    # 자리표시 행은 지운다: 종가 0 이하(도쿄 거래소 휴장일이 0으로 채워져 옴 — 6268은 2009년 이후 371행)와
+    # 개장 전 당일 행(거래량 0, 시·고·저·종가가 같음)
+    if {"volume", "open", "high", "low", "close"} <= set(df.columns):
+        flat = (df["volume"] == 0) & (df["open"] == df["high"]) & (df["high"] == df["low"]) & (df["low"] == df["close"])
+        df = df[~flat & (df["close"] > 0)]
     df = df.drop_duplicates(subset="date").sort_values("date").reset_index(drop=True)
     keep = ["date"] + [c for c in _NUMERIC_COLS if c in df.columns]
     return df[keep]
@@ -135,7 +142,8 @@ def fetch_ohlcv(symb: str, gubn: str, min_rows: int) -> pd.DataFrame:
 
     with _exchange_cache_lock:
         cached = _exchange_cache.get(symb)
-    candidates = [cached] if cached else EXCHANGE_CANDIDATES
+    # 4자리 숫자 코드는 도쿄 거래소(TSE) 일본 종목 — 미국 거래소 후보를 돌 필요가 없다
+    candidates = [cached] if cached else (JP_EXCHANGE_CANDIDATES if _JP_CODE_RE.match(symb) else EXCHANGE_CANDIDATES)
 
     for excd in candidates:
         for attempt in range(2):  # 일시적 서버 오류(EGW00316 등) 대비 1회 재시도

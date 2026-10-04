@@ -206,7 +206,7 @@ def format_mdd_level_message(events: list[dict], today: str) -> str:
 
     lines = [f"\U0001F6A8 *지수 낙폭 경보(장기 매수 참고)* ({today})", ""]
     for r in events:
-        currency = "₩" if r.get("currency") == "KRW" else "$"
+        currency = {"KRW": "₩", "JPY": "¥"}.get(r.get("currency"), "$")
         _deepest_threshold, deepest_label = r["mdd_alert_levels"][0]
         lines.append(f"*{r['symb']}* ({r['name']}) - 낙폭 {r['depth'] * 100:.1f}% - {deepest_label}")
         if len(r["mdd_alert_levels"]) > 1:
@@ -314,7 +314,7 @@ def _format_indicator_block(r: dict) -> list[str]:
 
 
 def _format_ticker_block(r: dict) -> list[str]:
-    currency = "₩" if r.get("currency") == "KRW" else "$"
+    currency = {"KRW": "₩", "JPY": "¥"}.get(r.get("currency"), "$")
     pct = r.get("pct_chg", 0.0)
     lines = [f"*{r['symb']}* ({r['name']}) - {currency}{r['close']:,.2f} ({pct:+.2f}%)"]
 

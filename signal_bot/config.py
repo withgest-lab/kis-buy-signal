@@ -51,6 +51,14 @@ CURATED_ETFS = [
     ("섹터ETF", "IGV"),
     ("섹터ETF", "SMH"),
     ("섹터ETF", "XOP"),
+
+    # 한국 상장 ETF의 기초지수 대응용(ETF_PROXY_RULES가 가리키는 장기 이력 미국 ETF) — 금·채권·배당·중국·일본
+    ("섹터ETF", "GLD"),
+    ("섹터ETF", "IEF"),
+    ("섹터ETF", "TLT"),
+    ("섹터ETF", "SCHD"),
+    ("섹터ETF", "MCHI"),
+    ("섹터ETF", "EWJ"),
 ]
 
 CURATED_ETF_NAMES = {
@@ -68,6 +76,8 @@ CURATED_ETF_NAMES = {
     "ITB": "Home Construction ETF", "XRT": "Retail ETF", "IYT": "Transportation ETF",
     "XME": "Metals & Mining ETF", "GDX": "Gold Miners ETF", "URA": "Uranium ETF",
     "IGV": "Software ETF", "SMH": "Semiconductor ETF(SMH)", "XOP": "Oil & Gas Exploration ETF",
+    "GLD": "Gold ETF", "IEF": "US Treasury 7-10Y ETF", "TLT": "US Treasury 20Y+ ETF",
+    "SCHD": "US Dividend Equity ETF", "MCHI": "China ETF", "EWJ": "Japan ETF",
 }
 
 CURATED_ETF_DESCRIPTIONS = {
@@ -107,6 +117,12 @@ CURATED_ETF_DESCRIPTIONS = {
     "IGV": "소프트웨어 기업들에 투자하는 ETF",
     "SMH": "반도체 대표 기업들에 투자하는 ETF",
     "XOP": "석유·가스 탐사·생산 기업들에 투자하는 ETF",
+    "GLD": "금 현물 가격을 추종하는 대표 ETF",
+    "IEF": "미국 중기(7~10년) 국채에 투자하는 ETF",
+    "TLT": "미국 장기(20년+) 국채에 투자하는 ETF",
+    "SCHD": "배당 성장 우량주(다우존스 미국 배당 100)에 투자하는 ETF",
+    "MCHI": "MSCI 중국 지수를 추종하는 ETF",
+    "EWJ": "MSCI 일본 지수를 추종하는 ETF",
 }
 
 DAILY_MIN_ROWS = 250
@@ -280,21 +296,45 @@ CURATED_STOCKS = [
     ("PLD", "Prologis"), ("AMT", "American Tower"), ("COP", "ConocoPhillips"),
 ]
 
+# 일본 종목 — KIS 해외시세 API의 도쿄 거래소(TSE, 4자리 종목코드). 미국과 같은 API(kis_client)를 쓰되
+# 거래소 후보가 TSE 하나뿐이고, 통화는 JPY, 상대강도 벤치마크·시장국면은 EWJ(일본 ETF)로 본다.
+# 포트폴리오의 "6268.T"는 ".T"를 떼고 이 코드로 연결된다. 보유 종목 중 여기 없는 것은 포트폴리오의
+# "전략 매칭 현황"이 미매칭으로 보여주므로 그 코드를 이 목록에 추가하면 된다.
+JP_STOCK_CATEGORY = "일본개별종목"
+JP_BENCH_TICKER = "EWJ"
+JP_NAMES = {
+    "6268": "나부테스코", "7203": "토요타", "6758": "소니그룹", "9984": "소프트뱅크그룹",
+    "7974": "닌텐도", "7267": "혼다", "6861": "키엔스", "9983": "패스트리테일링",
+    "8306": "미쓰비시UFJ", "8035": "도쿄일렉트론", "4063": "신에츠화학", "6098": "리크루트",
+    "6367": "다이킨", "6954": "화낙", "6981": "무라타", "6501": "히타치",
+    "9432": "NTT", "8058": "미쓰비시상사", "6902": "덴소", "7741": "호야",
+}
+JP_TARGETS = [(JP_STOCK_CATEGORY, symb) for symb in JP_NAMES]
+
 _ranked = [r for r in _us.get_top_n_targets(SP500_TOP_N, NASDAQ100_TOP_N) if r["symb"] not in EXCLUDE_SYMBOLS]
 _auto_symbols = {r["symb"] for r in _ranked}
 _curated = [(sym, name) for sym, name in CURATED_STOCKS if sym not in _auto_symbols]
 
 TICKERS = (CURATED_ETFS + [("개별종목", r["symb"]) for r in _ranked]
-           + [("개별종목", sym) for sym, _n in _curated] + KR_TARGETS)
+           + [("개별종목", sym) for sym, _n in _curated] + KR_TARGETS + JP_TARGETS)
 
 TICKER_NAMES = dict(CURATED_ETF_NAMES)
 TICKER_NAMES.update({r["symb"]: r["name"] for r in _ranked})
 TICKER_NAMES.update({sym: name for sym, name in _curated})
 TICKER_NAMES.update(KR_NAMES)
+TICKER_NAMES.update(JP_NAMES)
 
 
 def is_kr(category: str) -> bool:
     return category in (KR_INDEX_CATEGORY, KR_STOCK_CATEGORY, KR_ETF_CATEGORY)
+
+
+def is_jp(category: str) -> bool:
+    return category == JP_STOCK_CATEGORY
+
+
+def currency_of(category: str) -> str:
+    return "KRW" if is_kr(category) else "JPY" if is_jp(category) else "USD"
 
 
 def kr_kind(category: str) -> str:

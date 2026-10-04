@@ -13,7 +13,7 @@ from signal_bot import alerts
 from signal_bot import company_info
 from signal_bot import mdd
 from signal_bot import timeframe_signals as tf
-from signal_bot.config import HISTORY_MAX_DAYS, TICKER_NAMES, TICKERS, is_kr
+from signal_bot.config import HISTORY_MAX_DAYS, JP_BENCH_TICKER, TICKER_NAMES, TICKERS, currency_of, is_jp, is_kr
 
 DATA_DIR = Path("signal_bot/data")
 BASELINE_DIR = DATA_DIR / "baseline"
@@ -58,7 +58,7 @@ def _read_baseline_daily(symb: str) -> pd.DataFrame | None:
 
 
 def _regime_for(category: str, regime_cache: dict) -> str:
-    ticker = KR_REGIME_TICKER if is_kr(category) else US_REGIME_TICKER
+    ticker = KR_REGIME_TICKER if is_kr(category) else JP_BENCH_TICKER if is_jp(category) else US_REGIME_TICKER
     if ticker in regime_cache:
         return regime_cache[ticker]
     try:
@@ -93,7 +93,7 @@ def run() -> tuple[list[dict], list[tuple]]:
                 "category": category,
                 "symb": symb,
                 "name": TICKER_NAMES.get(symb, symb),
-                "currency": "KRW" if is_kr(category) else "USD",
+                "currency": currency_of(category),
                 "date": last["date"].strftime("%Y-%m-%d"),
                 "close": round(float(last["close"]), 2),
                 "pct_chg": round(pct_chg, 2),

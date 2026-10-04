@@ -16,7 +16,8 @@ from signal_bot import company_info
 from signal_bot import mdd
 from signal_bot import sell as sellmod
 from signal_bot import timeframe_signals as tf
-from signal_bot.config import MDD_ALERT_LEVELS, MDD_ALERT_TICKERS, TICKERS, is_kr
+from signal_bot import proxies
+from signal_bot.config import JP_BENCH_TICKER, MDD_ALERT_LEVELS, MDD_ALERT_TICKERS, TICKERS, is_jp, is_kr
 from signal_bot.pipeline import BASELINE_DIR, DATA_DIR, load_history
 
 OUTPUT_PATH = Path("docs/scores.json")
@@ -85,7 +86,7 @@ def _series_records(df: pd.DataFrame, cols: list[str]) -> list[dict]:
 
 def _bench_daily(symb: str, category: str) -> pd.DataFrame | None:
     """상대강도 벤치마크: 미국 종목=SPY, 한국 종목=KOSPI200(본인 제외)."""
-    bench = "KOSPI200" if is_kr(category) else "SPY"
+    bench = "KOSPI200" if is_kr(category) else JP_BENCH_TICKER if is_jp(category) else "SPY"
     if bench == symb:
         return None
     recent = _read_daily(bench)
@@ -220,13 +221,15 @@ def main():
     # stage 내림차순, 같은 stage면 depth가 더 깊은(음수가 더 큰) 종목 우선.
     tickers.sort(key=lambda r: (-r["stage"], r["depth"]))
 
-    us_regime = next((t["market_regime"] for t in tickers if not is_kr(t["category"])), "판정불가")
+    us_regime = next((t["market_regime"] for t in tickers if not is_kr(t["category"]) and not is_jp(t["category"])), "판정불가")
     kr_regime = next((t["market_regime"] for t in tickers if is_kr(t["category"])), "판정불가")
 
     payload = {
         "generated_at": datetime.now(KST).strftime("%Y-%m-%dT%H:%M:%S+09:00"),
         "as_of_date": today,
         "market_regime": {"us": us_regime, "kr": kr_regime},
+        # 보유 종목 → 전략 종목 매칭 규칙: 포트폴리오 화면과 이 대시보드가 같은 목록을 읽는다(signal_bot/proxies.py)
+        "proxies": {"prefix": proxies.ISSUER_PREFIX_RE, "rules": proxies.RULES},
         "tickers": tickers,
     }
 
