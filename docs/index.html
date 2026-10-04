@@ -395,6 +395,7 @@
   /* 상세 확장 */
   .detail { margin-top: 14px; padding-top: 14px; border-top: 0.5px solid var(--hairline); display: none; }
   .card.expanded .detail { display: block; }
+  .card.expanded .spark-block { display: none; }   /* 펼치면 상세 차트(낙폭)가 같은 내용을 더 크게 보여준다 */
 
   .chart-block { margin-bottom: 12px; }
   .detail-chart { display: block; width: 100%; height: auto; font-variant-numeric: tabular-nums; }
@@ -471,7 +472,8 @@
     max-width: 1080px; height: 100%; margin: 0 auto; padding: 0 16px;
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
   }
-  .fs-title { min-width: 0; display: flex; align-items: baseline; gap: 8px; }
+  .fs-title { min-width: 0; display: flex; align-items: baseline; gap: 8px; transition: opacity .18s; }
+  .fs-title.fs-title-hidden { opacity: 0; }   /* hero에 같은 이름이 보이는 동안은 숨김(큰 제목 → 인라인 제목) */
   .fs-title .symb { font-size: 17px; font-weight: 700; }
   .fs-title .name { font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -608,9 +610,25 @@
   /* 포트폴리오 "종목 상세 ⇄ 매매전략" 비교 화면 안(iframe, ?embed=1): 상단 바·목록 없이 그 종목 크게 보기만.
      보기·매수/매도·닫기는 바깥(포트폴리오) 바가 맡으므로 여기 닫기 버튼은 숨긴다. */
   html.embed .topbar, html.embed .wrap, html.embed .toast { display: none !important; }
-  html.embed .fullscreen-header { height: 46px; }
-  html.embed .fullscreen-header-inner { padding: 0 12px; }
-  html.embed .card.fullscreen { padding: 56px 12px 28px; }
+  /* 헤더 띠는 없다 — 이름은 hero 한 곳, 모드는 바깥 바의 [매수|매도] 한 곳. 바깥 .cmp-pane이 흰 카드이므로
+     여기서는 카드 안의 섹션(hero·차트)을 헤어라인으로만 나눠 "하나의 카드"로 보이게 한다. */
+  html.embed body, html.embed .fullscreen-backdrop { background: var(--surface-1); }
+  html.embed .fullscreen-header { display: none; }
+  html.embed .card.fullscreen { max-width: none; padding: 14px 16px 24px; }
+  html.embed .fs-hero, html.embed .card.fullscreen .chart-block {
+    background: transparent; border: 0; border-radius: 0; box-shadow: none; margin-bottom: 0;
+    border-bottom: 0.5px solid var(--hairline);
+  }
+  html.embed .fs-hero { padding: 0 0 14px; }
+  html.embed .card.fullscreen .chart-block { padding: 14px 0 10px; }
+  html.embed .card.fullscreen .chart-block:last-child { border-bottom: 0; }
+  html.embed .card.fullscreen .fs-hero .symb { font-size: 17px; }
+  html.embed .card.fullscreen .fs-hero .name { font-size: 12.5px; }
+  html.embed .card.fullscreen .price-row { font-size: 20px; margin-top: 8px; }
+  html.embed .card.fullscreen .price-row .pct { font-size: 14px; }
+  html.embed .card.fullscreen .stage-badge { font-size: 13px; padding: 4px 10px; }
+  html.embed .fs-hero-side { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  html.embed .fs-hero-side .fs-lookback { height: 28px; font-size: 12px; }
   html.embed [data-action="close-fullscreen"] { display: none; }
   .embed-empty { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
     text-align: center; color: var(--text-muted); font-size: 13px; padding: 24px; }
@@ -669,7 +687,7 @@
 <div id="help-overlay" class="help-overlay">
   <div class="help-panel">
     <div class="help-panel-head">
-      <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg>데이터 읽는 법 — 매수·매도 전략 가이드</h2>
+      <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-book"/></svg>데이터 읽는 법</h2>
       <button id="help-close" class="help-close" aria-label="닫기"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-xmark"/></svg></button>
     </div>
     <div class="help-tabs"><div class="seg" id="help-seg" role="tablist" aria-label="도움말 종류"><span class="chip active" data-pane="buy" role="tab">매수 전략</span><span class="chip" data-pane="sell" role="tab">매도 전략</span></div></div>
@@ -743,7 +761,7 @@
         <p><b>낙폭국면(episode)</b> — 신고가를 찍은 시점부터, 떨어졌다가 다시 신고가로 돌아오기까지의 한 구간("한 번의 하락→회복 사이클").</p>
         <p><b>NEW 신호</b> — 오늘 새로 이 종목에 알림이 발생했다는 표시. 텔레그램으로도 같은 내용이 발송됩니다.</p>
         <p><b>베이스라인 데이터 부족</b> — 최근 상장 등의 이유로 과거 낙폭국면이 5개 미만이라, MDD 백분위를 믿을 만하게 계산할 수 없는 상태. 이 경우 MDD 신호 계산을 생략합니다.</p>
-        <p><b>필터 칩(1단계+/2단계+/3단계, 분류)</b> — 상단 "분류" 칩(미국개별종목/미국ETF/한국지수/한국개별종목/한국ETF)은 여러 개를 동시에 눌러 함께 볼 수 있습니다(다중 선택). "전체"를 누르면 선택이 초기화됩니다. 단계 필터는 "1단계+"를 고르면 1단계 이상, "3단계"를 고르면 가장 극단적인 3단계 종목만 걸러서 보여줍니다.</p>
+        <p><b>필터 칩(1단계+/2단계+/3단계, 분류)</b> — 상단 "분류" 칩(미국개별종목/미국ETF/한국지수/한국개별종목/한국ETF/일본개별종목)은 여러 개를 동시에 눌러 함께 볼 수 있습니다(다중 선택). "전체"를 누르면 선택이 초기화됩니다. 단계 필터는 "1단계+"를 고르면 1단계 이상, "3단계"를 고르면 가장 극단적인 3단계 종목만 걸러서 보여줍니다.</p>
         </div>
       </section>
       <section>
@@ -757,9 +775,9 @@
       <section>
         <h3>카드 맨 위 "의견 요약"은 뭔가요?</h3>
         <div class="help-group">
-        <p>카드 위쪽 2~3줄 박스는 <b>천정 대비 낙폭 단계</b>와 <b>보강 신호 개수</b>를 규칙대로 요약한 것입니다. 매도 지시가 아니라 "정리를 고민해 볼 자리인가"를 점검하는 참고입니다.</p>
-        <p><b>경계</b> — 경고 단계 이상이면서 보강 신호가 2개 이상 겹칠 때. <b>점검</b> — 낙폭은 경고 이상인데 추세 신호가 적을 때(단순 조정일 수 있음). <b>관찰</b> — 주의 단계이거나, 낙폭은 정상인데 약화 신호가 2개 이상 쌓일 때. <b>정상</b> — 낙폭이 정상 범위. <b>참고</b> — 주요 지수(계속 모아가는 대상).</p>
-        <p>칩 옆의 짧은 문구가 그 단계에서 생각해 볼 행동입니다(예: 경계 · 부분 축소 검토). 모두 지시가 아니라 참고입니다.</p>
+        <p>카드 위쪽 2~3줄 박스는 <b>천정 대비 낙폭 단계</b>와 <b>보강 신호 개수</b>를 규칙대로 요약한 것입니다.</p>
+        <p><b>경계</b> — 경고 단계 이상이면서 보강 신호가 2개 이상 겹칠 때. <b>점검</b> — 낙폭은 경고 이상인데 추세 신호가 적을 때(단순 조정일 수 있음). <b>관찰</b> — 주의 단계이거나, 낙폭은 정상인데 약화 신호가 2개 이상 쌓일 때. <b>정상</b> — 낙폭이 정상 범위. <b>참고</b> — 주요 지수.</p>
+        <p>칩 옆의 짧은 문구가 그 단계에서 생각해 볼 행동입니다(예: 경계 · 부분 축소 검토).</p>
         </div>
       </section>
       <section>
@@ -774,7 +792,7 @@
         <h3>배지·게이지 읽는 법</h3>
         <div class="help-group">
         <p><b>천정</b> — 신고가를 돌파한 뒤 찍은 최고 종가입니다. 이후 낙폭이 '주의' 선에 닿으면 확정(▼)되고, 다시 넘어서면 취소됩니다. 그래서 천정은 실제보다 며칠~몇 주 늦게 확정됩니다.</p>
-        <p><span class="dot" style="background:var(--stage-3)"></span> <b>매도검토</b> · <span class="dot" style="background:var(--stage-2)"></span> <b>경고</b> · <span class="dot" style="background:var(--stage-1)"></span> <b>주의</b> · <span class="dot" style="background:var(--text-muted)"></span> <b>정상</b> — 천정 대비 낙폭이 그 종목의 <b>과거 조정 낙폭 분포 P50 / P25 / P10</b> 지점(매수 1·2·3단계와 같은 자, 주의는 최소 -5%)에 닿았는지입니다. <b>P50</b> = 과거 조정의 절반이 이보다 깊었던 지점(평범한 조정을 넘어섬 = 주의), <b>P25</b> = 조정의 25%만 이보다 깊었던 지점(깊은 조정 = 경고), <b>P10</b> = 10%만 이보다 깊었던 극단(= 매도검토)입니다. 대략 -10% / -16% / -29% 안팎이고 종목마다 다릅니다. 과거 표본이 5개 미만이면 기본값 -10% / -17% / -30%를 씁니다. 카드의 진한 세로선 3개가 그 지점이고, 막대 색은 지금 단계를 연하게 나타냅니다. 같은 낙폭에서 매수 화면은 "관심", 매도 화면은 "위험 점검"으로 같은 사실을 반대 방향에서 보므로, 장기보유가 기본이라면 매도검토도 <b>부분 축소를 고민하는 참고</b>로만 쓰세요.</p>
+        <p><span class="dot" style="background:var(--stage-3)"></span> <b>매도검토</b> · <span class="dot" style="background:var(--stage-2)"></span> <b>경고</b> · <span class="dot" style="background:var(--stage-1)"></span> <b>주의</b> · <span class="dot" style="background:var(--text-muted)"></span> <b>정상</b> — 천정 대비 낙폭이 그 종목의 <b>과거 조정 낙폭 분포 P50 / P25 / P10</b> 지점(매수 1·2·3단계와 같은 자, 주의는 최소 -5%)에 닿았는지입니다. <b>P50</b> = 과거 조정의 절반이 이보다 깊었던 지점(평범한 조정을 넘어섬 = 주의), <b>P25</b> = 조정의 25%만 이보다 깊었던 지점(깊은 조정 = 경고), <b>P10</b> = 10%만 이보다 깊었던 극단(= 매도검토)입니다. 대략 -10% / -16% / -29% 안팎이고 종목마다 다릅니다. 과거 표본이 5개 미만이면 기본값 -10% / -17% / -30%를 씁니다. 카드의 진한 세로선 3개가 그 지점이고, 막대 색은 지금 단계를 연하게 나타냅니다. 같은 낙폭에서 매수 화면은 "관심", 매도 화면은 "위험 점검"으로 같은 사실을 반대 방향에서 봅니다.</p>
         <p><b>신고가 기준</b>(60일 / 120일 / 52주 / 사상최고) — 무엇을 넘어야 "신고가 돌파"로 볼지 고릅니다. 영상은 시장 상황에 따라 기준을 바꿉니다. 하락 뒤 반등장에서는 52주 신고가가 잘 안 나오니 3~6개월(60·120봉) 신고가를, 강한 상승장에서는 사상 최고가 신고가를 더 중요하게 봅니다.</p>
         <p><b>참고(주요 지수)</b> — SPY·QQQ·DIA·IWM·KOSPI200은 계속 모아가는 대상이라 같은 계산이지만 "참고"로만 표시합니다.</p>
         <p><b>일/주/월 RSI·MFI 배지</b> — 매수 모드와 반대로 <b>과열</b> 기준입니다. RSI 70 이상 <b>이고 동시에</b> MFI 80 이상이면 확정 과열(빨강), RSI 65·MFI 75 이상이면 근접(주황)입니다. <b>●하락다이버전스</b>는 가격은 신고가인데 RSI/MFI는 이전 고점보다 낮은 경우로, 오르는 힘이 식고 있다는 뜻입니다. 상세 RSI·MFI 차트에는 70/80 기준선이, 가격 차트의 빨간 점이 하락 다이버전스가 감지된 날입니다(가격은 최근 30봉 신고가인데 RSI/MFI 고점은 이전보다 낮은 날 = 오르는 힘이 식는 신호. 상승장에서도 자주 찍히는 참고 신호이니 단독 매도 근거로 삼지 마세요).</p>
@@ -833,7 +851,7 @@
         <details class="sig-card">
           <summary><span class="sig-no">5</span><span class="sig-ttl">상대강도 약화</span><span class="src-badge video">영상 개념</span></summary>
           <div class="sig-body">
-            <p><b>한 줄로</b> — 시장(미국은 SPY, 한국은 KOSPI200)과 비교해 이 종목이 상대적으로 약해지고 있는지입니다.</p>
+            <p><b>한 줄로</b> — 시장(미국은 SPY, 한국은 KOSPI200, 일본은 EWJ)과 비교해 이 종목이 상대적으로 약해지고 있는지입니다.</p>
             <p><b>왜 매도 관점에서 의미 있나</b> — 영상은 차트 기법이 <b>시장 대비 강한 주도주</b>에서 잘 맞고, 약한 종목에서는 확률이 떨어진다고 강조합니다. 셀트리온 사례는 오를 때도 시장보다 힘이 약하고 거래도 줄어드는 "기술적 반등"이라, 반등 시 매도 후보로 봤습니다. 즉 시장보다 약해지는 종목은 <b>먼저 점검할 대상</b>입니다.</p>
             <p><b>화면에서 읽는 법</b> — "SPY 대비 최근 60일 상대수익 -9.8%"는 (종목 가격 ÷ 지수 가격) 비율이 60일 전보다 9.8% 낮아졌다는 뜻입니다. <b>60일 변화가 마이너스이고, 비율이 최근 120일 평균 아래일 때 "해당"</b>입니다.</p>
             <p><b>주의할 점</b> — 시장이 크게 오를 때는 좋은 종목도 잠깐 약해 보일 수 있습니다. 비교할 지수가 없는 종목(SPY, KOSPI200 자신)이나 데이터가 짧으면 "데이터 없음"입니다.</p>
@@ -906,6 +924,7 @@
       <span class="chip" data-cat="한국지수">한국지수</span>
       <span class="chip" data-cat="한국개별종목">한국개별종목</span>
       <span class="chip" data-cat="한국ETF">한국ETF</span>
+      <span class="chip" data-cat="일본개별종목">일본개별종목</span>
     </div>
   </div>
 
@@ -1000,17 +1019,22 @@ function ic(name) {
   return `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-${name}"/></svg>`;
 }
 
+// 통화: 원(KRW)·엔(JPY)은 소수 없이, 달러(USD)는 소수 2자리
+const CUR_SYMBOL = { KRW: "₩", JPY: "¥", USD: "$" };
+const curSym = (currency) => CUR_SYMBOL[currency] || "$";
+const isWholeCur = (currency) => currency === "KRW" || currency === "JPY";
+
 function fmtPrice(t) {
-  const cur = t.currency === "KRW" ? "₩" : "$";
-  const val = t.currency === "KRW" ? t.close.toLocaleString("ko-KR", { maximumFractionDigits: 0 }) : t.close.toFixed(2);
+  const cur = curSym(t.currency);
+  const val = isWholeCur(t.currency) ? t.close.toLocaleString("ko-KR", { maximumFractionDigits: 0 }) : t.close.toFixed(2);
   return `${cur}${val}`;
 }
 
 // 차트 y축 라벨용 - 원화처럼 자릿수가 큰 값은 "8.9만"처럼 축약해서 라벨 폭을
 // 짧게 유지한다(안 그러면 왼쪽 여백을 아무리 늘려도 큰 값에서는 잘리기 쉬움).
 function fmtAxisPrice(v, currency) {
-  const cur = currency === "KRW" ? "₩" : "$";
-  if (currency === "KRW") {
+  const cur = curSym(currency);
+  if (isWholeCur(currency)) {
     const abs = Math.abs(v);
     if (abs >= 100000000) return cur + (v / 100000000).toFixed(1) + "억";
     if (abs >= 10000) return cur + (v / 10000).toFixed(1) + "만";
@@ -1020,8 +1044,8 @@ function fmtAxisPrice(v, currency) {
 }
 
 function fmtExactPrice(v, currency) {
-  const cur = currency === "KRW" ? "₩" : "$";
-  return currency === "KRW"
+  const cur = curSym(currency);
+  return isWholeCur(currency)
     ? cur + Math.round(v).toLocaleString("ko-KR")
     : cur + v.toFixed(2);
 }
@@ -2301,7 +2325,7 @@ function buildSelectionMarkers(kind, records, troughDates, episode) {
 // 거시이벤트 라벨과 항상 같은 겹침방지 배치를 공유해 구조적으로 겹치지 않는다.
 // 크게 보기에서 차트 카드(.chart-block)의 좌우 padding(px) - CSS `.card.fullscreen .chart-block`의
 // padding과 같은 값이어야 차트 폭 계산이 맞는다.
-const LARGE_PANEL_PAD = 14;
+const LARGE_PANEL_PAD = EMBED ? 0 : 14;   // embed는 차트 블록이 카드 테두리·안쪽 여백 없이 하나의 카드 안에 이어진다
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 function detailContentHtml(t, detail, large, selectedEpisode, availW) {
@@ -2514,7 +2538,7 @@ function wireDetailContainer(container, t, detail, large) {
 // 컨테이너가 숨겨져 있으면(display:none) 0이 나오고, 그때는 detailContentHtml이 예전 기본 폭으로 그린다.
 function measureChartWidth(container, large) {
   const w = container.clientWidth;
-  return w ? w - (large ? LARGE_PANEL_PAD * 2 + 1 : 0) : 0; // +1 = 차트 카드 테두리(.5px×2)
+  return w ? w - (large && !EMBED ? LARGE_PANEL_PAD * 2 + 1 : 0) : 0; // +1 = 차트 카드 테두리(.5px×2)
 }
 
 function renderDetailInto(container, t, detail, large) {
@@ -2544,6 +2568,7 @@ window.addEventListener("resize", () => {
 // 종목 카드 상단(우측)의 "크게 보기" 토글을 눌렀을 때 - 그래프만 키우는 게 아니라 그 종목 박스
 // 내용 전체(가격 정보 + 모든 차트)를 화면 전체로 넓혀서, 위에는 요약 · 아래로 큰 차트들이 쌓이는
 // 한 줄기 화면으로 보여준다(폴드 펼침·가로에서도 좌우로 나누지 않는다).
+let fsTitleObs = null;
 function openFullscreen(symb, detail) {
   const t = (DATA && DATA.tickers.find(x => x.symb === symb)) || {};
   fullscreenSymb = symb;
@@ -2553,10 +2578,8 @@ function openFullscreen(symb, detail) {
   card.innerHTML = `
     <div class="fullscreen-header">
       <div class="fullscreen-header-inner">
-        <div class="fs-title"><span class="symb">${escapeHtml(t.symb)}</span><span class="name">${escapeHtml(t.name)}</span></div>
+        <div class="fs-title" id="fs-title"><span class="symb">${escapeHtml(t.symb)}</span><span class="name">${escapeHtml(t.name)}</span></div>
         <div class="fs-tools">
-          ${EMBED ? `<span class="fs-mode ${isSell() ? "sell" : "buy"}">${isSell() ? "매도 전략" : "매수 전략"}</span>` : ""}
-          ${EMBED && isSell() ? `<select class="sort-select fs-lookback" aria-label="신고가 기준">${Object.entries({ "60": "60일", "120": "120일", "250": "52주", "0": "사상최고" }).map(([v, l]) => `<option value="${v}"${v === state.lookback ? " selected" : ""}>${l}</option>`).join("")}</select>` : ""}
           ${!EMBED && heldPortfolioLink(t.symb) ? `<a class="btn btn-tint" href="${heldPortfolioLink(t.symb)}" title="포트폴리오의 내 보유 종목 상세와 나란히 비교">${ic("columns")}<span class="lbl-long">내 보유 상세 나란히</span><span class="lbl-short">내 보유</span></a>` : ""}
           <button type="button" class="btn btn-tint" data-action="close-fullscreen" aria-label="닫기" title="원본으로 보기">${ic("xmark")}닫기</button>
         </div>
@@ -2569,17 +2592,28 @@ function openFullscreen(symb, detail) {
           <div class="name">${escapeHtml(t.name)}</div>
           <div class="cat-tag">${escapeHtml(catLabel(t.category))}</div>
         </div>
-        ${stageBadgeHtml(t)}
+        ${EMBED
+          ? `<div class="fs-hero-side">${isSell() ? `<select class="sort-select fs-lookback" aria-label="신고가 기준">${Object.entries({ "60": "60일", "120": "120일", "250": "52주", "0": "사상최고" }).map(([v, l]) => `<option value="${v}"${v === state.lookback ? " selected" : ""}>${l}</option>`).join("")}</select>` : ""}${stageBadgeHtml(t)}</div>`
+          : stageBadgeHtml(t)}
       </div>
       <div class="price-row">
         <span>${fmtPrice(t)}</span>
         <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
-        <span class="dd">${ddTextHtml(t)}</span>
+        ${ddTextHtml(t) ? `<span class="dd">${ddTextHtml(t)}</span>` : ""}
       </div>
       ${statsBlockHtml(t, { skipSpark: true, large: true })}
     </section>
     <div class="fullscreen-charts"></div>
   `;
+  // 큰 제목 패턴: hero(이름)가 화면에 보이는 동안 헤더 제목은 숨기고, 스크롤로 hero가 위로 사라지면 헤더에 나타난다
+  if (fsTitleObs) { fsTitleObs.disconnect(); fsTitleObs = null; }
+  const fsTitle = card.querySelector("#fs-title"), fsBlock = card.querySelector(".fs-hero .ticker-block");
+  if (!EMBED && fsTitle && fsBlock && "IntersectionObserver" in window) {
+    fsTitle.classList.add("fs-title-hidden");
+    fsTitleObs = new IntersectionObserver(([en]) => fsTitle.classList.toggle("fs-title-hidden", en.isIntersecting),
+      { root: document.getElementById("fullscreen-backdrop"), rootMargin: "-52px 0px 0px 0px", threshold: 0 });
+    fsTitleObs.observe(fsBlock);
+  }
   // 닫기 버튼은 누르면 화면이 바로 사라져서 눌린 모습이 안 보이므로, 눌림 표시를 보여준 뒤 닫는다.
   card.querySelector('[data-action="close-fullscreen"]').addEventListener("click", (e) => {
     e.currentTarget.classList.add("pressed-flash");
@@ -2599,19 +2633,31 @@ function openFullscreen(symb, detail) {
   postParent({ type: "kis:shown", symb, mode: state.mode });
 }
 
+// 보유 종목 → 전략 종목: 직접(티커 일치) 또는 기초지수·유사 ETF 규칙(DATA.proxies — 포트폴리오 화면과 같은 목록).
+// 포트폴리오의 resolveSignalSymb와 같은 알고리즘이다(규칙 자체는 signal_bot/proxies.py 한 곳).
+function resolveHolding(a) {
+  const universe = new Set(DATA ? DATA.tickers.map(t => t.symb) : []);
+  const tk = String(a.ticker || "").trim().toUpperCase().replace(/\.(KS|KQ|T)$/, "");
+  if (tk && universe.has(tk)) return tk;
+  const px = DATA && DATA.proxies;
+  if (!px) return null;
+  const nm = String(a.name || "").trim();
+  const isEtf = new RegExp(px.prefix, "i").test(nm);
+  const stripped = nm.replace(new RegExp(px.prefix, "i"), "");
+  for (const r of px.rules) {
+    const hit = r.tk ? (tk && new RegExp(r.tk, "i").test(tk)) : (isEtf && stripped && new RegExp(r.re, "i").test(stripped));
+    if (hit) return r.symb || null;
+  }
+  return null;
+}
+
 // 이 종목을 포트폴리오에서 보유 중이면 비교 화면으로 가는 링크(같은 origin이라 포트폴리오 localStorage를 읽는다).
-// 국내상장 미국지수 ETF(TIGER 미국S&P500 등)는 SPY/QQQ 보유로 본다 — 포트폴리오의 signalSymbIndex와 같은 규칙.
 function heldPortfolioLink(symb) {
   let assets;
   try { assets = JSON.parse(localStorage.getItem("pf_assets_v1") || "[]"); } catch (e) { return null; }
   if (!Array.isArray(assets)) return null;
   const S = String(symb).toUpperCase();
-  const held = assets.some(a => {
-    if (!a || a.acctType === "cash" || !(a.quantity > 0)) return false;
-    if (String(a.ticker || "").trim().toUpperCase().replace(/\.(KS|KQ)$/, "") === S) return true;
-    const n = String(a.name || "").replace(/\s+/g, "");
-    return (S === "SPY" && /미국S&P500/.test(n)) || (S === "QQQ" && /미국나스닥100/.test(n));
-  });
+  const held = assets.some(a => a && a.acctType !== "cash" && a.quantity > 0 && resolveHolding(a) === S);
   if (!held) return null;
   const inDashboard = /\/signals\/(index\.html)?$/.test(location.pathname);
   const base = inDashboard ? "../portfolio/" : "https://withgest-lab.github.io/portfolio-retirement-dashboard/portfolio/";
@@ -2720,6 +2766,7 @@ function stageBadgeHtml(t) {
 function ddTextHtml(t) {
   if (!isSell()) return `낙폭 ${(t.depth * 100).toFixed(1)}%`;
   const s = sellInfo(t);
+  if (s && s.stage > 0) return "";   // 단계 배지("경고 -17.3%")가 같은 낙폭 수치를 이미 보여준다
   return s ? `천정 대비 ${(s.depth * 100).toFixed(1)}%` : "천정 대비 -";
 }
 
@@ -2793,15 +2840,14 @@ function buyOpinion(t) {
   const tech = sg.confirmed.length ? `${sg.confirmed.join("·")} RSI·MFI 과매도 확인`
     : sg.near.length ? `${sg.near.join("·")} 과매도 근접` : "RSI·MFI는 아직 과매도 아님";
   const div = sg.div.length ? ` · ${sg.div.join("·")} 다이버전스` : "";
-  const l2 = `낙폭 <b>${d}</b> — ${posText}. ${tech}${div}.`;
+  const l2 = `${posText}. ${tech}${div}.`;   // 낙폭 수치는 가격 줄(.dd)에 이미 있다
   // 3번째 줄: 화면을 펼치지 않아도 볼 수 있는 의미 있는 숫자(다음 단계까지 남은 폭 + 과거 회복 기간).
   const keys = ["p50", "p25", "p10"], names = ["P50", "P25", "P10"];
   const nextTxt = t.stage < 3 ? `다음 단계 ${names[t.stage]}(${pct(p[keys[t.stage]])})까지 ${((t.depth - p[keys[t.stage]]) * 100).toFixed(1)}%p` : "P10 극단 구간";
-  const recTxt = p.recovery_days_median ? `과거 조정은 회복까지 보통 ${fmtDays(p.recovery_days_median)}` : "";
-  const l3 = [nextTxt, recTxt].filter(Boolean).join(" · ");
+  const l3 = nextTxt;   // 과거 회복기간은 아래 recovery-line이 보여준다
   const confirmed = sg.confirmed.length > 0 || sg.div.length > 0;
   if (t.is_record_drawdown) {
-    return opinionBox("caution", "주의", "과거 어떤 조정보다 깊습니다 — 회복 근거가 약함", l2, "과거 완결 조정 최대 낙폭을 넘어 비교할 회복 사례가 없습니다", false);
+    return opinionBox("caution", "주의", "과거 어떤 조정보다 깊습니다 — 회복 근거가 약함", l2, "", false);   // 같은 말은 "사상 최대 낙폭" 배지가 한다
   }
   if (t.stage >= 2 && confirmed) {
     return opinionBox("strong", "매수 관심", t.stage === 3 ? "극단적 낙폭 + 반등 신호 확인" : "깊은 낙폭 + 반등 신호 확인", l2, l3, false);
@@ -2828,15 +2874,17 @@ function sellOpinion(t) {
   const next = s.stage < 3
     ? `${SELL_STAGE_NAME[s.stage + 1]}(${pct(s.levels[s.stage])})까지 ${((s.depth - s.levels[s.stage]) * 100).toFixed(1)}%p`
     : "매도검토 임계를 넘음";
-  const l2 = `천정 대비 <b>${pct(s.depth)}</b> — ${s.stage === 0 ? "정상 범위" : SELL_STAGE_NAME[s.stage] + " 단계"}, ${next}.`;
+  // 천정 대비 낙폭 수치는 단계 배지(정상이면 가격 줄)가 이미 보여준다 — 여기서는 단계와 다음 단계까지만
+  const l2 = `${s.stage === 0 ? "정상 범위" : SELL_STAGE_NAME[s.stage] + " 단계"}, ${next}.`;
   if (s.tag === "core") {
-    return opinionBox("ref", "참고", s.stage > 0 ? "주요 지수 — 계속 모아가는 대상이라 조정은 참고용" : "주요 지수 — 정상 범위", l2, sig, false, "조정은 참고용");
+    // "계속 모아가는 대상이라 참고용" 설명은 아래 .sell-note가 한 번만 한다
+    return opinionBox("ref", "참고", s.stage > 0 ? "주요 지수 조정 구간" : "주요 지수", l2, sig, false);
   }
   if (s.stage >= 2 && s.hits >= 2) return opinionBox("alert", "경계", "경고권 낙폭 + 추세 약화 신호가 겹침", l2, sig, false, "부분 축소 검토");
   if (s.stage >= 2) return opinionBox("mixed", "점검", "낙폭은 경고권이나 추세 신호는 적음(단순 조정 가능)", l2, sig, false, "단순 조정 여부 확인");
-  if (s.stage === 1) return opinionBox("watch", "관찰", "천정이 확정됐고 조정 초기", l2, sig, false, "조정 초기 지켜봄");
-  if (s.hits >= 2) return opinionBox("watch", "관찰", "낙폭은 정상이나 약화 신호가 쌓이는 중", l2, sig, false, "약화 신호 지켜봄");
-  return opinionBox("ok", "정상", "천정 대비 낙폭이 정상 범위", l2, s.hits ? sig : "", false);
+  if (s.stage === 1) return opinionBox("watch", "관찰", "천정이 확정됐고 조정 초기", l2, sig, false);
+  if (s.hits >= 2) return opinionBox("watch", "관찰", "낙폭은 정상이나 약화 신호가 쌓이는 중", l2, sig, false);
+  return opinionBox("ok", "정상", "특이 신호 없음", l2, s.hits ? sig : "", false);
 }
 
 function opinionHtml(t) { return isSell() ? sellOpinion(t) : buyOpinion(t); }
@@ -2850,16 +2898,16 @@ function sellStatsBlockHtml(t, opts) {
   }
   const gauge = `
     <div class="mini-chart-block">
-      <div class="chart-label">천정 대비 낙폭 <span class="sub">· 신고가 기준 ${LOOKBACK_LABELS[state.lookback]}</span></div>
+      <div class="chart-label">천정 대비 낙폭${EMBED ? "" : ` <span class="sub">· 신고가 기준 ${LOOKBACK_LABELS[state.lookback]}</span>`}</div>
       ${sellGaugeSvg(s.depth, s.levels)}
     </div>`;
-  const count = `<div class="sell-count">보강 신호 ${s.hits}/${s.avail} 해당</div>`;
+  const count = "";   // 보강 신호 N/M은 위 의견 박스(l3)가 이미 말한다
   const fb = s.fallback ? `<div class="sell-note">과거 낙폭 표본이 부족해 기본 임계(-10/-17/-30%)를 씁니다.</div>` : "";
   const note = SELL_TAG_NOTE[s.tag] ? `<div class="sell-note">${SELL_TAG_NOTE[s.tag]}</div>` : "";
   const recovery = sellRecoveryLineHtml(s.rec);
   const badges = t.is_record_drawdown ? `<div class="record-badge">${ic("warning")}사상 최대 낙폭</div>` : "";
   const spark = (opts && opts.skipSpark) ? "" : `
-    <div class="mini-chart-block">
+    <div class="mini-chart-block spark-block">
       <div class="chart-label">천정 대비 낙폭 추이(최근 1년)</div>
       ${underwaterSparkSvg((s.spark || []).map(d => ({ depth: d })))}
     </div>`;
@@ -3241,7 +3289,7 @@ function sellPerfTableHtml(perf) {
 }
 
 function sellSignalsHtml(sell, by, t) {
-  const bench = /^한국/.test(t.category || "") ? "KOSPI200" : "SPY";
+  const bench = /^한국/.test(t.category || "") ? "KOSPI200" : /^일본/.test(t.category || "") ? "EWJ" : "SPY";
   const row = (name, sig, txt) => {
     if (!sig) return `<li class="sig-item"><span class="dot"></span><span class="sig-name">${name}</span><span class="sig-txt">데이터 없음</span><span class="sig-state">-</span></li>`;
     return `<li class="sig-item${sig.hit ? " hit" : ""}"><span class="dot"></span><span class="sig-name">${name}</span><span class="sig-txt">${txt}</span><span class="sig-state">${sig.hit ? "해당" : "비해당"}</span></li>`;
@@ -3290,9 +3338,9 @@ function statsBlockHtml(t, opts) {
     </div>`;
   const recovery = recoveryLineHtml(t.percentiles);
   const badges = `${t.is_record_drawdown ? `<div class="record-badge">${ic("warning")}사상 최대 낙폭</div>` : ""}
-    ${t.mdd_alert ? `<div class="mdd-badge">${ic("bell")}${escapeHtml(t.mdd_alert.label)} (장기매수 참고)</div>` : ""}`;
+    ${t.mdd_alert ? `<div class="mdd-badge">${ic("bell")}${escapeHtml(t.mdd_alert.label)}</div>` : ""}`;
   const spark = skipSpark ? "" : `
-    <div class="mini-chart-block">
+    <div class="mini-chart-block spark-block">
       <div class="chart-label">낙폭 추이(최근 1년)</div>
       ${underwaterSparkSvg(t.underwater_spark)}
     </div>`;
@@ -3324,7 +3372,7 @@ function cardHtml(t) {
     <div class="price-row">
       <span>${fmtPrice(t)}</span>
       <span class="pct ${pctClass}">${pctSign}${t.pct_chg.toFixed(2)}%</span>
-      <span class="dd">${ddTextHtml(t)}</span>
+      ${ddTextHtml(t) ? `<span class="dd">${ddTextHtml(t)}</span>` : ""}
     </div>
     ${statsBlockHtml(t)}
     <div class="detail">
@@ -3433,12 +3481,11 @@ function render() {
     el.addEventListener("click", () => goToTicker(el.dataset.symb));
   });
 
-  const SORT_LABELS = { cap: "시가총액순", stage: isSell() ? "위험단계순" : "MDD단계순", depth: "낙폭깊은순", pct_chg: "등락률순", symb: "알파벳순" };
   const filterActive = state.stage !== "all" || state.category.size > 0 || state.search.trim() !== "";
   const countEl = document.getElementById("grid-count");
   countEl.innerHTML = (filterActive
     ? `${ic("check-circle")}<span>필터 적용됨 - ${list.length}종목 표시 중 (전체 ${DATA.tickers.length}종목)`
-    : `<span>전체 ${list.length}종목`) + ` · 정렬: ${SORT_LABELS[state.sort] || state.sort}</span>`;
+    : `<span>전체 ${list.length}종목`) + `</span>`;   // 정렬 기준은 바로 옆 정렬 선택이 보여준다
   // 뭔가 바뀔 때마다 잠깐 강조색으로 반짝여서 "적용됐다"는 걸 눈에 띄게 함.
   countEl.classList.remove("flash");
   requestAnimationFrame(() => countEl.classList.add("flash"));
@@ -3585,7 +3632,7 @@ async function init() {
     if (!res.ok) throw new Error("scores.json 로드 실패: " + res.status);
     DATA = await res.json();
     document.getElementById("meta-line").textContent =
-      `기준일 ${fmtDateFull(DATA.as_of_date)} · 총 ${DATA.tickers.length}종목`;
+      `기준일 ${fmtDateFull(DATA.as_of_date)}`;   // 종목 수는 아래 grid-count가 보여준다
     document.getElementById("footer").textContent =
       "매일 한국시간 07:30 자동 갱신 · 조회/알림 전용 시스템(자동매매 없음) · " +
       "MDD/RSI/MFI/다이버전스는 참고 지표이며 최종 매수판단은 사용자가 직접 합니다";
