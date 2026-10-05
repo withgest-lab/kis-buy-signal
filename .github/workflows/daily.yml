@@ -67,7 +67,7 @@ jobs:
       # 없거나 오래돼도(baseline_fetch.py의 is_stale()이 파일 존재 여부까지
       # 확인하도록 되어있어) 안전하게 재수집되므로 안전망은 이미 있음.
       - name: Restore MDD baseline cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: signal_bot/data/baseline
           key: mdd-baseline-${{ github.run_id }}
