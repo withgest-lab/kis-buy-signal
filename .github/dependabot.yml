@@ -1,0 +1,7 @@
+# 제3자 액션(커밋 SHA로 고정한 것 포함)과 공식 액션의 새 버전을 월 1회 PR로 알려준다.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
