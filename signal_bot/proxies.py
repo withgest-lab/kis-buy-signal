@@ -1,6 +1,6 @@
 """보유 종목 → 매매 전략 종목(기초지수 ETF) 매칭 규칙.
 
-포트폴리오 화면(portfolio/)과 이 대시보드(docs/index.html)가 **같은 규칙을 읽는다** —
+포트폴리오 화면(portfolio/)과 매매전략 화면(portfolio-retirement-dashboard 저장소 signals/)이 **같은 규칙을 읽는다** —
 export_dashboard.py가 이 목록을 docs/scores.json 의 "proxies" 로 내보내고, 두 화면은 그걸 그대로 쓴다.
 (예전에는 두 화면에 SPY/QQQ 정규식이 따로 복사돼 있었다.)
 

@@ -601,3 +601,11 @@ history.json이 쌓이길 기다리지 않고, `signal_bot/backtest_fetch.py`로
 - API 키, 토큰 등 민감정보는 채팅에 직접 값으로 출력하거나 요구하지 말 것
 - Phase 1 범위(조회+알림)를 벗어나는 주문/매매 관련 코드는 사용자가
   명시적으로 요청하기 전까지 절대 구현하지 말 것
+
+---
+
+## 10. 2026-10-05 이후 역할 분담 (최신)
+
+- 이 저장소 = **데이터 엔진**: 매일 GitHub 서버(`daily.yml`)에서 시세→신호→텔레그램→`data` 브랜치(JSON) 발행. 실패하면 텔레그램으로 알림.
+- 화면(매매전략·나란히 비교 포함)은 `portfolio-retirement-dashboard` 저장소 `signals/`로 이전. 사이트 배포도 그쪽이 맡아 2시간마다 `data` 브랜치를 확인한다(비밀값 없음).
+- 위 본문의 "`docs/index.html` 대시보드" 설명은 이전 구조 기록이다. 복구 절차는 `portfolio-retirement-dashboard/RECOVERY.md`.

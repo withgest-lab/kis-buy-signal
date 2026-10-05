@@ -20,8 +20,11 @@ MTS 앱에서 직접 수동으로 매매합니다.
 
 ## 라이브 대시보드
 
-[`docs/index.html`](docs/index.html)이 GitHub Pages로 공개돼 있으며, 위 3번 단계가 매일
-새로 발행하는 `scores.json`/`detail/*.json`만 읽어 그립니다.
+이 저장소는 **데이터 엔진**입니다 — 매일 GitHub 서버에서 시세→신호 계산→텔레그램 알림을 돌리고, 결과
+`scores.json`/`detail/*.json`을 `data` 브랜치에 발행합니다. **화면은
+[`portfolio-retirement-dashboard`](https://github.com/withgest-lab/portfolio-retirement-dashboard)의
+`signals/`** 에 있고, 그 저장소의 배포가 2시간마다 `data` 브랜치를 확인해 바뀌었을 때 가져갑니다.
+(`docs/index.html`은 새 주소로 안내하는 작은 페이지입니다.)
 
 ## 다른 저장소와의 관계
 
