@@ -108,7 +108,7 @@
     "last_stage_notified": 1
   },
   "SPY": {
-    "episode_start_date": "2026-09-04",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "QQQ": {
@@ -180,8 +180,8 @@
     "last_stage_notified": 0
   },
   "NVDA": {
-    "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "episode_start_date": null,
+    "last_stage_notified": 0
   },
   "AAPL": {
     "episode_start_date": "2026-09-28",
@@ -228,7 +228,7 @@
     "last_stage_notified": 0
   },
   "ABBV": {
-    "episode_start_date": "2026-09-29",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "BAC": {
@@ -513,7 +513,7 @@
   },
   "MRK": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "FCX": {
     "episode_start_date": "2026-09-24",
