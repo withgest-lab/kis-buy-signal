@@ -4,11 +4,11 @@
     "notified_levels": []
   },
   "QQQ": {
-    "episode_start": "2026-06-03",
+    "episode_start": null,
     "notified_levels": []
   },
   "DIA": {
-    "episode_start": null,
+    "episode_start": "2026-08-06",
     "notified_levels": []
   },
   "SOXX": {
