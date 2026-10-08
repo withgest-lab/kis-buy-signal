@@ -92,7 +92,7 @@
     "last_stage_notified": 2
   },
   "AMD": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-07",
     "last_stage_notified": 0
   },
   "ASML": {
@@ -168,7 +168,7 @@
     "last_stage_notified": 0
   },
   "CIBR": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-07",
     "last_stage_notified": 0
   },
   "BUG": {
@@ -180,7 +180,7 @@
     "last_stage_notified": 0
   },
   "NVDA": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-07",
     "last_stage_notified": 0
   },
   "AAPL": {
@@ -325,7 +325,7 @@
   },
   "015760": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "069500": {
     "episode_start_date": "2026-09-23",
@@ -401,7 +401,7 @@
   },
   "055550": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "086790": {
     "episode_start_date": "2026-09-23",
@@ -581,7 +581,7 @@
   },
   "6758": {
     "episode_start_date": "2026-10-02",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "IEF": {
     "episode_start_date": null,
@@ -596,7 +596,7 @@
     "last_stage_notified": 0
   },
   "EWJ": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-07",
     "last_stage_notified": 0
   },
   "6268": {
@@ -620,7 +620,7 @@
     "last_stage_notified": 0
   },
   "6501": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-08",
     "last_stage_notified": 0
   },
   "9432": {
