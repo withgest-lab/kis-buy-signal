@@ -100,15 +100,15 @@
     "last_stage_notified": 2
   },
   "PLTR": {
-    "episode_start_date": "2026-09-04",
-    "last_stage_notified": 2
+    "episode_start_date": null,
+    "last_stage_notified": 0
   },
   "CAT": {
     "episode_start_date": "2026-09-04",
     "last_stage_notified": 1
   },
   "SPY": {
-    "episode_start_date": "2026-10-08",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "QQQ": {
@@ -132,7 +132,7 @@
     "last_stage_notified": 1
   },
   "XLE": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-09",
     "last_stage_notified": 0
   },
   "XLV": {
@@ -168,7 +168,7 @@
     "last_stage_notified": 0
   },
   "CIBR": {
-    "episode_start_date": "2026-10-07",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "BUG": {
@@ -184,11 +184,11 @@
     "last_stage_notified": 0
   },
   "AAPL": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-09",
     "last_stage_notified": 0
   },
   "MSFT": {
-    "episode_start_date": "2026-09-04",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "AMZN": {
@@ -212,7 +212,7 @@
     "last_stage_notified": 0
   },
   "V": {
-    "episode_start_date": "2026-09-04",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "JNJ": {
@@ -613,7 +613,7 @@
   },
   "8306": {
     "episode_start_date": "2026-10-02",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "6098": {
     "episode_start_date": "2026-10-02",

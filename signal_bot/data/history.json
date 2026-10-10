@@ -510723,5 +510723,7158 @@
         }
       }
     }
+  },
+  "2026-10-09": {
+    "AIPO": {
+      "category": "섹터ETF",
+      "symb": "AIPO",
+      "name": "AI Infra ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 28.84,
+      "pct_chg": 0.87,
+      "market_regime": "상승장",
+      "depth": -0.1705,
+      "rolling_high": 34.77,
+      "stage": 3,
+      "percentiles": {
+        "count": 6,
+        "p50": -0.1021,
+        "p25": -0.12905,
+        "p10": -0.15389999999999998,
+        "recovery_days_min": 9,
+        "recovery_days_median": 15,
+        "recovery_days_max": 70
+      },
+      "episode_count": 7,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 50.1,
+          "mfi": 40.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.2,
+          "mfi": 41.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 54.4,
+          "mfi": 56.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ARKK": {
+      "category": "섹터ETF",
+      "symb": "ARKK",
+      "name": "ARK Innovation ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 89.62,
+      "pct_chg": 2.31,
+      "market_regime": "상승장",
+      "depth": -0.4229,
+      "rolling_high": 155.3,
+      "stage": 3,
+      "percentiles": {
+        "count": 22,
+        "p50": -0.08935,
+        "p25": -0.155825,
+        "p10": -0.27864,
+        "recovery_days_min": 3,
+        "recovery_days_median": 26,
+        "recovery_days_max": 308
+      },
+      "episode_count": 23,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 54.6,
+          "mfi": 52.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 61.4,
+          "mfi": 61.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 62.6,
+          "mfi": 46.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ITA": {
+      "category": "섹터ETF",
+      "symb": "ITA",
+      "name": "Aerospace & Defense ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 206.65,
+      "pct_chg": 0.86,
+      "market_regime": "상승장",
+      "depth": -0.183,
+      "rolling_high": 252.92,
+      "stage": 3,
+      "percentiles": {
+        "count": 30,
+        "p50": -0.07350000000000001,
+        "p25": -0.105125,
+        "p10": -0.17997999999999997,
+        "recovery_days_min": 10,
+        "recovery_days_median": 39,
+        "recovery_days_max": 1301
+      },
+      "episode_count": 31,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 33.3,
+          "mfi": 29.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 37.3,
+          "mfi": 27.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 54.4,
+          "mfi": 57.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "MCHI": {
+      "category": "섹터ETF",
+      "symb": "MCHI",
+      "name": "China ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 52.55,
+      "pct_chg": 2.32,
+      "market_regime": "상승장",
+      "depth": -0.3931,
+      "rolling_high": 86.59,
+      "stage": 3,
+      "percentiles": {
+        "count": 9,
+        "p50": -0.0742,
+        "p25": -0.1096,
+        "p10": -0.17328,
+        "recovery_days_min": 8,
+        "recovery_days_median": 31,
+        "recovery_days_max": 614
+      },
+      "episode_count": 10,
+      "is_record_drawdown": true,
+      "timeframes": {
+        "daily": {
+          "rsi": 47.7,
+          "mfi": 42.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 42.7,
+          "mfi": 63.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 48.7,
+          "mfi": 35.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ORCL": {
+      "category": "개별종목",
+      "symb": "ORCL",
+      "name": "Oracle Corp",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 141.4,
+      "pct_chg": 4.59,
+      "market_regime": "상승장",
+      "depth": -0.5644,
+      "rolling_high": 324.63,
+      "stage": 3,
+      "percentiles": {
+        "count": 30,
+        "p50": -0.09725,
+        "p25": -0.127075,
+        "p10": -0.26292,
+        "recovery_days_min": 6,
+        "recovery_days_median": 32,
+        "recovery_days_max": 558
+      },
+      "episode_count": 31,
+      "is_record_drawdown": true,
+      "timeframes": {
+        "daily": {
+          "rsi": 48.7,
+          "mfi": 54.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 44.2,
+          "mfi": 47.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 46.7,
+          "mfi": 46.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "UNH": {
+      "category": "개별종목",
+      "symb": "UNH",
+      "name": "UnitedHealth Group",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 379.3,
+      "pct_chg": 2.25,
+      "market_regime": "상승장",
+      "depth": -0.3637,
+      "rolling_high": 596.11,
+      "stage": 3,
+      "percentiles": {
+        "count": 39,
+        "p50": -0.0873,
+        "p25": -0.1106,
+        "p10": -0.18782,
+        "recovery_days_min": 6,
+        "recovery_days_median": 41,
+        "recovery_days_max": 1074
+      },
+      "episode_count": 40,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 49.9,
+          "mfi": 59.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 50.7,
+          "mfi": 33.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.7,
+          "mfi": 58.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "HD": {
+      "category": "개별종목",
+      "symb": "HD",
+      "name": "Home Depot",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 290.74,
+      "pct_chg": -1.6,
+      "market_regime": "상승장",
+      "depth": -0.2942,
+      "rolling_high": 411.93,
+      "stage": 3,
+      "percentiles": {
+        "count": 30,
+        "p50": -0.09445,
+        "p25": -0.16799999999999998,
+        "p10": -0.26521999999999996,
+        "recovery_days_min": 8,
+        "recovery_days_median": 60,
+        "recovery_days_max": 658
+      },
+      "episode_count": 31,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 41.7,
+          "mfi": 35.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 37.1,
+          "mfi": 23.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 40.8,
+          "mfi": 39.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "MCD": {
+      "category": "개별종목",
+      "symb": "MCD",
+      "name": "McDonald's",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 235.23,
+      "pct_chg": -0.7,
+      "market_regime": "상승장",
+      "depth": -0.2968,
+      "rolling_high": 334.5,
+      "stage": 3,
+      "percentiles": {
+        "count": 29,
+        "p50": -0.0972,
+        "p25": -0.155,
+        "p10": -0.17706,
+        "recovery_days_min": 21,
+        "recovery_days_median": 94,
+        "recovery_days_max": 318
+      },
+      "episode_count": 30,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 37.0,
+          "mfi": 35.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 27.5,
+          "mfi": 36.4,
+          "divergence": false,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 36.4,
+          "mfi": 27.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "PEP": {
+      "category": "개별종목",
+      "symb": "PEP",
+      "name": "PepsiCo",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 125.97,
+      "pct_chg": -1.85,
+      "market_regime": "상승장",
+      "depth": -0.2742,
+      "rolling_high": 173.55,
+      "stage": 3,
+      "percentiles": {
+        "count": 10,
+        "p50": -0.11665,
+        "p25": -0.130175,
+        "p10": -0.21278,
+        "recovery_days_min": 33,
+        "recovery_days_median": 73,
+        "recovery_days_max": 205
+      },
+      "episode_count": 11,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 37.4,
+          "mfi": 36.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 31.3,
+          "mfi": 24.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 40.3,
+          "mfi": 46.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "CRM": {
+      "category": "개별종목",
+      "symb": "CRM",
+      "name": "Salesforce",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 229.13,
+      "pct_chg": 0.58,
+      "market_regime": "상승장",
+      "depth": -0.3681,
+      "rolling_high": 362.58,
+      "stage": 3,
+      "percentiles": {
+        "count": 46,
+        "p50": -0.1143,
+        "p25": -0.214475,
+        "p10": -0.32655,
+        "recovery_days_min": 1,
+        "recovery_days_median": 33,
+        "recovery_days_max": 579
+      },
+      "episode_count": 47,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 48.1,
+          "mfi": 43.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 57.8,
+          "mfi": 62.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 50.0,
+          "mfi": 48.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ADBE": {
+      "category": "개별종목",
+      "symb": "ADBE",
+      "name": "Adobe",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 242.27,
+      "pct_chg": 0.51,
+      "market_regime": "상승장",
+      "depth": -0.6481,
+      "rolling_high": 688.37,
+      "stage": 3,
+      "percentiles": {
+        "count": 31,
+        "p50": -0.0855,
+        "p25": -0.16135,
+        "p10": -0.2272,
+        "recovery_days_min": 7,
+        "recovery_days_median": 34,
+        "recovery_days_max": 1437
+      },
+      "episode_count": 32,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 46.8,
+          "mfi": 47.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 46.3,
+          "mfi": 65.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 38.7,
+          "mfi": 37.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "NOW": {
+      "category": "개별종목",
+      "symb": "NOW",
+      "name": "ServiceNow",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 140.86,
+      "pct_chg": 0.79,
+      "market_regime": "상승장",
+      "depth": -0.3982,
+      "rolling_high": 234.08,
+      "stage": 3,
+      "percentiles": {
+        "count": 48,
+        "p50": -0.09815,
+        "p25": -0.12764999999999999,
+        "p10": -0.28123,
+        "recovery_days_min": 3,
+        "recovery_days_median": 21,
+        "recovery_days_max": 526
+      },
+      "episode_count": 49,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 57.6,
+          "mfi": 71.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 60.1,
+          "mfi": 68.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.6,
+          "mfi": 34.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "NFLX": {
+      "category": "개별종목",
+      "symb": "NFLX",
+      "name": "Netflix",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 70.3,
+      "pct_chg": -1.77,
+      "market_regime": "상승장",
+      "depth": -0.475,
+      "rolling_high": 133.91,
+      "stage": 3,
+      "percentiles": {
+        "count": 55,
+        "p50": -0.1188,
+        "p25": -0.19390000000000002,
+        "p10": -0.33178,
+        "recovery_days_min": 3,
+        "recovery_days_median": 24,
+        "recovery_days_max": 690
+      },
+      "episode_count": 56,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 43.8,
+          "mfi": 35.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 38.7,
+          "mfi": 39.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 42.1,
+          "mfi": 38.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "TMUS": {
+      "category": "개별종목",
+      "symb": "TMUS",
+      "name": "T-Mobile US",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 148.58,
+      "pct_chg": -13.27,
+      "market_regime": "상승장",
+      "depth": -0.4399,
+      "rolling_high": 265.27,
+      "stage": 3,
+      "percentiles": {
+        "count": 23,
+        "p50": -0.0842,
+        "p25": -0.14090000000000003,
+        "p10": -0.1857,
+        "recovery_days_min": 10,
+        "recovery_days_median": 29,
+        "recovery_days_max": 324
+      },
+      "episode_count": 24,
+      "is_record_drawdown": true,
+      "timeframes": {
+        "daily": {
+          "rsi": 29.2,
+          "mfi": 48.7,
+          "divergence": true,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 28.7,
+          "mfi": 39.3,
+          "divergence": true,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 35.7,
+          "mfi": 25.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "AMT": {
+      "category": "개별종목",
+      "symb": "AMT",
+      "name": "American Tower",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 182.24,
+      "pct_chg": 9.3,
+      "market_regime": "상승장",
+      "depth": -0.2907,
+      "rolling_high": 256.92,
+      "stage": 3,
+      "percentiles": {
+        "count": 28,
+        "p50": -0.07755000000000001,
+        "p25": -0.146625,
+        "p10": -0.21228999999999998,
+        "recovery_days_min": 8,
+        "recovery_days_median": 46,
+        "recovery_days_max": 675
+      },
+      "episode_count": 29,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 69.1,
+          "mfi": 50.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 56.5,
+          "mfi": 47.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 50.5,
+          "mfi": 37.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "005380": {
+      "category": "한국개별종목",
+      "symb": "005380",
+      "name": "현대차",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 324500.0,
+      "pct_chg": -3.42,
+      "market_regime": "상승장",
+      "depth": -0.5673,
+      "rolling_high": 750000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 42,
+        "p50": -0.10445,
+        "p25": -0.170825,
+        "p10": -0.48432,
+        "recovery_days_min": 2,
+        "recovery_days_median": 18,
+        "recovery_days_max": 2966
+      },
+      "episode_count": 43,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 24.5,
+          "mfi": 21.1,
+          "divergence": false,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 35.6,
+          "mfi": 14.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": true
+        },
+        "monthly": {
+          "rsi": 48.6,
+          "mfi": 68.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "000270": {
+      "category": "한국개별종목",
+      "symb": "000270",
+      "name": "기아",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 107000.0,
+      "pct_chg": -2.37,
+      "market_regime": "상승장",
+      "depth": -0.4806,
+      "rolling_high": 206000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 32,
+        "p50": -0.12615,
+        "p25": -0.254975,
+        "p10": -0.45710999999999996,
+        "recovery_days_min": 2,
+        "recovery_days_median": 26,
+        "recovery_days_max": 2144
+      },
+      "episode_count": 33,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 25.0,
+          "mfi": 22.5,
+          "divergence": false,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 33.1,
+          "mfi": 27.8,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 46.0,
+          "mfi": 48.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "207940": {
+      "category": "한국개별종목",
+      "symb": "207940",
+      "name": "삼성바이오로직스",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 1220000.0,
+      "pct_chg": -4.46,
+      "market_regime": "상승장",
+      "depth": -0.3743,
+      "rolling_high": 1949873.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 22,
+        "p50": -0.11495,
+        "p25": -0.1832,
+        "p10": -0.24958999999999998,
+        "recovery_days_min": 3,
+        "recovery_days_median": 42,
+        "recovery_days_max": 758
+      },
+      "episode_count": 23,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 26.1,
+          "mfi": 28.6,
+          "divergence": true,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 30.9,
+          "mfi": 54.9,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 41.1,
+          "mfi": 43.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "035420": {
+      "category": "한국개별종목",
+      "symb": "035420",
+      "name": "NAVER",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 183200.0,
+      "pct_chg": -3.07,
+      "market_regime": "상승장",
+      "depth": -0.5965,
+      "rolling_high": 454000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 49,
+        "p50": -0.0947,
+        "p25": -0.1834,
+        "p10": -0.27585999999999994,
+        "recovery_days_min": 2,
+        "recovery_days_median": 11,
+        "recovery_days_max": 1364
+      },
+      "episode_count": 50,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 30.1,
+          "mfi": 17.1,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": true
+        },
+        "weekly": {
+          "rsi": 37.0,
+          "mfi": 55.3,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 43.5,
+          "mfi": 63.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "035720": {
+      "category": "한국개별종목",
+      "symb": "035720",
+      "name": "카카오",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 32400.0,
+      "pct_chg": -1.97,
+      "market_regime": "상승장",
+      "depth": -0.8088,
+      "rolling_high": 169500.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 10,
+        "p50": -0.11545,
+        "p25": -0.18564999999999998,
+        "p10": -0.48231,
+        "recovery_days_min": 5,
+        "recovery_days_median": 18,
+        "recovery_days_max": 5003
+      },
+      "episode_count": 11,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 33.3,
+          "mfi": 30.4,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 32.0,
+          "mfi": 52.8,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 36.5,
+          "mfi": 49.0,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "005490": {
+      "category": "한국개별종목",
+      "symb": "005490",
+      "name": "POSCO홀딩스",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 305500.0,
+      "pct_chg": -0.65,
+      "market_regime": "상승장",
+      "depth": -0.6007,
+      "rolling_high": 765000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 18,
+        "p50": -0.1231,
+        "p25": -0.22345,
+        "p10": -0.32009,
+        "recovery_days_min": 3,
+        "recovery_days_median": 30,
+        "recovery_days_max": 519
+      },
+      "episode_count": 19,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 40.6,
+          "mfi": 31.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 41.2,
+          "mfi": 40.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 47.0,
+          "mfi": 66.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "051910": {
+      "category": "한국개별종목",
+      "symb": "051910",
+      "name": "LG화학",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 281500.0,
+      "pct_chg": 1.62,
+      "market_regime": "상승장",
+      "depth": -0.7262,
+      "rolling_high": 1028000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 33,
+        "p50": -0.1134,
+        "p25": -0.2044,
+        "p10": -0.43013999999999997,
+        "recovery_days_min": 3,
+        "recovery_days_median": 12,
+        "recovery_days_max": 2285
+      },
+      "episode_count": 34,
+      "is_record_drawdown": true,
+      "timeframes": {
+        "daily": {
+          "rsi": 58.1,
+          "mfi": 57.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.3,
+          "mfi": 43.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 46.0,
+          "mfi": 56.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "012330": {
+      "category": "한국개별종목",
+      "symb": "012330",
+      "name": "현대모비스",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 360000.0,
+      "pct_chg": -3.61,
+      "market_regime": "상승장",
+      "depth": -0.5312,
+      "rolling_high": 768000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 47,
+        "p50": -0.0987,
+        "p25": -0.18745,
+        "p10": -0.40252,
+        "recovery_days_min": 1,
+        "recovery_days_median": 22,
+        "recovery_days_max": 3567
+      },
+      "episode_count": 48,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 29.5,
+          "mfi": 40.3,
+          "divergence": true,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 38.0,
+          "mfi": 30.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.3,
+          "mfi": 60.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "012450": {
+      "category": "한국개별종목",
+      "symb": "012450",
+      "name": "한화에어로스페이스",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 904000.0,
+      "pct_chg": -7.0,
+      "market_regime": "상승장",
+      "depth": -0.4118,
+      "rolling_high": 1537000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 50,
+        "p50": -0.1197,
+        "p25": -0.18795,
+        "p10": -0.34234,
+        "recovery_days_min": 2,
+        "recovery_days_median": 15,
+        "recovery_days_max": 3147
+      },
+      "episode_count": 51,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 34.2,
+          "mfi": 31.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 41.0,
+          "mfi": 37.5,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 51.7,
+          "mfi": 55.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "329180": {
+      "category": "한국개별종목",
+      "symb": "329180",
+      "name": "HD현대중공업",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 384500.0,
+      "pct_chg": -3.88,
+      "market_regime": "상승장",
+      "depth": -0.4839,
+      "rolling_high": 745000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 19,
+        "p50": -0.1308,
+        "p25": -0.20124999999999998,
+        "p10": -0.26234,
+        "recovery_days_min": 2,
+        "recovery_days_median": 17,
+        "recovery_days_max": 538
+      },
+      "episode_count": 20,
+      "is_record_drawdown": true,
+      "timeframes": {
+        "daily": {
+          "rsi": 30.2,
+          "mfi": 22.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 33.7,
+          "mfi": 28.2,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 46.5,
+          "mfi": 52.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "028260": {
+      "category": "한국개별종목",
+      "symb": "028260",
+      "name": "삼성물산",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 320000.0,
+      "pct_chg": -4.76,
+      "market_regime": "상승장",
+      "depth": -0.4019,
+      "rolling_high": 535000.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 11,
+        "p50": -0.0853,
+        "p25": -0.24219999999999997,
+        "p10": -0.2958,
+        "recovery_days_min": 3,
+        "recovery_days_median": 13,
+        "recovery_days_max": 2529
+      },
+      "episode_count": 12,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 34.0,
+          "mfi": 43.4,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 43.5,
+          "mfi": 29.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 56.5,
+          "mfi": 66.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "034020": {
+      "category": "한국개별종목",
+      "symb": "034020",
+      "name": "두산에너빌리티",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 76700.0,
+      "pct_chg": -4.72,
+      "market_regime": "상승장",
+      "depth": -0.4522,
+      "rolling_high": 140003.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 24,
+        "p50": -0.12290000000000001,
+        "p25": -0.2355,
+        "p10": -0.31253000000000003,
+        "recovery_days_min": 2,
+        "recovery_days_median": 13,
+        "recovery_days_max": 829
+      },
+      "episode_count": 25,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 39.4,
+          "mfi": 45.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 44.8,
+          "mfi": 37.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 53.6,
+          "mfi": 58.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "015760": {
+      "category": "한국개별종목",
+      "symb": "015760",
+      "name": "한국전력",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 29100.0,
+      "pct_chg": -3.16,
+      "market_regime": "상승장",
+      "depth": -0.5714,
+      "rolling_high": 67900.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 14,
+        "p50": -0.1109,
+        "p25": -0.242875,
+        "p10": -0.5605,
+        "recovery_days_min": 2,
+        "recovery_days_median": 58,
+        "recovery_days_max": 2365
+      },
+      "episode_count": 15,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 33.9,
+          "mfi": 26.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 30.9,
+          "mfi": 37.0,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 44.1,
+          "mfi": 50.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "305720": {
+      "category": "한국ETF",
+      "symb": "305720",
+      "name": "KODEX 2차전지산업",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 15905.0,
+      "pct_chg": 1.18,
+      "market_regime": "상승장",
+      "depth": -0.558,
+      "rolling_high": 35984.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 8,
+        "p50": -0.1627,
+        "p25": -0.2194,
+        "p10": -0.38389,
+        "recovery_days_min": 13,
+        "recovery_days_median": 65,
+        "recovery_days_max": 435
+      },
+      "episode_count": 9,
+      "is_record_drawdown": true,
+      "timeframes": {
+        "daily": {
+          "rsi": 62.1,
+          "mfi": 68.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 52.3,
+          "mfi": 48.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.9,
+          "mfi": 70.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "244580": {
+      "category": "한국ETF",
+      "symb": "244580",
+      "name": "KODEX 바이오",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 8085.0,
+      "pct_chg": -4.21,
+      "market_regime": "상승장",
+      "depth": -0.5417,
+      "rolling_high": 17643.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 5,
+        "p50": -0.2057,
+        "p25": -0.3928,
+        "p10": -0.52438,
+        "recovery_days_min": 8,
+        "recovery_days_median": 61,
+        "recovery_days_max": 588
+      },
+      "episode_count": 6,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 47.9,
+          "mfi": 64.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 39.2,
+          "mfi": 43.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 42.0,
+          "mfi": 65.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "7974": {
+      "category": "일본개별종목",
+      "symb": "7974",
+      "name": "닌텐도",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 8146.0,
+      "pct_chg": 3.76,
+      "market_regime": "상승장",
+      "depth": -0.4311,
+      "rolling_high": 14319.5,
+      "stage": 3,
+      "percentiles": {
+        "count": 33,
+        "p50": -0.1111,
+        "p25": -0.2125,
+        "p10": -0.32944,
+        "recovery_days_min": 5,
+        "recovery_days_median": 38,
+        "recovery_days_max": 583
+      },
+      "episode_count": 34,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 51.6,
+          "mfi": 30.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.2,
+          "mfi": 66.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 45.6,
+          "mfi": 33.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "SOXX": {
+      "category": "섹터ETF",
+      "symb": "SOXX",
+      "name": "Semiconductor ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 559.4,
+      "pct_chg": -0.69,
+      "market_regime": "상승장",
+      "depth": -0.1454,
+      "rolling_high": 654.58,
+      "stage": 2,
+      "percentiles": {
+        "count": 42,
+        "p50": -0.0851,
+        "p25": -0.143425,
+        "p10": -0.25189,
+        "recovery_days_min": 2,
+        "recovery_days_median": 28,
+        "recovery_days_max": 1452
+      },
+      "episode_count": 43,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 51.7,
+          "mfi": 39.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 58.3,
+          "mfi": 38.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 69.9,
+          "mfi": 66.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "VOLT": {
+      "category": "섹터ETF",
+      "symb": "VOLT",
+      "name": "Electrification ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 36.56,
+      "pct_chg": 1.02,
+      "market_regime": "상승장",
+      "depth": -0.1306,
+      "rolling_high": 42.05,
+      "stage": 2,
+      "percentiles": {
+        "count": 5,
+        "p50": -0.0896,
+        "p25": -0.0959,
+        "p10": -0.17876,
+        "recovery_days_min": 28,
+        "recovery_days_median": 30,
+        "recovery_days_max": 110
+      },
+      "episode_count": 6,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 52.6,
+          "mfi": 46.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.3,
+          "mfi": 42.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 63.7,
+          "mfi": 59.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ITB": {
+      "category": "섹터ETF",
+      "symb": "ITB",
+      "name": "Home Construction ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 84.76,
+      "pct_chg": -1.29,
+      "market_regime": "상승장",
+      "depth": -0.3247,
+      "rolling_high": 125.52,
+      "stage": 2,
+      "percentiles": {
+        "count": 23,
+        "p50": -0.1334,
+        "p25": -0.20555,
+        "p10": -0.40028,
+        "recovery_days_min": 8,
+        "recovery_days_median": 77,
+        "recovery_days_max": 1364
+      },
+      "episode_count": 24,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 37.3,
+          "mfi": 39.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 37.4,
+          "mfi": 20.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 43.9,
+          "mfi": 43.5,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XME": {
+      "category": "섹터ETF",
+      "symb": "XME",
+      "name": "Metals & Mining ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 106.35,
+      "pct_chg": 1.66,
+      "market_regime": "상승장",
+      "depth": -0.1983,
+      "rolling_high": 132.65,
+      "stage": 2,
+      "percentiles": {
+        "count": 12,
+        "p50": -0.1021,
+        "p25": -0.19042499999999998,
+        "p10": -0.22314,
+        "recovery_days_min": 5,
+        "recovery_days_median": 19,
+        "recovery_days_max": 4283
+      },
+      "episode_count": 13,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 44.3,
+          "mfi": 45.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 45.0,
+          "mfi": 43.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 57.5,
+          "mfi": 56.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "GDX": {
+      "category": "섹터ETF",
+      "symb": "GDX",
+      "name": "Gold Miners ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 89.28,
+      "pct_chg": 2.95,
+      "market_regime": "상승장",
+      "depth": -0.2293,
+      "rolling_high": 115.84,
+      "stage": 2,
+      "percentiles": {
+        "count": 13,
+        "p50": -0.1618,
+        "p25": -0.1903,
+        "p10": -0.6061999999999999,
+        "recovery_days_min": 4,
+        "recovery_days_median": 30,
+        "recovery_days_max": 3503
+      },
+      "episode_count": 14,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 46.7,
+          "mfi": 45.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 50.5,
+          "mfi": 42.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 59.4,
+          "mfi": 55.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XOP": {
+      "category": "섹터ETF",
+      "symb": "XOP",
+      "name": "Oil & Gas Exploration ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 191.52,
+      "pct_chg": -1.02,
+      "market_regime": "상승장",
+      "depth": -0.2821,
+      "rolling_high": 266.77,
+      "stage": 2,
+      "percentiles": {
+        "count": 6,
+        "p50": -0.11,
+        "p25": -0.1446,
+        "p10": -0.4153,
+        "recovery_days_min": 10,
+        "recovery_days_median": 46,
+        "recovery_days_max": 1330
+      },
+      "episode_count": 7,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 58.8,
+          "mfi": 67.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 61.4,
+          "mfi": 52.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 65.9,
+          "mfi": 65.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "GLD": {
+      "category": "섹터ETF",
+      "symb": "GLD",
+      "name": "Gold ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 384.58,
+      "pct_chg": 1.57,
+      "market_regime": "상승장",
+      "depth": -0.2245,
+      "rolling_high": 495.9,
+      "stage": 2,
+      "percentiles": {
+        "count": 15,
+        "p50": -0.0759,
+        "p25": -0.11415,
+        "p10": -0.26446,
+        "recovery_days_min": 5,
+        "recovery_days_median": 49,
+        "recovery_days_max": 2247
+      },
+      "episode_count": 16,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 45.8,
+          "mfi": 54.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 44.3,
+          "mfi": 40.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.1,
+          "mfi": 66.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "AVGO": {
+      "category": "개별종목",
+      "symb": "AVGO",
+      "name": "Broadcom Inc. Common Stock",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 361.54,
+      "pct_chg": 0.39,
+      "market_regime": "상승장",
+      "depth": -0.2467,
+      "rolling_high": 479.94,
+      "stage": 2,
+      "percentiles": {
+        "count": 61,
+        "p50": -0.1023,
+        "p25": -0.1417,
+        "p10": -0.2651,
+        "recovery_days_min": 6,
+        "recovery_days_median": 31,
+        "recovery_days_max": 348
+      },
+      "episode_count": 62,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 50.2,
+          "mfi": 50.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.9,
+          "mfi": 47.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 59.3,
+          "mfi": 35.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "WMT": {
+      "category": "개별종목",
+      "symb": "WMT",
+      "name": "Walmart Inc. Common Stock",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 111.35,
+      "pct_chg": 0.71,
+      "market_regime": "상승장",
+      "depth": -0.1683,
+      "rolling_high": 133.88,
+      "stage": 2,
+      "percentiles": {
+        "count": 30,
+        "p50": -0.0915,
+        "p25": -0.11735,
+        "p10": -0.24048,
+        "recovery_days_min": 12,
+        "recovery_days_median": 45,
+        "recovery_days_max": 796
+      },
+      "episode_count": 31,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 61.0,
+          "mfi": 58.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 48.9,
+          "mfi": 58.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.8,
+          "mfi": 54.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "INTC": {
+      "category": "개별종목",
+      "symb": "INTC",
+      "name": "Intel Corp",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 104.7,
+      "pct_chg": -2.22,
+      "market_regime": "상승장",
+      "depth": -0.2571,
+      "rolling_high": 140.94,
+      "stage": 2,
+      "percentiles": {
+        "count": 22,
+        "p50": -0.11235,
+        "p25": -0.255525,
+        "p10": -0.34278,
+        "recovery_days_min": 10,
+        "recovery_days_median": 28,
+        "recovery_days_max": 1255
+      },
+      "episode_count": 23,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 43.4,
+          "mfi": 39.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 53.7,
+          "mfi": 43.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 62.6,
+          "mfi": 73.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "LRCX": {
+      "category": "개별종목",
+      "symb": "LRCX",
+      "name": "Lam Research Corp",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 318.84,
+      "pct_chg": -0.55,
+      "market_regime": "상승장",
+      "depth": -0.2634,
+      "rolling_high": 432.87,
+      "stage": 2,
+      "percentiles": {
+        "count": 43,
+        "p50": -0.1155,
+        "p25": -0.1851,
+        "p10": -0.45030000000000003,
+        "recovery_days_min": 2,
+        "recovery_days_median": 20,
+        "recovery_days_max": 860
+      },
+      "episode_count": 44,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 51.2,
+          "mfi": 45.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 54.2,
+          "mfi": 32.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 65.0,
+          "mfi": 73.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "AMAT": {
+      "category": "개별종목",
+      "symb": "AMAT",
+      "name": "Applied Materials Inc",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 507.03,
+      "pct_chg": -0.5,
+      "market_regime": "상승장",
+      "depth": -0.298,
+      "rolling_high": 722.23,
+      "stage": 2,
+      "percentiles": {
+        "count": 41,
+        "p50": -0.1008,
+        "p25": -0.1819,
+        "p10": -0.4364,
+        "recovery_days_min": 1,
+        "recovery_days_median": 23,
+        "recovery_days_max": 1623
+      },
+      "episode_count": 42,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 54.6,
+          "mfi": 54.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 55.3,
+          "mfi": 21.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 62.9,
+          "mfi": 64.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ISRG": {
+      "category": "개별종목",
+      "symb": "ISRG",
+      "name": "Intuitive Surgical",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 423.96,
+      "pct_chg": 2.06,
+      "market_regime": "상승장",
+      "depth": -0.3055,
+      "rolling_high": 610.45,
+      "stage": 2,
+      "percentiles": {
+        "count": 31,
+        "p50": -0.1035,
+        "p25": -0.22044999999999998,
+        "p10": -0.4011,
+        "recovery_days_min": 6,
+        "recovery_days_median": 36,
+        "recovery_days_max": 971
+      },
+      "episode_count": 32,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 66.7,
+          "mfi": 68.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 53.2,
+          "mfi": 48.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 47.2,
+          "mfi": 38.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "GS": {
+      "category": "개별종목",
+      "symb": "GS",
+      "name": "Goldman Sachs",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 895.32,
+      "pct_chg": 1.44,
+      "market_regime": "상승장",
+      "depth": -0.2191,
+      "rolling_high": 1146.45,
+      "stage": 2,
+      "percentiles": {
+        "count": 22,
+        "p50": -0.09365,
+        "p25": -0.15115,
+        "p10": -0.32646000000000003,
+        "recovery_days_min": 8,
+        "recovery_days_median": 28,
+        "recovery_days_max": 2287
+      },
+      "episode_count": 23,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 34.9,
+          "mfi": 32.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 37.4,
+          "mfi": 39.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 61.9,
+          "mfi": 59.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "GE": {
+      "category": "개별종목",
+      "symb": "GE",
+      "name": "GE Aerospace",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 308.2,
+      "pct_chg": 0.84,
+      "market_regime": "상승장",
+      "depth": -0.1903,
+      "rolling_high": 380.64,
+      "stage": 2,
+      "percentiles": {
+        "count": 16,
+        "p50": -0.09895000000000001,
+        "p25": -0.1845,
+        "p10": -0.5126999999999999,
+        "recovery_days_min": 7,
+        "recovery_days_median": 33,
+        "recovery_days_max": 2074
+      },
+      "episode_count": 17,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 38.8,
+          "mfi": 39.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 42.7,
+          "mfi": 27.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.4,
+          "mfi": 60.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "RTX": {
+      "category": "개별종목",
+      "symb": "RTX",
+      "name": "RTX Corp",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 185.97,
+      "pct_chg": 0.9,
+      "market_regime": "상승장",
+      "depth": -0.1753,
+      "rolling_high": 225.49,
+      "stage": 2,
+      "percentiles": {
+        "count": 20,
+        "p50": -0.08795,
+        "p25": -0.169425,
+        "p10": -0.22618,
+        "recovery_days_min": 7,
+        "recovery_days_median": 34,
+        "recovery_days_max": 247
+      },
+      "episode_count": 21,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 37.4,
+          "mfi": 22.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 43.7,
+          "mfi": 42.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 59.7,
+          "mfi": 67.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "QCOM": {
+      "category": "개별종목",
+      "symb": "QCOM",
+      "name": "Qualcomm",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 175.5,
+      "pct_chg": -0.29,
+      "market_regime": "상승장",
+      "depth": -0.2945,
+      "rolling_high": 248.74,
+      "stage": 2,
+      "percentiles": {
+        "count": 27,
+        "p50": -0.143,
+        "p25": -0.25835,
+        "p10": -0.44254000000000004,
+        "recovery_days_min": 2,
+        "recovery_days_median": 46,
+        "recovery_days_max": 1037
+      },
+      "episode_count": 28,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 44.5,
+          "mfi": 39.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.9,
+          "mfi": 59.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 52.4,
+          "mfi": 51.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "NEE": {
+      "category": "개별종목",
+      "symb": "NEE",
+      "name": "NextEra Energy",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 77.38,
+      "pct_chg": 0.01,
+      "market_regime": "상승장",
+      "depth": -0.1977,
+      "rolling_high": 96.44,
+      "stage": 2,
+      "percentiles": {
+        "count": 28,
+        "p50": -0.07705000000000001,
+        "p25": -0.10095,
+        "p10": -0.23421999999999998,
+        "recovery_days_min": 7,
+        "recovery_days_median": 39,
+        "recovery_days_max": 1090
+      },
+      "episode_count": 29,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 40.8,
+          "mfi": 27.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 35.7,
+          "mfi": 45.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.4,
+          "mfi": 56.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "PLD": {
+      "category": "개별종목",
+      "symb": "PLD",
+      "name": "Prologis",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 129.49,
+      "pct_chg": 0.15,
+      "market_regime": "상승장",
+      "depth": -0.1406,
+      "rolling_high": 150.68,
+      "stage": 2,
+      "percentiles": {
+        "count": 21,
+        "p50": -0.0933,
+        "p25": -0.1288,
+        "p10": -0.1791,
+        "recovery_days_min": 8,
+        "recovery_days_median": 37,
+        "recovery_days_max": 2158
+      },
+      "episode_count": 22,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 38.5,
+          "mfi": 29.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 39.9,
+          "mfi": 24.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 53.6,
+          "mfi": 63.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "KOSPI200": {
+      "category": "한국지수",
+      "symb": "KOSPI200",
+      "name": "코스피200",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 1044.52,
+      "pct_chg": -2.71,
+      "market_regime": "상승장",
+      "depth": -0.2929,
+      "rolling_high": 1477.22,
+      "stage": 2,
+      "percentiles": {
+        "count": 27,
+        "p50": -0.1284,
+        "p25": -0.24305,
+        "p10": -0.45882,
+        "recovery_days_min": 1,
+        "recovery_days_median": 48,
+        "recovery_days_max": 1484
+      },
+      "episode_count": 28,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 42.7,
+          "mfi": 65.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 48.8,
+          "mfi": 33.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 63.1,
+          "mfi": 74.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "005930": {
+      "category": "한국개별종목",
+      "symb": "005930",
+      "name": "삼성전자",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 263000.0,
+      "pct_chg": -2.05,
+      "market_regime": "상승장",
+      "depth": -0.2745,
+      "rolling_high": 362500.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 43,
+        "p50": -0.1285,
+        "p25": -0.264,
+        "p10": -0.36422,
+        "recovery_days_min": 3,
+        "recovery_days_median": 28,
+        "recovery_days_max": 1162
+      },
+      "episode_count": 44,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 48.0,
+          "mfi": 54.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 51.9,
+          "mfi": 26.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 66.2,
+          "mfi": 69.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "000660": {
+      "category": "한국개별종목",
+      "symb": "000660",
+      "name": "SK하이닉스",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 1686000.0,
+      "pct_chg": -2.15,
+      "market_regime": "상승장",
+      "depth": -0.4224,
+      "rolling_high": 2919000.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 7,
+        "p50": -0.165,
+        "p25": -0.22849999999999998,
+        "p10": -0.55746,
+        "recovery_days_min": 7,
+        "recovery_days_median": 11,
+        "recovery_days_max": 6346
+      },
+      "episode_count": 8,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 44.0,
+          "mfi": 57.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 50.2,
+          "mfi": 22.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 62.9,
+          "mfi": 66.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "068270": {
+      "category": "한국개별종목",
+      "symb": "068270",
+      "name": "셀트리온",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 179000.0,
+      "pct_chg": -2.45,
+      "market_regime": "상승장",
+      "depth": -0.4551,
+      "rolling_high": 328494.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 29,
+        "p50": -0.1535,
+        "p25": -0.3315,
+        "p10": -0.5586399999999999,
+        "recovery_days_min": 1,
+        "recovery_days_median": 29,
+        "recovery_days_max": 677
+      },
+      "episode_count": 30,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 43.7,
+          "mfi": 56.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 46.2,
+          "mfi": 46.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 51.2,
+          "mfi": 61.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "069500": {
+      "category": "한국ETF",
+      "symb": "069500",
+      "name": "KODEX 200",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 105650.0,
+      "pct_chg": -2.67,
+      "market_regime": "상승장",
+      "depth": -0.2864,
+      "rolling_high": 148056.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 28,
+        "p50": -0.08985,
+        "p25": -0.18789999999999998,
+        "p10": -0.2949,
+        "recovery_days_min": 1,
+        "recovery_days_median": 41,
+        "recovery_days_max": 1448
+      },
+      "episode_count": 29,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 43.6,
+          "mfi": 65.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.3,
+          "mfi": 25.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 63.9,
+          "mfi": 66.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "229200": {
+      "category": "한국ETF",
+      "symb": "229200",
+      "name": "KODEX 코스닥150",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 15165.0,
+      "pct_chg": -1.17,
+      "market_regime": "상승장",
+      "depth": -0.2804,
+      "rolling_high": 21074.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 7,
+        "p50": -0.114,
+        "p25": -0.18080000000000002,
+        "p10": -0.3751,
+        "recovery_days_min": 8,
+        "recovery_days_median": 20,
+        "recovery_days_max": 1958
+      },
+      "episode_count": 8,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 59.2,
+          "mfi": 70.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 48.7,
+          "mfi": 40.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 50.5,
+          "mfi": 56.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "091160": {
+      "category": "한국ETF",
+      "symb": "091160",
+      "name": "KODEX 반도체",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 146190.0,
+      "pct_chg": 1.02,
+      "market_regime": "상승장",
+      "depth": -0.2238,
+      "rolling_high": 188345.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 30,
+        "p50": -0.12325,
+        "p25": -0.1875,
+        "p10": -0.41426,
+        "recovery_days_min": 1,
+        "recovery_days_median": 46,
+        "recovery_days_max": 742
+      },
+      "episode_count": 31,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 60.6,
+          "mfi": 87.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 59.8,
+          "mfi": 44.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 67.5,
+          "mfi": 76.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "091180": {
+      "category": "한국ETF",
+      "symb": "091180",
+      "name": "KODEX 자동차",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 24855.0,
+      "pct_chg": -1.27,
+      "market_regime": "상승장",
+      "depth": -0.3978,
+      "rolling_high": 41274.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 20,
+        "p50": -0.1183,
+        "p25": -0.16354999999999997,
+        "p10": -0.42235999999999996,
+        "recovery_days_min": 9,
+        "recovery_days_median": 32,
+        "recovery_days_max": 2341
+      },
+      "episode_count": 21,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 35.0,
+          "mfi": 40.9,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 38.3,
+          "mfi": 38.8,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 50.2,
+          "mfi": 79.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "139260": {
+      "category": "한국ETF",
+      "symb": "139260",
+      "name": "TIGER 200 IT",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 139115.0,
+      "pct_chg": -3.19,
+      "market_regime": "상승장",
+      "depth": -0.3409,
+      "rolling_high": 211062.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 18,
+        "p50": -0.10635,
+        "p25": -0.25775000000000003,
+        "p10": -0.36883000000000005,
+        "recovery_days_min": 2,
+        "recovery_days_median": 35,
+        "recovery_days_max": 1151
+      },
+      "episode_count": 19,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 49.2,
+          "mfi": 62.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 52.9,
+          "mfi": 27.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 64.6,
+          "mfi": 73.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "117700": {
+      "category": "한국ETF",
+      "symb": "117700",
+      "name": "KODEX 건설",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 6415.0,
+      "pct_chg": -3.39,
+      "market_regime": "상승장",
+      "depth": -0.3387,
+      "rolling_high": 9701.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 9,
+        "p50": -0.1853,
+        "p25": -0.2386,
+        "p10": -0.41808,
+        "recovery_days_min": 3,
+        "recovery_days_median": 31,
+        "recovery_days_max": 3584
+      },
+      "episode_count": 10,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 38.4,
+          "mfi": 41.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.4,
+          "mfi": 54.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 56.9,
+          "mfi": 61.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "102970": {
+      "category": "한국ETF",
+      "symb": "102970",
+      "name": "KODEX 증권",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 16665.0,
+      "pct_chg": -2.77,
+      "market_regime": "상승장",
+      "depth": -0.4991,
+      "rolling_high": 33271.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 12,
+        "p50": -0.1614,
+        "p25": -0.349475,
+        "p10": -0.5019499999999999,
+        "recovery_days_min": 1,
+        "recovery_days_median": 48,
+        "recovery_days_max": 2537
+      },
+      "episode_count": 13,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 32.2,
+          "mfi": 42.2,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 36.8,
+          "mfi": 50.7,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 51.8,
+          "mfi": 67.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "7203": {
+      "category": "일본개별종목",
+      "symb": "7203",
+      "name": "토요타",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 2910.5,
+      "pct_chg": 0.29,
+      "market_regime": "상승장",
+      "depth": -0.2383,
+      "rolling_high": 3821.1,
+      "stage": 2,
+      "percentiles": {
+        "count": 21,
+        "p50": -0.0988,
+        "p25": -0.1319,
+        "p10": -0.2529,
+        "recovery_days_min": 6,
+        "recovery_days_median": 31,
+        "recovery_days_max": 1470
+      },
+      "episode_count": 22,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 46.2,
+          "mfi": 44.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 46.4,
+          "mfi": 71.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 51.1,
+          "mfi": 60.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "9984": {
+      "category": "일본개별종목",
+      "symb": "9984",
+      "name": "소프트뱅크그룹",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 5803.0,
+      "pct_chg": -3.92,
+      "market_regime": "상승장",
+      "depth": -0.3272,
+      "rolling_high": 8625.1,
+      "stage": 2,
+      "percentiles": {
+        "count": 29,
+        "p50": -0.0975,
+        "p25": -0.1821,
+        "p10": -0.51598,
+        "recovery_days_min": 3,
+        "recovery_days_median": 17,
+        "recovery_days_max": 841
+      },
+      "episode_count": 30,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 44.9,
+          "mfi": 61.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 51.1,
+          "mfi": 52.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.2,
+          "mfi": 63.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "9983": {
+      "category": "일본개별종목",
+      "symb": "9983",
+      "name": "패스트리테일링",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 71780.0,
+      "pct_chg": -4.04,
+      "market_regime": "상승장",
+      "depth": -0.1797,
+      "rolling_high": 87506.8,
+      "stage": 2,
+      "percentiles": {
+        "count": 28,
+        "p50": -0.08335000000000001,
+        "p25": -0.17275000000000001,
+        "p10": -0.34163,
+        "recovery_days_min": 4,
+        "recovery_days_median": 20,
+        "recovery_days_max": 909
+      },
+      "episode_count": 29,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 50.9,
+          "mfi": 61.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.6,
+          "mfi": 43.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 62.7,
+          "mfi": 62.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "8035": {
+      "category": "일본개별종목",
+      "symb": "8035",
+      "name": "도쿄일렉트론",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 12445.0,
+      "pct_chg": 2.09,
+      "market_regime": "상승장",
+      "depth": -0.2048,
+      "rolling_high": 15649.4,
+      "stage": 2,
+      "percentiles": {
+        "count": 46,
+        "p50": -0.10365,
+        "p25": -0.135125,
+        "p10": -0.3267,
+        "recovery_days_min": 2,
+        "recovery_days_median": 20,
+        "recovery_days_max": 498
+      },
+      "episode_count": 47,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 61.1,
+          "mfi": 62.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 59.5,
+          "mfi": 45.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 64.6,
+          "mfi": 64.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "4063": {
+      "category": "일본개별종목",
+      "symb": "4063",
+      "name": "신에츠화학",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 6085.0,
+      "pct_chg": -0.59,
+      "market_regime": "상승장",
+      "depth": -0.2099,
+      "rolling_high": 7701.3,
+      "stage": 2,
+      "percentiles": {
+        "count": 26,
+        "p50": -0.10969999999999999,
+        "p25": -0.159325,
+        "p10": -0.3667,
+        "recovery_days_min": 4,
+        "recovery_days_median": 40,
+        "recovery_days_max": 490
+      },
+      "episode_count": 27,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 55.5,
+          "mfi": 55.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 48.5,
+          "mfi": 54.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 56.0,
+          "mfi": 64.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6367": {
+      "category": "일본개별종목",
+      "symb": "6367",
+      "name": "다이킨",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 21170.0,
+      "pct_chg": 0.86,
+      "market_regime": "상승장",
+      "depth": -0.284,
+      "rolling_high": 29566.7,
+      "stage": 2,
+      "percentiles": {
+        "count": 29,
+        "p50": -0.096,
+        "p25": -0.1786,
+        "p10": -0.28712000000000004,
+        "recovery_days_min": 4,
+        "recovery_days_median": 34,
+        "recovery_days_max": 425
+      },
+      "episode_count": 30,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 56.5,
+          "mfi": 60.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.6,
+          "mfi": 32.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 53.4,
+          "mfi": 63.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6954": {
+      "category": "일본개별종목",
+      "symb": "6954",
+      "name": "화낙",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 6103.0,
+      "pct_chg": 1.4,
+      "market_regime": "상승장",
+      "depth": -0.2696,
+      "rolling_high": 8355.7,
+      "stage": 2,
+      "percentiles": {
+        "count": 17,
+        "p50": -0.1152,
+        "p25": -0.1641,
+        "p10": -0.32704,
+        "recovery_days_min": 4,
+        "recovery_days_median": 30,
+        "recovery_days_max": 1928
+      },
+      "episode_count": 18,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 53.5,
+          "mfi": 70.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 46.6,
+          "mfi": 37.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 55.1,
+          "mfi": 57.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6981": {
+      "category": "일본개별종목",
+      "symb": "6981",
+      "name": "무라타",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 7970.0,
+      "pct_chg": -3.59,
+      "market_regime": "상승장",
+      "depth": -0.3465,
+      "rolling_high": 12196.4,
+      "stage": 2,
+      "percentiles": {
+        "count": 19,
+        "p50": -0.0785,
+        "p25": -0.19490000000000002,
+        "p10": -0.40334,
+        "recovery_days_min": 4,
+        "recovery_days_median": 23,
+        "recovery_days_max": 1292
+      },
+      "episode_count": 20,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 50.4,
+          "mfi": 65.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 54.2,
+          "mfi": 37.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 63.9,
+          "mfi": 65.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "8058": {
+      "category": "일본개별종목",
+      "symb": "8058",
+      "name": "미쓰비시상사",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 4596.0,
+      "pct_chg": 0.13,
+      "market_regime": "상승장",
+      "depth": -0.2084,
+      "rolling_high": 5806.3,
+      "stage": 2,
+      "percentiles": {
+        "count": 25,
+        "p50": -0.1008,
+        "p25": -0.1684,
+        "p10": -0.2884999999999999,
+        "recovery_days_min": 3,
+        "recovery_days_median": 28,
+        "recovery_days_max": 708
+      },
+      "episode_count": 26,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 39.8,
+          "mfi": 31.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 46.9,
+          "mfi": 59.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 63.4,
+          "mfi": 81.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6902": {
+      "category": "일본개별종목",
+      "symb": "6902",
+      "name": "덴소",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 1826.0,
+      "pct_chg": 0.0,
+      "market_regime": "상승장",
+      "depth": -0.3327,
+      "rolling_high": 2736.5,
+      "stage": 2,
+      "percentiles": {
+        "count": 18,
+        "p50": -0.1096,
+        "p25": -0.18732500000000002,
+        "p10": -0.38756999999999997,
+        "recovery_days_min": 4,
+        "recovery_days_median": 43,
+        "recovery_days_max": 766
+      },
+      "episode_count": 19,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 42.1,
+          "mfi": 31.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 41.4,
+          "mfi": 47.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 43.9,
+          "mfi": 50.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "7741": {
+      "category": "일본개별종목",
+      "symb": "7741",
+      "name": "호야",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 25055.0,
+      "pct_chg": 0.12,
+      "market_regime": "상승장",
+      "depth": -0.1612,
+      "rolling_high": 29870.9,
+      "stage": 2,
+      "percentiles": {
+        "count": 41,
+        "p50": -0.0947,
+        "p25": -0.1384,
+        "p10": -0.2286,
+        "recovery_days_min": 6,
+        "recovery_days_median": 34,
+        "recovery_days_max": 597
+      },
+      "episode_count": 42,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 62.6,
+          "mfi": 66.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 50.6,
+          "mfi": 42.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 57.6,
+          "mfi": 54.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLI": {
+      "category": "섹터ETF",
+      "symb": "XLI",
+      "name": "Industrials ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 169.25,
+      "pct_chg": 0.5,
+      "market_regime": "상승장",
+      "depth": -0.0901,
+      "rolling_high": 186.01,
+      "stage": 1,
+      "percentiles": {
+        "count": 26,
+        "p50": -0.0847,
+        "p25": -0.148425,
+        "p10": -0.24975000000000003,
+        "recovery_days_min": 20,
+        "recovery_days_median": 54,
+        "recovery_days_max": 895
+      },
+      "episode_count": 27,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 44.8,
+          "mfi": 53.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 43.5,
+          "mfi": 34.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 60.5,
+          "mfi": 65.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLY": {
+      "category": "섹터ETF",
+      "symb": "XLY",
+      "name": "Consumer Discretionary ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 112.85,
+      "pct_chg": 1.02,
+      "market_regime": "상승장",
+      "depth": -0.0881,
+      "rolling_high": 123.75,
+      "stage": 1,
+      "percentiles": {
+        "count": 31,
+        "p50": -0.0802,
+        "p25": -0.1074,
+        "p10": -0.2601,
+        "recovery_days_min": 8,
+        "recovery_days_median": 53,
+        "recovery_days_max": 920
+      },
+      "episode_count": 32,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 54.9,
+          "mfi": 51.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.0,
+          "mfi": 30.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 53.9,
+          "mfi": 49.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLU": {
+      "category": "섹터ETF",
+      "symb": "XLU",
+      "name": "Utilities ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 41.41,
+      "pct_chg": 0.83,
+      "market_regime": "상승장",
+      "depth": -0.1143,
+      "rolling_high": 46.75,
+      "stage": 1,
+      "percentiles": {
+        "count": 21,
+        "p50": -0.0994,
+        "p25": -0.148,
+        "p10": -0.2526,
+        "recovery_days_min": 16,
+        "recovery_days_median": 85,
+        "recovery_days_max": 1136
+      },
+      "episode_count": 22,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 54.7,
+          "mfi": 58.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 43.1,
+          "mfi": 32.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 52.4,
+          "mfi": 58.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "BOTZ": {
+      "category": "섹터ETF",
+      "symb": "BOTZ",
+      "name": "Robotics&AI ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 35.48,
+      "pct_chg": 1.87,
+      "market_regime": "상승장",
+      "depth": -0.1473,
+      "rolling_high": 41.61,
+      "stage": 1,
+      "percentiles": {
+        "count": 8,
+        "p50": -0.12625,
+        "p25": -0.25384999999999996,
+        "p10": -0.47125999999999996,
+        "recovery_days_min": 16,
+        "recovery_days_median": 38,
+        "recovery_days_max": 1076
+      },
+      "episode_count": 9,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 49.3,
+          "mfi": 63.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 46.7,
+          "mfi": 35.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 52.7,
+          "mfi": 59.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ROBO": {
+      "category": "섹터ETF",
+      "symb": "ROBO",
+      "name": "Robotics ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 81.26,
+      "pct_chg": 1.47,
+      "market_regime": "상승장",
+      "depth": -0.1005,
+      "rolling_high": 90.34,
+      "stage": 1,
+      "percentiles": {
+        "count": 12,
+        "p50": -0.07255,
+        "p25": -0.199375,
+        "p10": -0.33532,
+        "recovery_days_min": 6,
+        "recovery_days_median": 33,
+        "recovery_days_max": 1028
+      },
+      "episode_count": 13,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 51.8,
+          "mfi": 60.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 52.5,
+          "mfi": 25.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 62.1,
+          "mfi": 58.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XBI": {
+      "category": "섹터ETF",
+      "symb": "XBI",
+      "name": "Biotech ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 153.77,
+      "pct_chg": 3.0,
+      "market_regime": "상승장",
+      "depth": -0.1104,
+      "rolling_high": 172.85,
+      "stage": 1,
+      "percentiles": {
+        "count": 29,
+        "p50": -0.089,
+        "p25": -0.1451,
+        "p10": -0.30308,
+        "recovery_days_min": 6,
+        "recovery_days_median": 33,
+        "recovery_days_max": 671
+      },
+      "episode_count": 30,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 46.2,
+          "mfi": 40.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 56.5,
+          "mfi": 44.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 68.8,
+          "mfi": 88.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XRT": {
+      "category": "섹터ETF",
+      "symb": "XRT",
+      "name": "Retail ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 84.09,
+      "pct_chg": 0.21,
+      "market_regime": "상승장",
+      "depth": -0.1271,
+      "rolling_high": 96.33,
+      "stage": 1,
+      "percentiles": {
+        "count": 23,
+        "p50": -0.0904,
+        "p25": -0.14445,
+        "p10": -0.23784,
+        "recovery_days_min": 11,
+        "recovery_days_median": 36,
+        "recovery_days_max": 729
+      },
+      "episode_count": 24,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 51.9,
+          "mfi": 68.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.3,
+          "mfi": 33.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 54.3,
+          "mfi": 44.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "IYT": {
+      "category": "섹터ETF",
+      "symb": "IYT",
+      "name": "Transportation ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 80.15,
+      "pct_chg": 0.26,
+      "market_regime": "상승장",
+      "depth": -0.1075,
+      "rolling_high": 89.81,
+      "stage": 1,
+      "percentiles": {
+        "count": 26,
+        "p50": -0.08854999999999999,
+        "p25": -0.158725,
+        "p10": -0.2865,
+        "recovery_days_min": 17,
+        "recovery_days_median": 40,
+        "recovery_days_max": 657
+      },
+      "episode_count": 27,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 45.3,
+          "mfi": 40.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 44.0,
+          "mfi": 24.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 57.7,
+          "mfi": 67.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "SMH": {
+      "category": "섹터ETF",
+      "symb": "SMH",
+      "name": "Semiconductor ETF(SMH)",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 603.33,
+      "pct_chg": -0.65,
+      "market_regime": "상승장",
+      "depth": -0.098,
+      "rolling_high": 668.91,
+      "stage": 1,
+      "percentiles": {
+        "count": 26,
+        "p50": -0.09025,
+        "p25": -0.14075,
+        "p10": -0.246,
+        "recovery_days_min": 6,
+        "recovery_days_median": 17,
+        "recovery_days_max": 386
+      },
+      "episode_count": 27,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 53.0,
+          "mfi": 51.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 59.4,
+          "mfi": 39.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 72.4,
+          "mfi": 64.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "GOOGL": {
+      "category": "개별종목",
+      "symb": "GOOGL",
+      "name": "Alphabet Inc. Class A Common Stock",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 351.66,
+      "pct_chg": 0.97,
+      "market_regime": "상승장",
+      "depth": -0.1255,
+      "rolling_high": 402.12,
+      "stage": 1,
+      "percentiles": {
+        "count": 28,
+        "p50": -0.09615,
+        "p25": -0.18412499999999998,
+        "p10": -0.25323,
+        "recovery_days_min": 5,
+        "recovery_days_median": 42,
+        "recovery_days_max": 546
+      },
+      "episode_count": 29,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 56.4,
+          "mfi": 62.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 53.8,
+          "mfi": 44.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 66.5,
+          "mfi": 59.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "META": {
+      "category": "개별종목",
+      "symb": "META",
+      "name": "Meta Platforms, Inc. Class A Common Stock",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 718.67,
+      "pct_chg": -0.31,
+      "market_regime": "상승장",
+      "depth": -0.0872,
+      "rolling_high": 787.33,
+      "stage": 1,
+      "percentiles": {
+        "count": 41,
+        "p50": -0.0872,
+        "p25": -0.1657,
+        "p10": -0.3415,
+        "recovery_days_min": 3,
+        "recovery_days_median": 26,
+        "recovery_days_max": 594
+      },
+      "episode_count": 42,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 56.8,
+          "mfi": 60.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 59.8,
+          "mfi": 67.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 60.3,
+          "mfi": 50.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "TSLA": {
+      "category": "개별종목",
+      "symb": "TSLA",
+      "name": "Tesla, Inc. Common Stock",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 382.7,
+      "pct_chg": 2.05,
+      "market_regime": "상승장",
+      "depth": -0.2188,
+      "rolling_high": 489.88,
+      "stage": 1,
+      "percentiles": {
+        "count": 33,
+        "p50": -0.1605,
+        "p25": -0.3386,
+        "p10": -0.52788,
+        "recovery_days_min": 2,
+        "recovery_days_median": 13,
+        "recovery_days_max": 778
+      },
+      "episode_count": 34,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 59.7,
+          "mfi": 52.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 52.2,
+          "mfi": 56.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 53.2,
+          "mfi": 50.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "MU": {
+      "category": "개별종목",
+      "symb": "MU",
+      "name": "Micron Technology, Inc.",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 1029.0,
+      "pct_chg": -0.66,
+      "market_regime": "상승장",
+      "depth": -0.152,
+      "rolling_high": 1213.37,
+      "stage": 1,
+      "percentiles": {
+        "count": 37,
+        "p50": -0.1344,
+        "p25": -0.2197,
+        "p10": -0.55248,
+        "recovery_days_min": 1,
+        "recovery_days_median": 17,
+        "recovery_days_max": 851
+      },
+      "episode_count": 38,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 50.2,
+          "mfi": 63.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 61.1,
+          "mfi": 46.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 72.1,
+          "mfi": 79.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ASML": {
+      "category": "개별종목",
+      "symb": "ASML",
+      "name": "ASML Holding NV",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 1780.34,
+      "pct_chg": 0.6,
+      "market_regime": "상승장",
+      "depth": -0.1039,
+      "rolling_high": 1986.86,
+      "stage": 1,
+      "percentiles": {
+        "count": 55,
+        "p50": -0.1032,
+        "p25": -0.14795,
+        "p10": -0.31688,
+        "recovery_days_min": 2,
+        "recovery_days_median": 23,
+        "recovery_days_max": 592
+      },
+      "episode_count": 56,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 52.4,
+          "mfi": 46.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 57.1,
+          "mfi": 35.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 67.5,
+          "mfi": 80.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "COST": {
+      "category": "개별종목",
+      "symb": "COST",
+      "name": "Costco Wholesale Corp",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 946.92,
+      "pct_chg": -0.11,
+      "market_regime": "상승장",
+      "depth": -0.1333,
+      "rolling_high": 1092.58,
+      "stage": 1,
+      "percentiles": {
+        "count": 37,
+        "p50": -0.0946,
+        "p25": -0.158,
+        "p10": -0.1999,
+        "recovery_days_min": 8,
+        "recovery_days_median": 50,
+        "recovery_days_max": 618
+      },
+      "episode_count": 38,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 62.4,
+          "mfi": 65.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 50.3,
+          "mfi": 50.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 55.1,
+          "mfi": 35.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "CAT": {
+      "category": "개별종목",
+      "symb": "CAT",
+      "name": "Caterpillar Inc.",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 800.47,
+      "pct_chg": 0.54,
+      "market_regime": "상승장",
+      "depth": -0.2469,
+      "rolling_high": 1062.93,
+      "stage": 1,
+      "percentiles": {
+        "count": 27,
+        "p50": -0.1019,
+        "p25": -0.27335,
+        "p10": -0.4051,
+        "recovery_days_min": 2,
+        "recovery_days_median": 23,
+        "recovery_days_max": 698
+      },
+      "episode_count": 28,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 44.6,
+          "mfi": 48.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 46.9,
+          "mfi": 25.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 62.6,
+          "mfi": 67.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "BAC": {
+      "category": "개별종목",
+      "symb": "BAC",
+      "name": "Bank of America Corporation",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 54.32,
+      "pct_chg": 1.32,
+      "market_regime": "상승장",
+      "depth": -0.1576,
+      "rolling_high": 64.48,
+      "stage": 1,
+      "percentiles": {
+        "count": 11,
+        "p50": -0.1034,
+        "p25": -0.2272,
+        "p10": -0.4664,
+        "recovery_days_min": 14,
+        "recovery_days_median": 45,
+        "recovery_days_max": 3418
+      },
+      "episode_count": 12,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 32.1,
+          "mfi": 37.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 43.1,
+          "mfi": 53.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.2,
+          "mfi": 58.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "PG": {
+      "category": "개별종목",
+      "symb": "PG",
+      "name": "Procter & Gamble",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 151.23,
+      "pct_chg": 0.42,
+      "market_regime": "상승장",
+      "depth": -0.117,
+      "rolling_high": 171.26,
+      "stage": 1,
+      "percentiles": {
+        "count": 21,
+        "p50": -0.0888,
+        "p25": -0.1483,
+        "p10": -0.2377,
+        "recovery_days_min": 3,
+        "recovery_days_median": 60,
+        "recovery_days_max": 1016
+      },
+      "episode_count": 22,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 62.2,
+          "mfi": 74.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 58.2,
+          "mfi": 40.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 51.8,
+          "mfi": 42.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "MS": {
+      "category": "개별종목",
+      "symb": "MS",
+      "name": "Morgan Stanley",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 190.02,
+      "pct_chg": 1.38,
+      "market_regime": "상승장",
+      "depth": -0.164,
+      "rolling_high": 227.3,
+      "stage": 1,
+      "percentiles": {
+        "count": 20,
+        "p50": -0.10615,
+        "p25": -0.214325,
+        "p10": -0.37587,
+        "recovery_days_min": 7,
+        "recovery_days_median": 33,
+        "recovery_days_max": 2622
+      },
+      "episode_count": 21,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 34.4,
+          "mfi": 20.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 41.6,
+          "mfi": 30.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 63.6,
+          "mfi": 66.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "WFC": {
+      "category": "개별종목",
+      "symb": "WFC",
+      "name": "Wells Fargo",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 83.55,
+      "pct_chg": 1.85,
+      "market_regime": "상승장",
+      "depth": -0.1189,
+      "rolling_high": 94.83,
+      "stage": 1,
+      "percentiles": {
+        "count": 20,
+        "p50": -0.09775,
+        "p25": -0.23020000000000002,
+        "p10": -0.45703999999999995,
+        "recovery_days_min": 12,
+        "recovery_days_median": 45,
+        "recovery_days_max": 1121
+      },
+      "episode_count": 21,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 49.8,
+          "mfi": 35.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.1,
+          "mfi": 57.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.4,
+          "mfi": 67.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "UNP": {
+      "category": "개별종목",
+      "symb": "UNP",
+      "name": "Union Pacific",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 278.34,
+      "pct_chg": 0.05,
+      "market_regime": "상승장",
+      "depth": -0.0998,
+      "rolling_high": 309.19,
+      "stage": 1,
+      "percentiles": {
+        "count": 36,
+        "p50": -0.0854,
+        "p25": -0.151525,
+        "p10": -0.2833,
+        "recovery_days_min": 6,
+        "recovery_days_median": 38,
+        "recovery_days_max": 967
+      },
+      "episode_count": 37,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 46.6,
+          "mfi": 54.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 51.4,
+          "mfi": 57.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 59.3,
+          "mfi": 70.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "HON": {
+      "category": "개별종목",
+      "symb": "HON",
+      "name": "Honeywell",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 207.73,
+      "pct_chg": 0.55,
+      "market_regime": "상승장",
+      "depth": -0.1942,
+      "rolling_high": 257.81,
+      "stage": 1,
+      "percentiles": {
+        "count": 5,
+        "p50": -0.16,
+        "p25": -0.221,
+        "p10": -0.25118,
+        "recovery_days_min": 13,
+        "recovery_days_median": 132,
+        "recovery_days_max": 797
+      },
+      "episode_count": 6,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 41.7,
+          "mfi": 46.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 41.5,
+          "mfi": 47.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 47.5,
+          "mfi": 48.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "TXN": {
+      "category": "개별종목",
+      "symb": "TXN",
+      "name": "Texas Instruments",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 283.74,
+      "pct_chg": -1.55,
+      "market_regime": "상승장",
+      "depth": -0.1417,
+      "rolling_high": 330.59,
+      "stage": 1,
+      "percentiles": {
+        "count": 40,
+        "p50": -0.08925,
+        "p25": -0.152225,
+        "p10": -0.29598,
+        "recovery_days_min": 7,
+        "recovery_days_median": 32,
+        "recovery_days_max": 830
+      },
+      "episode_count": 41,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 55.7,
+          "mfi": 60.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 55.9,
+          "mfi": 38.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 63.6,
+          "mfi": 45.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "105560": {
+      "category": "한국개별종목",
+      "symb": "105560",
+      "name": "KB금융",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 163400.0,
+      "pct_chg": -3.03,
+      "market_regime": "상승장",
+      "depth": -0.1224,
+      "rolling_high": 186200.0,
+      "stage": 1,
+      "percentiles": {
+        "count": 19,
+        "p50": -0.1171,
+        "p25": -0.19069999999999998,
+        "p10": -0.55588,
+        "recovery_days_min": 6,
+        "recovery_days_median": 28,
+        "recovery_days_max": 1999
+      },
+      "episode_count": 20,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 39.1,
+          "mfi": 17.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": true
+        },
+        "weekly": {
+          "rsi": 49.4,
+          "mfi": 60.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 67.5,
+          "mfi": 73.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "055550": {
+      "category": "한국개별종목",
+      "symb": "055550",
+      "name": "신한지주",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 100000.0,
+      "pct_chg": -3.19,
+      "market_regime": "상승장",
+      "depth": -0.1274,
+      "rolling_high": 114600.0,
+      "stage": 1,
+      "percentiles": {
+        "count": 26,
+        "p50": -0.11115,
+        "p25": -0.181,
+        "p10": -0.27455,
+        "recovery_days_min": 3,
+        "recovery_days_median": 29,
+        "recovery_days_max": 4423
+      },
+      "episode_count": 27,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 34.8,
+          "mfi": 31.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.7,
+          "mfi": 56.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 66.0,
+          "mfi": 75.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "006400": {
+      "category": "한국개별종목",
+      "symb": "006400",
+      "name": "삼성SDI",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 567000.0,
+      "pct_chg": 0.89,
+      "market_regime": "상승장",
+      "depth": -0.2911,
+      "rolling_high": 799869.0,
+      "stage": 1,
+      "percentiles": {
+        "count": 28,
+        "p50": -0.1538,
+        "p25": -0.300475,
+        "p10": -0.4858,
+        "recovery_days_min": 4,
+        "recovery_days_median": 31,
+        "recovery_days_max": 1555
+      },
+      "episode_count": 29,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 59.5,
+          "mfi": 60.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 57.7,
+          "mfi": 49.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 57.4,
+          "mfi": 74.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "096770": {
+      "category": "한국개별종목",
+      "symb": "096770",
+      "name": "SK이노베이션",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 161500.0,
+      "pct_chg": 1.19,
+      "market_regime": "상승장",
+      "depth": -0.483,
+      "rolling_high": 312404.0,
+      "stage": 1,
+      "percentiles": {
+        "count": 7,
+        "p50": -0.1416,
+        "p25": -0.55525,
+        "p10": -0.77074,
+        "recovery_days_min": 5,
+        "recovery_days_median": 18,
+        "recovery_days_max": 2388
+      },
+      "episode_count": 8,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 62.6,
+          "mfi": 65.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 64.8,
+          "mfi": 75.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.4,
+          "mfi": 70.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6758": {
+      "category": "일본개별종목",
+      "symb": "6758",
+      "name": "소니그룹",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 3814.0,
+      "pct_chg": 2.91,
+      "market_regime": "상승장",
+      "depth": -0.1817,
+      "rolling_high": 4660.8,
+      "stage": 1,
+      "percentiles": {
+        "count": 28,
+        "p50": -0.1154,
+        "p25": -0.202525,
+        "p10": -0.33702,
+        "recovery_days_min": 2,
+        "recovery_days_median": 33,
+        "recovery_days_max": 616
+      },
+      "episode_count": 29,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 56.2,
+          "mfi": 51.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 56.4,
+          "mfi": 73.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 56.3,
+          "mfi": 47.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "8306": {
+      "category": "일본개별종목",
+      "symb": "8306",
+      "name": "미쓰비시UFJ",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 3462.0,
+      "pct_chg": -1.2,
+      "market_regime": "상승장",
+      "depth": -0.0768,
+      "rolling_high": 3750.0,
+      "stage": 1,
+      "percentiles": {
+        "count": 26,
+        "p50": -0.07405,
+        "p25": -0.095975,
+        "p10": -0.29135,
+        "recovery_days_min": 4,
+        "recovery_days_median": 18,
+        "recovery_days_max": 1846
+      },
+      "episode_count": 27,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 41.8,
+          "mfi": 36.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 55.5,
+          "mfi": 45.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 73.2,
+          "mfi": 82.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "SPY": {
+      "category": "섹터ETF",
+      "symb": "SPY",
+      "name": "S&P 500 ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 778.57,
+      "pct_chg": 0.6,
+      "market_regime": "상승장",
+      "depth": -0.0007,
+      "rolling_high": 779.09,
+      "stage": 0,
+      "percentiles": {
+        "count": 20,
+        "p50": -0.0788,
+        "p25": -0.144775,
+        "p10": -0.25422,
+        "recovery_days_min": 20,
+        "recovery_days_median": 50,
+        "recovery_days_max": 1223
+      },
+      "episode_count": 20,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 60.5,
+          "mfi": 48.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 66.3,
+          "mfi": 50.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 77.2,
+          "mfi": 58.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "QQQ": {
+      "category": "섹터ETF",
+      "symb": "QQQ",
+      "name": "Nasdaq 100 ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 751.27,
+      "pct_chg": 0.49,
+      "market_regime": "상승장",
+      "depth": -0.011,
+      "rolling_high": 759.66,
+      "stage": 0,
+      "percentiles": {
+        "count": 31,
+        "p50": -0.1085,
+        "p25": -0.1375,
+        "p10": -0.228,
+        "recovery_days_min": 13,
+        "recovery_days_median": 57,
+        "recovery_days_max": 783
+      },
+      "episode_count": 31,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 61.0,
+          "mfi": 52.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 65.2,
+          "mfi": 42.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 73.0,
+          "mfi": 65.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "DIA": {
+      "category": "섹터ETF",
+      "symb": "DIA",
+      "name": "Dow Jones ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 516.11,
+      "pct_chg": 0.87,
+      "market_regime": "상승장",
+      "depth": -0.0462,
+      "rolling_high": 541.11,
+      "stage": 0,
+      "percentiles": {
+        "count": 22,
+        "p50": -0.07350000000000001,
+        "p25": -0.13272499999999998,
+        "p10": -0.20497,
+        "recovery_days_min": 19,
+        "recovery_days_median": 62,
+        "recovery_days_max": 1077
+      },
+      "episode_count": 23,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 48.6,
+          "mfi": 45.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 53.3,
+          "mfi": 39.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 67.1,
+          "mfi": 81.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "IWM": {
+      "category": "섹터ETF",
+      "symb": "IWM",
+      "name": "Russell 2000 ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 278.94,
+      "pct_chg": 0.49,
+      "market_regime": "상승장",
+      "depth": -0.0833,
+      "rolling_high": 304.29,
+      "stage": 0,
+      "percentiles": {
+        "count": 21,
+        "p50": -0.0955,
+        "p25": -0.268,
+        "p10": -0.3191,
+        "recovery_days_min": 9,
+        "recovery_days_median": 75,
+        "recovery_days_max": 823
+      },
+      "episode_count": 22,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 38.8,
+          "mfi": 33.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 46.1,
+          "mfi": 12.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": true
+        },
+        "monthly": {
+          "rsi": 62.5,
+          "mfi": 71.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLK": {
+      "category": "섹터ETF",
+      "symb": "XLK",
+      "name": "Technology ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 198.78,
+      "pct_chg": 0.51,
+      "market_regime": "상승장",
+      "depth": -0.0159,
+      "rolling_high": 202.0,
+      "stage": 0,
+      "percentiles": {
+        "count": 36,
+        "p50": -0.0891,
+        "p25": -0.12935000000000002,
+        "p10": -0.2472,
+        "recovery_days_min": 7,
+        "recovery_days_median": 51,
+        "recovery_days_max": 1061
+      },
+      "episode_count": 36,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 61.3,
+          "mfi": 66.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 68.2,
+          "mfi": 60.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 75.1,
+          "mfi": 64.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLF": {
+      "category": "섹터ETF",
+      "symb": "XLF",
+      "name": "Financials ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 54.73,
+      "pct_chg": 0.92,
+      "market_regime": "상승장",
+      "depth": -0.0621,
+      "rolling_high": 58.35,
+      "stage": 0,
+      "percentiles": {
+        "count": 14,
+        "p50": -0.08149999999999999,
+        "p25": -0.15352500000000002,
+        "p10": -0.37744999999999995,
+        "recovery_days_min": 13,
+        "recovery_days_median": 50,
+        "recovery_days_max": 3131
+      },
+      "episode_count": 15,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 46.4,
+          "mfi": 34.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 50.5,
+          "mfi": 47.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 60.1,
+          "mfi": 52.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLE": {
+      "category": "섹터ETF",
+      "symb": "XLE",
+      "name": "Energy ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 65.08,
+      "pct_chg": -0.25,
+      "market_regime": "상승장",
+      "depth": -0.007,
+      "rolling_high": 65.54,
+      "stage": 0,
+      "percentiles": {
+        "count": 18,
+        "p50": -0.12695,
+        "p25": -0.17225000000000001,
+        "p10": -0.35435999999999995,
+        "recovery_days_min": 6,
+        "recovery_days_median": 67,
+        "recovery_days_max": 1938
+      },
+      "episode_count": 19,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 62.5,
+          "mfi": 77.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 64.4,
+          "mfi": 54.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 70.4,
+          "mfi": 70.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLV": {
+      "category": "섹터ETF",
+      "symb": "XLV",
+      "name": "Health Care ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 170.81,
+      "pct_chg": 1.58,
+      "market_regime": "상승장",
+      "depth": -0.024,
+      "rolling_high": 175.01,
+      "stage": 0,
+      "percentiles": {
+        "count": 25,
+        "p50": -0.0809,
+        "p25": -0.1544,
+        "p10": -0.17242000000000002,
+        "recovery_days_min": 16,
+        "recovery_days_median": 67,
+        "recovery_days_max": 849
+      },
+      "episode_count": 26,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 57.6,
+          "mfi": 50.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 61.7,
+          "mfi": 72.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 67.4,
+          "mfi": 83.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLP": {
+      "category": "섹터ETF",
+      "symb": "XLP",
+      "name": "Consumer Staples ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 83.43,
+      "pct_chg": 0.01,
+      "market_regime": "상승장",
+      "depth": -0.0552,
+      "rolling_high": 88.31,
+      "stage": 0,
+      "percentiles": {
+        "count": 25,
+        "p50": -0.0796,
+        "p25": -0.0924,
+        "p10": -0.16224,
+        "recovery_days_min": 21,
+        "recovery_days_median": 100,
+        "recovery_days_max": 486
+      },
+      "episode_count": 26,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 56.0,
+          "mfi": 55.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 51.6,
+          "mfi": 52.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 57.1,
+          "mfi": 50.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLB": {
+      "category": "섹터ETF",
+      "symb": "XLB",
+      "name": "Materials ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 49.43,
+      "pct_chg": 0.32,
+      "market_regime": "상승장",
+      "depth": -0.0748,
+      "rolling_high": 53.42,
+      "stage": 0,
+      "percentiles": {
+        "count": 19,
+        "p50": -0.1099,
+        "p25": -0.19474999999999998,
+        "p10": -0.2883,
+        "recovery_days_min": 15,
+        "recovery_days_median": 94,
+        "recovery_days_max": 1249
+      },
+      "episode_count": 20,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 44.0,
+          "mfi": 33.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 45.4,
+          "mfi": 49.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 56.6,
+          "mfi": 54.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLRE": {
+      "category": "섹터ETF",
+      "symb": "XLRE",
+      "name": "Real Estate ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 41.61,
+      "pct_chg": 1.86,
+      "market_regime": "상승장",
+      "depth": -0.088,
+      "rolling_high": 45.63,
+      "stage": 0,
+      "percentiles": {
+        "count": 11,
+        "p50": -0.1171,
+        "p25": -0.13645000000000002,
+        "p10": -0.3412,
+        "recovery_days_min": 34,
+        "recovery_days_median": 61,
+        "recovery_days_max": 1111
+      },
+      "episode_count": 12,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 45.6,
+          "mfi": 25.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 42.4,
+          "mfi": 28.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 52.9,
+          "mfi": 48.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XLC": {
+      "category": "섹터ETF",
+      "symb": "XLC",
+      "name": "Communication Services ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 110.38,
+      "pct_chg": -1.51,
+      "market_regime": "상승장",
+      "depth": -0.0724,
+      "rolling_high": 119.0,
+      "stage": 0,
+      "percentiles": {
+        "count": 10,
+        "p50": -0.09455,
+        "p25": -0.2274,
+        "p10": -0.318,
+        "recovery_days_min": 24,
+        "recovery_days_median": 82,
+        "recovery_days_max": 691
+      },
+      "episode_count": 11,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 45.4,
+          "mfi": 45.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.8,
+          "mfi": 59.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.5,
+          "mfi": 46.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "CIBR": {
+      "category": "섹터ETF",
+      "symb": "CIBR",
+      "name": "Cybersecurity ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 110.0,
+      "pct_chg": 3.58,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 110.0,
+      "stage": 0,
+      "percentiles": {
+        "count": 25,
+        "p50": -0.0953,
+        "p25": -0.1325,
+        "p10": -0.28778,
+        "recovery_days_min": 14,
+        "recovery_days_median": 48,
+        "recovery_days_max": 546
+      },
+      "episode_count": 25,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 69.2,
+          "mfi": 74.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 74.2,
+          "mfi": 74.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 81.4,
+          "mfi": 71.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "QTUM": {
+      "category": "섹터ETF",
+      "symb": "QTUM",
+      "name": "Quantum ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 152.06,
+      "pct_chg": 0.78,
+      "market_regime": "상승장",
+      "depth": -0.0947,
+      "rolling_high": 167.97,
+      "stage": 0,
+      "percentiles": {
+        "count": 6,
+        "p50": -0.10269999999999999,
+        "p25": -0.14647500000000002,
+        "p10": -0.20325000000000001,
+        "recovery_days_min": 14,
+        "recovery_days_median": 21,
+        "recovery_days_max": 103
+      },
+      "episode_count": 7,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 51.6,
+          "mfi": 60.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 57.1,
+          "mfi": 35.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 71.0,
+          "mfi": 76.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ICLN": {
+      "category": "섹터ETF",
+      "symb": "ICLN",
+      "name": "Clean Energy ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 17.28,
+      "pct_chg": 0.93,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 17.28,
+      "stage": 0,
+      "percentiles": null,
+      "episode_count": 0,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 47.7,
+          "mfi": 57.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 40.9,
+          "mfi": 33.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 52.3,
+          "mfi": 50.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "KRE": {
+      "category": "섹터ETF",
+      "symb": "KRE",
+      "name": "Regional Banks ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 69.01,
+      "pct_chg": -0.83,
+      "market_regime": "상승장",
+      "depth": -0.1094,
+      "rolling_high": 77.49,
+      "stage": 0,
+      "percentiles": {
+        "count": 16,
+        "p50": -0.1456,
+        "p25": -0.1896,
+        "p10": -0.53755,
+        "recovery_days_min": 7,
+        "recovery_days_median": 88,
+        "recovery_days_max": 1558
+      },
+      "episode_count": 17,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 35.1,
+          "mfi": 28.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 42.8,
+          "mfi": 25.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 57.9,
+          "mfi": 63.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "URA": {
+      "category": "섹터ETF",
+      "symb": "URA",
+      "name": "Uranium ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 38.9,
+      "pct_chg": 0.88,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 38.9,
+      "stage": 0,
+      "percentiles": null,
+      "episode_count": 0,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 38.6,
+          "mfi": 45.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 37.7,
+          "mfi": 45.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.6,
+          "mfi": 46.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "IGV": {
+      "category": "섹터ETF",
+      "symb": "IGV",
+      "name": "Software ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 112.67,
+      "pct_chg": 2.81,
+      "market_regime": "상승장",
+      "depth": -0.0433,
+      "rolling_high": 117.77,
+      "stage": 0,
+      "percentiles": {
+        "count": 39,
+        "p50": -0.0839,
+        "p25": -0.12275,
+        "p10": -0.26474000000000003,
+        "recovery_days_min": 5,
+        "recovery_days_median": 36,
+        "recovery_days_max": 751
+      },
+      "episode_count": 40,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 65.8,
+          "mfi": 57.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 64.6,
+          "mfi": 67.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 59.4,
+          "mfi": 41.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "IEF": {
+      "category": "섹터ETF",
+      "symb": "IEF",
+      "name": "US Treasury 7-10Y ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 89.4,
+      "pct_chg": -0.06,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 89.4,
+      "stage": 0,
+      "percentiles": null,
+      "episode_count": 0,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 38.9,
+          "mfi": 40.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 30.9,
+          "mfi": 40.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 44.7,
+          "mfi": 37.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "TLT": {
+      "category": "섹터ETF",
+      "symb": "TLT",
+      "name": "US Treasury 20Y+ ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 77.98,
+      "pct_chg": 0.14,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 77.98,
+      "stage": 0,
+      "percentiles": null,
+      "episode_count": 0,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 37.4,
+          "mfi": 25.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 32.4,
+          "mfi": 15.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": true
+        },
+        "monthly": {
+          "rsi": 39.2,
+          "mfi": 30.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "SCHD": {
+      "category": "섹터ETF",
+      "symb": "SCHD",
+      "name": "US Dividend Equity ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 33.04,
+      "pct_chg": -0.33,
+      "market_regime": "상승장",
+      "depth": -0.0542,
+      "rolling_high": 34.93,
+      "stage": 0,
+      "percentiles": {
+        "count": 16,
+        "p50": -0.07375,
+        "p25": -0.144725,
+        "p10": -0.16965000000000002,
+        "recovery_days_min": 19,
+        "recovery_days_median": 62,
+        "recovery_days_max": 492
+      },
+      "episode_count": 17,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 44.8,
+          "mfi": 40.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 56.1,
+          "mfi": 64.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 66.6,
+          "mfi": 63.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "EWJ": {
+      "category": "섹터ETF",
+      "symb": "EWJ",
+      "name": "Japan ETF",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 97.86,
+      "pct_chg": 0.55,
+      "market_regime": "상승장",
+      "depth": -0.0147,
+      "rolling_high": 99.32,
+      "stage": 0,
+      "percentiles": {
+        "count": 14,
+        "p50": -0.1058,
+        "p25": -0.197725,
+        "p10": -0.32153,
+        "recovery_days_min": 6,
+        "recovery_days_median": 76,
+        "recovery_days_max": 1893
+      },
+      "episode_count": 14,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 52.1,
+          "mfi": 52.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 59.5,
+          "mfi": 72.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 76.1,
+          "mfi": 78.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "NVDA": {
+      "category": "개별종목",
+      "symb": "NVDA",
+      "name": "Nvidia Corp",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 229.28,
+      "pct_chg": -0.52,
+      "market_regime": "상승장",
+      "depth": -0.0416,
+      "rolling_high": 239.24,
+      "stage": 0,
+      "percentiles": {
+        "count": 52,
+        "p50": -0.09615,
+        "p25": -0.1573,
+        "p10": -0.26783,
+        "recovery_days_min": 3,
+        "recovery_days_median": 24,
+        "recovery_days_max": 2137
+      },
+      "episode_count": 52,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 53.0,
+          "mfi": 62.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 58.9,
+          "mfi": 63.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 72.3,
+          "mfi": 53.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "AAPL": {
+      "category": "개별종목",
+      "symb": "AAPL",
+      "name": "Apple Inc.",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 336.64,
+      "pct_chg": -1.11,
+      "market_regime": "상승장",
+      "depth": -0.013,
+      "rolling_high": 341.07,
+      "stage": 0,
+      "percentiles": {
+        "count": 44,
+        "p50": -0.11474999999999999,
+        "p25": -0.166275,
+        "p10": -0.31274,
+        "recovery_days_min": 3,
+        "recovery_days_median": 38,
+        "recovery_days_max": 489
+      },
+      "episode_count": 44,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 56.1,
+          "mfi": 59.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 63.6,
+          "mfi": 67.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 71.4,
+          "mfi": 68.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "MSFT": {
+      "category": "개별종목",
+      "symb": "MSFT",
+      "name": "Microsoft Corp",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 535.07,
+      "pct_chg": 2.38,
+      "market_regime": "상승장",
+      "depth": -0.0048,
+      "rolling_high": 537.65,
+      "stage": 0,
+      "percentiles": {
+        "count": 30,
+        "p50": -0.09985,
+        "p25": -0.135925,
+        "p10": -0.24161,
+        "recovery_days_min": 7,
+        "recovery_days_median": 42,
+        "recovery_days_max": 1382
+      },
+      "episode_count": 31,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 67.5,
+          "mfi": 76.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 67.6,
+          "mfi": 78.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 61.6,
+          "mfi": 47.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "AMZN": {
+      "category": "개별종목",
+      "symb": "AMZN",
+      "name": "Amazon.Com Inc",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 262.43,
+      "pct_chg": 3.29,
+      "market_regime": "상승장",
+      "depth": -0.076,
+      "rolling_high": 284.02,
+      "stage": 0,
+      "percentiles": {
+        "count": 45,
+        "p50": -0.1088,
+        "p25": -0.1949,
+        "p10": -0.30254000000000003,
+        "recovery_days_min": 8,
+        "recovery_days_median": 34,
+        "recovery_days_max": 693
+      },
+      "episode_count": 46,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 59.0,
+          "mfi": 56.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 55.7,
+          "mfi": 57.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 58.9,
+          "mfi": 62.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "BRK-B": {
+      "category": "개별종목",
+      "symb": "BRK-B",
+      "name": "BERKSHIRE HATHAWAY Class B",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 515.62,
+      "pct_chg": 0.89,
+      "market_regime": "상승장",
+      "depth": -0.0448,
+      "rolling_high": 539.8,
+      "stage": 0,
+      "percentiles": {
+        "count": 18,
+        "p50": -0.08455,
+        "p25": -0.137825,
+        "p10": -0.21336999999999998,
+        "recovery_days_min": 20,
+        "recovery_days_median": 78,
+        "recovery_days_max": 477
+      },
+      "episode_count": 19,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 62.7,
+          "mfi": 44.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 58.5,
+          "mfi": 51.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 59.1,
+          "mfi": 62.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "AMD": {
+      "category": "개별종목",
+      "symb": "AMD",
+      "name": "Advanced Micro Devices",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 608.1,
+      "pct_chg": -2.03,
+      "market_regime": "상승장",
+      "depth": -0.0636,
+      "rolling_high": 649.42,
+      "stage": 0,
+      "percentiles": {
+        "count": 38,
+        "p50": -0.1283,
+        "p25": -0.23435,
+        "p10": -0.40842999999999996,
+        "recovery_days_min": 1,
+        "recovery_days_median": 16,
+        "recovery_days_max": 535
+      },
+      "episode_count": 38,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 57.2,
+          "mfi": 54.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 66.9,
+          "mfi": 62.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 74.9,
+          "mfi": 58.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "LLY": {
+      "category": "개별종목",
+      "symb": "LLY",
+      "name": "Eli Lilly & Co.",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 1179.27,
+      "pct_chg": 0.83,
+      "market_regime": "상승장",
+      "depth": -0.0789,
+      "rolling_high": 1280.34,
+      "stage": 0,
+      "percentiles": {
+        "count": 37,
+        "p50": -0.1095,
+        "p25": -0.1684,
+        "p10": -0.22766,
+        "recovery_days_min": 5,
+        "recovery_days_median": 46,
+        "recovery_days_max": 1239
+      },
+      "episode_count": 38,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 54.2,
+          "mfi": 53.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 56.1,
+          "mfi": 52.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 66.0,
+          "mfi": 71.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "JPM": {
+      "category": "개별종목",
+      "symb": "JPM",
+      "name": "JPMorgan Chase & Co.",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 332.99,
+      "pct_chg": 0.47,
+      "market_regime": "상승장",
+      "depth": -0.0836,
+      "rolling_high": 363.37,
+      "stage": 0,
+      "percentiles": {
+        "count": 38,
+        "p50": -0.098,
+        "p25": -0.15075,
+        "p10": -0.27986999999999995,
+        "recovery_days_min": 7,
+        "recovery_days_median": 37,
+        "recovery_days_max": 1074
+      },
+      "episode_count": 39,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 40.1,
+          "mfi": 34.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 50.7,
+          "mfi": 56.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 65.3,
+          "mfi": 50.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "V": {
+      "category": "개별종목",
+      "symb": "V",
+      "name": "VISA Inc.",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 385.45,
+      "pct_chg": 2.76,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 385.45,
+      "stage": 0,
+      "percentiles": {
+        "count": 35,
+        "p50": -0.0895,
+        "p25": -0.1523,
+        "p10": -0.25311999999999996,
+        "recovery_days_min": 7,
+        "recovery_days_median": 51,
+        "recovery_days_max": 528
+      },
+      "episode_count": 36,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 67.6,
+          "mfi": 53.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 65.7,
+          "mfi": 50.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 65.0,
+          "mfi": 56.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "PLTR": {
+      "category": "개별종목",
+      "symb": "PLTR",
+      "name": "Palantir Technologies Inc. Class A Common Stock",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 209.05,
+      "pct_chg": 5.17,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 209.05,
+      "stage": 0,
+      "percentiles": {
+        "count": 15,
+        "p50": -0.0865,
+        "p25": -0.19615,
+        "p10": -0.3337,
+        "recovery_days_min": 3,
+        "recovery_days_median": 10,
+        "recovery_days_max": 926
+      },
+      "episode_count": 16,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 76.3,
+          "mfi": 78.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 67.7,
+          "mfi": 78.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 68.5,
+          "mfi": 56.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "XOM": {
+      "category": "개별종목",
+      "symb": "XOM",
+      "name": "ExxonMobil Holdings Corporation",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 168.94,
+      "pct_chg": 0.26,
+      "market_regime": "상승장",
+      "depth": -0.0081,
+      "rolling_high": 170.31,
+      "stage": 0,
+      "percentiles": {
+        "count": 22,
+        "p50": -0.1089,
+        "p25": -0.152525,
+        "p10": -0.20351,
+        "recovery_days_min": 5,
+        "recovery_days_median": 78,
+        "recovery_days_max": 1911
+      },
+      "episode_count": 23,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 64.2,
+          "mfi": 64.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 62.4,
+          "mfi": 78.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 69.6,
+          "mfi": 74.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "CSCO": {
+      "category": "개별종목",
+      "symb": "CSCO",
+      "name": "Cisco Systems, Inc. Common Stock (DE)",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 118.39,
+      "pct_chg": 3.05,
+      "market_regime": "상승장",
+      "depth": -0.0824,
+      "rolling_high": 129.02,
+      "stage": 0,
+      "percentiles": {
+        "count": 19,
+        "p50": -0.0992,
+        "p25": -0.15515,
+        "p10": -0.37726000000000004,
+        "recovery_days_min": 7,
+        "recovery_days_median": 54,
+        "recovery_days_max": 2183
+      },
+      "episode_count": 20,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 65.2,
+          "mfi": 55.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 62.1,
+          "mfi": 39.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 77.8,
+          "mfi": 56.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "JNJ": {
+      "category": "개별종목",
+      "symb": "JNJ",
+      "name": "Johnson & Johnson",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 261.44,
+      "pct_chg": 1.93,
+      "market_regime": "상승장",
+      "depth": -0.061,
+      "rolling_high": 278.43,
+      "stage": 0,
+      "percentiles": {
+        "count": 24,
+        "p50": -0.1053,
+        "p25": -0.128225,
+        "p10": -0.18371,
+        "recovery_days_min": 29,
+        "recovery_days_median": 74,
+        "recovery_days_max": 812
+      },
+      "episode_count": 25,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 46.9,
+          "mfi": 33.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 56.1,
+          "mfi": 56.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 74.8,
+          "mfi": 83.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "MA": {
+      "category": "개별종목",
+      "symb": "MA",
+      "name": "Mastercard Incorporated",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 589.14,
+      "pct_chg": 2.66,
+      "market_regime": "상승장",
+      "depth": -0.0179,
+      "rolling_high": 599.86,
+      "stage": 0,
+      "percentiles": {
+        "count": 42,
+        "p50": -0.10105,
+        "p25": -0.161425,
+        "p10": -0.21844999999999998,
+        "recovery_days_min": 2,
+        "recovery_days_median": 38,
+        "recovery_days_max": 780
+      },
+      "episode_count": 43,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 65.3,
+          "mfi": 50.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 62.3,
+          "mfi": 53.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 60.8,
+          "mfi": 40.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "ABBV": {
+      "category": "개별종목",
+      "symb": "ABBV",
+      "name": "ABBVIE INC.",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 276.47,
+      "pct_chg": 1.49,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 276.47,
+      "stage": 0,
+      "percentiles": {
+        "count": 27,
+        "p50": -0.0916,
+        "p25": -0.1576,
+        "p10": -0.21212,
+        "recovery_days_min": 11,
+        "recovery_days_median": 35,
+        "recovery_days_max": 719
+      },
+      "episode_count": 27,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 71.3,
+          "mfi": 62.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 67.7,
+          "mfi": 49.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 75.4,
+          "mfi": 75.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "CVX": {
+      "category": "개별종목",
+      "symb": "CVX",
+      "name": "Chevron Corporation",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 211.98,
+      "pct_chg": 0.2,
+      "market_regime": "상승장",
+      "depth": -0.0266,
+      "rolling_high": 217.77,
+      "stage": 0,
+      "percentiles": {
+        "count": 22,
+        "p50": -0.12974999999999998,
+        "p25": -0.2132,
+        "p10": -0.41942,
+        "recovery_days_min": 20,
+        "recovery_days_median": 74,
+        "recovery_days_max": 809
+      },
+      "episode_count": 23,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 59.8,
+          "mfi": 65.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 62.8,
+          "mfi": 64.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 65.9,
+          "mfi": 60.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "MRK": {
+      "category": "개별종목",
+      "symb": "MRK",
+      "name": "Merck & Co.",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 145.6,
+      "pct_chg": 2.26,
+      "market_regime": "상승장",
+      "depth": -0.0639,
+      "rolling_high": 155.53,
+      "stage": 0,
+      "percentiles": {
+        "count": 32,
+        "p50": -0.0814,
+        "p25": -0.120575,
+        "p10": -0.21043,
+        "recovery_days_min": 7,
+        "recovery_days_median": 49,
+        "recovery_days_max": 1349
+      },
+      "episode_count": 33,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 52.1,
+          "mfi": 43.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 63.2,
+          "mfi": 62.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 72.6,
+          "mfi": 78.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "SO": {
+      "category": "개별종목",
+      "symb": "SO",
+      "name": "Southern Company",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 86.17,
+      "pct_chg": 0.02,
+      "market_regime": "상승장",
+      "depth": -0.1161,
+      "rolling_high": 97.49,
+      "stage": 0,
+      "percentiles": {
+        "count": 19,
+        "p50": -0.133,
+        "p25": -0.1634,
+        "p10": -0.24714,
+        "recovery_days_min": 23,
+        "recovery_days_median": 116,
+        "recovery_days_max": 464
+      },
+      "episode_count": 20,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 52.3,
+          "mfi": 54.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 41.5,
+          "mfi": 13.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": true
+        },
+        "monthly": {
+          "rsi": 50.6,
+          "mfi": 56.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "LIN": {
+      "category": "개별종목",
+      "symb": "LIN",
+      "name": "Linde",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 483.73,
+      "pct_chg": 0.42,
+      "market_regime": "상승장",
+      "depth": -0.1122,
+      "rolling_high": 544.85,
+      "stage": 0,
+      "percentiles": {
+        "count": 5,
+        "p50": -0.1164,
+        "p25": -0.1486,
+        "p10": -0.17452,
+        "recovery_days_min": 28,
+        "recovery_days_median": 107,
+        "recovery_days_max": 207
+      },
+      "episode_count": 6,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 57.1,
+          "mfi": 68.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.2,
+          "mfi": 28.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 54.4,
+          "mfi": 65.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "FCX": {
+      "category": "개별종목",
+      "symb": "FCX",
+      "name": "Freeport-McMoRan",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 73.69,
+      "pct_chg": 3.58,
+      "market_regime": "상승장",
+      "depth": -0.0778,
+      "rolling_high": 79.91,
+      "stage": 0,
+      "percentiles": {
+        "count": 16,
+        "p50": -0.1573,
+        "p25": -0.37175,
+        "p10": -0.6883999999999999,
+        "recovery_days_min": 4,
+        "recovery_days_median": 21,
+        "recovery_days_max": 2801
+      },
+      "episode_count": 17,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 56.1,
+          "mfi": 43.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 60.1,
+          "mfi": 51.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 65.8,
+          "mfi": 68.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "COP": {
+      "category": "개별종목",
+      "symb": "COP",
+      "name": "ConocoPhillips",
+      "currency": "USD",
+      "date": "2026-10-09",
+      "close": 134.1,
+      "pct_chg": -0.07,
+      "market_regime": "상승장",
+      "depth": -0.0504,
+      "rolling_high": 141.22,
+      "stage": 0,
+      "percentiles": {
+        "count": 18,
+        "p50": -0.1472,
+        "p25": -0.319925,
+        "p10": -0.61122,
+        "recovery_days_min": 6,
+        "recovery_days_median": 76,
+        "recovery_days_max": 1159
+      },
+      "episode_count": 19,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 59.8,
+          "mfi": 66.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 60.9,
+          "mfi": 53.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 62.6,
+          "mfi": 59.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "373220": {
+      "category": "한국개별종목",
+      "symb": "373220",
+      "name": "LG에너지솔루션",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 403000.0,
+      "pct_chg": 3.07,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 403000.0,
+      "stage": 0,
+      "percentiles": null,
+      "episode_count": 0,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 66.5,
+          "mfi": 78.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 55.3,
+          "mfi": 58.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 50.6,
+          "mfi": 48.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "086790": {
+      "category": "한국개별종목",
+      "symb": "086790",
+      "name": "하나금융지주",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 124500.0,
+      "pct_chg": -3.41,
+      "market_regime": "상승장",
+      "depth": -0.1158,
+      "rolling_high": 140800.0,
+      "stage": 0,
+      "percentiles": {
+        "count": 14,
+        "p50": -0.16975,
+        "p25": -0.2064,
+        "p10": -0.5397099999999999,
+        "recovery_days_min": 4,
+        "recovery_days_median": 74,
+        "recovery_days_max": 2689
+      },
+      "episode_count": 15,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 36.4,
+          "mfi": 26.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 49.2,
+          "mfi": 54.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 64.9,
+          "mfi": 72.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "091170": {
+      "category": "한국ETF",
+      "symb": "091170",
+      "name": "KODEX 은행",
+      "currency": "KRW",
+      "date": "2026-10-08",
+      "close": 15300.0,
+      "pct_chg": -2.7,
+      "market_regime": "상승장",
+      "depth": -0.1067,
+      "rolling_high": 17128.0,
+      "stage": 0,
+      "percentiles": {
+        "count": 11,
+        "p50": -0.1236,
+        "p25": -0.1513,
+        "p10": -0.1909,
+        "recovery_days_min": 12,
+        "recovery_days_median": 78,
+        "recovery_days_max": 4192
+      },
+      "episode_count": 12,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 34.7,
+          "mfi": 28.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 48.5,
+          "mfi": 60.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 66.5,
+          "mfi": 85.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6268": {
+      "category": "일본개별종목",
+      "symb": "6268",
+      "name": "나부테스코",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 4859.0,
+      "pct_chg": 1.33,
+      "market_regime": "상승장",
+      "depth": -0.1651,
+      "rolling_high": 5820.0,
+      "stage": 0,
+      "percentiles": {
+        "count": 14,
+        "p50": -0.1928,
+        "p25": -0.238225,
+        "p10": -0.57228,
+        "recovery_days_min": 9,
+        "recovery_days_median": 46,
+        "recovery_days_max": 1189
+      },
+      "episode_count": 15,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 54.5,
+          "mfi": 66.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 52.0,
+          "mfi": 41.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 60.2,
+          "mfi": 54.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "7267": {
+      "category": "일본개별종목",
+      "symb": "7267",
+      "name": "혼다",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 1726.5,
+      "pct_chg": 0.82,
+      "market_regime": "상승장",
+      "depth": 0.0,
+      "rolling_high": 1726.5,
+      "stage": 0,
+      "percentiles": {
+        "count": 11,
+        "p50": -0.1179,
+        "p25": -0.2344,
+        "p10": -0.3414,
+        "recovery_days_min": 7,
+        "recovery_days_median": 32,
+        "recovery_days_max": 1909
+      },
+      "episode_count": 12,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 61.5,
+          "mfi": 58.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 65.0,
+          "mfi": 72.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 64.0,
+          "mfi": 55.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6861": {
+      "category": "일본개별종목",
+      "symb": "6861",
+      "name": "키엔스",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 80540.0,
+      "pct_chg": 0.68,
+      "market_regime": "상승장",
+      "depth": -0.0779,
+      "rolling_high": 87348.2,
+      "stage": 0,
+      "percentiles": {
+        "count": 30,
+        "p50": -0.0885,
+        "p25": -0.1828,
+        "p10": -0.27148,
+        "recovery_days_min": 7,
+        "recovery_days_median": 36,
+        "recovery_days_max": 689
+      },
+      "episode_count": 31,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 54.3,
+          "mfi": 70.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 56.3,
+          "mfi": 59.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 63.4,
+          "mfi": 67.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6098": {
+      "category": "일본개별종목",
+      "symb": "6098",
+      "name": "리크루트",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 17755.0,
+      "pct_chg": 3.23,
+      "market_regime": "상승장",
+      "depth": -0.0244,
+      "rolling_high": 18198.4,
+      "stage": 0,
+      "percentiles": {
+        "count": 25,
+        "p50": -0.0875,
+        "p25": -0.169,
+        "p10": -0.41981999999999997,
+        "recovery_days_min": 5,
+        "recovery_days_median": 30,
+        "recovery_days_max": 622
+      },
+      "episode_count": 26,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 64.6,
+          "mfi": 74.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 70.0,
+          "mfi": 66.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 74.6,
+          "mfi": 69.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6501": {
+      "category": "일본개별종목",
+      "symb": "6501",
+      "name": "히타치",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 5669.0,
+      "pct_chg": 1.29,
+      "market_regime": "상승장",
+      "depth": -0.0161,
+      "rolling_high": 5761.5,
+      "stage": 0,
+      "percentiles": {
+        "count": 29,
+        "p50": -0.1023,
+        "p25": -0.2307,
+        "p10": -0.38996,
+        "recovery_days_min": 3,
+        "recovery_days_median": 30,
+        "recovery_days_max": 762
+      },
+      "episode_count": 30,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 64.2,
+          "mfi": 78.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 59.7,
+          "mfi": 73.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 64.4,
+          "mfi": 67.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "9432": {
+      "category": "일본개별종목",
+      "symb": "9432",
+      "name": "NTT",
+      "currency": "JPY",
+      "date": "2026-10-09",
+      "close": 172.9,
+      "pct_chg": 0.46,
+      "market_regime": "상승장",
+      "depth": -0.0243,
+      "rolling_high": 177.2,
+      "stage": 0,
+      "percentiles": {
+        "count": 21,
+        "p50": -0.0948,
+        "p25": -0.1414,
+        "p10": -0.2156,
+        "recovery_days_min": 14,
+        "recovery_days_median": 69,
+        "recovery_days_max": 801
+      },
+      "episode_count": 21,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 59.1,
+          "mfi": 31.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 71.1,
+          "mfi": 89.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 66.5,
+          "mfi": 56.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    }
   }
 }
