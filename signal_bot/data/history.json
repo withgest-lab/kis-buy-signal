@@ -511435,9 +511435,9 @@
       "symb": "005380",
       "name": "현대차",
       "currency": "KRW",
-      "date": "2026-10-08",
+      "date": "2026-10-12",
       "close": 324500.0,
-      "pct_chg": -3.42,
+      "pct_chg": 0.0,
       "market_regime": "상승장",
       "depth": -0.5673,
       "rolling_high": 750000.0,
@@ -511456,14 +511456,14 @@
       "timeframes": {
         "daily": {
           "rsi": 24.5,
-          "mfi": 21.1,
+          "mfi": 21.9,
           "divergence": false,
           "rsi_oversold": true,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 35.6,
-          "mfi": 14.6,
+          "mfi": 16.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": true
@@ -511482,11 +511482,11 @@
       "symb": "000270",
       "name": "기아",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 107000.0,
-      "pct_chg": -2.37,
+      "date": "2026-10-12",
+      "close": 108600.0,
+      "pct_chg": 1.69,
       "market_regime": "상승장",
-      "depth": -0.4806,
+      "depth": -0.4728,
       "rolling_high": 206000.0,
       "stage": 3,
       "percentiles": {
@@ -511502,21 +511502,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 25.0,
-          "mfi": 22.5,
+          "rsi": 29.7,
+          "mfi": 27.2,
           "divergence": false,
           "rsi_oversold": true,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 33.1,
-          "mfi": 27.8,
-          "divergence": true,
+          "rsi": 34.5,
+          "mfi": 16.0,
+          "divergence": false,
           "rsi_oversold": false,
-          "mfi_oversold": false
+          "mfi_oversold": true
         },
         "monthly": {
-          "rsi": 46.0,
+          "rsi": 46.4,
           "mfi": 48.4,
           "divergence": false,
           "rsi_oversold": false,
@@ -511529,11 +511529,11 @@
       "symb": "207940",
       "name": "삼성바이오로직스",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 1220000.0,
-      "pct_chg": -4.46,
+      "date": "2026-10-12",
+      "close": 1188000.0,
+      "pct_chg": -2.54,
       "market_regime": "상승장",
-      "depth": -0.3743,
+      "depth": -0.3907,
       "rolling_high": 1949873.0,
       "stage": 3,
       "percentiles": {
@@ -511549,21 +511549,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 26.1,
-          "mfi": 28.6,
+          "rsi": 24.0,
+          "mfi": 29.4,
           "divergence": true,
           "rsi_oversold": true,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 30.9,
-          "mfi": 54.9,
+          "rsi": 29.3,
+          "mfi": 58.4,
           "divergence": true,
-          "rsi_oversold": false,
+          "rsi_oversold": true,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 41.1,
+          "rsi": 40.2,
           "mfi": 43.4,
           "divergence": false,
           "rsi_oversold": false,
@@ -511576,11 +511576,11 @@
       "symb": "035420",
       "name": "NAVER",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 183200.0,
-      "pct_chg": -3.07,
+      "date": "2026-10-12",
+      "close": 182000.0,
+      "pct_chg": -0.98,
       "market_regime": "상승장",
-      "depth": -0.5965,
+      "depth": -0.5991,
       "rolling_high": 454000.0,
       "stage": 3,
       "percentiles": {
@@ -511596,21 +511596,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 30.1,
-          "mfi": 17.1,
+          "rsi": 29.2,
+          "mfi": 17.8,
           "divergence": true,
-          "rsi_oversold": false,
+          "rsi_oversold": true,
           "mfi_oversold": true
         },
         "weekly": {
-          "rsi": 37.0,
-          "mfi": 55.3,
+          "rsi": 36.5,
+          "mfi": 59.5,
           "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 43.5,
+          "rsi": 43.3,
           "mfi": 63.8,
           "divergence": false,
           "rsi_oversold": false,
@@ -511623,11 +511623,11 @@
       "symb": "035720",
       "name": "카카오",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 32400.0,
-      "pct_chg": -1.97,
+      "date": "2026-10-12",
+      "close": 31900.0,
+      "pct_chg": -1.24,
       "market_regime": "상승장",
-      "depth": -0.8088,
+      "depth": -0.8118,
       "rolling_high": 169500.0,
       "stage": 3,
       "percentiles": {
@@ -511643,22 +511643,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 33.3,
-          "mfi": 30.4,
+          "rsi": 30.8,
+          "mfi": 32.1,
           "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 32.0,
-          "mfi": 52.8,
+          "rsi": 31.2,
+          "mfi": 48.9,
           "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 36.5,
-          "mfi": 49.0,
+          "rsi": 36.1,
+          "mfi": 48.9,
           "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -511670,11 +511670,11 @@
       "symb": "005490",
       "name": "POSCO홀딩스",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 305500.0,
-      "pct_chg": -0.65,
+      "date": "2026-10-12",
+      "close": 302000.0,
+      "pct_chg": -1.47,
       "market_regime": "상승장",
-      "depth": -0.6007,
+      "depth": -0.6052,
       "rolling_high": 765000.0,
       "stage": 3,
       "percentiles": {
@@ -511690,22 +511690,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 40.6,
-          "mfi": 31.3,
-          "divergence": false,
+          "rsi": 38.7,
+          "mfi": 32.3,
+          "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 41.2,
-          "mfi": 40.9,
-          "divergence": false,
+          "rsi": 40.4,
+          "mfi": 44.6,
+          "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 47.0,
-          "mfi": 66.8,
+          "rsi": 46.7,
+          "mfi": 66.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -511717,11 +511717,11 @@
       "symb": "051910",
       "name": "LG화학",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 281500.0,
-      "pct_chg": 1.62,
+      "date": "2026-10-12",
+      "close": 265500.0,
+      "pct_chg": -7.33,
       "market_regime": "상승장",
-      "depth": -0.7262,
+      "depth": -0.7417,
       "rolling_high": 1028000.0,
       "stage": 3,
       "percentiles": {
@@ -511737,21 +511737,21 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 58.1,
-          "mfi": 57.3,
+          "rsi": 48.7,
+          "mfi": 51.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 47.3,
-          "mfi": 43.0,
+          "rsi": 44.2,
+          "mfi": 46.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 46.0,
+          "rsi": 44.6,
           "mfi": 56.3,
           "divergence": false,
           "rsi_oversold": false,
@@ -511764,11 +511764,11 @@
       "symb": "012330",
       "name": "현대모비스",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 360000.0,
-      "pct_chg": -3.61,
+      "date": "2026-10-12",
+      "close": 356500.0,
+      "pct_chg": -0.7,
       "market_regime": "상승장",
-      "depth": -0.5312,
+      "depth": -0.5358,
       "rolling_high": 768000.0,
       "stage": 3,
       "percentiles": {
@@ -511784,21 +511784,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 29.5,
-          "mfi": 40.3,
+          "rsi": 28.5,
+          "mfi": 42.6,
           "divergence": true,
           "rsi_oversold": true,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 38.0,
-          "mfi": 30.5,
+          "rsi": 37.7,
+          "mfi": 33.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 49.3,
+          "rsi": 49.1,
           "mfi": 60.3,
           "divergence": false,
           "rsi_oversold": false,
@@ -511811,11 +511811,11 @@
       "symb": "012450",
       "name": "한화에어로스페이스",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 904000.0,
-      "pct_chg": -7.0,
+      "date": "2026-10-12",
+      "close": 866000.0,
+      "pct_chg": -2.81,
       "market_regime": "상승장",
-      "depth": -0.4118,
+      "depth": -0.4366,
       "rolling_high": 1537000.0,
       "stage": 3,
       "percentiles": {
@@ -511831,22 +511831,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 34.2,
-          "mfi": 31.9,
+          "rsi": 31.4,
+          "mfi": 32.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 41.0,
-          "mfi": 37.5,
+          "rsi": 39.6,
+          "mfi": 41.1,
           "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 51.7,
-          "mfi": 55.8,
+          "rsi": 50.5,
+          "mfi": 55.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -511858,11 +511858,11 @@
       "symb": "329180",
       "name": "HD현대중공업",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 384500.0,
-      "pct_chg": -3.88,
+      "date": "2026-10-12",
+      "close": 371000.0,
+      "pct_chg": -3.39,
       "market_regime": "상승장",
-      "depth": -0.4839,
+      "depth": -0.502,
       "rolling_high": 745000.0,
       "stage": 3,
       "percentiles": {
@@ -511878,21 +511878,21 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 30.2,
-          "mfi": 22.0,
+          "rsi": 27.7,
+          "mfi": 22.4,
           "divergence": false,
-          "rsi_oversold": false,
+          "rsi_oversold": true,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 33.7,
-          "mfi": 28.2,
+          "rsi": 32.5,
+          "mfi": 31.6,
           "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 46.5,
+          "rsi": 45.6,
           "mfi": 52.7,
           "divergence": false,
           "rsi_oversold": false,
@@ -511905,11 +511905,11 @@
       "symb": "028260",
       "name": "삼성물산",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 320000.0,
-      "pct_chg": -4.76,
+      "date": "2026-10-12",
+      "close": 317500.0,
+      "pct_chg": 0.0,
       "market_regime": "상승장",
-      "depth": -0.4019,
+      "depth": -0.4065,
       "rolling_high": 535000.0,
       "stage": 3,
       "percentiles": {
@@ -511925,22 +511925,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 34.0,
-          "mfi": 43.4,
-          "divergence": true,
+          "rsi": 33.3,
+          "mfi": 38.8,
+          "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 43.5,
-          "mfi": 29.6,
+          "rsi": 43.2,
+          "mfi": 33.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 56.5,
-          "mfi": 66.9,
+          "rsi": 56.2,
+          "mfi": 66.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -511952,11 +511952,11 @@
       "symb": "034020",
       "name": "두산에너빌리티",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 76700.0,
-      "pct_chg": -4.72,
+      "date": "2026-10-12",
+      "close": 73600.0,
+      "pct_chg": -5.64,
       "market_regime": "상승장",
-      "depth": -0.4522,
+      "depth": -0.4743,
       "rolling_high": 140003.0,
       "stage": 3,
       "percentiles": {
@@ -511972,21 +511972,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 39.4,
-          "mfi": 45.7,
+          "rsi": 35.0,
+          "mfi": 47.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 44.8,
-          "mfi": 37.0,
+          "rsi": 43.2,
+          "mfi": 40.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 53.6,
+          "rsi": 52.5,
           "mfi": 58.9,
           "divergence": false,
           "rsi_oversold": false,
@@ -511999,11 +511999,11 @@
       "symb": "015760",
       "name": "한국전력",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 29100.0,
-      "pct_chg": -3.16,
+      "date": "2026-10-12",
+      "close": 28250.0,
+      "pct_chg": -2.92,
       "market_regime": "상승장",
-      "depth": -0.5714,
+      "depth": -0.5839,
       "rolling_high": 67900.0,
       "stage": 3,
       "percentiles": {
@@ -512019,22 +512019,69 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 33.9,
-          "mfi": 26.3,
+          "rsi": 30.1,
+          "mfi": 27.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 30.9,
-          "mfi": 37.0,
+          "rsi": 29.6,
+          "mfi": 40.6,
           "divergence": true,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 43.3,
+          "mfi": 50.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "069500": {
+      "category": "한국ETF",
+      "symb": "069500",
+      "name": "KODEX 200",
+      "currency": "KRW",
+      "date": "2026-10-12",
+      "close": 103415.0,
+      "pct_chg": -2.12,
+      "market_regime": "상승장",
+      "depth": -0.3015,
+      "rolling_high": 148056.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 28,
+        "p50": -0.08985,
+        "p25": -0.18789999999999998,
+        "p10": -0.2949,
+        "recovery_days_min": 1,
+        "recovery_days_median": 41,
+        "recovery_days_max": 1448
+      },
+      "episode_count": 29,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 40.2,
+          "mfi": 60.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.6,
+          "mfi": 28.4,
+          "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 44.1,
-          "mfi": 50.5,
+          "rsi": 62.7,
+          "mfi": 66.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -512046,11 +512093,11 @@
       "symb": "305720",
       "name": "KODEX 2차전지산업",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 15905.0,
-      "pct_chg": 1.18,
+      "date": "2026-10-12",
+      "close": 15485.0,
+      "pct_chg": -2.64,
       "market_regime": "상승장",
-      "depth": -0.558,
+      "depth": -0.5697,
       "rolling_high": 35984.0,
       "stage": 3,
       "percentiles": {
@@ -512066,21 +512113,21 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 62.1,
-          "mfi": 68.9,
+          "rsi": 56.6,
+          "mfi": 63.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 52.3,
-          "mfi": 48.5,
+          "rsi": 50.2,
+          "mfi": 52.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 49.9,
+          "rsi": 49.1,
           "mfi": 70.2,
           "divergence": false,
           "rsi_oversold": false,
@@ -512093,11 +512140,11 @@
       "symb": "244580",
       "name": "KODEX 바이오",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 8085.0,
-      "pct_chg": -4.21,
+      "date": "2026-10-12",
+      "close": 7860.0,
+      "pct_chg": -2.78,
       "market_regime": "상승장",
-      "depth": -0.5417,
+      "depth": -0.5545,
       "rolling_high": 17643.0,
       "stage": 3,
       "percentiles": {
@@ -512113,22 +512160,69 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 47.9,
-          "mfi": 64.4,
+          "rsi": 43.5,
+          "mfi": 64.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 39.2,
-          "mfi": 43.8,
+          "rsi": 37.6,
+          "mfi": 49.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 42.0,
-          "mfi": 65.7,
+          "rsi": 41.0,
+          "mfi": 65.8,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "102970": {
+      "category": "한국ETF",
+      "symb": "102970",
+      "name": "KODEX 증권",
+      "currency": "KRW",
+      "date": "2026-10-12",
+      "close": 16150.0,
+      "pct_chg": -3.09,
+      "market_regime": "상승장",
+      "depth": -0.5146,
+      "rolling_high": 33271.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 12,
+        "p50": -0.1614,
+        "p25": -0.349475,
+        "p10": -0.5019499999999999,
+        "recovery_days_min": 1,
+        "recovery_days_median": 48,
+        "recovery_days_max": 2537
+      },
+      "episode_count": 13,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 27.8,
+          "mfi": 42.3,
+          "divergence": true,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 35.4,
+          "mfi": 36.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 50.7,
+          "mfi": 67.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -513080,11 +513174,11 @@
       "symb": "KOSPI200",
       "name": "코스피200",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 1044.52,
-      "pct_chg": -2.71,
+      "date": "2026-10-12",
+      "close": 1024.21,
+      "pct_chg": -1.94,
       "market_regime": "상승장",
-      "depth": -0.2929,
+      "depth": -0.3067,
       "rolling_high": 1477.22,
       "stage": 2,
       "percentiles": {
@@ -513100,21 +513194,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 42.7,
-          "mfi": 65.0,
-          "divergence": false,
+          "rsi": 39.5,
+          "mfi": 61.1,
+          "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 48.8,
-          "mfi": 33.0,
+          "rsi": 47.2,
+          "mfi": 36.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 63.1,
+          "rsi": 62.1,
           "mfi": 74.1,
           "divergence": false,
           "rsi_oversold": false,
@@ -513127,11 +513221,11 @@
       "symb": "005930",
       "name": "삼성전자",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 263000.0,
-      "pct_chg": -2.05,
+      "date": "2026-10-12",
+      "close": 257500.0,
+      "pct_chg": -1.72,
       "market_regime": "상승장",
-      "depth": -0.2745,
+      "depth": -0.2897,
       "rolling_high": 362500.0,
       "stage": 2,
       "percentiles": {
@@ -513147,22 +513241,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 48.0,
-          "mfi": 54.9,
+          "rsi": 45.0,
+          "mfi": 51.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 51.9,
-          "mfi": 26.0,
+          "rsi": 50.5,
+          "mfi": 28.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 66.2,
-          "mfi": 69.9,
+          "rsi": 65.0,
+          "mfi": 68.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -513174,11 +513268,11 @@
       "symb": "000660",
       "name": "SK하이닉스",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 1686000.0,
-      "pct_chg": -2.15,
+      "date": "2026-10-12",
+      "close": 1636000.0,
+      "pct_chg": -2.68,
       "market_regime": "상승장",
-      "depth": -0.4224,
+      "depth": -0.4395,
       "rolling_high": 2919000.0,
       "stage": 2,
       "percentiles": {
@@ -513194,21 +513288,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 44.0,
-          "mfi": 57.9,
+          "rsi": 40.8,
+          "mfi": 53.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 50.2,
-          "mfi": 22.3,
+          "rsi": 48.8,
+          "mfi": 25.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 62.9,
+          "rsi": 61.8,
           "mfi": 66.4,
           "divergence": false,
           "rsi_oversold": false,
@@ -513221,11 +513315,11 @@
       "symb": "068270",
       "name": "셀트리온",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 179000.0,
-      "pct_chg": -2.45,
+      "date": "2026-10-12",
+      "close": 182000.0,
+      "pct_chg": 1.34,
       "market_regime": "상승장",
-      "depth": -0.4551,
+      "depth": -0.446,
       "rolling_high": 328494.0,
       "stage": 2,
       "percentiles": {
@@ -513241,69 +513335,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 43.7,
-          "mfi": 56.0,
+          "rsi": 49.4,
+          "mfi": 60.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 46.2,
-          "mfi": 46.9,
+          "rsi": 48.3,
+          "mfi": 51.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 51.2,
+          "rsi": 52.2,
           "mfi": 61.7,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        }
-      }
-    },
-    "069500": {
-      "category": "한국ETF",
-      "symb": "069500",
-      "name": "KODEX 200",
-      "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 105650.0,
-      "pct_chg": -2.67,
-      "market_regime": "상승장",
-      "depth": -0.2864,
-      "rolling_high": 148056.0,
-      "stage": 2,
-      "percentiles": {
-        "count": 28,
-        "p50": -0.08985,
-        "p25": -0.18789999999999998,
-        "p10": -0.2949,
-        "recovery_days_min": 1,
-        "recovery_days_median": 41,
-        "recovery_days_max": 1448
-      },
-      "episode_count": 29,
-      "is_record_drawdown": false,
-      "timeframes": {
-        "daily": {
-          "rsi": 43.6,
-          "mfi": 65.1,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "weekly": {
-          "rsi": 49.3,
-          "mfi": 25.9,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "monthly": {
-          "rsi": 63.9,
-          "mfi": 66.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -513315,11 +513362,11 @@
       "symb": "229200",
       "name": "KODEX 코스닥150",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 15165.0,
-      "pct_chg": -1.17,
+      "date": "2026-10-12",
+      "close": 14660.0,
+      "pct_chg": -3.33,
       "market_regime": "상승장",
-      "depth": -0.2804,
+      "depth": -0.3044,
       "rolling_high": 21074.0,
       "stage": 2,
       "percentiles": {
@@ -513335,22 +513382,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 59.2,
-          "mfi": 70.1,
+          "rsi": 52.5,
+          "mfi": 73.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 48.7,
-          "mfi": 40.6,
+          "rsi": 46.0,
+          "mfi": 44.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 50.5,
-          "mfi": 56.7,
+          "rsi": 49.1,
+          "mfi": 56.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -513362,11 +513409,11 @@
       "symb": "091160",
       "name": "KODEX 반도체",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 146190.0,
-      "pct_chg": 1.02,
+      "date": "2026-10-12",
+      "close": 141095.0,
+      "pct_chg": -3.49,
       "market_regime": "상승장",
-      "depth": -0.2238,
+      "depth": -0.2509,
       "rolling_high": 188345.0,
       "stage": 2,
       "percentiles": {
@@ -513382,21 +513429,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 60.6,
-          "mfi": 87.0,
+          "rsi": 54.6,
+          "mfi": 83.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 59.8,
-          "mfi": 44.8,
+          "rsi": 56.6,
+          "mfi": 49.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 67.5,
+          "rsi": 66.3,
           "mfi": 76.4,
           "divergence": false,
           "rsi_oversold": false,
@@ -513409,11 +513456,11 @@
       "symb": "091180",
       "name": "KODEX 자동차",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 24855.0,
-      "pct_chg": -1.27,
+      "date": "2026-10-12",
+      "close": 24570.0,
+      "pct_chg": -1.15,
       "market_regime": "상승장",
-      "depth": -0.3978,
+      "depth": -0.4047,
       "rolling_high": 41274.0,
       "stage": 2,
       "percentiles": {
@@ -513429,21 +513476,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 35.0,
-          "mfi": 40.9,
+          "rsi": 33.1,
+          "mfi": 41.6,
           "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 38.3,
-          "mfi": 38.8,
-          "divergence": true,
+          "rsi": 37.7,
+          "mfi": 18.4,
+          "divergence": false,
           "rsi_oversold": false,
-          "mfi_oversold": false
+          "mfi_oversold": true
         },
         "monthly": {
-          "rsi": 50.2,
+          "rsi": 49.8,
           "mfi": 79.5,
           "divergence": false,
           "rsi_oversold": false,
@@ -513456,11 +513503,11 @@
       "symb": "139260",
       "name": "TIGER 200 IT",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 139115.0,
-      "pct_chg": -3.19,
+      "date": "2026-10-12",
+      "close": 135345.0,
+      "pct_chg": -2.71,
       "market_regime": "상승장",
-      "depth": -0.3409,
+      "depth": -0.3587,
       "rolling_high": 211062.0,
       "stage": 2,
       "percentiles": {
@@ -513476,21 +513523,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 49.2,
-          "mfi": 62.9,
+          "rsi": 45.4,
+          "mfi": 60.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 52.9,
-          "mfi": 27.2,
+          "rsi": 51.1,
+          "mfi": 34.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 64.6,
+          "rsi": 63.4,
           "mfi": 73.9,
           "divergence": false,
           "rsi_oversold": false,
@@ -513503,11 +513550,11 @@
       "symb": "117700",
       "name": "KODEX 건설",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 6415.0,
-      "pct_chg": -3.39,
+      "date": "2026-10-12",
+      "close": 6170.0,
+      "pct_chg": -3.82,
       "market_regime": "상승장",
-      "depth": -0.3387,
+      "depth": -0.364,
       "rolling_high": 9701.0,
       "stage": 2,
       "percentiles": {
@@ -513523,69 +513570,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 38.4,
-          "mfi": 41.3,
+          "rsi": 34.0,
+          "mfi": 42.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 47.4,
-          "mfi": 54.0,
+          "rsi": 45.6,
+          "mfi": 58.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 56.9,
-          "mfi": 61.2,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        }
-      }
-    },
-    "102970": {
-      "category": "한국ETF",
-      "symb": "102970",
-      "name": "KODEX 증권",
-      "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 16665.0,
-      "pct_chg": -2.77,
-      "market_regime": "상승장",
-      "depth": -0.4991,
-      "rolling_high": 33271.0,
-      "stage": 2,
-      "percentiles": {
-        "count": 12,
-        "p50": -0.1614,
-        "p25": -0.349475,
-        "p10": -0.5019499999999999,
-        "recovery_days_min": 1,
-        "recovery_days_median": 48,
-        "recovery_days_max": 2537
-      },
-      "episode_count": 13,
-      "is_record_drawdown": false,
-      "timeframes": {
-        "daily": {
-          "rsi": 32.2,
-          "mfi": 42.2,
-          "divergence": true,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "weekly": {
-          "rsi": 36.8,
-          "mfi": 50.7,
-          "divergence": true,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "monthly": {
-          "rsi": 51.8,
-          "mfi": 67.4,
+          "rsi": 55.4,
+          "mfi": 61.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -515195,11 +515195,11 @@
       "symb": "105560",
       "name": "KB금융",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 163400.0,
-      "pct_chg": -3.03,
+      "date": "2026-10-12",
+      "close": 162000.0,
+      "pct_chg": -0.49,
       "market_regime": "상승장",
-      "depth": -0.1224,
+      "depth": -0.13,
       "rolling_high": 186200.0,
       "stage": 1,
       "percentiles": {
@@ -515215,22 +515215,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 39.1,
-          "mfi": 17.5,
+          "rsi": 37.6,
+          "mfi": 18.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": true
         },
         "weekly": {
-          "rsi": 49.4,
-          "mfi": 60.2,
+          "rsi": 48.5,
+          "mfi": 53.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 67.5,
-          "mfi": 73.3,
+          "rsi": 66.6,
+          "mfi": 73.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -515242,11 +515242,11 @@
       "symb": "055550",
       "name": "신한지주",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 100000.0,
-      "pct_chg": -3.19,
+      "date": "2026-10-12",
+      "close": 98800.0,
+      "pct_chg": -0.7,
       "market_regime": "상승장",
-      "depth": -0.1274,
+      "depth": -0.1379,
       "rolling_high": 114600.0,
       "stage": 1,
       "percentiles": {
@@ -515262,22 +515262,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 34.8,
-          "mfi": 31.5,
+          "rsi": 33.2,
+          "mfi": 32.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 47.7,
-          "mfi": 56.5,
+          "rsi": 46.7,
+          "mfi": 50.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 66.0,
-          "mfi": 75.0,
+          "rsi": 64.9,
+          "mfi": 74.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -515289,11 +515289,11 @@
       "symb": "006400",
       "name": "삼성SDI",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 567000.0,
-      "pct_chg": 0.89,
+      "date": "2026-10-12",
+      "close": 576000.0,
+      "pct_chg": 1.23,
       "market_regime": "상승장",
-      "depth": -0.2911,
+      "depth": -0.2799,
       "rolling_high": 799869.0,
       "stage": 1,
       "percentiles": {
@@ -515309,21 +515309,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 59.5,
-          "mfi": 60.2,
+          "rsi": 61.4,
+          "mfi": 66.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 57.7,
-          "mfi": 49.9,
+          "rsi": 58.6,
+          "mfi": 54.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 57.4,
+          "rsi": 57.8,
           "mfi": 74.3,
           "divergence": false,
           "rsi_oversold": false,
@@ -515336,11 +515336,11 @@
       "symb": "096770",
       "name": "SK이노베이션",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 161500.0,
-      "pct_chg": 1.19,
+      "date": "2026-10-12",
+      "close": 152900.0,
+      "pct_chg": -4.97,
       "market_regime": "상승장",
-      "depth": -0.483,
+      "depth": -0.5106,
       "rolling_high": 312404.0,
       "stage": 1,
       "percentiles": {
@@ -515356,22 +515356,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 62.6,
-          "mfi": 65.0,
+          "rsi": 56.1,
+          "mfi": 65.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 64.8,
-          "mfi": 75.8,
+          "rsi": 60.4,
+          "mfi": 74.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 58.4,
-          "mfi": 70.4,
+          "rsi": 56.8,
+          "mfi": 70.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -517466,34 +517466,34 @@
       "symb": "373220",
       "name": "LG에너지솔루션",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 403000.0,
-      "pct_chg": 3.07,
+      "date": "2026-10-12",
+      "close": 403250.0,
+      "pct_chg": 0.56,
       "market_regime": "상승장",
       "depth": 0.0,
-      "rolling_high": 403000.0,
+      "rolling_high": 403250.0,
       "stage": 0,
       "percentiles": null,
       "episode_count": 0,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 66.5,
-          "mfi": 78.1,
+          "rsi": 66.6,
+          "mfi": 77.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 55.3,
-          "mfi": 58.4,
+          "mfi": 64.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 50.6,
-          "mfi": 48.1,
+          "mfi": 48.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -517505,11 +517505,11 @@
       "symb": "086790",
       "name": "하나금융지주",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 124500.0,
-      "pct_chg": -3.41,
+      "date": "2026-10-12",
+      "close": 124400.0,
+      "pct_chg": 0.08,
       "market_regime": "상승장",
-      "depth": -0.1158,
+      "depth": -0.1165,
       "rolling_high": 140800.0,
       "stage": 0,
       "percentiles": {
@@ -517526,21 +517526,21 @@
       "timeframes": {
         "daily": {
           "rsi": 36.4,
-          "mfi": 26.7,
+          "mfi": 27.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 49.2,
-          "mfi": 54.7,
+          "mfi": 49.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 64.9,
-          "mfi": 72.4,
+          "rsi": 64.8,
+          "mfi": 72.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -517552,11 +517552,11 @@
       "symb": "091170",
       "name": "KODEX 은행",
       "currency": "KRW",
-      "date": "2026-10-08",
-      "close": 15300.0,
-      "pct_chg": -2.7,
+      "date": "2026-10-12",
+      "close": 15165.0,
+      "pct_chg": -0.88,
       "market_regime": "상승장",
-      "depth": -0.1067,
+      "depth": -0.1146,
       "rolling_high": 17128.0,
       "stage": 0,
       "percentiles": {
@@ -517572,22 +517572,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 34.7,
-          "mfi": 28.2,
+          "rsi": 33.1,
+          "mfi": 28.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 48.5,
-          "mfi": 60.0,
+          "rsi": 47.6,
+          "mfi": 50.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 66.5,
-          "mfi": 85.4,
+          "rsi": 65.6,
+          "mfi": 85.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
