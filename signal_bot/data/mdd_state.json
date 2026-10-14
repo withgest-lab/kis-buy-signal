@@ -217,18 +217,18 @@
   },
   "JNJ": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "XOM": {
     "episode_start_date": null,
     "last_stage_notified": 0
   },
   "MA": {
-    "episode_start_date": "2026-09-04",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "ABBV": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-13",
     "last_stage_notified": 0
   },
   "BAC": {
@@ -236,7 +236,7 @@
     "last_stage_notified": 1
   },
   "CVX": {
-    "episode_start_date": "2026-09-16",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "KO": {
@@ -357,7 +357,7 @@
   },
   "XBI": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "IYT": {
     "episode_start_date": "2026-09-24",
@@ -520,7 +520,7 @@
     "last_stage_notified": 0
   },
   "COP": {
-    "episode_start_date": "2026-09-24",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "MCHI": {
@@ -620,7 +620,7 @@
     "last_stage_notified": 0
   },
   "6501": {
-    "episode_start_date": "2026-10-08",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "9432": {
