@@ -93,7 +93,7 @@
   },
   "AMD": {
     "episode_start_date": "2026-10-07",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "ASML": {
     "episode_start_date": "2026-09-04",
@@ -132,11 +132,11 @@
     "last_stage_notified": 1
   },
   "XLE": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-15",
     "last_stage_notified": 0
   },
   "XLV": {
-    "episode_start_date": "2026-09-04",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "XLI": {
@@ -212,7 +212,7 @@
     "last_stage_notified": 0
   },
   "V": {
-    "episode_start_date": "2026-10-14",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "JNJ": {
@@ -220,7 +220,7 @@
     "last_stage_notified": 1
   },
   "XOM": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-15",
     "last_stage_notified": 0
   },
   "MA": {
@@ -236,7 +236,7 @@
     "last_stage_notified": 1
   },
   "CVX": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-15",
     "last_stage_notified": 0
   },
   "KO": {
@@ -553,7 +553,7 @@
   },
   "8035": {
     "episode_start_date": "2026-10-02",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "4063": {
     "episode_start_date": "2026-10-02",
@@ -604,7 +604,7 @@
     "last_stage_notified": 1
   },
   "7267": {
-    "episode_start_date": "2026-10-15",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "6861": {
@@ -616,7 +616,7 @@
     "last_stage_notified": 1
   },
   "6098": {
-    "episode_start_date": "2026-10-02",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "6501": {
