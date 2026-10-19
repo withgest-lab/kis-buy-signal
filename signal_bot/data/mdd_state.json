@@ -601,7 +601,7 @@
   },
   "6268": {
     "episode_start_date": "2026-10-02",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "7267": {
     "episode_start_date": null,
@@ -613,10 +613,10 @@
   },
   "8306": {
     "episode_start_date": "2026-10-02",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "6098": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-19",
     "last_stage_notified": 0
   },
   "6501": {
