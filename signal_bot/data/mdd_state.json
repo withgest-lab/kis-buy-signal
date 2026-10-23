@@ -17,7 +17,7 @@
   },
   "SOXX": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "VOLT": {
     "episode_start_date": "2026-09-04",
@@ -49,7 +49,7 @@
   },
   "LRCX": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "AMAT": {
     "episode_start_date": "2026-09-04",
@@ -77,7 +77,7 @@
   },
   "GOOGL": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "GOOG": {
     "episode_start_date": "2026-09-04",
@@ -132,7 +132,7 @@
     "last_stage_notified": 1
   },
   "XLE": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-22",
     "last_stage_notified": 0
   },
   "XLV": {
@@ -144,8 +144,8 @@
     "last_stage_notified": 1
   },
   "XLP": {
-    "episode_start_date": "2026-09-04",
-    "last_stage_notified": 2
+    "episode_start_date": null,
+    "last_stage_notified": 0
   },
   "XLY": {
     "episode_start_date": "2026-09-04",
@@ -165,7 +165,7 @@
   },
   "XLC": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "CIBR": {
     "episode_start_date": "2026-10-12",
@@ -204,7 +204,7 @@
     "last_stage_notified": 0
   },
   "LLY": {
-    "episode_start_date": "2026-10-21",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "JPM": {
@@ -337,7 +337,7 @@
   },
   "091160": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "091180": {
     "episode_start_date": "2026-09-23",
@@ -377,7 +377,7 @@
   },
   "096770": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "KRE": {
     "episode_start_date": "2026-09-24",
@@ -405,11 +405,11 @@
   },
   "086790": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "091170": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "UNH": {
     "episode_start_date": "2026-09-24",
@@ -517,7 +517,7 @@
   },
   "FCX": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "COP": {
     "episode_start_date": "2026-10-21",
@@ -545,7 +545,7 @@
   },
   "9984": {
     "episode_start_date": "2026-10-02",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "9983": {
     "episode_start_date": "2026-10-02",
@@ -561,7 +561,7 @@
   },
   "6954": {
     "episode_start_date": "2026-10-02",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "6981": {
     "episode_start_date": "2026-10-02",
@@ -592,7 +592,7 @@
     "last_stage_notified": 0
   },
   "SCHD": {
-    "episode_start_date": "2026-10-02",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "EWJ": {
@@ -620,7 +620,7 @@
     "last_stage_notified": 0
   },
   "6501": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-23",
     "last_stage_notified": 0
   },
   "9432": {
