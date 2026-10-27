@@ -184,7 +184,7 @@
     "last_stage_notified": 1
   },
   "AAPL": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-26",
     "last_stage_notified": 0
   },
   "MSFT": {
@@ -200,7 +200,7 @@
     "last_stage_notified": 0
   },
   "BRK-B": {
-    "episode_start_date": "2026-10-23",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "LLY": {
@@ -236,7 +236,7 @@
     "last_stage_notified": 1
   },
   "CVX": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-26",
     "last_stage_notified": 0
   },
   "KO": {
@@ -397,7 +397,7 @@
   },
   "105560": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "055550": {
     "episode_start_date": "2026-09-23",
@@ -409,7 +409,7 @@
   },
   "091170": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "UNH": {
     "episode_start_date": "2026-09-24",
