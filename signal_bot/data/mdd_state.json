@@ -168,7 +168,7 @@
     "last_stage_notified": 1
   },
   "CIBR": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-28",
     "last_stage_notified": 0
   },
   "BUG": {
@@ -184,7 +184,7 @@
     "last_stage_notified": 1
   },
   "AAPL": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-10-28",
     "last_stage_notified": 0
   },
   "MSFT": {
@@ -621,7 +621,7 @@
   },
   "6501": {
     "episode_start_date": "2026-10-23",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "9432": {
     "episode_start_date": "2026-10-23",
