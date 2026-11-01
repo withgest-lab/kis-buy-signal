@@ -618678,6 +618678,53 @@
         }
       }
     },
+    "UNH": {
+      "category": "개별종목",
+      "symb": "UNH",
+      "name": "UnitedHealth Group",
+      "currency": "USD",
+      "date": "2026-10-30",
+      "close": 406.97,
+      "pct_chg": -0.96,
+      "market_regime": "상승장",
+      "depth": -0.3173,
+      "rolling_high": 596.11,
+      "stage": 3,
+      "percentiles": {
+        "count": 39,
+        "p50": -0.0873,
+        "p25": -0.1106,
+        "p10": -0.18782,
+        "recovery_days_min": 6,
+        "recovery_days_median": 41,
+        "recovery_days_max": 1074
+      },
+      "episode_count": 40,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 56.2,
+          "mfi": 65.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 58.9,
+          "mfi": 34.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 52.8,
+          "mfi": 62.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
     "MCD": {
       "category": "개별종목",
       "symb": "MCD",
@@ -619853,6 +619900,53 @@
         }
       }
     },
+    "091180": {
+      "category": "한국ETF",
+      "symb": "091180",
+      "name": "KODEX 자동차",
+      "currency": "KRW",
+      "date": "2026-10-30",
+      "close": 22070.0,
+      "pct_chg": -4.6,
+      "market_regime": "하락장",
+      "depth": -0.4653,
+      "rolling_high": 41274.0,
+      "stage": 3,
+      "percentiles": {
+        "count": 20,
+        "p50": -0.1183,
+        "p25": -0.16354999999999997,
+        "p10": -0.42235999999999996,
+        "recovery_days_min": 9,
+        "recovery_days_median": 32,
+        "recovery_days_max": 2341
+      },
+      "episode_count": 21,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 31.7,
+          "mfi": 33.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 32.9,
+          "mfi": 24.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 47.1,
+          "mfi": 79.3,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
     "244580": {
       "category": "한국ETF",
       "symb": "244580",
@@ -620182,6 +620276,53 @@
         }
       }
     },
+    "ITA": {
+      "category": "섹터ETF",
+      "symb": "ITA",
+      "name": "Aerospace & Defense ETF",
+      "currency": "USD",
+      "date": "2026-10-30",
+      "close": 209.74,
+      "pct_chg": -2.13,
+      "market_regime": "상승장",
+      "depth": -0.1707,
+      "rolling_high": 252.92,
+      "stage": 2,
+      "percentiles": {
+        "count": 30,
+        "p50": -0.07350000000000001,
+        "p25": -0.105125,
+        "p10": -0.17997999999999997,
+        "recovery_days_min": 10,
+        "recovery_days_median": 39,
+        "recovery_days_max": 1301
+      },
+      "episode_count": 31,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 50.2,
+          "mfi": 50.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 41.8,
+          "mfi": 36.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 55.6,
+          "mfi": 54.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
     "ITB": {
       "category": "섹터ETF",
       "symb": "ITB",
@@ -620505,6 +620646,53 @@
         "monthly": {
           "rsi": 59.8,
           "mfi": 73.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "CSCO": {
+      "category": "개별종목",
+      "symb": "CSCO",
+      "name": "Cisco Systems, Inc. Common Stock (DE)",
+      "currency": "USD",
+      "date": "2026-10-30",
+      "close": 104.51,
+      "pct_chg": -3.76,
+      "market_regime": "상승장",
+      "depth": -0.1899,
+      "rolling_high": 129.02,
+      "stage": 2,
+      "percentiles": {
+        "count": 19,
+        "p50": -0.0992,
+        "p25": -0.15515,
+        "p10": -0.37726000000000004,
+        "recovery_days_min": 7,
+        "recovery_days_median": 54,
+        "recovery_days_max": 2183
+      },
+      "episode_count": 20,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 39.7,
+          "mfi": 27.2,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.9,
+          "mfi": 40.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 70.3,
+          "mfi": 58.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -621398,6 +621586,100 @@
         "monthly": {
           "rsi": 54.0,
           "mfi": 64.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "9984": {
+      "category": "일본개별종목",
+      "symb": "9984",
+      "name": "소프트뱅크그룹",
+      "currency": "JPY",
+      "date": "2026-10-30",
+      "close": 4481.0,
+      "pct_chg": -5.96,
+      "market_regime": "횡보장",
+      "depth": -0.4805,
+      "rolling_high": 8625.1,
+      "stage": 2,
+      "percentiles": {
+        "count": 29,
+        "p50": -0.0975,
+        "p25": -0.1821,
+        "p10": -0.51598,
+        "recovery_days_min": 3,
+        "recovery_days_median": 17,
+        "recovery_days_max": 841
+      },
+      "episode_count": 30,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 36.9,
+          "mfi": 45.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 41.3,
+          "mfi": 51.9,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 51.6,
+          "mfi": 60.7,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "4063": {
+      "category": "일본개별종목",
+      "symb": "4063",
+      "name": "신에츠화학",
+      "currency": "JPY",
+      "date": "2026-10-30",
+      "close": 5966.0,
+      "pct_chg": -0.73,
+      "market_regime": "횡보장",
+      "depth": -0.2253,
+      "rolling_high": 7701.3,
+      "stage": 2,
+      "percentiles": {
+        "count": 26,
+        "p50": -0.10969999999999999,
+        "p25": -0.159325,
+        "p10": -0.3667,
+        "recovery_days_min": 4,
+        "recovery_days_median": 40,
+        "recovery_days_max": 490
+      },
+      "episode_count": 27,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 51.2,
+          "mfi": 44.5,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 47.1,
+          "mfi": 47.2,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 54.9,
+          "mfi": 66.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
