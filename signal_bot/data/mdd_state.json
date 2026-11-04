@@ -144,7 +144,7 @@
     "last_stage_notified": 1
   },
   "XLP": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-03",
     "last_stage_notified": 0
   },
   "XLY": {
@@ -156,7 +156,7 @@
     "last_stage_notified": 2
   },
   "XLB": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-03",
     "last_stage_notified": 0
   },
   "XLRE": {
@@ -204,7 +204,7 @@
     "last_stage_notified": 0
   },
   "LLY": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-03",
     "last_stage_notified": 0
   },
   "JPM": {
@@ -212,7 +212,7 @@
     "last_stage_notified": 0
   },
   "V": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-03",
     "last_stage_notified": 0
   },
   "JNJ": {
@@ -224,7 +224,7 @@
     "last_stage_notified": 0
   },
   "MA": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-03",
     "last_stage_notified": 0
   },
   "ABBV": {
@@ -592,7 +592,7 @@
     "last_stage_notified": 0
   },
   "SCHD": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-03",
     "last_stage_notified": 0
   },
   "EWJ": {
@@ -604,7 +604,7 @@
     "last_stage_notified": 2
   },
   "7267": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-04",
     "last_stage_notified": 0
   },
   "6861": {
@@ -617,7 +617,7 @@
   },
   "6098": {
     "episode_start_date": "2026-11-02",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "6501": {
     "episode_start_date": "2026-10-23",
