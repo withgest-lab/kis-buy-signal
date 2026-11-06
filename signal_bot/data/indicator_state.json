@@ -1,12 +1,12 @@
 {
   "AIPO": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
     "weekly": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": false
     },
@@ -20,7 +20,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -37,7 +37,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -54,7 +54,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -69,7 +69,7 @@
   },
   "SOXX": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
@@ -88,12 +88,12 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -105,7 +105,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -122,7 +122,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -173,7 +173,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -241,7 +241,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -273,9 +273,9 @@
   },
   "BOTZ": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -290,9 +290,9 @@
   },
   "ROBO": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -307,7 +307,7 @@
   },
   "QTUM": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
@@ -324,7 +324,7 @@
   },
   "GOOGL": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": false
     },
@@ -360,7 +360,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -375,7 +375,7 @@
   },
   "MU": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
@@ -392,9 +392,9 @@
   },
   "AMD": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -409,7 +409,7 @@
   },
   "ASML": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
@@ -426,7 +426,7 @@
   },
   "PLTR": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": false
     },
@@ -462,7 +462,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -477,9 +477,9 @@
   },
   "QQQ": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -528,9 +528,9 @@
   },
   "XLK": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -598,7 +598,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -766,14 +766,14 @@
   },
   "NVDA": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -1091,7 +1091,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1142,12 +1142,12 @@
     "daily": {
       "rsi_oversold": true,
       "mfi_oversold": true,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -1176,7 +1176,7 @@
     "daily": {
       "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1193,12 +1193,12 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -1215,12 +1215,12 @@
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     }
   },
   "ITA": {
@@ -1316,8 +1316,8 @@
     },
     "weekly": {
       "rsi_oversold": false,
-      "mfi_oversold": false,
-      "divergence": false
+      "mfi_oversold": true,
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -1346,7 +1346,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1361,9 +1361,9 @@
   },
   "012450": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1397,7 +1397,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1414,7 +1414,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1424,7 +1424,7 @@
     "monthly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     }
   },
   "091160": {
@@ -1482,12 +1482,12 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -1497,9 +1497,9 @@
   },
   "102970": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1548,7 +1548,7 @@
   },
   "XME": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
@@ -1582,7 +1582,7 @@
   },
   "SMH": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
@@ -1600,7 +1600,7 @@
   "096770": {
     "daily": {
       "rsi_oversold": false,
-      "mfi_oversold": false,
+      "mfi_oversold": true,
       "divergence": false
     },
     "weekly": {
@@ -1633,7 +1633,7 @@
   },
   "URA": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
@@ -1703,7 +1703,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1854,9 +1854,9 @@
   },
   "NOW": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1941,7 +1941,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -2111,7 +2111,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -2194,9 +2194,9 @@
   },
   "FCX": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -2313,14 +2313,14 @@
   },
   "9984": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -2364,14 +2364,14 @@
   },
   "4063": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": false
     },
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -2388,7 +2388,7 @@
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -2449,14 +2449,14 @@
   },
   "7741": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "monthly": {
       "rsi_oversold": false,
@@ -2534,9 +2534,9 @@
   },
   "EWJ": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -2551,7 +2551,7 @@
   },
   "6268": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
       "divergence": true
     },
@@ -2585,9 +2585,9 @@
   },
   "6861": {
     "daily": {
-      "rsi_oversold": false,
+      "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     },
     "weekly": {
       "rsi_oversold": false,
@@ -2604,7 +2604,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": false
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
@@ -2656,6 +2656,23 @@
       "rsi_oversold": false,
       "mfi_oversold": false,
       "divergence": false
+    },
+    "weekly": {
+      "rsi_oversold": false,
+      "mfi_oversold": false,
+      "divergence": false
+    },
+    "monthly": {
+      "rsi_oversold": false,
+      "mfi_oversold": false,
+      "divergence": false
+    }
+  },
+  "PANW": {
+    "daily": {
+      "rsi_oversold": false,
+      "mfi_oversold": false,
+      "divergence": true
     },
     "weekly": {
       "rsi_oversold": false,
