@@ -5,17 +5,18 @@ MDD는 일봉 종가만 필요하고 주/월봉 RSI/MFI/다이버전스는 일�
 
 종목별 조회를 스레드풀로 동시에 처리한다(kis_client의 레이트리미터가 전체
 호출 속도를 안전선 아래로 유지해주므로, 동시 실행 개수를 늘려도 API
-호출제한을 넘지 않는다). 미국 종목은 kis_client, 한국 종목(KR_TARGETS)은
-kis_client_kr로 분기.
+호출제한을 넘지 않는다). 미국·일본 종목은 kis_client, 한국 종목(KR_TARGETS)은
+kis_client_kr, 비트코인 현물(CRYPTO_SPOT)은 crypto_client(코인베이스)로 분기.
 """
 
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
+from signal_bot import crypto_client as cc
 from signal_bot import kis_client as kc
 from signal_bot import kis_client_kr as kc_kr
-from signal_bot.config import TICKERS, DAILY_MIN_ROWS, is_kr, kr_kind
+from signal_bot.config import CRYPTO_SPOT, TICKERS, DAILY_MIN_ROWS, is_kr, kr_kind
 from signal_bot.notifier import send_telegram_message
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
@@ -30,8 +31,11 @@ SUCCESS_RATE_WARNING_THRESHOLD = 0.9
 
 def _fetch_one(category: str, symb: str) -> dict:
     try:
-        if is_kr(category):
-            daily = kc_kr.fetch_ohlcv_kr(symb, kind=kr_kind(category), min_rows=DAILY_MIN_ROWS)
+        if symb in CRYPTO_SPOT:
+            daily = cc.fetch_ohlcv_crypto(CRYPTO_SPOT[symb], min_rows=DAILY_MIN_ROWS)
+            excd = "COINBASE"
+        elif is_kr(category):
+            daily = kc_kr.fetch_ohlcv_kr(symb, kind=kr_kind(symb), min_rows=DAILY_MIN_ROWS)
             excd = "KRX"
         else:
             daily = kc.fetch_ohlcv(symb, gubn="0", min_rows=DAILY_MIN_ROWS)

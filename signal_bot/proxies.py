@@ -28,10 +28,13 @@ RULES = [
     {"tk": r"^(TLH|EDV|VGLT)$", "symb": "TLT"},
     {"tk": r"^(VNQ|SCHH)$", "symb": "XLRE"},
     {"tk": r"^(FXI|KWEB)$", "symb": "MCHI"},
+    # 비트코인 - 포트폴리오의 BTC-USD(야후식)·원화 표기와 미국 상장 비트코인 ETF는 현물 BTC로(IBIT는 전략 목록에 있어 직접 일치)
+    {"tk": r"^(BTC-USD|BTC-KRW|KRW-BTC|FBTC|GBTC|BITB|ARKB|BTCO|HODL|BITO)$", "symb": "BTC"},
 
     # ── 이름으로 알아보는 한국 상장 ETF (접두 제거 후) ──
     # 전략 의미가 없는 것(먼저 걸러야 아래 넓은 규칙에 안 잡힘)
     {"re": r"(단기채권|단기통안채|TDF|국고채|중장기국채|200미국채혼합|CD금리|머니마켓|MMF)", "symb": None, "why": _NO},
+    {"re": r"비트코인", "symb": "BTC"},   # 아래 넓은 규칙("레버리지$" 등)보다 먼저
 
     # 미국 대표 지수 — 레버리지·인버스·환헤지(H)·액티브 변형도 같은 기초지수
     {"re": r"S&P\s?500", "symb": "SPY"},

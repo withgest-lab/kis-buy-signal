@@ -12,12 +12,14 @@ from pathlib import Path
 import pandas as pd
 
 from signal_bot import alerts
+from signal_bot import buy_view
 from signal_bot import company_info
 from signal_bot import mdd
 from signal_bot import sell as sellmod
 from signal_bot import timeframe_signals as tf
 from signal_bot import proxies
-from signal_bot.config import JP_BENCH_TICKER, MDD_ALERT_LEVELS, MDD_ALERT_TICKERS, TICKERS, is_jp, is_kr
+from signal_bot.config import (JP_BENCH_TICKER, KR_BENCH_TICKER, MDD_ALERT_LEVELS, MDD_ALERT_TICKERS, TICKERS,
+                               is_crypto, is_jp, is_kr)
 from signal_bot.pipeline import BASELINE_DIR, DATA_DIR, load_history
 
 OUTPUT_PATH = Path("docs/scores.json")
@@ -85,8 +87,8 @@ def _series_records(df: pd.DataFrame, cols: list[str]) -> list[dict]:
 
 
 def _bench_daily(symb: str, category: str) -> pd.DataFrame | None:
-    """상대강도 벤치마크: 미국 종목=SPY, 한국 종목=KOSPI200(본인 제외)."""
-    bench = "KOSPI200" if is_kr(category) else JP_BENCH_TICKER if is_jp(category) else "SPY"
+    """상대강도 벤치마크: 미국 종목·비트코인=SPY, 한국 종목=KODEX 200(코스피200), 일본=EWJ(본인 제외)."""
+    bench = KR_BENCH_TICKER if is_kr(category) else JP_BENCH_TICKER if is_jp(category) else "SPY"
     if bench == symb:
         return None
     recent = _read_daily(bench)
@@ -117,7 +119,7 @@ def _tf_summary(frames: dict) -> dict:
 
 
 def _build_detail(symb: str, baseline_entry: dict | None, episode_notes: dict,
-                  sell: dict | None = None, frames: dict | None = None) -> dict | None:
+                  sell: dict | None = None, frames: dict | None = None, buy_perf: dict | None = None) -> dict | None:
     daily = _read_daily(symb)
     if daily is None:
         return None
@@ -136,23 +138,77 @@ def _build_detail(symb: str, baseline_entry: dict | None, episode_notes: dict,
         "percentiles": (baseline_entry or {}).get("percentiles"),
         "episode_notes": episode_notes.get(symb, []),
         "sell": sell,
+        "buy_perf": buy_perf,
     }
 
 
-def export_details(baseline: dict, sells: dict | None = None, frames_by: dict | None = None) -> int:
+def export_details(baseline: dict, sells: dict | None = None, frames_by: dict | None = None,
+                   buy_perfs: dict | None = None) -> int:
     DETAIL_DIR.mkdir(parents=True, exist_ok=True)
     episode_notes = _load_episode_notes()
     sells = sells or {}
     count = 0
     for _category, symb in TICKERS:
         detail = _build_detail(symb, baseline.get(symb), episode_notes, sells.get(symb),
-                               (frames_by or {}).get(symb))
+                               (frames_by or {}).get(symb), (buy_perfs or {}).get(symb))
         if detail is None:
             continue
         with open(DETAIL_DIR / f"{symb}.json", "w", encoding="utf-8") as f:
             json.dump(detail, f, ensure_ascii=False)
         count += 1
     return count
+
+
+def _attach_buy(tickers: list[dict], series_by: dict, baseline: dict) -> dict:
+    """종목마다 entry["buy"](판단·기간별 흐름·드문 깊이·과거 결과)를 붙이고, detail용 buy_perf를 돌려준다.
+    BASELINE_PROXY 종목(IBIT)은 드문 깊이·과거 결과를 원본 자산(BTC)의 긴 이력으로 계산하고 묶음 집계에서는 뺀다."""
+    walks: dict = {}
+    for t in tickers:
+        src = mdd.BASELINE_PROXY.get(t["symb"], t["symb"])
+        uw = series_by.get(src)
+        if uw is None or src in walks:
+            continue
+        walks[src] = buy_view.walk_forward(uw["close"].to_numpy(), uw["depth"].to_numpy())
+    by_group: dict = {}
+    for t in tickers:
+        if t["symb"] in mdd.BASELINE_PROXY or t["symb"] not in walks:
+            continue
+        by_group.setdefault(buy_view.group_of(t["category"]), []).append(walks[t["symb"]])
+    groups = {g: buy_view.pool(accs) for g, accs in by_group.items()}
+
+    perfs: dict = {"_groups": groups}
+    for t in tickers:
+        symb = t["symb"]
+        uw = series_by.get(symb)
+        if uw is None:
+            continue
+        src = mdd.BASELINE_PROXY.get(symb, symb)
+        src_uw = series_by.get(src, uw)
+        close = uw["close"].to_numpy()
+        share, years = buy_view.days_deeper(uw["depth"].to_numpy())
+        if src != symb:
+            # 원본 자산의 과거 날짜 분포에서 '오늘 이 종목의 낙폭'이 어디쯤인지
+            d_src = src_uw["depth"].to_numpy()
+            start = buy_view.current_episode_start(d_src)
+            past = d_src if start is None else d_src[:start]
+            share = (round(float((past <= float(uw["depth"].iloc[-1])).mean()), 4)
+                     if t["depth"] < 0 and len(past) >= buy_view.MIN_HIST_DAYS else None)
+            years = round(len(past) / buy_view.BARS_1Y, 1)
+        mv = buy_view.moves(close)
+        net_1y = (mv.get("252") or {}).get("net")
+        tier = buy_view.verdict(t["stage"], t.get("percentiles") is not None, t["is_record_drawdown"], share, net_1y)
+        group = buy_view.group_of(t["category"])
+        own = buy_view.summarize_all(walks[src]) if src in walks else {"tiers": {}, "base": None}
+        grp = groups.get(group, {"tiers": {}, "base": None})
+        t["buy"] = {
+            "tier": tier, "days_deeper": share, "years": years, "moves": mv,
+            "retrace_1y": buy_view.retrace(close),
+            "stats": buy_view.pick_stats(tier, own, grp, group),
+        }
+        if src != symb:
+            t["buy"]["pct_from"] = src
+        perfs[symb] = {"self": own, "group": {"name": group, **grp}, "src_symb": src if src != symb else None}
+    return perfs
 
 
 def main():
@@ -171,15 +227,14 @@ def main():
     notified = alerts.load_notified()
     new_symbs = set(notified.get(today, []))
 
-    # TICKERS는 이미 "대형 지수 ETF(SPY/QQQ/DIA/IWM) → 섹터ETF → 시가총액순
-    # 개별종목 → 한국지수 → 한국개별종목" 순으로 큐레이션돼 있으므로, 이 순서를
-    # 그대로 대시보드의 "시가총액순" 정렬 기준으로 재사용한다(별도 시가총액
-    # 데이터 수집 불필요).
+    # TICKERS는 이미 화면 분류 순서(미국지수 → 한국지수 → 미국ETF → 한국ETF → 미국주식(시가총액순) → 한국주식
+    # → 일본주식 → 비트코인)로 큐레이션돼 있으므로, 이 순서를 그대로 대시보드의 "분류순" 정렬 기준으로 쓴다.
     universe_rank = {symb: i for i, (_category, symb) in enumerate(TICKERS)}
 
     tickers = []
     sells: dict = {}
     frames_by: dict = {}
+    series_by: dict = {}     # 매수 판단용 전체 종가·낙폭(워크포워드 결과 묶음 집계)
     for symb, rec in history[today].items():
         entry = dict(rec)
         entry["is_new"] = symb in new_symbs
@@ -194,7 +249,9 @@ def main():
         entry["depth"] = round(float(last_uw["depth"]), 4)
         entry["rolling_high"] = round(float(last_uw["rolling_high"]), 4)
         entry["stage"] = mdd.classify_stage(entry["depth"], entry.get("percentiles"))
-        entry["is_record_drawdown"] = mdd.is_record_drawdown(entry["depth"], (baseline.get(symb) or {}).get("episodes", []))
+        b_entry = baseline.get(symb) or {}
+        entry["is_record_drawdown"] = mdd.is_record_drawdown(entry["depth"], b_entry.get("episodes", []), b_entry.get("record_depth"))
+        series_by[symb] = full_uw
         daily = _read_daily(symb)
         if daily is not None:
             sell = _compute_sell(symb, entry["category"], entry["market_regime"], daily,
@@ -218,11 +275,13 @@ def main():
             )
         tickers.append(entry)
 
+    buy_perfs = _attach_buy(tickers, series_by, baseline)
+
     # stage 내림차순, 같은 stage면 depth가 더 깊은(음수가 더 큰) 종목 우선.
     tickers.sort(key=lambda r: (-r["stage"], r["depth"]))
 
-    us_regime = next((t["market_regime"] for t in tickers if not is_kr(t["category"]) and not is_jp(t["category"])), "판정불가")
-    kr_regime = next((t["market_regime"] for t in tickers if is_kr(t["category"])), "판정불가")
+    us_regime = next((t["market_regime"] for t in tickers if t["symb"] == "SPY"), "판정불가")
+    kr_regime = next((t["market_regime"] for t in tickers if t["symb"] == KR_BENCH_TICKER), "판정불가")
 
     payload = {
         "generated_at": datetime.now(KST).strftime("%Y-%m-%dT%H:%M:%S+09:00"),
@@ -230,6 +289,7 @@ def main():
         "market_regime": {"us": us_regime, "kr": kr_regime},
         # 보유 종목 → 전략 종목 매칭 규칙: 포트폴리오 화면과 이 대시보드가 같은 목록을 읽는다(signal_bot/proxies.py)
         "proxies": {"prefix": proxies.ISSUER_PREFIX_RE, "rules": proxies.RULES},
+        "buy_groups": buy_perfs.pop("_groups", {}),
         "tickers": tickers,
     }
 
@@ -239,7 +299,7 @@ def main():
 
     print(f"대시보드 데이터 저장 완료: {OUTPUT_PATH} ({len(tickers)}종목, 신규 알림 {len(new_symbs)}개)")
 
-    detail_count = export_details(baseline, sells, frames_by)
+    detail_count = export_details(baseline, sells, frames_by, buy_perfs)
     print(f"상세 차트 데이터 저장 완료: {DETAIL_DIR}/ ({detail_count}개 종목)")
 
 

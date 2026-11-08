@@ -3,17 +3,26 @@
 개별종목은 S&P500 시가총액 상위30 + 나스닥100 상위20(중복제거, signal_bot.
 universe_source가 매월 갱신). 섹터ETF는 계속 손으로 고른 리스트를 유지한다
 (지수 구성종목이 아니라서 자동 소스가 없고, 개수가 적어 유지 부담도 낮음).
-한국 KOSPI200·삼성전자·SK하이닉스는 KR_TARGETS로 별도 추가.
+한국 종목은 KR_TARGETS, 일본은 JP_TARGETS, 비트코인은 CRYPTO_TARGETS로 별도 추가.
+
+화면 분류 순서 = TICKERS 순서(universe_rank): 미국지수 → 한국지수 → 미국ETF(섹터ETF) → 한국ETF
+→ 미국주식(개별종목) → 한국주식 → 일본주식 → 비트코인. 분류 코드는 데이터 값 그대로 두고
+화면(signals/index.html의 CATS)이 짧은 이름으로 보여준다.
 """
 
 from signal_bot import universe_source as _us
 
-CURATED_ETFS = [
-    ("섹터ETF", "SPY"),   # S&P500 전체
-    ("섹터ETF", "QQQ"),   # 나스닥100 전체
-    ("섹터ETF", "DIA"),   # 다우존스
-    ("섹터ETF", "IWM"),   # 러셀2000(중소형주)
+# 미국 주요지수 - S&P500·나스닥·다우·러셀을 가장 잘 대표하는(운용 규모·거래량 최대) 지수 ETF.
+# 나스닥은 종합지수 ETF(ONEQ)가 작아 사실상 대표인 나스닥100(QQQ)을 쓴다.
+US_INDEX_CATEGORY = "미국지수"
+US_INDEX_ETFS = [
+    (US_INDEX_CATEGORY, "SPY"),   # S&P500 전체
+    (US_INDEX_CATEGORY, "QQQ"),   # 나스닥100 전체
+    (US_INDEX_CATEGORY, "DIA"),   # 다우존스
+    (US_INDEX_CATEGORY, "IWM"),   # 러셀2000(중소형주)
+]
 
+CURATED_ETFS = [
     # GICS 11개 대표 섹터 SPDR ETF (전부 커버)
     ("섹터ETF", "XLK"),   # 기술
     ("섹터ETF", "XLF"),   # 금융
@@ -181,14 +190,20 @@ MDD_ALERT_LEVELS = [
     (0.10, "조정(Correction) 진입"),
 ]
 
-# 한국 종목 - KOSPI200(지수), 삼성전자·SK하이닉스(개별종목). KIS 국내주식
-# API(signal_bot/kis_client_kr.py)로 조회하며, 이 두 카테고리 문자열로
-# 미국/한국 API 분기를 판단한다(fetch_universe.py/baseline_fetch.py 참고).
+# 한국 종목 - KIS 국내주식 API(signal_bot/kis_client_kr.py)로 조회한다. 미국/한국 API 분기는 분류(is_kr),
+# 지수 API(업종지수)인지는 심볼(kr_kind)로 판단한다.
+# 한국지수 = 코스피·코스닥을 가장 잘 대표하는 지수 ETF(KODEX 200, KODEX 코스닥150 - 각 시장 최대 ETF).
+# 원지수 KOSPI200은 KODEX 200과 같은 지수라 목록에서 뺐고, 시장국면·상대강도 기준도 069500을 쓴다.
 KR_INDEX_CATEGORY = "한국지수"
 KR_STOCK_CATEGORY = "한국개별종목"
 KR_ETF_CATEGORY = "한국ETF"
+KR_INDEX_ETFS = [
+    (KR_INDEX_CATEGORY, "069500"),   # KODEX 200 (코스피200)
+    (KR_INDEX_CATEGORY, "229200"),   # KODEX 코스닥150
+]
+KR_BENCH_TICKER = "069500"
+KR_INDEX_SYMBOLS = {"KOSPI200"}    # 업종지수 API로 받는 심볼(지금 목록에는 없음 - 다시 넣을 때 대비)
 KR_TARGETS = [
-    (KR_INDEX_CATEGORY, "KOSPI200"),
     (KR_STOCK_CATEGORY, "005930"),   # 삼성전자
     (KR_STOCK_CATEGORY, "000660"),   # SK하이닉스
     (KR_STOCK_CATEGORY, "005380"),   # 현대차
@@ -211,8 +226,6 @@ KR_TARGETS = [
     (KR_STOCK_CATEGORY, "034020"),   # 두산에너빌리티
     (KR_STOCK_CATEGORY, "015760"),   # 한국전력
     (KR_STOCK_CATEGORY, "096770"),   # SK이노베이션
-    (KR_ETF_CATEGORY, "069500"),   # KODEX 200
-    (KR_ETF_CATEGORY, "229200"),   # KODEX 코스닥150
     (KR_ETF_CATEGORY, "091160"),   # KODEX 반도체
     (KR_ETF_CATEGORY, "305720"),   # KODEX 2차전지산업
     (KR_ETF_CATEGORY, "091180"),   # KODEX 자동차
@@ -311,18 +324,34 @@ JP_NAMES = {
 }
 JP_TARGETS = [(JP_STOCK_CATEGORY, symb) for symb in JP_NAMES]
 
+# 비트코인 - KIS에는 코인 시세가 없어 현물(BTC)은 코인베이스 공개 일봉(signal_bot/crypto_client.py, USD, 2015~)으로,
+# 미국 현물 ETF IBIT는 기존 KIS 해외 API로 받는다. IBIT는 상장(2024-01)이 짧아 낙폭 단계 기준(백분위)·사상최대
+# 판정은 같은 자산인 BTC의 통계를 빌린다(mdd.BASELINE_PROXY). 포트폴리오의 BTC-USD 등은 proxies 규칙으로 BTC에 연결.
+CRYPTO_CATEGORY = "비트코인"
+CRYPTO_SPOT = {"BTC": "BTC-USD"}   # 전략 심볼 → 코인베이스 상품 코드
+CRYPTO_NAMES = {"BTC": "Bitcoin 현물(USD)", "IBIT": "iShares Bitcoin Trust ETF"}   # 분류 이름(비트코인)과 겹치지 않게
+CRYPTO_TARGETS = [(CRYPTO_CATEGORY, "BTC"), (CRYPTO_CATEGORY, "IBIT")]
+CURATED_ETF_DESCRIPTIONS.update({
+    "BTC": "비트코인 현물 가격(코인베이스 BTC-USD)",
+    "IBIT": "비트코인 현물을 보유하는 미국 최대 비트코인 ETF(블랙록)",
+})
+
 _ranked = [r for r in _us.get_top_n_targets(SP500_TOP_N, NASDAQ100_TOP_N) if r["symb"] not in EXCLUDE_SYMBOLS]
 _auto_symbols = {r["symb"] for r in _ranked}
 _curated = [(sym, name) for sym, name in CURATED_STOCKS if sym not in _auto_symbols]
 
-TICKERS = (CURATED_ETFS + [("개별종목", r["symb"]) for r in _ranked]
-           + [("개별종목", sym) for sym, _n in _curated] + KR_TARGETS + JP_TARGETS)
+_kr_etfs = [t for t in KR_TARGETS if t[0] == KR_ETF_CATEGORY]
+_kr_stocks = [t for t in KR_TARGETS if t[0] == KR_STOCK_CATEGORY]
+TICKERS = (US_INDEX_ETFS + KR_INDEX_ETFS + CURATED_ETFS + _kr_etfs
+           + [("개별종목", r["symb"]) for r in _ranked] + [("개별종목", sym) for sym, _n in _curated]
+           + _kr_stocks + JP_TARGETS + CRYPTO_TARGETS)
 
 TICKER_NAMES = dict(CURATED_ETF_NAMES)
 TICKER_NAMES.update({r["symb"]: r["name"] for r in _ranked})
 TICKER_NAMES.update({sym: name for sym, name in _curated})
 TICKER_NAMES.update(KR_NAMES)
 TICKER_NAMES.update(JP_NAMES)
+TICKER_NAMES.update(CRYPTO_NAMES)
 
 
 def is_kr(category: str) -> bool:
@@ -333,10 +362,14 @@ def is_jp(category: str) -> bool:
     return category == JP_STOCK_CATEGORY
 
 
+def is_crypto(category: str) -> bool:
+    return category == CRYPTO_CATEGORY
+
+
 def currency_of(category: str) -> str:
     return "KRW" if is_kr(category) else "JPY" if is_jp(category) else "USD"
 
 
-def kr_kind(category: str) -> str:
-    """KIS 국내 API 호출 종류: "index"(지수) 또는 "item"(개별종목)."""
-    return "index" if category == KR_INDEX_CATEGORY else "item"
+def kr_kind(symb: str) -> str:
+    """KIS 국내 API 호출 종류: "index"(업종지수) 또는 "item"(종목·ETF). 한국지수 분류에도 ETF가 있어 심볼로 판단."""
+    return "index" if symb in KR_INDEX_SYMBOLS else "item"

@@ -2,7 +2,7 @@
 
 운영용 일일 파이프라인이 쓰는 signal_bot/data/*.csv(250거래일치)와는 완전히
 분리된 signal_bot/data/baseline/ 폴더에 저장한다. 대상은 전체 유니버스가
-아니라 CURATED_ETFS + 시가총액 상위 종목 + 한국 종목(약 75~78개)만.
+아니라 config.TICKERS(지수·ETF·시가총액 상위·한국·일본·비트코인)만.
 
 staleness 체크(universe_source.py의 캐시 패턴과 동일) - 매일 워크플로우에서
 호출되지만 30일 이내면 즉시 종료하고, 재수집이 필요할 때만 실제 API 호출.
@@ -19,10 +19,11 @@ from pathlib import Path
 
 import pandas as pd
 
+from signal_bot import crypto_client as cc
 from signal_bot import kis_client as kc
 from signal_bot import kis_client_kr as kc_kr
 from signal_bot import mdd
-from signal_bot.config import TICKERS, is_kr, kr_kind
+from signal_bot.config import CRYPTO_SPOT, TICKERS, is_kr, kr_kind
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
 
@@ -68,7 +69,7 @@ def needs_full_refresh(force: bool = False) -> bool:
 
 # 한국 개별종목·ETF 베이스라인 시작일. KIS 국내 일봉은 1990년대 종가가 자본 변동에 대해 수정주가로 일관되지 않는
 # 종목이 있다(예: 기아 1990년 종가 347,656원 vs 2000년 4,000~8,000원) - 이 값이 "사상 최고가"가 되면 낙폭이 실제와
-# 크게 다르게(-66%) 나오고 낙폭 국면 통계도 왜곡된다. 지수(KOSPI200)는 실제 지수라 그대로 둔다.
+# 크게 다르게(-66%) 나오고 낙폭 국면 통계도 왜곡된다. 업종지수(kr_kind=index)는 실제 지수라 그대로 둔다.
 KR_HISTORY_START = "2000-01-01"
 
 
@@ -76,7 +77,7 @@ def trim_kr_history() -> list[str]:
     """한국 개별종목·ETF 베이스라인 CSV를 KR_HISTORY_START 이후로 자른다(이미 잘려 있으면 건드리지 않음). 바뀐 종목 목록 반환."""
     changed = []
     for category, symb in TICKERS:
-        if not is_kr(category) or kr_kind(category) != "item":
+        if not is_kr(category) or kr_kind(symb) != "item":
             continue
         path = BASELINE_DIR / f"{symb}_daily.csv"
         if not path.exists():
@@ -101,8 +102,10 @@ def is_stale(force: bool = False) -> bool:
 
 def _fetch_one(category: str, symb: str) -> dict:
     try:
-        if is_kr(category):
-            daily = kc_kr.fetch_ohlcv_kr(symb, kind=kr_kind(category), min_rows=DAILY_MIN_ROWS_LONG)
+        if symb in CRYPTO_SPOT:
+            daily = cc.fetch_ohlcv_crypto(CRYPTO_SPOT[symb], min_rows=DAILY_MIN_ROWS_LONG)
+        elif is_kr(category):
+            daily = kc_kr.fetch_ohlcv_kr(symb, kind=kr_kind(symb), min_rows=DAILY_MIN_ROWS_LONG)
         else:
             daily = kc.fetch_ohlcv(symb, gubn="0", min_rows=DAILY_MIN_ROWS_LONG)
         daily.to_csv(BASELINE_DIR / f"{symb}_daily.csv", index=False)

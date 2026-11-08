@@ -13,16 +13,18 @@ from signal_bot import alerts
 from signal_bot import company_info
 from signal_bot import mdd
 from signal_bot import timeframe_signals as tf
-from signal_bot.config import HISTORY_MAX_DAYS, JP_BENCH_TICKER, TICKER_NAMES, TICKERS, currency_of, is_jp, is_kr
+from signal_bot.config import (HISTORY_MAX_DAYS, JP_BENCH_TICKER, KR_BENCH_TICKER, TICKER_NAMES, TICKERS,
+                               currency_of, is_crypto, is_jp, is_kr)
 
 DATA_DIR = Path("signal_bot/data")
 BASELINE_DIR = DATA_DIR / "baseline"
 HISTORY_PATH = DATA_DIR / "history.json"
 
-# 시장국면 참고정보용 지수 - 미국은 SPY, 한국은 KOSPI200. 신호를 차단하지
-# 않고 알림/대시보드에 참고정보로만 쓴다.
+# 시장국면 참고정보용 지수 - 미국은 SPY, 한국은 KODEX 200(코스피200), 일본은 EWJ, 비트코인은 BTC 자신.
+# 신호를 차단하지 않고 알림/대시보드에 참고정보로만 쓴다.
 US_REGIME_TICKER = "SPY"
-KR_REGIME_TICKER = "KOSPI200"
+KR_REGIME_TICKER = KR_BENCH_TICKER
+CRYPTO_REGIME_TICKER = "BTC"
 
 
 def load_history() -> dict:
@@ -58,7 +60,8 @@ def _read_baseline_daily(symb: str) -> pd.DataFrame | None:
 
 
 def _regime_for(category: str, regime_cache: dict) -> str:
-    ticker = KR_REGIME_TICKER if is_kr(category) else JP_BENCH_TICKER if is_jp(category) else US_REGIME_TICKER
+    ticker = (KR_REGIME_TICKER if is_kr(category) else JP_BENCH_TICKER if is_jp(category)
+              else CRYPTO_REGIME_TICKER if is_crypto(category) else US_REGIME_TICKER)
     if ticker in regime_cache:
         return regime_cache[ticker]
     try:
@@ -114,7 +117,7 @@ def run() -> tuple[list[dict], list[tuple]]:
                     "stage": mdd.classify_stage(state["depth"], percentiles),
                     "percentiles": percentiles,
                     "episode_count": len(episodes),
-                    "is_record_drawdown": mdd.is_record_drawdown(state["depth"], episodes),
+                    "is_record_drawdown": mdd.is_record_drawdown(state["depth"], episodes, baseline_entry.get("record_depth")),
                 })
 
             record["timeframes"] = tf.compute_multi_timeframe_signals(daily, baseline_daily)
@@ -166,7 +169,8 @@ def main():
     if not results:
         return
 
-    today = results[0]["date"]
+    # 시장마다 마지막 봉 날짜가 하루씩 다를 수 있어(비트코인은 UTC 일봉이라 하루 늦음) 가장 늦은 날짜를 기준일로 쓴다.
+    today = max(r["date"] for r in results)
     history = load_history()
     history[today] = {r["symb"]: r for r in results}
     history = trim_history(history)

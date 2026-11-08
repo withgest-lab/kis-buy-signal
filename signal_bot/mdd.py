@@ -19,6 +19,10 @@ BASELINE_PATH = DATA_DIR / "mdd_baseline.json"
 
 MIN_EPISODE_DEPTH = -0.05       # -5% 이내 낙폭은 노이즈로 국면 불인정
 MIN_EPISODES_REQUIRED = 5       # 완결국면이 이보다 적으면 베이스라인 데이터 부족
+MIN_EPISODES_FOR_P10 = 10       # 3단계(P10)는 완결국면이 이만큼 있어야 의미가 있다 - 적으면 P10이 사실상 '최저값 보간'이라 최대 2단계
+
+# 상장이 짧은 종목은 같은 자산의 긴 이력으로 단계 기준(백분위)·사상최대 판정을 빌린다(가격·낙폭은 자기 것).
+BASELINE_PROXY = {"IBIT": "BTC"}
 
 MARKET_REGIME_BAND = 0.03
 
@@ -101,11 +105,11 @@ def percentile_stats(episodes: list[dict]) -> Optional[dict]:
 
 
 def classify_stage(depth: float, percentiles: Optional[dict]) -> int:
-    """0=신호없음, 1=관찰(P50 수준), 2=깊은낙폭(P25 수준), 3=극단(P10 수준).
+    """0=신호없음, 1=평소 조정(P50 수준), 2=깊은 조정(P25 수준), 3=매우 깊음(P10 수준, 완결국면 10개 이상일 때만).
     percentiles의 p10<=p25<=p50<=0 순서를 이용 — 더 깊을수록(더 음수) 더 높은 단계."""
     if percentiles is None:
         return 0
-    if depth <= percentiles["p10"]:
+    if depth <= percentiles["p10"] and percentiles.get("count", 0) >= MIN_EPISODES_FOR_P10:
         return 3
     if depth <= percentiles["p25"]:
         return 2
@@ -114,8 +118,11 @@ def classify_stage(depth: float, percentiles: Optional[dict]) -> int:
     return 0
 
 
-def is_record_drawdown(depth: float, episodes: list[dict]) -> bool:
-    """오늘 depth가 과거 모든 완결국면보다 깊으면(사상 최대 낙폭) True."""
+def is_record_drawdown(depth: float, episodes: list[dict], record_depth: Optional[float] = None) -> bool:
+    """오늘 depth가 과거 모든 완결국면보다 깊으면(사상 최대 낙폭) True. record_depth가 있으면(BASELINE_PROXY 종목)
+    원본 자산의 가장 깊은 완결국면과 비교한다."""
+    if record_depth is not None:
+        return depth < record_depth
     completed = [e for e in episodes if e["is_complete"]]
     if not completed:
         return False
@@ -147,6 +154,19 @@ def build_baseline_for_symbol(symb: str) -> dict:
     }
 
 
+def apply_baseline_proxy(baseline: dict) -> None:
+    """BASELINE_PROXY 종목(예: IBIT)의 백분위·사상최대 기준을 원본 자산(BTC) 값으로 바꾼다. 자기 국면 목록(차트용)과
+    rolling_high·as_of_date는 그대로 둔다. 원본이 없거나 데이터 부족이면 자기 값을 유지."""
+    for symb, src in BASELINE_PROXY.items():
+        own, base = baseline.get(symb), baseline.get(src)
+        if not own or not base or base.get("insufficient_data") or "rolling_high" not in own:
+            continue
+        own["percentiles"] = base["percentiles"]
+        own["record_depth"] = min((e["depth"] for e in base.get("episodes", []) if e["is_complete"]), default=None)
+        own["pct_from"] = src
+        own["insufficient_data"] = False
+
+
 def build_all_baselines(tickers: list[tuple[str, str]]) -> dict:
     """tickers: [(category, symb), ...]. mdd_baseline.json에 저장 후 반환."""
     baseline: dict = {}
@@ -155,6 +175,7 @@ def build_all_baselines(tickers: list[tuple[str, str]]) -> dict:
             baseline[symb] = build_baseline_for_symbol(symb)
         except Exception as e:
             baseline[symb] = {"insufficient_data": True, "error": str(e)}
+    apply_baseline_proxy(baseline)
 
     DATA_DIR.mkdir(exist_ok=True)
     with open(BASELINE_PATH, "w", encoding="utf-8") as f:
