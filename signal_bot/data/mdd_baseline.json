@@ -1,6 +1,6 @@
 {
   "SPY": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 779.09,
     "episodes": [
       {
@@ -162,6 +162,14 @@
         "depth": -0.0888,
         "recovery_days": 52,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-10-07",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.0592,
+        "recovery_days": null,
+        "is_complete": false
       }
     ],
     "percentiles": {
@@ -176,7 +184,7 @@
     "insufficient_data": false
   },
   "QQQ": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 759.66,
     "episodes": [
       {
@@ -426,6 +434,14 @@
         "depth": -0.1122,
         "recovery_days": 76,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-10-07",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.1482,
+        "recovery_days": null,
+        "is_complete": false
       }
     ],
     "percentiles": {
@@ -440,8 +456,8 @@
     "insufficient_data": false
   },
   "DIA": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 541.1131,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 540.9946,
     "episodes": [
       {
         "start_date": "2007-02-16",
@@ -640,7 +656,7 @@
     "insufficient_data": false
   },
   "IWM": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 304.2949,
     "episodes": [
       {
@@ -813,9 +829,9 @@
       },
       {
         "start_date": "2026-08-17",
-        "trough_date": "2026-09-30",
+        "trough_date": "2026-10-16",
         "recovery_date": null,
-        "depth": -0.0868,
+        "depth": -0.1113,
         "recovery_days": null,
         "is_complete": false
       }
@@ -832,7 +848,7 @@
     "insufficient_data": false
   },
   "XLK": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 202.0,
     "episodes": [
       {
@@ -1122,6 +1138,14 @@
         "depth": -0.1586,
         "recovery_days": 83,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-10-07",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.1961,
+        "recovery_days": null,
+        "is_complete": false
       }
     ],
     "percentiles": {
@@ -1136,8 +1160,8 @@
     "insufficient_data": false
   },
   "XLF": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 58.354,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 59.2,
     "episodes": [
       {
         "start_date": "2007-02-21",
@@ -1254,26 +1278,26 @@
       {
         "start_date": "2026-09-04",
         "trough_date": "2026-09-30",
-        "recovery_date": null,
+        "recovery_date": "2026-11-04",
         "depth": -0.0849,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 42,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 14,
-      "p50": -0.08149999999999999,
-      "p25": -0.15352500000000002,
-      "p10": -0.37744999999999995,
+      "count": 15,
+      "p50": -0.0832,
+      "p25": -0.15165,
+      "p10": -0.36039999999999994,
       "recovery_days_min": 13,
-      "recovery_days_median": 50,
+      "recovery_days_median": 49,
       "recovery_days_max": 3131
     },
     "insufficient_data": false
   },
   "XLE": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 65.5401,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 70.02,
     "episodes": [
       {
         "start_date": "2007-02-27",
@@ -1422,26 +1446,34 @@
       {
         "start_date": "2026-09-16",
         "trough_date": "2026-09-30",
-        "recovery_date": null,
+        "recovery_date": "2026-10-12",
         "depth": -0.0616,
+        "recovery_days": 18,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-11-02",
+        "trough_date": "2026-11-06",
+        "recovery_date": null,
+        "depth": -0.12,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
-      "count": 18,
-      "p50": -0.12695,
-      "p25": -0.17225000000000001,
-      "p10": -0.35435999999999995,
+      "count": 19,
+      "p50": -0.1244,
+      "p25": -0.1711,
+      "p10": -0.32304,
       "recovery_days_min": 6,
-      "recovery_days_median": 67,
+      "recovery_days_median": 59,
       "recovery_days_max": 1938
     },
     "insufficient_data": false
   },
   "XLV": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 175.01,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 189.66,
     "episodes": [
       {
         "start_date": "2007-02-16",
@@ -1646,25 +1678,25 @@
       {
         "start_date": "2026-08-20",
         "trough_date": "2026-09-11",
-        "recovery_date": null,
+        "recovery_date": "2026-10-15",
         "depth": -0.0587,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 39,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 25,
-      "p50": -0.0809,
-      "p25": -0.1544,
-      "p10": -0.17242000000000002,
+      "count": 26,
+      "p50": -0.07919999999999999,
+      "p25": -0.14777500000000002,
+      "p10": -0.17220000000000002,
       "recovery_days_min": 16,
-      "recovery_days_median": 67,
+      "recovery_days_median": 64,
       "recovery_days_max": 849
     },
     "insufficient_data": false
   },
   "XLI": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 186.0102,
     "episodes": [
       {
@@ -1877,9 +1909,9 @@
       },
       {
         "start_date": "2026-08-17",
-        "trough_date": "2026-09-30",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.1023,
+        "depth": -0.1266,
         "recovery_days": null,
         "is_complete": false
       }
@@ -1896,8 +1928,8 @@
     "insufficient_data": false
   },
   "XLP": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 88.309,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 91.94,
     "episodes": [
       {
         "start_date": "2007-06-05",
@@ -2102,25 +2134,25 @@
       {
         "start_date": "2026-03-02",
         "trough_date": "2026-03-20",
-        "recovery_date": null,
+        "recovery_date": "2026-10-22",
         "depth": -0.0969,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 163,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 25,
-      "p50": -0.0796,
-      "p25": -0.0924,
-      "p10": -0.16224,
+      "count": 26,
+      "p50": -0.08075,
+      "p25": -0.095775,
+      "p10": -0.16205,
       "recovery_days_min": 21,
-      "recovery_days_median": 100,
+      "recovery_days_median": 104,
       "recovery_days_max": 486
     },
     "insufficient_data": false
   },
   "XLY": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 123.7508,
     "episodes": [
       {
@@ -2392,7 +2424,7 @@
     "insufficient_data": false
   },
   "XLU": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 46.7533,
     "episodes": [
       {
@@ -2584,8 +2616,8 @@
     "insufficient_data": false
   },
   "XLB": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 53.4246,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 53.9,
     "episodes": [
       {
         "start_date": "2007-02-27",
@@ -2742,25 +2774,25 @@
       {
         "start_date": "2026-08-27",
         "trough_date": "2026-10-01",
-        "recovery_date": null,
+        "recovery_date": "2026-11-02",
         "depth": -0.0914,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 46,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 19,
-      "p50": -0.1099,
-      "p25": -0.19474999999999998,
-      "p10": -0.2883,
+      "count": 20,
+      "p50": -0.1056,
+      "p25": -0.176275,
+      "p10": -0.27775,
       "recovery_days_min": 15,
-      "recovery_days_median": 94,
+      "recovery_days_median": 84,
       "recovery_days_max": 1249
     },
     "insufficient_data": false
   },
   "XLRE": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 45.6263,
     "episodes": [
       {
@@ -2853,9 +2885,9 @@
       },
       {
         "start_date": "2026-07-29",
-        "trough_date": "2026-10-05",
+        "trough_date": "2026-10-07",
         "recovery_date": null,
-        "depth": -0.1086,
+        "depth": -0.1108,
         "recovery_days": null,
         "is_complete": false
       }
@@ -2872,7 +2904,7 @@
     "insufficient_data": false
   },
   "XLC": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 118.9955,
     "episodes": [
       {
@@ -2957,9 +2989,9 @@
       },
       {
         "start_date": "2026-02-02",
-        "trough_date": "2026-07-23",
+        "trough_date": "2026-10-30",
         "recovery_date": null,
-        "depth": -0.1173,
+        "depth": -0.1605,
         "recovery_days": null,
         "is_complete": false
       }
@@ -2976,8 +3008,8 @@
     "insufficient_data": false
   },
   "CIBR": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 108.13,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 110.0,
     "episodes": [
       {
         "start_date": "2015-07-15",
@@ -3178,6 +3210,14 @@
         "depth": -0.0953,
         "recovery_days": 25,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-10-12",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.1726,
+        "recovery_days": null,
+        "is_complete": false
       }
     ],
     "percentiles": {
@@ -3192,8 +3232,8 @@
     "insufficient_data": false
   },
   "SOXX": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 654.5823,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 218.1939,
     "episodes": [
       {
         "start_date": "2007-10-03",
@@ -3207,7 +3247,7 @@
         "start_date": "2013-07-18",
         "trough_date": "2013-08-27",
         "recovery_date": "2013-09-10",
-        "depth": -0.0786,
+        "depth": -0.0787,
         "recovery_days": 37,
         "is_complete": true
       },
@@ -3533,9 +3573,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.2901,
+        "depth": -0.3955,
         "recovery_days": null,
         "is_complete": false
       }
@@ -3552,7 +3592,7 @@
     "insufficient_data": false
   },
   "BOTZ": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 41.6092,
     "episodes": [
       {
@@ -3621,9 +3661,9 @@
       },
       {
         "start_date": "2026-05-14",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.1906,
+        "depth": -0.2636,
         "recovery_days": null,
         "is_complete": false
       }
@@ -3640,7 +3680,7 @@
     "insufficient_data": false
   },
   "ROBO": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 90.34,
     "episodes": [
       {
@@ -3741,9 +3781,9 @@
       },
       {
         "start_date": "2026-06-03",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.1614,
+        "depth": -0.2382,
         "recovery_days": null,
         "is_complete": false
       }
@@ -3760,7 +3800,7 @@
     "insufficient_data": false
   },
   "AIPO": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 34.77,
     "episodes": [
       {
@@ -3813,9 +3853,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.2436,
+        "depth": -0.3779,
         "recovery_days": null,
         "is_complete": false
       }
@@ -3832,7 +3872,7 @@
     "insufficient_data": false
   },
   "QTUM": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 167.9744,
     "episodes": [
       {
@@ -3885,9 +3925,9 @@
       },
       {
         "start_date": "2026-06-03",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.2151,
+        "depth": -0.2898,
         "recovery_days": null,
         "is_complete": false
       }
@@ -3904,7 +3944,7 @@
     "insufficient_data": false
   },
   "VOLT": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 42.05,
     "episodes": [
       {
@@ -3949,9 +3989,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-09-15",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.1743,
+        "depth": -0.2595,
         "recovery_days": null,
         "is_complete": false
       }
@@ -3968,7 +4008,7 @@
     "insufficient_data": false
   },
   "ARKK": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 155.2985,
     "episodes": [
       {
@@ -4168,7 +4208,7 @@
     "insufficient_data": false
   },
   "ICLN": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 35.8148,
     "episodes": [
       {
@@ -4184,7 +4224,7 @@
     "insufficient_data": true
   },
   "XBI": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 172.8451,
     "episodes": [
       {
@@ -4440,7 +4480,7 @@
     "insufficient_data": false
   },
   "KRE": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 77.4881,
     "episodes": [
       {
@@ -4573,9 +4613,9 @@
       },
       {
         "start_date": "2026-08-17",
-        "trough_date": "2026-09-30",
+        "trough_date": "2026-10-14",
         "recovery_date": null,
-        "depth": -0.1039,
+        "depth": -0.1155,
         "recovery_days": null,
         "is_complete": false
       }
@@ -4592,8 +4632,8 @@
     "insufficient_data": false
   },
   "ITA": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 252.9223,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 84.3073,
     "episodes": [
       {
         "start_date": "2007-10-10",
@@ -4837,9 +4877,9 @@
       },
       {
         "start_date": "2026-08-17",
-        "trough_date": "2026-10-05",
+        "trough_date": "2026-10-23",
         "recovery_date": null,
-        "depth": -0.1816,
+        "depth": -0.2004,
         "recovery_days": null,
         "is_complete": false
       }
@@ -4856,7 +4896,7 @@
     "insufficient_data": false
   },
   "ITB": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 125.5185,
     "episodes": [
       {
@@ -5045,9 +5085,9 @@
       },
       {
         "start_date": "2024-10-21",
-        "trough_date": "2025-04-08",
+        "trough_date": "2026-10-14",
         "recovery_date": null,
-        "depth": -0.3335,
+        "depth": -0.3356,
         "recovery_days": null,
         "is_complete": false
       }
@@ -5064,7 +5104,7 @@
     "insufficient_data": false
   },
   "XRT": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 96.33,
     "episodes": [
       {
@@ -5272,7 +5312,7 @@
     "insufficient_data": false
   },
   "IYT": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 89.8072,
     "episodes": [
       {
@@ -5504,7 +5544,7 @@
     "insufficient_data": false
   },
   "XME": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 132.6501,
     "episodes": [
       {
@@ -5605,9 +5645,9 @@
       },
       {
         "start_date": "2026-06-03",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.2649,
+        "depth": -0.3184,
         "recovery_days": null,
         "is_complete": false
       }
@@ -5624,7 +5664,7 @@
     "insufficient_data": false
   },
   "GDX": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 115.84,
     "episodes": [
       {
@@ -5752,7 +5792,7 @@
     "insufficient_data": false
   },
   "URA": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 87.374,
     "episodes": [
       {
@@ -5792,7 +5832,7 @@
     "insufficient_data": true
   },
   "IGV": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 117.7682,
     "episodes": [
       {
@@ -6128,7 +6168,7 @@
     "insufficient_data": false
   },
   "SMH": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 668.91,
     "episodes": [
       {
@@ -6341,9 +6381,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.2462,
+        "depth": -0.3307,
         "recovery_days": null,
         "is_complete": false
       }
@@ -6360,7 +6400,7 @@
     "insufficient_data": false
   },
   "XOP": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 266.7704,
     "episodes": [
       {
@@ -6432,7 +6472,7 @@
     "insufficient_data": false
   },
   "GLD": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 495.9,
     "episodes": [
       {
@@ -6557,9 +6597,9 @@
       },
       {
         "start_date": "2026-01-30",
-        "trough_date": "2026-07-16",
+        "trough_date": "2026-10-30",
         "recovery_date": null,
-        "depth": -0.264,
+        "depth": -0.2826,
         "recovery_days": null,
         "is_complete": false
       }
@@ -6576,8 +6616,8 @@
     "insufficient_data": false
   },
   "IEF": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 104.5816,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 104.2265,
     "episodes": [
       {
         "start_date": "2017-09-08",
@@ -6600,8 +6640,8 @@
     "insufficient_data": true
   },
   "TLT": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 141.0193,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 140.4279,
     "episodes": [
       {
         "start_date": "2016-07-11",
@@ -6648,8 +6688,8 @@
     "insufficient_data": true
   },
   "SCHD": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 34.9319,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 36.21,
     "episodes": [
       {
         "start_date": "2011-10-28",
@@ -6782,17 +6822,17 @@
       {
         "start_date": "2026-08-25",
         "trough_date": "2026-09-30",
-        "recovery_date": null,
+        "recovery_date": "2026-10-22",
         "depth": -0.0688,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 41,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 16,
-      "p50": -0.07375,
-      "p25": -0.144725,
-      "p10": -0.16965000000000002,
+      "count": 17,
+      "p50": -0.071,
+      "p25": -0.1392,
+      "p10": -0.16942000000000002,
       "recovery_days_min": 19,
       "recovery_days_median": 62,
       "recovery_days_max": 492
@@ -6800,7 +6840,7 @@
     "insufficient_data": false
   },
   "MCHI": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 86.5906,
     "episodes": [
       {
@@ -6896,7 +6936,7 @@
     "insufficient_data": false
   },
   "EWJ": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 99.32,
     "episodes": [
       {
@@ -7010,6 +7050,14 @@
         "depth": -0.0786,
         "recovery_days": 35,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-10-07",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.1114,
+        "recovery_days": null,
+        "is_complete": false
       }
     ],
     "percentiles": {
@@ -7024,8 +7072,8 @@
     "insufficient_data": false
   },
   "AAPL": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 341.07,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 349.51,
     "episodes": [
       {
         "start_date": "2007-08-27",
@@ -7392,7 +7440,7 @@
     "insufficient_data": false
   },
   "NVDA": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 239.24,
     "episodes": [
       {
@@ -7810,6 +7858,14 @@
         "depth": -0.193,
         "recovery_days": 97,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-10-07",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.2409,
+        "recovery_days": null,
+        "is_complete": false
       }
     ],
     "percentiles": {
@@ -7824,15 +7880,15 @@
     "insufficient_data": false
   },
   "MSFT": {
-    "as_of_date": "2026-09-04",
-    "rolling_high": 537.6467,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 555.8,
     "episodes": [
       {
         "start_date": "2007-11-05",
         "trough_date": "2009-03-09",
         "recovery_date": "2013-04-29",
         "depth": -0.5794,
-        "recovery_days": 1382,
+        "recovery_days": 1378,
         "is_complete": true
       },
       {
@@ -8070,25 +8126,33 @@
       {
         "start_date": "2025-10-29",
         "trough_date": "2026-06-25",
-        "recovery_date": null,
+        "recovery_date": "2026-10-12",
         "depth": -0.345,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 238,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-10-14",
+        "trough_date": "2026-11-02",
+        "recovery_date": "2026-11-04",
+        "depth": -0.0669,
+        "recovery_days": 15,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 30,
+      "count": 32,
       "p50": -0.09985,
-      "p25": -0.135925,
-      "p10": -0.24161,
+      "p25": -0.14382499999999998,
+      "p10": -0.27609,
       "recovery_days_min": 7,
       "recovery_days_median": 42,
-      "recovery_days_max": 1382
+      "recovery_days_max": 1378
     },
     "insufficient_data": false
   },
   "AMZN": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 284.02,
     "episodes": [
       {
@@ -8453,9 +8517,9 @@
       },
       {
         "start_date": "2026-08-04",
-        "trough_date": "2026-09-16",
+        "trough_date": "2026-10-30",
         "recovery_date": null,
-        "depth": -0.134,
+        "depth": -0.1538,
         "recovery_days": null,
         "is_complete": false
       }
@@ -8472,7 +8536,7 @@
     "insufficient_data": false
   },
   "GOOGL": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 402.1213,
     "episodes": [
       {
@@ -8701,9 +8765,9 @@
       },
       {
         "start_date": "2026-05-14",
-        "trough_date": "2026-07-23",
+        "trough_date": "2026-11-02",
         "recovery_date": null,
-        "depth": -0.2105,
+        "depth": -0.3062,
         "recovery_days": null,
         "is_complete": false
       }
@@ -8720,7 +8784,7 @@
     "insufficient_data": false
   },
   "META": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 787.3292,
     "episodes": [
       {
@@ -9072,7 +9136,7 @@
     "insufficient_data": false
   },
   "AVGO": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 479.935,
     "episodes": [
       {
@@ -9565,9 +9629,9 @@
       },
       {
         "start_date": "2026-06-03",
-        "trough_date": "2026-09-15",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.2944,
+        "depth": -0.3926,
         "recovery_days": null,
         "is_complete": false
       }
@@ -9584,7 +9648,7 @@
     "insufficient_data": false
   },
   "TSLA": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 489.88,
     "episodes": [
       {
@@ -9872,8 +9936,8 @@
     "insufficient_data": false
   },
   "BRK-B": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 539.8,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 579.09,
     "episodes": [
       {
         "start_date": "2012-10-19",
@@ -10022,26 +10086,26 @@
       {
         "start_date": "2025-05-05",
         "trough_date": "2025-08-04",
-        "recovery_date": null,
+        "recovery_date": "2026-10-20",
         "depth": -0.1495,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 367,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 18,
-      "p50": -0.08455,
-      "p25": -0.137825,
-      "p10": -0.21336999999999998,
+      "count": 19,
+      "p50": -0.0854,
+      "p25": -0.1492,
+      "p10": -0.20587999999999998,
       "recovery_days_min": 20,
-      "recovery_days_median": 78,
+      "recovery_days_median": 85,
       "recovery_days_max": 477
     },
     "insufficient_data": false
   },
   "LLY": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 1280.34,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 1417.99,
     "episodes": [
       {
         "start_date": "2007-10-08",
@@ -10342,17 +10406,17 @@
       {
         "start_date": "2026-08-20",
         "trough_date": "2026-09-11",
-        "recovery_date": null,
+        "recovery_date": "2026-10-20",
         "depth": -0.1286,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 42,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 37,
-      "p50": -0.1095,
+      "count": 38,
+      "p50": -0.11155000000000001,
       "p25": -0.1684,
-      "p10": -0.22766,
+      "p10": -0.22697,
       "recovery_days_min": 5,
       "recovery_days_median": 46,
       "recovery_days_max": 1239
@@ -10360,7 +10424,7 @@
     "insufficient_data": false
   },
   "WMT": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 133.8802,
     "episodes": [
       {
@@ -10624,8 +10688,8 @@
     "insufficient_data": false
   },
   "MU": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 1213.3731,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 1213.1826,
     "episodes": [
       {
         "start_date": "2007-09-11",
@@ -10743,7 +10807,7 @@
         "start_date": "2018-03-21",
         "trough_date": "2018-05-02",
         "recovery_date": "2018-05-24",
-        "depth": -0.2496,
+        "depth": -0.2495,
         "recovery_days": 45,
         "is_complete": true
       },
@@ -10919,22 +10983,22 @@
         "start_date": "2026-06-23",
         "trough_date": "2026-06-24",
         "recovery_date": "2026-06-25",
-        "depth": -0.1344,
+        "depth": -0.1345,
         "recovery_days": 2,
         "is_complete": true
       },
       {
         "start_date": "2026-06-26",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.391,
+        "depth": -0.459,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
       "count": 37,
-      "p50": -0.1344,
+      "p50": -0.1345,
       "p25": -0.2197,
       "p10": -0.55248,
       "recovery_days_min": 1,
@@ -10944,7 +11008,7 @@
     "insufficient_data": false
   },
   "JPM": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 363.3672,
     "episodes": [
       {
@@ -11272,7 +11336,7 @@
     "insufficient_data": false
   },
   "AMD": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 649.42,
     "episodes": [
       {
@@ -11578,6 +11642,14 @@
         "depth": -0.2605,
         "recovery_days": 56,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-10-07",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.3773,
+        "recovery_days": null,
+        "is_complete": false
       }
     ],
     "percentiles": {
@@ -11592,8 +11664,8 @@
     "insufficient_data": false
   },
   "V": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 384.14,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 436.57,
     "episodes": [
       {
         "start_date": "2008-03-24",
@@ -11878,17 +11950,17 @@
       {
         "start_date": "2026-08-26",
         "trough_date": "2026-09-30",
-        "recovery_date": null,
+        "recovery_date": "2026-10-09",
         "depth": -0.0646,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 31,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 35,
-      "p50": -0.0895,
-      "p25": -0.1523,
-      "p10": -0.25311999999999996,
+      "count": 36,
+      "p50": -0.0887,
+      "p25": -0.1512,
+      "p10": -0.2449,
       "recovery_days_min": 7,
       "recovery_days_median": 51,
       "recovery_days_max": 528
@@ -11896,8 +11968,8 @@
     "insufficient_data": false
   },
   "ASML": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 1986.8557,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 1984.2231,
     "episodes": [
       {
         "start_date": "2007-09-07",
@@ -11951,7 +12023,7 @@
         "start_date": "2011-01-18",
         "trough_date": "2011-01-19",
         "recovery_date": "2011-01-25",
-        "depth": -0.0892,
+        "depth": -0.0891,
         "recovery_days": 5,
         "is_complete": true
       },
@@ -12341,9 +12413,9 @@
       },
       {
         "start_date": "2026-07-01",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.2195,
+        "depth": -0.3163,
         "recovery_days": null,
         "is_complete": false
       }
@@ -12360,8 +12432,8 @@
     "insufficient_data": false
   },
   "COST": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 1092.5833,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 1090.9707,
     "episodes": [
       {
         "start_date": "2007-09-04",
@@ -12680,8 +12752,8 @@
     "insufficient_data": false
   },
   "XOM": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 170.3139,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 187.25,
     "episodes": [
       {
         "start_date": "2007-10-19",
@@ -12862,25 +12934,33 @@
       {
         "start_date": "2026-03-31",
         "trough_date": "2026-06-29",
-        "recovery_date": null,
+        "recovery_date": "2026-10-12",
         "depth": -0.2011,
+        "recovery_days": 134,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-11-02",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.1172,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
-      "count": 22,
-      "p50": -0.1089,
-      "p25": -0.152525,
-      "p10": -0.20351,
+      "count": 23,
+      "p50": -0.1117,
+      "p25": -0.17154999999999998,
+      "p10": -0.2043,
       "recovery_days_min": 5,
-      "recovery_days_median": 78,
+      "recovery_days_median": 81,
       "recovery_days_max": 1911
     },
     "insufficient_data": false
   },
   "CSCO": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 129.0153,
     "episodes": [
       {
@@ -13037,9 +13117,9 @@
       },
       {
         "start_date": "2026-06-05",
-        "trough_date": "2026-09-23",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.1782,
+        "depth": -0.2726,
         "recovery_days": null,
         "is_complete": false
       }
@@ -13056,8 +13136,8 @@
     "insufficient_data": false
   },
   "PLTR": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 207.18,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 209.05,
     "episodes": [
       {
         "start_date": "2020-10-09",
@@ -13182,25 +13262,33 @@
       {
         "start_date": "2025-11-04",
         "trough_date": "2026-06-25",
-        "recovery_date": null,
+        "recovery_date": "2026-10-09",
         "depth": -0.4822,
+        "recovery_days": 233,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-10-12",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.2586,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
-      "count": 15,
-      "p50": -0.0865,
-      "p25": -0.19615,
-      "p10": -0.3337,
+      "count": 16,
+      "p50": -0.09029999999999999,
+      "p25": -0.214675,
+      "p10": -0.44415000000000004,
       "recovery_days_min": 3,
-      "recovery_days_median": 10,
+      "recovery_days_median": 11,
       "recovery_days_max": 926
     },
     "insufficient_data": false
   },
   "JNJ": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 278.43,
     "episodes": [
       {
@@ -13397,9 +13485,9 @@
       },
       {
         "start_date": "2026-09-04",
-        "trough_date": "2026-10-05",
+        "trough_date": "2026-10-13",
         "recovery_date": null,
-        "depth": -0.0916,
+        "depth": -0.1071,
         "recovery_days": null,
         "is_complete": false
       }
@@ -13416,7 +13504,7 @@
     "insufficient_data": false
   },
   "INTC": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 140.94,
     "episodes": [
       {
@@ -13597,9 +13685,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.419,
+        "depth": -0.6293,
         "recovery_days": null,
         "is_complete": false
       }
@@ -13616,8 +13704,8 @@
     "insufficient_data": false
   },
   "MA": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 599.86,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 672.68,
     "episodes": [
       {
         "start_date": "2007-08-23",
@@ -13958,25 +14046,25 @@
       {
         "start_date": "2026-08-25",
         "trough_date": "2026-10-01",
-        "recovery_date": null,
+        "recovery_date": "2026-10-13",
         "depth": -0.0831,
-        "recovery_days": null,
-        "is_complete": false
+        "recovery_days": 34,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 42,
-      "p50": -0.10105,
-      "p25": -0.161425,
-      "p10": -0.21844999999999998,
+      "count": 43,
+      "p50": -0.0978,
+      "p25": -0.15555000000000002,
+      "p10": -0.2183,
       "recovery_days_min": 2,
-      "recovery_days_median": 38,
+      "recovery_days_median": 36,
       "recovery_days_max": 780
     },
     "insufficient_data": false
   },
   "NFLX": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 133.913,
     "episodes": [
       {
@@ -14421,9 +14509,9 @@
       },
       {
         "start_date": "2025-07-01",
-        "trough_date": "2026-10-02",
+        "trough_date": "2026-10-28",
         "recovery_date": null,
-        "depth": -0.4992,
+        "depth": -0.5371,
         "recovery_days": null,
         "is_complete": false
       }
@@ -14440,8 +14528,8 @@
     "insufficient_data": false
   },
   "ABBV": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 266.69,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 294.89,
     "episodes": [
       {
         "start_date": "2013-01-24",
@@ -14672,7 +14760,7 @@
     "insufficient_data": false
   },
   "PANW": {
-    "as_of_date": "2026-11-05",
+    "as_of_date": "2026-11-06",
     "rolling_high": 419.91,
     "episodes": [
       {
@@ -14813,9 +14901,9 @@
       },
       {
         "start_date": "2026-10-07",
-        "trough_date": "2026-11-05",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.2506,
+        "depth": -0.2526,
         "recovery_days": null,
         "is_complete": false
       }
@@ -14832,8 +14920,8 @@
     "insufficient_data": false
   },
   "CVX": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 217.77,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 235.52,
     "episodes": [
       {
         "start_date": "2007-09-24",
@@ -15014,33 +15102,41 @@
       {
         "start_date": "2026-09-16",
         "trough_date": "2026-09-22",
-        "recovery_date": null,
+        "recovery_date": "2026-10-14",
         "depth": -0.0705,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-11-02",
+        "trough_date": "2026-11-06",
+        "recovery_date": null,
+        "depth": -0.0973,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
-      "count": 22,
-      "p50": -0.12974999999999998,
-      "p25": -0.2132,
-      "p10": -0.41942,
+      "count": 23,
+      "p50": -0.1284,
+      "p25": -0.21150000000000002,
+      "p10": -0.40054,
       "recovery_days_min": 20,
-      "recovery_days_median": 74,
+      "recovery_days_median": 70,
       "recovery_days_max": 809
     },
     "insufficient_data": false
   },
   "KO": {
-    "as_of_date": "2026-09-04",
-    "rolling_high": 91.99,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 95.83,
     "episodes": [
       {
         "start_date": "2008-01-11",
         "trough_date": "2009-03-05",
         "recovery_date": "2010-10-19",
         "depth": -0.406,
-        "recovery_days": 701,
+        "recovery_days": 698,
         "is_complete": true
       },
       {
@@ -15234,22 +15330,30 @@
         "depth": -0.0623,
         "recovery_days": 14,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-08-25",
+        "trough_date": "2026-10-02",
+        "recovery_date": "2026-10-14",
+        "depth": -0.0634,
+        "recovery_days": 35,
+        "is_complete": true
       }
     ],
     "percentiles": {
-      "count": 25,
-      "p50": -0.0896,
-      "p25": -0.1279,
-      "p10": -0.16562,
+      "count": 26,
+      "p50": -0.0862,
+      "p25": -0.1265,
+      "p10": -0.16385,
       "recovery_days_min": 11,
-      "recovery_days_median": 82,
-      "recovery_days_max": 701
+      "recovery_days_median": 78,
+      "recovery_days_max": 698
     },
     "insufficient_data": false
   },
   "PG": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 171.265,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 170.1393,
     "episodes": [
       {
         "start_date": "2007-12-13",
@@ -15440,7 +15544,7 @@
     "insufficient_data": false
   },
   "MRK": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 155.532,
     "episodes": [
       {
@@ -15720,7 +15824,7 @@
     "insufficient_data": false
   },
   "UNH": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 596.1052,
     "episodes": [
       {
@@ -16056,7 +16160,7 @@
     "insufficient_data": false
   },
   "HD": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 411.9341,
     "episodes": [
       {
@@ -16320,8 +16424,8 @@
     "insufficient_data": false
   },
   "ORCL": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 324.6303,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 323.4341,
     "episodes": [
       {
         "start_date": "2013-08-15",
@@ -16584,7 +16688,7 @@
     "insufficient_data": false
   },
   "ISRG": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 610.45,
     "episodes": [
       {
@@ -16856,7 +16960,7 @@
     "insufficient_data": false
   },
   "MCD": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 334.5031,
     "episodes": [
       {
@@ -17093,9 +17197,9 @@
       },
       {
         "start_date": "2026-03-02",
-        "trough_date": "2026-09-30",
+        "trough_date": "2026-10-07",
         "recovery_date": null,
-        "depth": -0.3096,
+        "depth": -0.3098,
         "recovery_days": null,
         "is_complete": false
       }
@@ -17112,7 +17216,7 @@
     "insufficient_data": false
   },
   "PEP": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 173.5526,
     "episodes": [
       {
@@ -17216,7 +17320,7 @@
     "insufficient_data": false
   },
   "GS": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 1146.4548,
     "episodes": [
       {
@@ -17397,9 +17501,9 @@
       },
       {
         "start_date": "2026-07-16",
-        "trough_date": "2026-10-05",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.2207,
+        "depth": -0.2448,
         "recovery_days": null,
         "is_complete": false
       }
@@ -17416,8 +17520,8 @@
     "insufficient_data": false
   },
   "MS": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 227.2987,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 225.9228,
     "episodes": [
       {
         "start_date": "2007-08-27",
@@ -17581,9 +17685,9 @@
       },
       {
         "start_date": "2026-07-16",
-        "trough_date": "2026-10-01",
+        "trough_date": "2026-10-19",
         "recovery_date": null,
-        "depth": -0.1729,
+        "depth": -0.2148,
         "recovery_days": null,
         "is_complete": false
       }
@@ -17600,8 +17704,8 @@
     "insufficient_data": false
   },
   "WFC": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 94.8289,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 94.2698,
     "episodes": [
       {
         "start_date": "2007-08-22",
@@ -17671,7 +17775,7 @@
         "start_date": "2015-07-23",
         "trough_date": "2016-10-04",
         "recovery_date": "2016-12-07",
-        "depth": -0.2245,
+        "depth": -0.2244,
         "recovery_days": 348,
         "is_complete": true
       },
@@ -17775,7 +17879,7 @@
     "percentiles": {
       "count": 20,
       "p50": -0.09775,
-      "p25": -0.23020000000000002,
+      "p25": -0.230125,
       "p10": -0.45703999999999995,
       "recovery_days_min": 12,
       "recovery_days_median": 45,
@@ -17784,7 +17888,7 @@
     "insufficient_data": false
   },
   "GE": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 380.6413,
     "episodes": [
       {
@@ -17917,9 +18021,9 @@
       },
       {
         "start_date": "2026-08-06",
-        "trough_date": "2026-10-05",
+        "trough_date": "2026-10-23",
         "recovery_date": null,
-        "depth": -0.1952,
+        "depth": -0.2496,
         "recovery_days": null,
         "is_complete": false
       }
@@ -17936,7 +18040,7 @@
     "insufficient_data": false
   },
   "RTX": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 225.49,
     "episodes": [
       {
@@ -18101,9 +18205,9 @@
       },
       {
         "start_date": "2026-08-19",
-        "trough_date": "2026-10-06",
+        "trough_date": "2026-10-07",
         "recovery_date": null,
-        "depth": -0.1871,
+        "depth": -0.2006,
         "recovery_days": null,
         "is_complete": false
       }
@@ -18120,7 +18224,7 @@
     "insufficient_data": false
   },
   "UNP": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 309.1852,
     "episodes": [
       {
@@ -18432,7 +18536,7 @@
     "insufficient_data": false
   },
   "HON": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 257.8086,
     "episodes": [
       {
@@ -18496,7 +18600,7 @@
     "insufficient_data": false
   },
   "CRM": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 362.5813,
     "episodes": [
       {
@@ -18888,7 +18992,7 @@
     "insufficient_data": false
   },
   "ADBE": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 688.37,
     "episodes": [
       {
@@ -19160,7 +19264,7 @@
     "insufficient_data": false
   },
   "NOW": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 234.078,
     "episodes": [
       {
@@ -19568,7 +19672,7 @@
     "insufficient_data": false
   },
   "QCOM": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 248.7425,
     "episodes": [
       {
@@ -19808,8 +19912,8 @@
     "insufficient_data": false
   },
   "TXN": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 330.5874,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 328.9817,
     "episodes": [
       {
         "start_date": "2007-10-02",
@@ -20152,7 +20256,7 @@
     "insufficient_data": false
   },
   "TMUS": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 265.2684,
     "episodes": [
       {
@@ -20341,9 +20445,9 @@
       },
       {
         "start_date": "2025-03-04",
-        "trough_date": "2026-10-01",
+        "trough_date": "2026-10-23",
         "recovery_date": null,
-        "depth": -0.3903,
+        "depth": -0.4476,
         "recovery_days": null,
         "is_complete": false
       }
@@ -20360,7 +20464,7 @@
     "insufficient_data": false
   },
   "NEE": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 96.4426,
     "episodes": [
       {
@@ -20608,7 +20712,7 @@
     "insufficient_data": false
   },
   "SO": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 97.4911,
     "episodes": [
       {
@@ -20784,7 +20888,7 @@
     "insufficient_data": false
   },
   "LIN": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 544.8459,
     "episodes": [
       {
@@ -20848,8 +20952,8 @@
     "insufficient_data": false
   },
   "FCX": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 79.91,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 79.7378,
     "episodes": [
       {
         "start_date": "2007-08-27",
@@ -20981,9 +21085,9 @@
       },
       {
         "start_date": "2026-08-26",
-        "trough_date": "2026-09-16",
+        "trough_date": "2026-11-05",
         "recovery_date": null,
-        "depth": -0.1335,
+        "depth": -0.2739,
         "recovery_days": null,
         "is_complete": false
       }
@@ -21000,7 +21104,7 @@
     "insufficient_data": false
   },
   "PLD": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 150.6803,
     "episodes": [
       {
@@ -21192,7 +21296,7 @@
     "insufficient_data": false
   },
   "AMT": {
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-11-06",
     "rolling_high": 256.9155,
     "episodes": [
       {
@@ -21440,8 +21544,8 @@
     "insufficient_data": false
   },
   "COP": {
-    "as_of_date": "2026-10-06",
-    "rolling_high": 141.22,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 154.03,
     "episodes": [
       {
         "start_date": "2007-09-25",
@@ -21590,25 +21694,33 @@
       {
         "start_date": "2026-09-16",
         "trough_date": "2026-09-30",
-        "recovery_date": null,
+        "recovery_date": "2026-10-14",
         "depth": -0.1138,
+        "recovery_days": 20,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-11-02",
+        "trough_date": "2026-11-05",
+        "recovery_date": null,
+        "depth": -0.1206,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
-      "count": 18,
-      "p50": -0.1472,
-      "p25": -0.319925,
-      "p10": -0.61122,
+      "count": 19,
+      "p50": -0.1464,
+      "p25": -0.31005,
+      "p10": -0.60948,
       "recovery_days_min": 6,
-      "recovery_days_median": 76,
+      "recovery_days_median": 65,
       "recovery_days_max": 1159
     },
     "insufficient_data": false
   },
   "KOSPI200": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 1477.22,
     "episodes": [
       {
@@ -21829,9 +21941,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-30",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.4094,
+        "depth": -0.4698,
         "recovery_days": null,
         "is_complete": false
       }
@@ -21848,7 +21960,7 @@
     "insufficient_data": false
   },
   "005930": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 362500.0,
     "episodes": [
       {
@@ -22197,9 +22309,9 @@
       },
       {
         "start_date": "2026-06-19",
-        "trough_date": "2026-07-30",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.429,
+        "depth": -0.4662,
         "recovery_days": null,
         "is_complete": false
       }
@@ -22216,7 +22328,7 @@
     "insufficient_data": false
   },
   "000660": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 2919000.0,
     "episodes": [
       {
@@ -22277,9 +22389,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-30",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.5471,
+        "depth": -0.5971,
         "recovery_days": null,
         "is_complete": false
       }
@@ -22296,7 +22408,7 @@
     "insufficient_data": false
   },
   "005380": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 750000.0,
     "episodes": [
       {
@@ -22637,9 +22749,9 @@
       },
       {
         "start_date": "2026-06-02",
-        "trough_date": "2026-10-07",
+        "trough_date": "2026-11-03",
         "recovery_date": null,
-        "depth": -0.548,
+        "depth": -0.63,
         "recovery_days": null,
         "is_complete": false
       }
@@ -22656,7 +22768,7 @@
     "insufficient_data": false
   },
   "000270": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 206000.0,
     "episodes": [
       {
@@ -22917,9 +23029,9 @@
       },
       {
         "start_date": "2026-02-27",
-        "trough_date": "2026-10-07",
+        "trough_date": "2026-10-30",
         "recovery_date": null,
-        "depth": -0.4684,
+        "depth": -0.5359,
         "recovery_days": null,
         "is_complete": false
       }
@@ -22936,7 +23048,7 @@
     "insufficient_data": false
   },
   "373220": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 624000.0,
     "episodes": [
       {
@@ -22968,7 +23080,7 @@
     "insufficient_data": true
   },
   "207940": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 1949873.0,
     "episodes": [
       {
@@ -23149,9 +23261,9 @@
       },
       {
         "start_date": "2026-01-16",
-        "trough_date": "2026-06-08",
+        "trough_date": "2026-10-14",
         "recovery_date": null,
-        "depth": -0.3674,
+        "depth": -0.3938,
         "recovery_days": null,
         "is_complete": false
       }
@@ -23168,7 +23280,7 @@
     "insufficient_data": false
   },
   "068270": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 328494.0,
     "episodes": [
       {
@@ -23424,7 +23536,7 @@
     "insufficient_data": false
   },
   "105560": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 186200.0,
     "episodes": [
       {
@@ -23581,9 +23693,9 @@
       },
       {
         "start_date": "2026-07-14",
-        "trough_date": "2026-08-20",
+        "trough_date": "2026-10-26",
         "recovery_date": null,
-        "depth": -0.1407,
+        "depth": -0.2095,
         "recovery_days": null,
         "is_complete": false
       }
@@ -23600,7 +23712,7 @@
     "insufficient_data": false
   },
   "055550": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 114600.0,
     "episodes": [
       {
@@ -23813,9 +23925,9 @@
       },
       {
         "start_date": "2026-09-15",
-        "trough_date": "2026-10-07",
+        "trough_date": "2026-10-26",
         "recovery_date": null,
-        "depth": -0.103,
+        "depth": -0.2539,
         "recovery_days": null,
         "is_complete": false
       }
@@ -23832,7 +23944,7 @@
     "insufficient_data": false
   },
   "086790": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 140800.0,
     "episodes": [
       {
@@ -23949,9 +24061,9 @@
       },
       {
         "start_date": "2026-09-15",
-        "trough_date": "2026-10-01",
+        "trough_date": "2026-10-26",
         "recovery_date": null,
-        "depth": -0.0888,
+        "depth": -0.2017,
         "recovery_days": null,
         "is_complete": false
       }
@@ -23968,7 +24080,7 @@
     "insufficient_data": false
   },
   "035420": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 454000.0,
     "episodes": [
       {
@@ -24656,7 +24768,7 @@
     "insufficient_data": false
   },
   "006400": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 799869.0,
     "episodes": [
       {
@@ -25192,7 +25304,7 @@
     "insufficient_data": false
   },
   "012330": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 768000.0,
     "episodes": [
       {
@@ -25573,9 +25685,9 @@
       },
       {
         "start_date": "2026-06-01",
-        "trough_date": "2026-09-29",
+        "trough_date": "2026-10-26",
         "recovery_date": null,
-        "depth": -0.5221,
+        "depth": -0.5755,
         "recovery_days": null,
         "is_complete": false
       }
@@ -25592,7 +25704,7 @@
     "insufficient_data": false
   },
   "012450": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 1537000.0,
     "episodes": [
       {
@@ -25997,9 +26109,9 @@
       },
       {
         "start_date": "2026-04-08",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.473,
+        "depth": -0.5712,
         "recovery_days": null,
         "is_complete": false
       }
@@ -26016,7 +26128,7 @@
     "insufficient_data": false
   },
   "329180": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 745000.0,
     "episodes": [
       {
@@ -26173,9 +26285,9 @@
       },
       {
         "start_date": "2026-05-27",
-        "trough_date": "2026-10-07",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.4557,
+        "depth": -0.6483,
         "recovery_days": null,
         "is_complete": false
       }
@@ -26192,7 +26304,7 @@
     "insufficient_data": false
   },
   "028260": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 535000.0,
     "episodes": [
       {
@@ -26285,9 +26397,9 @@
       },
       {
         "start_date": "2026-06-05",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-10-15",
         "recovery_date": null,
-        "depth": -0.4664,
+        "depth": -0.5,
         "recovery_days": null,
         "is_complete": false
       }
@@ -26304,7 +26416,7 @@
     "insufficient_data": false
   },
   "034020": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 140003.0,
     "episodes": [
       {
@@ -26520,7 +26632,7 @@
     "insufficient_data": false
   },
   "015760": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 67900.0,
     "episodes": [
       {
@@ -26637,9 +26749,9 @@
       },
       {
         "start_date": "2026-01-22",
-        "trough_date": "2026-09-30",
+        "trough_date": "2026-10-27",
         "recovery_date": null,
-        "depth": -0.5589,
+        "depth": -0.5898,
         "recovery_days": null,
         "is_complete": false
       }
@@ -26656,7 +26768,7 @@
     "insufficient_data": false
   },
   "096770": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 312404.0,
     "episodes": [
       {
@@ -26736,14 +26848,14 @@
     "insufficient_data": false
   },
   "069500": {
-    "as_of_date": "2026-10-07",
-    "rolling_high": 148056.0,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 147848.0,
     "episodes": [
       {
         "start_date": "2002-12-04",
         "trough_date": "2003-03-17",
         "recovery_date": "2003-07-14",
-        "depth": -0.2728,
+        "depth": -0.2727,
         "recovery_days": 149,
         "is_complete": true
       },
@@ -26759,7 +26871,7 @@
         "start_date": "2003-11-14",
         "trough_date": "2003-11-24",
         "recovery_date": "2003-12-15",
-        "depth": -0.0739,
+        "depth": -0.074,
         "recovery_days": 21,
         "is_complete": true
       },
@@ -26783,7 +26895,7 @@
         "start_date": "2005-03-14",
         "trough_date": "2005-04-29",
         "recovery_date": "2005-07-01",
-        "depth": -0.0976,
+        "depth": -0.0975,
         "recovery_days": 76,
         "is_complete": true
       },
@@ -26791,7 +26903,7 @@
         "start_date": "2005-08-16",
         "trough_date": "2005-08-29",
         "recovery_date": "2005-09-07",
-        "depth": -0.0616,
+        "depth": -0.0615,
         "recovery_days": 16,
         "is_complete": true
       },
@@ -26799,7 +26911,7 @@
         "start_date": "2005-10-05",
         "trough_date": "2005-10-28",
         "recovery_date": "2005-11-11",
-        "depth": -0.0875,
+        "depth": -0.0874,
         "recovery_days": 27,
         "is_complete": true
       },
@@ -26823,7 +26935,7 @@
         "start_date": "2007-02-27",
         "trough_date": "2007-03-05",
         "recovery_date": "2007-04-04",
-        "depth": -0.065,
+        "depth": -0.0651,
         "recovery_days": 25,
         "is_complete": true
       },
@@ -26965,16 +27077,16 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-30",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.4081,
+        "depth": -0.4656,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
       "count": 28,
-      "p50": -0.08985,
+      "p50": -0.0898,
       "p25": -0.18789999999999998,
       "p10": -0.2949,
       "recovery_days_min": 1,
@@ -26984,7 +27096,7 @@
     "insufficient_data": false
   },
   "229200": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 21074.0,
     "episodes": [
       {
@@ -27045,9 +27157,9 @@
       },
       {
         "start_date": "2026-03-03",
-        "trough_date": "2026-07-30",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.4968,
+        "depth": -0.5013,
         "recovery_days": null,
         "is_complete": false
       }
@@ -27064,7 +27176,7 @@
     "insufficient_data": false
   },
   "091160": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 188345.0,
     "episodes": [
       {
@@ -27309,9 +27421,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-30",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.5026,
+        "depth": -0.5466,
         "recovery_days": null,
         "is_complete": false
       }
@@ -27328,7 +27440,7 @@
     "insufficient_data": false
   },
   "305720": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 35984.0,
     "episodes": [
       {
@@ -27416,8 +27528,8 @@
     "insufficient_data": false
   },
   "091180": {
-    "as_of_date": "2026-10-07",
-    "rolling_high": 41274.0,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 41098.0,
     "episodes": [
       {
         "start_date": "2006-07-03",
@@ -27431,7 +27543,7 @@
         "start_date": "2006-09-21",
         "trough_date": "2007-01-29",
         "recovery_date": "2007-07-03",
-        "depth": -0.173,
+        "depth": -0.1731,
         "recovery_days": 192,
         "is_complete": true
       },
@@ -27447,7 +27559,7 @@
         "start_date": "2009-09-03",
         "trough_date": "2009-09-14",
         "recovery_date": "2009-09-22",
-        "depth": -0.0803,
+        "depth": -0.0802,
         "recovery_days": 13,
         "is_complete": true
       },
@@ -27575,15 +27687,15 @@
         "start_date": "2026-05-15",
         "trough_date": "2026-05-20",
         "recovery_date": "2026-05-29",
-        "depth": -0.1506,
+        "depth": -0.1505,
         "recovery_days": 9,
         "is_complete": true
       },
       {
         "start_date": "2026-06-02",
-        "trough_date": "2026-09-30",
+        "trough_date": "2026-10-30",
         "recovery_date": null,
-        "depth": -0.3947,
+        "depth": -0.463,
         "recovery_days": null,
         "is_complete": false
       }
@@ -27591,7 +27703,7 @@
     "percentiles": {
       "count": 20,
       "p50": -0.1183,
-      "p25": -0.16354999999999997,
+      "p25": -0.163575,
       "p10": -0.42235999999999996,
       "recovery_days_min": 9,
       "recovery_days_median": 32,
@@ -27600,14 +27712,14 @@
     "insufficient_data": false
   },
   "091170": {
-    "as_of_date": "2026-10-07",
-    "rolling_high": 17128.0,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 17067.0,
     "episodes": [
       {
         "start_date": "2006-07-12",
         "trough_date": "2006-09-22",
         "recovery_date": "2007-02-02",
-        "depth": -0.1275,
+        "depth": -0.1276,
         "recovery_days": 139,
         "is_complete": true
       },
@@ -27615,7 +27727,7 @@
         "start_date": "2007-02-16",
         "trough_date": "2007-05-08",
         "recovery_date": "2007-07-10",
-        "depth": -0.1153,
+        "depth": -0.1154,
         "recovery_days": 97,
         "is_complete": true
       },
@@ -27631,7 +27743,7 @@
         "start_date": "2024-07-30",
         "trough_date": "2024-08-05",
         "recovery_date": "2024-08-23",
-        "depth": -0.1243,
+        "depth": -0.1244,
         "recovery_days": 17,
         "is_complete": true
       },
@@ -27639,7 +27751,7 @@
         "start_date": "2024-08-27",
         "trough_date": "2024-09-11",
         "recovery_date": "2024-10-25",
-        "depth": -0.1184,
+        "depth": -0.1185,
         "recovery_days": 37,
         "is_complete": true
       },
@@ -27671,7 +27783,7 @@
         "start_date": "2025-11-14",
         "trough_date": "2025-11-24",
         "recovery_date": "2025-12-02",
-        "depth": -0.069,
+        "depth": -0.0691,
         "recovery_days": 12,
         "is_complete": true
       },
@@ -27679,7 +27791,7 @@
         "start_date": "2025-12-03",
         "trough_date": "2025-12-16",
         "recovery_date": "2026-01-21",
-        "depth": -0.0534,
+        "depth": -0.0533,
         "recovery_days": 32,
         "is_complete": true
       },
@@ -27693,9 +27805,9 @@
       },
       {
         "start_date": "2026-09-15",
-        "trough_date": "2026-10-07",
+        "trough_date": "2026-10-26",
         "recovery_date": null,
-        "depth": -0.0857,
+        "depth": -0.1996,
         "recovery_days": null,
         "is_complete": false
       }
@@ -27703,7 +27815,7 @@
     "percentiles": {
       "count": 11,
       "p50": -0.1236,
-      "p25": -0.1513,
+      "p25": -0.15134999999999998,
       "p10": -0.1909,
       "recovery_days_min": 12,
       "recovery_days_median": 78,
@@ -27712,7 +27824,7 @@
     "insufficient_data": false
   },
   "244580": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 17643.0,
     "episodes": [
       {
@@ -27776,8 +27888,8 @@
     "insufficient_data": false
   },
   "139260": {
-    "as_of_date": "2026-10-07",
-    "rolling_high": 211062.0,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 210457.0,
     "episodes": [
       {
         "start_date": "2011-04-22",
@@ -27863,7 +27975,7 @@
         "start_date": "2020-09-16",
         "trough_date": "2020-10-30",
         "recovery_date": "2020-11-06",
-        "depth": -0.0643,
+        "depth": -0.0644,
         "recovery_days": 33,
         "is_complete": true
       },
@@ -27925,9 +28037,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-30",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.5248,
+        "depth": -0.5523,
         "recovery_days": null,
         "is_complete": false
       }
@@ -27944,7 +28056,7 @@
     "insufficient_data": false
   },
   "117700": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 9701.0,
     "episodes": [
       {
@@ -28040,7 +28152,7 @@
     "insufficient_data": false
   },
   "102970": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 33271.0,
     "episodes": [
       {
@@ -28141,9 +28253,9 @@
       },
       {
         "start_date": "2026-05-07",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.4883,
+        "depth": -0.5971,
         "recovery_days": null,
         "is_complete": false
       }
@@ -28160,7 +28272,7 @@
     "insufficient_data": false
   },
   "6268": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 5820.0,
     "episodes": [
       {
@@ -28277,9 +28389,9 @@
       },
       {
         "start_date": "2026-07-07",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.2701,
+        "depth": -0.3593,
         "recovery_days": null,
         "is_complete": false
       }
@@ -28296,7 +28408,7 @@
     "insufficient_data": false
   },
   "7203": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 3821.1,
     "episodes": [
       {
@@ -28488,7 +28600,7 @@
     "insufficient_data": false
   },
   "6758": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 4660.8,
     "episodes": [
       {
@@ -28736,7 +28848,7 @@
     "insufficient_data": false
   },
   "9984": {
-    "as_of_date": "2026-10-02",
+    "as_of_date": "2026-11-06",
     "rolling_high": 8625.1,
     "episodes": [
       {
@@ -28973,9 +29085,9 @@
       },
       {
         "start_date": "2026-06-03",
-        "trough_date": "2026-07-30",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.4646,
+        "depth": -0.5885,
         "recovery_days": null,
         "is_complete": false
       }
@@ -28992,7 +29104,7 @@
     "insufficient_data": false
   },
   "7974": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 14319.5,
     "episodes": [
       {
@@ -29280,8 +29392,8 @@
     "insufficient_data": false
   },
   "7267": {
-    "as_of_date": "2026-10-07",
-    "rolling_high": 1717.3,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 1941.5,
     "episodes": [
       {
         "start_date": "2012-10-23",
@@ -29374,25 +29486,33 @@
       {
         "start_date": "2026-08-24",
         "trough_date": "2026-09-08",
-        "recovery_date": null,
+        "recovery_date": "2026-10-09",
         "depth": -0.0813,
+        "recovery_days": 31,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-11-06",
+        "trough_date": "2026-11-06",
+        "recovery_date": null,
+        "depth": -0.0569,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
-      "count": 11,
-      "p50": -0.1179,
-      "p25": -0.2344,
-      "p10": -0.3414,
+      "count": 12,
+      "p50": -0.1125,
+      "p25": -0.22445,
+      "p10": -0.33269,
       "recovery_days_min": 7,
-      "recovery_days_median": 32,
+      "recovery_days_median": 31,
       "recovery_days_max": 1909
     },
     "insufficient_data": false
   },
   "6861": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 87348.2,
     "episodes": [
       {
@@ -29637,9 +29757,9 @@
       },
       {
         "start_date": "2026-08-17",
-        "trough_date": "2026-09-15",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.1369,
+        "depth": -0.2015,
         "recovery_days": null,
         "is_complete": false
       }
@@ -29656,7 +29776,7 @@
     "insufficient_data": false
   },
   "9983": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 87506.8,
     "episodes": [
       {
@@ -29904,7 +30024,7 @@
     "insufficient_data": false
   },
   "8306": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 3750.0,
     "episodes": [
       {
@@ -30117,9 +30237,9 @@
       },
       {
         "start_date": "2026-07-28",
-        "trough_date": "2026-08-20",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.0882,
+        "depth": -0.1403,
         "recovery_days": null,
         "is_complete": false
       }
@@ -30136,7 +30256,7 @@
     "insufficient_data": false
   },
   "8035": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 15649.4,
     "episodes": [
       {
@@ -30509,9 +30629,9 @@
       },
       {
         "start_date": "2026-07-02",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.3655,
+        "depth": -0.472,
         "recovery_days": null,
         "is_complete": false
       }
@@ -30528,7 +30648,7 @@
     "insufficient_data": false
   },
   "4063": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 7701.3,
     "episodes": [
       {
@@ -30741,9 +30861,9 @@
       },
       {
         "start_date": "2026-06-04",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.2711,
+        "depth": -0.3102,
         "recovery_days": null,
         "is_complete": false
       }
@@ -30760,8 +30880,8 @@
     "insufficient_data": false
   },
   "6098": {
-    "as_of_date": "2026-10-07",
-    "rolling_high": 18198.4,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 19200.0,
     "episodes": [
       {
         "start_date": "2014-11-13",
@@ -30966,25 +31086,33 @@
       {
         "start_date": "2026-09-01",
         "trough_date": "2026-09-09",
-        "recovery_date": null,
+        "recovery_date": "2026-10-14",
         "depth": -0.1598,
+        "recovery_days": 27,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-11-02",
+        "trough_date": "2026-11-06",
+        "recovery_date": null,
+        "depth": -0.1146,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
-      "count": 25,
-      "p50": -0.0875,
-      "p25": -0.169,
-      "p10": -0.41981999999999997,
+      "count": 26,
+      "p50": -0.097,
+      "p25": -0.168475,
+      "p10": -0.4058,
       "recovery_days_min": 5,
-      "recovery_days_median": 30,
+      "recovery_days_median": 28,
       "recovery_days_max": 622
     },
     "insufficient_data": false
   },
   "6367": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 29566.7,
     "episodes": [
       {
@@ -31240,7 +31368,7 @@
     "insufficient_data": false
   },
   "6954": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 8355.7,
     "episodes": [
       {
@@ -31381,9 +31509,9 @@
       },
       {
         "start_date": "2026-05-26",
-        "trough_date": "2026-09-15",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.3218,
+        "depth": -0.3643,
         "recovery_days": null,
         "is_complete": false
       }
@@ -31400,7 +31528,7 @@
     "insufficient_data": false
   },
   "6981": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 12196.4,
     "episodes": [
       {
@@ -31557,9 +31685,9 @@
       },
       {
         "start_date": "2026-06-23",
-        "trough_date": "2026-07-29",
+        "trough_date": "2026-11-06",
         "recovery_date": null,
-        "depth": -0.4913,
+        "depth": -0.5997,
         "recovery_days": null,
         "is_complete": false
       }
@@ -31576,8 +31704,8 @@
     "insufficient_data": false
   },
   "6501": {
-    "as_of_date": "2026-10-07",
-    "rolling_high": 5761.5,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 5840.0,
     "episodes": [
       {
         "start_date": "2012-10-22",
@@ -31814,26 +31942,34 @@
       {
         "start_date": "2026-02-10",
         "trough_date": "2026-03-31",
-        "recovery_date": null,
+        "recovery_date": "2026-10-13",
         "depth": -0.2291,
+        "recovery_days": 162,
+        "is_complete": true
+      },
+      {
+        "start_date": "2026-10-22",
+        "trough_date": "2026-11-06",
+        "recovery_date": null,
+        "depth": -0.2223,
         "recovery_days": null,
         "is_complete": false
       }
     ],
     "percentiles": {
-      "count": 29,
-      "p50": -0.1023,
-      "p25": -0.2307,
-      "p10": -0.38996,
+      "count": 30,
+      "p50": -0.11180000000000001,
+      "p25": -0.2303,
+      "p10": -0.38863,
       "recovery_days_min": 3,
-      "recovery_days_median": 30,
+      "recovery_days_median": 31,
       "recovery_days_max": 762
     },
     "insufficient_data": false
   },
   "9432": {
-    "as_of_date": "2026-10-07",
-    "rolling_high": 177.2,
+    "as_of_date": "2026-11-06",
+    "rolling_high": 178.1,
     "episodes": [
       {
         "start_date": "2012-10-19",
@@ -32002,6 +32138,14 @@
         "depth": -0.2375,
         "recovery_days": 646,
         "is_complete": true
+      },
+      {
+        "start_date": "2026-10-23",
+        "trough_date": "2026-11-06",
+        "recovery_date": null,
+        "depth": -0.1005,
+        "recovery_days": null,
+        "is_complete": false
       }
     ],
     "percentiles": {
@@ -32016,7 +32160,7 @@
     "insufficient_data": false
   },
   "8058": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 5806.3,
     "episodes": [
       {
@@ -32240,7 +32384,7 @@
     "insufficient_data": false
   },
   "6902": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 2736.5,
     "episodes": [
       {
@@ -32408,7 +32552,7 @@
     "insufficient_data": false
   },
   "7741": {
-    "as_of_date": "2026-10-07",
+    "as_of_date": "2026-11-06",
     "rolling_high": 29870.9,
     "episodes": [
       {

@@ -1,11 +1,13 @@
 {
   "SPY": {
-    "episode_start": null,
+    "episode_start": "2026-10-07",
     "notified_levels": []
   },
   "QQQ": {
-    "episode_start": null,
-    "notified_levels": []
+    "episode_start": "2026-10-07",
+    "notified_levels": [
+      0.1
+    ]
   },
   "DIA": {
     "episode_start": "2026-08-06",
