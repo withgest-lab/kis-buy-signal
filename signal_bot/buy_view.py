@@ -17,6 +17,7 @@
 """
 
 import bisect
+from datetime import date, timedelta
 from typing import Optional
 
 import numpy as np
@@ -268,9 +269,11 @@ def anchor_indices(tiers: list, eps) -> list[int]:
     return out
 
 
-def first_buy_in_episode(tiers: list, eps, i: Optional[int] = None) -> Optional[int]:
+def first_buy_in_episode(tiers: list, eps, i: Optional[int] = None, extra: tuple = ()) -> Optional[int]:
     """i일(기본 마지막 날)의 1차 신호 = 그 하락 국면 안에서 anchor_indices와 같은 규칙으로 정한 가장 최근 1차.
-    신고가(국면 밖)이거나 매수 판단이 아직 없거나, 마지막 1차에서 1년이 지나 그 3분할이 끝났으면 None."""
+    신고가(국면 밖)이거나 매수 판단이 아직 없거나, 마지막 1차에서 1년이 지나 그 3분할이 끝났으면 None.
+    extra는 이 종목에서 매수 판단으로 함께 보는 판단(급등 뒤 하락 규칙이 이 종목 자료로 받쳐지지 않을 때 "hot")."""
+    buy = BUY_TIERS + tuple(extra)
     i = len(tiers) - 1 if i is None else i
     e = eps[i]
     if not e:
@@ -280,7 +283,7 @@ def first_buy_in_episode(tiers: list, eps, i: Optional[int] = None) -> Optional[
         j -= 1
     a = None
     for k in range(j, i + 1):
-        if tiers[k] in BUY_TIERS and (a is None or k - a >= BARS_1Y):
+        if tiers[k] in buy and (a is None or k - a >= BARS_1Y):
             a = k
     if a is not None and i - a >= BARS_1Y:
         return None
@@ -332,46 +335,79 @@ def _ladder_backtest(rows: list) -> Optional[dict]:
 
 def _hot_stats(walks: list[dict]) -> Optional[dict]:
     """급등 뒤 하락 날(1년 뒤가 있는 날): 1년 안 최저점 분포와 '기다린 비용' - 같은 하락 안에서 매수 판단으로 바뀐 비율·
-    걸린 거래일·그날 가격 차이(중앙값), 바뀌기 전에 신고가로 회복해 놓친 비율."""
-    m, days, px, sw, tot = [], [], [], 0, 0
+    걸린 거래일·그날 가격 차이(중앙값), 바뀌기 전에 신고가로 회복해 놓친 비율, 그리고 바로 산 1년 뒤 vs 바뀐 날 산 1년 뒤.
+    (2026-11 점검: 기다려도 1년 수익은 나아지지 않았다 - 미국ETF +7.4%→+5.6%, 한국주식 +1.3%→-1.3%. 기다리라는 근거는
+    수익이 아니라 '산 뒤 6개월 안 15% 넘게 더 빠지는 일이 모든 묶음에서 아무 때나보다 잦았다'는 추가 하락 위험이다.)"""
+    m, days, px, sw, tot, now12, wait12 = [], [], [], 0, 0, [], []
     for w in walks:
-        c, tiers = w["close"], w["tiers"]
+        c, tiers, f12 = w["close"], w["tiers"], w["f12"]
         nxt = _next_buy(tiers, w["eps"])
         for i, t in enumerate(tiers):
             if t != "hot" or np.isnan(w["m12"][i]):
                 continue
             tot += 1
             m.append(w["m12"][i])
+            now12.append(f12[i])
             j = int(nxt[i])
             if j >= 0:
                 sw += 1
                 days.append(j - i)
                 px.append(c[j] / c[i] - 1)
+                if not np.isnan(f12[j]):
+                    wait12.append(f12[j])
     if tot == 0:
         return None
-    ma = np.array(m)
+    ma, nw_, wt = np.array(m), np.array(now12), np.array(wait12)
     return {"days_n": tot, "m_med": _r(np.median(ma)), "m_p25": _r(np.percentile(ma, 25)), "m15": _r(np.mean(ma < -0.15)),
             "sw": _r(sw / tot), "sw_days": int(np.median(days)) if days else None,
-            "sw_px": _r(np.median(px)) if px else None, "missed": _r(1 - sw / tot)}
+            "sw_px": _r(np.median(px)) if px else None, "missed": _r(1 - sw / tot),
+            "now12": _r(np.median(nw_)), "now_loss": _r(np.mean(nw_ < 0)),
+            "wait12": _r(np.median(wt)) if len(wt) else None, "wait_loss": _r(np.mean(wt < 0)) if len(wt) else None}
+
+
+def ann_vol(close: np.ndarray, i: Optional[int] = None) -> Optional[float]:
+    """i일(기본 마지막 날)까지 1년 일간 로그수익률 표준편차(연율). 1년이 안 되면 None."""
+    c = np.asarray(close, dtype=float)
+    i = len(c) - 1 if i is None else i
+    if i < BARS_1Y:
+        return None
+    return _r(float(np.std(np.diff(np.log(c[i - BARS_1Y:i + 1])), ddof=1) * np.sqrt(BARS_1Y)))
 
 
 def plan_stats(walks: list[dict]) -> Optional[dict]:
     """묶음 3분할 통계(walk_days 목록, 날짜 필요). n=1년이 끝난 1차 신호 수, s2·s3=그 뒤 1년 안 최저점의 중앙값·하위 25%
     (= 오늘 쓰는 2·3차 간격), lump=1차 날 한 번에 산 1년 뒤 결과, ladder=한 번에 vs 3분할 워크포워드 백테스트,
     hot=급등 뒤 하락 날의 추가 하락·기다린 비용."""
-    rows = []
+    rows, vols = [], []
     for w in walks:
         c, dates = w["close"], w["dates"]
         for a in anchor_indices(w["tiers"], w["eps"]):
             if a + BARS_1Y < len(c):
                 rows.append((dates[a], dates[a + BARS_1Y], float(w["m12"][a]), float(w["f12"][a]), c, a))
+                v = ann_vol(c, a)
+                if v:
+                    vols.append(v)
     if not rows:
         return None
     m = np.array([r[2] for r in rows])
     f = np.array([r[3] for r in rows])
     return {"n": len(rows), "s2": _r(np.median(m)), "s3": _r(np.percentile(m, 25)),
+            "vol_med": _r(np.median(vols)) if vols else None,
             "lump": {"med12": _r(np.median(f)), "loss": _r(np.mean(f < 0))},
             "ladder": _ladder_backtest(rows), "hot": _hot_stats(walks)}
+
+
+def scale_for_vol(gplan: dict, vol: Optional[float], cap: float = 2.5) -> dict:
+    """1차 신호가 적어 전체 묶음 간격(src=all)을 쓰는 종목은 간격을 변동성 비율만큼 넓힌다(1~cap배, 2차 -60%·3차 -80% 한도).
+    비트코인(변동성 0.5~0.9 vs 1차 신호 날 중앙 0.28): 전체 간격 그대로면 자기 1차 신호 7번 중 2차 5번·3차 3번 체결로
+    설계(약 50%·25%)보다 너무 촘촘했고, 변동성 맞춤이면 3번·1번(2026-11 점검). 묶음 간격이 있는 종목은 그대로 둔다 —
+    묶음 안에서 변동성 맞춤은 체결률을 오히려 벌렸다(변동성 3분위별 2차 체결 묶음 간격 50/57/50% vs 맞춤 61/59/42%)."""
+    if not vol or not gplan.get("vol_med"):
+        return gplan
+    k = min(max(vol / gplan["vol_med"], 1.0), cap)
+    if k <= 1.0:
+        return gplan
+    return {**gplan, "s2": _r(max(gplan["s2"] * k, -0.6)), "s3": _r(max(gplan["s3"] * k, -0.8)), "scaled": _r(k, 2)}
 
 
 def hot_release(close: np.ndarray, limit: float = HOT_NET_1Y) -> Optional[dict]:
@@ -386,11 +422,32 @@ def hot_release(close: np.ndarray, limit: float = HOT_NET_1Y) -> Optional[dict]:
 
 
 def compare(ev: dict, base: dict) -> dict:
-    """근거 비교어 - 1년 뒤 중앙값: better/same/worse, 손해 확률: lower/same/higher(차이가 EDGE 안이면 same)."""
+    """근거 비교어 - 1년 뒤 중앙값: better/same/worse, 손해 확률: lower/same/higher, 6개월 안 15% 넘게 더 빠진 비율:
+    more/same/less(차이가 EDGE 안이면 same)."""
     dm = round((ev.get("med12") or 0) - (base.get("med12") or 0), 4)
     dl = round((ev.get("loss") or 0) - (base.get("loss") or 0), 4)
-    return {"med": "better" if dm >= EDGE_MED else "worse" if dm <= -EDGE_MED else "same",
-            "loss": "lower" if dl <= -EDGE_LOSS else "higher" if dl >= EDGE_LOSS else "same"}
+    out = {"med": "better" if dm >= EDGE_MED else "worse" if dm <= -EDGE_MED else "same",
+           "loss": "lower" if dl <= -EDGE_LOSS else "higher" if dl >= EDGE_LOSS else "same"}
+    if ev.get("drop15") is not None and base.get("drop15") is not None:
+        dd = round(ev["drop15"] - base["drop15"], 4)
+        out["drop"] = "more" if dd >= EDGE_LOSS else "less" if dd <= -EDGE_LOSS else "same"
+    return out
+
+
+def weak_edge(cmp: dict) -> bool:
+    """근거가 아무 때나보다 나빴다: 1년 뒤 중앙값이 EDGE 넘게 낮거나, 비슷한데 손해 확률이 EDGE 넘게 높음.
+    워크포워드 검증(validate_buy_rules ②, 1차 신호 1073번, 그날까지 1년이 끝난 묶음 자료로 분류): 이런 신호는 1년 뒤
+    +10.1%·손해 35%, 근거가 비슷·나았던 신호는 +16.0%·23%, +16.3%·27% — 그래서 이런 날은 1차 대신 '추가 매수 보류'."""
+    return cmp.get("med") == "worse" or (cmp.get("med") == "same" and cmp.get("loss") == "higher")
+
+
+def hot_supported(stats: Optional[dict]) -> bool:
+    """급등 뒤 하락에서 1차를 미루는 규칙이 이 종목·묶음 자료로도 받쳐지는가: 산 뒤 6개월 안 추가 하락이 아무 때나보다
+    잦았거나(모든 큰 묶음이 그랬다) 1년 뒤가 나빴다. 둘 다 아니면 이 종목엔 급등 규칙을 적용하지 않는다(깊이 판단으로)."""
+    if not stats or not stats.get("tier") or not stats.get("base"):
+        return True
+    c = compare(stats["tier"], stats["base"])
+    return c.get("drop") == "more" or weak_edge(c)
 
 
 def tier_profile(walk: dict, tier: str) -> Optional[dict]:
@@ -416,15 +473,17 @@ def no_edge(gpool: Optional[dict]) -> bool:
     return bool(vals) and all(v - b < EDGE_MED for v in vals)
 
 
-def current_anchor(walk: Optional[dict], dates: list, depth: np.ndarray, tier: str) -> tuple[Optional[int], Optional[str]]:
+def current_anchor(walk: Optional[dict], dates: list, depth: np.ndarray, tier: str,
+                   extra: tuple = ()) -> tuple[Optional[int], Optional[str]]:
     """이번 하락(이 종목 낙폭 기준)의 1차 신호 날 인덱스(이 종목 시계열)와 그날 판단. walk가 원본 자산(BASELINE_PROXY)이면
-    날짜로 옮긴다. 일별 판단엔 아직 없는데 오늘 판단이 매수면(백분위 갱신 시점 차이) 오늘을 1차로 본다."""
+    날짜로 옮긴다. 일별 판단엔 아직 없는데 오늘 판단이 매수면(백분위 갱신 시점 차이) 오늘을 1차로 본다.
+    extra = 이 종목에서 매수 판단으로 함께 보는 판단(first_buy_in_episode 참고)."""
     d = np.asarray(depth, dtype=float)
     start = current_episode_start(d)
     if start is None:
         return None, None
     if walk is not None:
-        a = first_buy_in_episode(walk["tiers"], walk["eps"])
+        a = first_buy_in_episode(walk["tiers"], walk["eps"], extra=extra)
         if a is not None:
             tier_a = walk["tiers"][a]
             wd = walk.get("dates")
@@ -432,39 +491,47 @@ def current_anchor(walk: Optional[dict], dates: list, depth: np.ndarray, tier: s
                 a = bisect.bisect_right(list(dates), wd[a]) - 1      # 원본 날짜 이하의 마지막 거래일
             if a >= start:
                 return a, tier_a
-    if tier in BUY_TIERS:
+    if tier in BUY_TIERS + tuple(extra):
         return len(d) - 1, tier
     return None, None
 
 
 def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[dict],
          anchor: tuple[Optional[int], Optional[str]], stats: Optional[dict], gplan: Optional[dict],
-         gpool: Optional[dict], walk: Optional[dict], group: str) -> dict:
+         gpool: Optional[dict], walk: Optional[dict], group: str,
+         hot_ok: bool = False, alt: Optional[dict] = None) -> dict:
     """3분할 매수 의견(카드 회색 박스). tier=오늘 판단, close·dates=이 종목, high=오늘 신고가, pct=단계 기준 백분위,
-    anchor=current_anchor 결과, stats=pick_stats(오늘 판단의 과거 결과), gplan=plan_stats(묶음, 적으면 전체),
-    gpool=pool(묶음 판단별 결과), walk=판단 일별 배열(사례 쏠림 확인용).
-    state: wait(더 기다리기) / t1(1차 매수 시작) / t2 / t3 / unknown(판단 보류)."""
+    anchor=current_anchor 결과, stats=pick_stats(오늘 판단의 과거 결과), gplan=plan_stats(묶음, 적으면 전체 + scale_for_vol),
+    gpool=pool(묶음 판단별 결과), walk=판단 일별 배열(사례 쏠림 확인용), hot_ok=급등 뒤 하락 규칙이 이 종목 자료로
+    받쳐지지 않음(hot_supported False → 급등 뒤도 매수 판단), alt=보류일 때 근거가 생기는 다음 깊이(드문 깊이 선 {price, gap}).
+    state: wait(더 기다리기) / t1(1차 매수 시작) / t2 / t3 / hold(추가 매수 보류 — 매수 판단이지만 근거가 아무 때나보다
+    나빴음, weak_edge) / unknown(판단 보류). 칩이 3줄 근거와 반대로 말하지 않게 하는 것이 hold다(2026-11 점검: 23개 카드)."""
     if tier == "unknown" or pct is None or not gplan:
         return {"state": "unknown"}
+    buy = BUY_TIERS + (("hot",) if hot_ok else ())
     c = np.asarray(close, dtype=float)
     px = float(c[-1])
     lv: dict = {"s2": gplan["s2"], "s3": gplan["s3"], "n": gplan["n"], "src": gplan.get("src", "group")}
+    if gplan.get("scaled"):
+        lv["scaled"] = gplan["scaled"]
     out: dict = {"lv": lv, "t1": None, "cond": None}
     a, tier_a = anchor
     if a is not None:
         p1 = float(c[a])
         p2, p3 = p1 * (1 + gplan["s2"]), p1 * (1 + gplan["s3"])
         lv.update({"t2": _r(p2), "t3": _r(p3)})
-        out["t1"] = {"date": str(dates[a])[:10], "price": _r(p1)}
+        d1 = str(dates[a])[:10]
+        # 3분할은 1년 단위(백테스트·간격 모두 1년) — 2·3차 가격이 그때까지 안 오면 남은 몫은 사지 않는다(현금)
+        out["t1"] = {"date": d1, "price": _r(p1), "until": (date.fromisoformat(d1) + timedelta(days=365)).isoformat()}
         if px <= p3:
             state = "t3"
         elif px <= p2:
             state = "t2"
-        elif tier not in BUY_TIERS and px > p1 * (1 + REBOUND):
+        elif tier not in buy and px > p1 * (1 + REBOUND):
             state = "wait"
         else:
             state = "t1"
-        why = tier if tier in BUY_TIERS else (tier_a or tier)
+        why = tier if tier in buy else (tier_a or tier)
         if state == "wait":
             why = "rebound"
             out["cond"] = {"kind": "rebound", "price": _r(p1), "gap": _r(p1 / px - 1)}
@@ -480,7 +547,7 @@ def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[d
 
     # 근거: 지금 판단의 과거 결과(같은 판단 날 샀다면) - 1차 신호 뒤인데 지금 판단이 매수가 아니면 묶음의 1차 신호 결과
     ev = None
-    if buying and tier not in BUY_TIERS and gpool and gpool.get("base"):
+    if buying and tier not in buy and gpool and gpool.get("base"):
         ev = {"src": "anchor", "group": group, "n": gplan["n"], "med12": gplan["lump"]["med12"],
               "loss": gplan["lump"]["loss"], "drop15": None, "base": gpool["base"]}
     elif stats and stats.get("tier") and stats.get("base"):
@@ -491,6 +558,10 @@ def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[d
         ev["base"] = {k: ev["base"].get(k) for k in ("med12", "loss", "drop15")}
         ev["cmp"] = compare(ev, ev["base"])
     out["ev"] = ev
+    # 근거 확인: 매수 판단이어도 이 종목·묶음의 같은 판단 결과가 아무 때나보다 나빴으면 1차를 권하지 않는다(워크포워드 검증)
+    if buying and ev and weak_edge(ev["cmp"]):
+        state, why, buying = "hold", "noedge", False
+        out["cond"] = {"kind": "rare", **alt} if alt else None
     out["aggr"] = bool(buying and tier == "strong" and ev and ev["cmp"]["med"] == "better" and ev["cmp"]["loss"] == "lower")
 
     # 알아두실 점(화면이 상태에 맞는 것만 골라 문장으로): 숫자는 모두 위 통계에서 나온 것
@@ -525,6 +596,8 @@ def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[d
             notes["conc"] = prof                    # 이 종목 사례가 두 번의 하락에 몰림
     if no_edge(gpool):
         notes["no_edge"] = True
+    if state == "hold":
+        notes["hold"] = True
     if tier == "record":
         notes["record"] = True
     out.update({"state": state, "why": why, "notes": notes})

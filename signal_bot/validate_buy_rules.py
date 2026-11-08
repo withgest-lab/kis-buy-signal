@@ -15,6 +15,18 @@
 급등 뒤 하락 날 기다리면 76%가 중앙 18거래일 뒤 매수 판단으로 바뀌고(그날 가격 -3.0%) 24%는 그 전에 신고가로 놓쳤다
 (미국ETF 90%/10%, 미국주식 57%/43%).
 
+3분할 진행 로직 점검(plan_checks, 2026-11-08 오후 — 일본 보정 데이터):
+ ① 남은 2/3를 언제 사나(1091번, 1년 뒤 중앙/손해/나쁜 10%/투입): 한 번에 +14.3%/29%/-20%/100%, 가격으로만(지금)
+    +8.1%/21%/-7%/59%, 가격 또는 6·9개월 +10.1%/27%/-13%/100%, 0·3·6개월 시간 +9.8%/31%/-15%/100% — 시간 분할은
+    한 번에 사는 것보다 나을 게 없고, 가격으로만이 손해·나쁜 경우를 가장 줄인다 → 가격으로만 + 기한 1년 유지.
+ ② 근거 확인(1073번): 그날까지 근거가 나빴던(weak_edge) 1차 신호 381번 +10.1%/손해 35%, 비슷 284번 +16.0%/23%,
+    나았음 408번 +16.3%/27% → 근거가 나쁘면 '추가 매수 보류'(buy_view.plan hold).
+ ③ 급등 뒤 하락: 바로 vs 기다렸다 매수 판단 날 — 미국ETF +7.4%/39% vs +5.6%/43%(놓침 10%), 한국주식 +1.3% vs -1.3%,
+    일본주식 -1.6% vs -11.3%, 미국주식 +34.4% vs +21.3%(놓침 43%). 기다려도 1년 수익은 안 나아짐 → 기다리는 근거는
+    6개월 안 15% 넘게 더 빠지는 일이 모든 큰 묶음에서 잦았다는 추가 하락 위험(hot_supported)으로만 쓴다.
+ 변동성 맞춤 간격은 묶음 안에서 체결률을 벌려(변동성 3분위별 2차 체결 묶음 간격 50/57/50% vs 맞춤 61/59/42%) 쓰지 않고,
+ 1차 신호가 적어 전체 간격을 쓰는 묶음(비트코인)만 scale_for_vol로 넓힌다.
+
 2026-11-08 결과(148종목, 약 20년, 상장 3년 이상, 전체 날짜) — 1년 뒤 중앙값 / 손실 확률 / 6개월 안 -15%↓.
 분할 보정 베이스라인 + 일본 2014-04 이전 제거 + ISRG 2017 수정주가 보정(baseline_fetch.fix_history) 기준:
   평소(모든 날)    +13.5% / 29% / 29%
@@ -48,6 +60,118 @@ def _loader(src: str):
         return lambda p: json.loads(urllib.request.urlopen(src + p, timeout=90).read())
     root = Path(src)
     return lambda p: json.loads((root / p).read_text(encoding="utf-8"))
+
+
+H = buy_view.BARS_1Y
+VARIANTS = (("lump", "1차 날 한 번에"), ("ladder", "가격으로만(지금)"), ("pt126_189", "가격 또는 6·9개월"), ("dca", "0·3·6개월 시간으로"))
+
+
+def _simulate(r: dict, sp: tuple, variant: str) -> tuple[float, float]:
+    """1차 신호 날부터 1년 뒤 총자금 수익률과 투입 비율. 못 채운 몫은 현금(0%)."""
+    c, a = r["c"], r["a"]
+    path = c[a:a + H + 1]
+    p1, end = c[a], c[a + H]
+    if variant == "lump":
+        return end / p1 - 1, 1.0
+    p2, p3 = p1 * (1 + sp[0]), p1 * (1 + sp[1])
+    hit = lambda m: (int(np.flatnonzero(m)[0]) if m.any() else None)
+    h2, h3 = hit(path <= p2), hit(path <= p3)
+    buys = [p1]
+    if variant == "ladder":
+        buys += [p for h, p in ((h2, p2), (h3, p3)) if h is not None]
+    elif variant == "pt126_189":
+        buys += [p2 if h2 is not None and h2 <= 126 else path[126], p3 if h3 is not None and h3 <= 189 else path[189]]
+    elif variant == "dca":
+        buys += [path[63], path[126]]
+    return sum(end / p for p in buys) / 3 + (3 - len(buys)) / 3 - 1, len(buys) / 3
+
+
+def plan_checks(group_days: dict) -> None:
+    """3분할 진행 로직 점검 표 3개(2026-11-08): ① 남은 2/3를 언제 사나 ② 근거 확인(보류 규칙) ③ 급등 뒤 바로 vs 기다림."""
+    rows = []
+    for g, ds in group_days.items():
+        for w in ds:
+            for a in buy_view.anchor_indices(w["tiers"], w["eps"]):
+                if a + H < len(w["close"]):
+                    rows.append({"g": g, "da": w["dates"][a], "de": w["dates"][a + H], "tier": w["tiers"][a],
+                                 "m12": w["m12"][a], "f12": w["f12"][a], "c": w["close"], "a": a})
+    rows.sort(key=lambda r: r["da"])
+    by_g: dict = {}
+    for r in rows:
+        by_g.setdefault(r["g"], []).append(r)
+
+    # ① 간격은 그 신호 날까지 1년이 끝난 같은 묶음 신호로(워크포워드)
+    res = {v: [] for v, _ in VARIANTS}
+    dep = {v: [] for v, _ in VARIANTS}
+    for r in rows:
+        prior = np.array([x["m12"] for x in by_g[r["g"]] if x["de"] <= r["da"]])
+        if len(prior) < buy_view.MIN_ANCHORS:
+            continue
+        sp = (float(np.median(prior)), float(np.percentile(prior, 25)))
+        for v, _ in VARIANTS:
+            ret, d = _simulate(r, sp, v)
+            res[v].append(ret)
+            dep[v].append(d)
+    print(f"\n[3분할 ① 남은 2/3를 언제 사나 — 1차 신호 {len(res['lump'])}번, 1년 뒤 중앙 / 손해 / 나쁜 10% / 투입]")
+    for v, name in VARIANTS:
+        a = np.array(res[v])
+        print(f"   {name:16s} {np.median(a) * 100:+6.1f}% {np.mean(a < 0) * 100:4.0f}% {np.percentile(a, 10) * 100:+5.0f}% {np.mean(dep[v]) * 100:4.0f}%")
+
+    # ② 그 신호 날까지 1년 결과가 끝난 묶음 자료로 같은 판단 vs 아무 때나를 분류 → 실제 1년 뒤
+    pool: dict = {}
+    for g, ds in group_days.items():
+        for w in ds:
+            n = len(w["close"])
+            for i, t in enumerate(w["tiers"]):
+                if i < H or i + H >= n:
+                    continue
+                pool.setdefault((g, "base"), []).append((w["dates"][i + H], w["f12"][i]))
+                if t:
+                    pool.setdefault((g, t), []).append((w["dates"][i + H], w["f12"][i]))
+    idx = {k: (np.array([x[0] for x in sorted(v)]), np.array([x[1] for x in sorted(v)])) for k, v in pool.items()}
+
+    def as_of(key, d):
+        if key not in idx:
+            return None
+        de, f = idx[key]
+        m = np.searchsorted(de, d, side="right")
+        return (float(np.median(f[:m])), float(np.mean(f[:m] < 0))) if m >= 200 else None
+
+    cls: dict = {}
+    for r in rows:
+        e, b = as_of((r["g"], r["tier"]), r["da"]), as_of((r["g"], "base"), r["da"])
+        if not e or not b:
+            continue
+        cmp = buy_view.compare({"med12": e[0], "loss": e[1]}, {"med12": b[0], "loss": b[1]})
+        k = "나빴음(보류)" if buy_view.weak_edge(cmp) else "나았음" if cmp["med"] == "better" and cmp["loss"] != "higher" else "비슷"
+        cls.setdefault(k, []).append(r["f12"])
+    print(f"\n[3분할 ② 근거 확인 — 그날까지의 근거로 분류한 1차 신호 {sum(len(v) for v in cls.values())}번의 실제 1년 뒤]")
+    for k, v in sorted(cls.items()):
+        v = np.array(v)
+        print(f"   {k:10s} {len(v):5d}번 {np.median(v) * 100:+6.1f}% 손해 {np.mean(v < 0) * 100:3.0f}%")
+
+    # ③ 급등 뒤 하락인 날: 바로 산 1년 뒤 vs 같은 하락에서 매수 판단으로 바뀐 날 산 1년 뒤
+    print("\n[3분할 ③ 급등 뒤 하락 — 바로 사기 vs 기다렸다 매수 판단 날 사기(1년 뒤 중앙/손해), 놓침=판단 전 신고가]")
+    for g, ds in sorted(group_days.items()):
+        now, wait, missed, tot = [], [], 0, 0
+        for w in ds:
+            n = len(w["close"])
+            nxt = buy_view._next_buy(w["tiers"], w["eps"])
+            for i, t in enumerate(w["tiers"]):
+                if t != "hot" or i + H >= n:
+                    continue
+                tot += 1
+                now.append(w["f12"][i])
+                j = int(nxt[i])
+                if j < 0:
+                    missed += 1
+                elif j + H < n:
+                    wait.append(w["f12"][j])
+        if tot < 100:
+            continue
+        nw_, wt = np.array(now), np.array(wait)
+        print(f"   {g:8s} {tot:5d}일 바로 {np.median(nw_) * 100:+6.1f}%/{np.mean(nw_ < 0) * 100:3.0f}%  기다림 "
+              f"{np.median(wt) * 100:+6.1f}%/{np.mean(wt < 0) * 100:3.0f}%  놓침 {missed / tot * 100:3.0f}%")
 
 
 def main(src: str = DEFAULT_BASE) -> None:
@@ -111,6 +235,7 @@ def main(src: str = DEFAULT_BASE) -> None:
     plan_table("전체", [d for ds in group_days.values() for d in ds])
     for g, ds in group_days.items():
         plan_table(f"{g} {len(ds)}종목", ds)
+    plan_checks(group_days)
 
 
 if __name__ == "__main__":

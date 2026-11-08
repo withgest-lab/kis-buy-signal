@@ -9,6 +9,7 @@ import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from signal_bot import alerts
@@ -214,15 +215,28 @@ def _attach_buy(tickers: list[dict], series_by: dict, baseline: dict) -> dict:
         stats = buy_view.pick_stats(tier, own, grp, group)
         gplan = plans.get(group)
         if not gplan or gplan["n"] < buy_view.MIN_ANCHORS:
-            gplan = {**plan_all, "src": "all"} if plan_all else None
+            # 1차 신호가 적은 묶음(비트코인)은 전체 간격을 쓰되 변동성만큼 넓힌다
+            gplan = buy_view.scale_for_vol({**plan_all, "src": "all"}, buy_view.ann_vol(close)) if plan_all else None
         own_dates = _date_strs(uw)
-        anchor = buy_view.current_anchor(days.get(src), own_dates, uw["depth"].to_numpy(), tier)
+        depth_arr = uw["depth"].to_numpy()
+        # 급등 뒤 하락 규칙이 이 종목·묶음 자료로 받쳐지지 않으면(추가 하락도 잦지 않고 1년 뒤도 나쁘지 않음) 깊이 판단으로
+        hot_ok = tier == "hot" and not buy_view.hot_supported(stats)
+        anchor = buy_view.current_anchor(days.get(src), own_dates, depth_arr, tier, extra=("hot",) if hot_ok else ())
+        # 깊은 조정인데 근거가 나빠 보류가 될 때, 근거가 괜찮았던 '드문 깊이'가 되는 가격(이 종목 지난 날 중 하위 10% 낙폭 선)
+        alt = None
+        start = buy_view.current_episode_start(depth_arr)
+        if tier == "split" and src == symb and start is not None and start >= buy_view.MIN_HIST_DAYS:
+            rare_price = float(t["rolling_high"]) * (1 + float(np.quantile(depth_arr[:start], buy_view.RARE_DAYS)))
+            s_st = buy_view.pick_stats("strong", own, grp, group)
+            if (rare_price < close[-1] and s_st and s_st.get("tier") and s_st.get("base")
+                    and not buy_view.weak_edge(buy_view.compare(s_st["tier"], s_st["base"]))):
+                alt = {"price": round(rare_price, 4), "gap": round(rare_price / close[-1] - 1, 4)}
         t["buy"] = {
             "tier": tier, "days_deeper": share, "years": years, "moves": mv,
             "retrace_1y": buy_view.retrace(close),
             "stats": stats,
             "plan": buy_view.plan(tier, close, own_dates, float(t["rolling_high"]), t.get("percentiles"), anchor,
-                                  stats, gplan, grp, days.get(src), group),
+                                  stats, gplan, grp, days.get(src), group, hot_ok=hot_ok, alt=alt),
         }
         if src != symb:
             t["buy"]["pct_from"] = src

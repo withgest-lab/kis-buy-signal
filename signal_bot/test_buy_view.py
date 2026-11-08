@@ -144,7 +144,7 @@ class PlanTest(unittest.TestCase):
         self.assertIsNone(bv.first_buy_in_episode(tiers2, eps2))
         self.assertEqual(bv.first_buy_in_episode(tiers2, eps2, 100), 1)
 
-    def _plan(self, tier, px, anchor=(290, "split"), stats=None):
+    def _plan(self, tier, px, anchor=(290, "split"), stats=None, hot_ok=False, alt=None):
         c = np.full(300, 100.0)
         c[-1] = px
         gplan = {"n": 20, "s2": -0.10, "s3": -0.20, "lump": {"med12": 0.15, "loss": 0.2}, "ladder": None, "hot": None}
@@ -153,7 +153,49 @@ class PlanTest(unittest.TestCase):
                  "base": {"med12": 0.12, "loss": 0.2}}
         stats = stats or {"src": "group", "group": "usETF", "tier": {"n_ep": 30, "tickers": 10, "med12": 0.13,
                           "loss": 0.21, "drop15": 0.3}, "base": {"med12": 0.12, "loss": 0.2, "drop15": 0.2}}
-        return bv.plan(tier, c, _dates(300), 120.0, pct, anchor, stats, gplan, gpool, None, "usETF")
+        return bv.plan(tier, c, _dates(300), 120.0, pct, anchor, stats, gplan, gpool, None, "usETF", hot_ok=hot_ok, alt=alt)
+
+    def test_hold_when_evidence_is_worse(self):
+        # 매수 판단(깊은 조정)이어도 같은 판단의 과거가 아무 때나보다 나빴으면 '추가 매수 보류' — 칩이 근거와 반대로 말하지 않게
+        bad = {"src": "group", "group": "krStock", "tier": {"n_ep": 66, "tickers": 20, "med12": -0.004, "loss": 0.50, "drop15": 0.44},
+               "base": {"med12": 0.069, "loss": 0.42, "drop15": 0.42}}
+        p = self._plan("split", 95, stats=bad, alt={"price": 80.0, "gap": -0.158})
+        self.assertEqual((p["state"], p["why"], p["cond"]["kind"], p["cond"]["price"]), ("hold", "noedge", "rare", 80.0))
+        self.assertTrue(p["notes"].get("hold"))
+        self.assertFalse(p["aggr"])
+        # 비슷한데 손해 확률만 높아도 보류, 비슷·비슷이면 그대로 1차
+        same_hi = {**bad, "tier": {**bad["tier"], "med12": 0.08, "loss": 0.46}}
+        self.assertEqual(self._plan("split", 95, stats=same_hi)["state"], "hold")
+        self.assertEqual(self._plan("split", 95)["state"], "t1")
+
+    def test_plan_until_is_one_year_after_first(self):
+        p = self._plan("split", 95)
+        d1 = p["t1"]["date"]
+        self.assertEqual(p["t1"]["until"][:4], str(int(d1[:4]) + 1))
+        self.assertEqual(p["t1"]["until"][4:], d1[4:])
+
+    def test_hot_rule_follows_its_evidence(self):
+        risky = {"tier": {"med12": 0.20, "loss": 0.22, "drop15": 0.30}, "base": {"med12": 0.18, "loss": 0.22, "drop15": 0.24}}
+        calm = {"tier": {"med12": 0.20, "loss": 0.22, "drop15": 0.24}, "base": {"med12": 0.18, "loss": 0.22, "drop15": 0.24}}
+        self.assertTrue(bv.hot_supported(risky))       # 산 뒤 추가 하락이 더 잦았다 → 급등 뒤엔 기다리기
+        self.assertFalse(bv.hot_supported(calm))       # 추가 하락도 1년 뒤도 나쁘지 않았다 → 깊이 판단으로
+        self.assertTrue(bv.hot_supported(None))
+        # hot_ok면 급등 뒤도 매수 판단: 오늘이 1차
+        st = {"src": "self", "group": "crypto", "tier": {"n_ep": 4, "med12": 1.0, "loss": 0.4, "drop15": 0.33},
+              "base": {"med12": 0.5, "loss": 0.32, "drop15": 0.55}}
+        p = self._plan("hot", 100, anchor=(299, "hot"), stats=st, hot_ok=True)
+        self.assertEqual((p["state"], p["why"]), ("t1", "hot"))
+        self.assertEqual(bv.current_anchor(None, _dates(5), np.array([0, -0.1, -0.2, -0.25, -0.3]), "hot", extra=("hot",)), (4, "hot"))
+        self.assertEqual(bv.current_anchor(None, _dates(5), np.array([0, -0.1, -0.2, -0.25, -0.3]), "hot"), (None, None))
+
+    def test_scale_for_vol(self):
+        g = {"s2": -0.11, "s3": -0.23, "vol_med": 0.28, "src": "all"}
+        self.assertEqual(bv.scale_for_vol(g, 0.20), g)                     # 덜 출렁이면 그대로(좁히지 않음)
+        s = bv.scale_for_vol(g, 0.56)
+        self.assertEqual((s["s2"], s["s3"], s["scaled"]), (-0.22, -0.46, 2.0))
+        s = bv.scale_for_vol(g, 2.8)                                         # 2.5배 한도, 3차 -80% 한도
+        self.assertEqual((s["scaled"], s["s2"], s["s3"]), (2.5, -0.275, -0.575))
+        self.assertEqual(bv.scale_for_vol(g, None), g)
 
     def test_plan_states(self):
         self.assertEqual(self._plan("split", 95)["state"], "t1")
