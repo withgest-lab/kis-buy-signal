@@ -630,5 +630,13 @@
   "PANW": {
     "episode_start_date": "2026-11-05",
     "last_stage_notified": 2
+  },
+  "BTC": {
+    "episode_start_date": "2026-11-06",
+    "last_stage_notified": 3
+  },
+  "IBIT": {
+    "episode_start_date": "2026-11-06",
+    "last_stage_notified": 3
   }
 }
