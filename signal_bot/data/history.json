@@ -655255,15 +655255,15 @@
       "rolling_high": 8625.1,
       "stage": 3,
       "percentiles": {
-        "count": 29,
-        "p50": -0.0975,
-        "p25": -0.1821,
-        "p10": -0.51598,
+        "count": 23,
+        "p50": -0.1092,
+        "p25": -0.3329,
+        "p10": -0.5204599999999999,
         "recovery_days_min": 3,
-        "recovery_days_median": 17,
-        "recovery_days_max": 841
+        "recovery_days_median": 26,
+        "recovery_days_max": 807
       },
-      "episode_count": 30,
+      "episode_count": 24,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -655302,15 +655302,15 @@
       "rolling_high": 14319.5,
       "stage": 3,
       "percentiles": {
-        "count": 33,
-        "p50": -0.1111,
-        "p25": -0.2125,
-        "p10": -0.32944,
+        "count": 30,
+        "p50": -0.11825000000000001,
+        "p25": -0.177225,
+        "p10": -0.28931999999999997,
         "recovery_days_min": 5,
-        "recovery_days_median": 38,
+        "recovery_days_median": 42,
         "recovery_days_max": 583
       },
-      "episode_count": 34,
+      "episode_count": 31,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -655349,15 +655349,15 @@
       "rolling_high": 15649.4,
       "stage": 3,
       "percentiles": {
-        "count": 46,
-        "p50": -0.10365,
-        "p25": -0.135125,
-        "p10": -0.3267,
+        "count": 37,
+        "p50": -0.1069,
+        "p25": -0.1468,
+        "p10": -0.37926000000000004,
         "recovery_days_min": 2,
-        "recovery_days_median": 20,
+        "recovery_days_median": 24,
         "recovery_days_max": 498
       },
-      "episode_count": 47,
+      "episode_count": 38,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -655383,53 +655383,6 @@
         }
       }
     },
-    "6954": {
-      "category": "일본개별종목",
-      "symb": "6954",
-      "name": "화낙",
-      "currency": "JPY",
-      "date": "2026-11-06",
-      "close": 5312.0,
-      "pct_chg": -6.03,
-      "market_regime": "하락장",
-      "depth": -0.3643,
-      "rolling_high": 8355.7,
-      "stage": 3,
-      "percentiles": {
-        "count": 17,
-        "p50": -0.1152,
-        "p25": -0.1641,
-        "p10": -0.32704,
-        "recovery_days_min": 4,
-        "recovery_days_median": 30,
-        "recovery_days_max": 1928
-      },
-      "episode_count": 18,
-      "is_record_drawdown": false,
-      "timeframes": {
-        "daily": {
-          "rsi": 32.1,
-          "mfi": 38.0,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "weekly": {
-          "rsi": 37.4,
-          "mfi": 37.3,
-          "divergence": true,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "monthly": {
-          "rsi": 49.2,
-          "mfi": 53.4,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        }
-      }
-    },
     "6981": {
       "category": "일본개별종목",
       "symb": "6981",
@@ -655443,15 +655396,15 @@
       "rolling_high": 12196.4,
       "stage": 3,
       "percentiles": {
-        "count": 19,
-        "p50": -0.0785,
-        "p25": -0.19490000000000002,
-        "p10": -0.40334,
-        "recovery_days_min": 4,
-        "recovery_days_median": 23,
+        "count": 11,
+        "p50": -0.1574,
+        "p25": -0.2829,
+        "p10": -0.4983,
+        "recovery_days_min": 10,
+        "recovery_days_median": 28,
         "recovery_days_max": 1292
       },
-      "episode_count": 20,
+      "episode_count": 12,
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
@@ -655471,53 +655424,6 @@
         "monthly": {
           "rsi": 50.2,
           "mfi": 55.2,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        }
-      }
-    },
-    "7741": {
-      "category": "일본개별종목",
-      "symb": "7741",
-      "name": "호야",
-      "currency": "JPY",
-      "date": "2026-11-06",
-      "close": 22395.0,
-      "pct_chg": -6.98,
-      "market_regime": "하락장",
-      "depth": -0.2503,
-      "rolling_high": 29870.9,
-      "stage": 3,
-      "percentiles": {
-        "count": 41,
-        "p50": -0.0947,
-        "p25": -0.1384,
-        "p10": -0.2286,
-        "recovery_days_min": 6,
-        "recovery_days_median": 34,
-        "recovery_days_max": 597
-      },
-      "episode_count": 42,
-      "is_record_drawdown": false,
-      "timeframes": {
-        "daily": {
-          "rsi": 26.7,
-          "mfi": 27.5,
-          "divergence": true,
-          "rsi_oversold": true,
-          "mfi_oversold": false
-        },
-        "weekly": {
-          "rsi": 39.0,
-          "mfi": 58.9,
-          "divergence": true,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "monthly": {
-          "rsi": 49.6,
-          "mfi": 53.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -657451,53 +657357,6 @@
         }
       }
     },
-    "6268": {
-      "category": "일본개별종목",
-      "symb": "6268",
-      "name": "나부테스코",
-      "currency": "JPY",
-      "date": "2026-11-06",
-      "close": 3729.0,
-      "pct_chg": -8.04,
-      "market_regime": "하락장",
-      "depth": -0.3593,
-      "rolling_high": 5820.0,
-      "stage": 2,
-      "percentiles": {
-        "count": 14,
-        "p50": -0.1928,
-        "p25": -0.238225,
-        "p10": -0.57228,
-        "recovery_days_min": 9,
-        "recovery_days_median": 46,
-        "recovery_days_max": 1189
-      },
-      "episode_count": 15,
-      "is_record_drawdown": false,
-      "timeframes": {
-        "daily": {
-          "rsi": 26.2,
-          "mfi": 24.4,
-          "divergence": true,
-          "rsi_oversold": true,
-          "mfi_oversold": false
-        },
-        "weekly": {
-          "rsi": 37.1,
-          "mfi": 43.4,
-          "divergence": true,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "monthly": {
-          "rsi": 49.1,
-          "mfi": 46.1,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        }
-      }
-    },
     "6861": {
       "category": "일본개별종목",
       "symb": "6861",
@@ -657511,15 +657370,15 @@
       "rolling_high": 87348.2,
       "stage": 2,
       "percentiles": {
-        "count": 30,
-        "p50": -0.0885,
-        "p25": -0.1828,
-        "p10": -0.27148,
-        "recovery_days_min": 7,
-        "recovery_days_median": 36,
+        "count": 25,
+        "p50": -0.0889,
+        "p25": -0.1911,
+        "p10": -0.28337999999999997,
+        "recovery_days_min": 9,
+        "recovery_days_median": 42,
         "recovery_days_max": 689
       },
-      "episode_count": 31,
+      "episode_count": 26,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -657558,15 +657417,15 @@
       "rolling_high": 3750.0,
       "stage": 2,
       "percentiles": {
-        "count": 26,
-        "p50": -0.07405,
-        "p25": -0.095975,
-        "p10": -0.29135,
+        "count": 25,
+        "p50": -0.0781,
+        "p25": -0.1282,
+        "p10": -0.2605199999999999,
         "recovery_days_min": 4,
-        "recovery_days_median": 18,
+        "recovery_days_median": 27,
         "recovery_days_max": 1846
       },
-      "episode_count": 27,
+      "episode_count": 26,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -657605,15 +657464,15 @@
       "rolling_high": 7701.3,
       "stage": 2,
       "percentiles": {
-        "count": 26,
+        "count": 22,
         "p50": -0.10969999999999999,
-        "p25": -0.159325,
-        "p10": -0.3667,
+        "p25": -0.15510000000000002,
+        "p10": -0.38101999999999997,
         "recovery_days_min": 4,
-        "recovery_days_median": 40,
+        "recovery_days_median": 49,
         "recovery_days_max": 490
       },
-      "episode_count": 27,
+      "episode_count": 23,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -657652,15 +657511,15 @@
       "rolling_high": 29566.7,
       "stage": 2,
       "percentiles": {
-        "count": 29,
-        "p50": -0.096,
+        "count": 23,
+        "p50": -0.0894,
         "p25": -0.1786,
-        "p10": -0.28712000000000004,
-        "recovery_days_min": 4,
-        "recovery_days_median": 34,
+        "p10": -0.28718,
+        "recovery_days_min": 5,
+        "recovery_days_median": 40,
         "recovery_days_max": 425
       },
-      "episode_count": 30,
+      "episode_count": 24,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -657686,6 +657545,100 @@
         }
       }
     },
+    "6954": {
+      "category": "일본개별종목",
+      "symb": "6954",
+      "name": "화낙",
+      "currency": "JPY",
+      "date": "2026-11-06",
+      "close": 5312.0,
+      "pct_chg": -6.03,
+      "market_regime": "하락장",
+      "depth": -0.3643,
+      "rolling_high": 8355.7,
+      "stage": 2,
+      "percentiles": {
+        "count": 11,
+        "p50": -0.1101,
+        "p25": -0.18835000000000002,
+        "p10": -0.4456,
+        "recovery_days_min": 4,
+        "recovery_days_median": 30,
+        "recovery_days_max": 1928
+      },
+      "episode_count": 12,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 32.1,
+          "mfi": 38.0,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 37.4,
+          "mfi": 37.3,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.2,
+          "mfi": 53.4,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "6501": {
+      "category": "일본개별종목",
+      "symb": "6501",
+      "name": "히타치",
+      "currency": "JPY",
+      "date": "2026-11-06",
+      "close": 4542.0,
+      "pct_chg": -4.82,
+      "market_regime": "하락장",
+      "depth": -0.2223,
+      "rolling_high": 5840.0,
+      "stage": 2,
+      "percentiles": {
+        "count": 27,
+        "p50": -0.1242,
+        "p25": -0.20695,
+        "p10": -0.39261999999999997,
+        "recovery_days_min": 3,
+        "recovery_days_median": 33,
+        "recovery_days_max": 762
+      },
+      "episode_count": 28,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 22.0,
+          "mfi": 26.3,
+          "divergence": false,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 39.6,
+          "mfi": 53.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 51.7,
+          "mfi": 64.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
     "6902": {
       "category": "일본개별종목",
       "symb": "6902",
@@ -657699,15 +657652,15 @@
       "rolling_high": 2736.5,
       "stage": 2,
       "percentiles": {
-        "count": 18,
-        "p50": -0.1096,
-        "p25": -0.18732500000000002,
-        "p10": -0.38756999999999997,
-        "recovery_days_min": 4,
-        "recovery_days_median": 43,
+        "count": 14,
+        "p50": -0.12505,
+        "p25": -0.17984999999999998,
+        "p10": -0.44353,
+        "recovery_days_min": 8,
+        "recovery_days_median": 55,
         "recovery_days_max": 766
       },
-      "episode_count": 19,
+      "episode_count": 15,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -657727,6 +657680,53 @@
         "monthly": {
           "rsi": 45.4,
           "mfi": 45.6,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
+    "7741": {
+      "category": "일본개별종목",
+      "symb": "7741",
+      "name": "호야",
+      "currency": "JPY",
+      "date": "2026-11-06",
+      "close": 22395.0,
+      "pct_chg": -6.98,
+      "market_regime": "하락장",
+      "depth": -0.2503,
+      "rolling_high": 29870.9,
+      "stage": 2,
+      "percentiles": {
+        "count": 33,
+        "p50": -0.0951,
+        "p25": -0.1463,
+        "p10": -0.25036,
+        "recovery_days_min": 6,
+        "recovery_days_median": 36,
+        "recovery_days_max": 597
+      },
+      "episode_count": 34,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 26.7,
+          "mfi": 27.5,
+          "divergence": true,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 39.0,
+          "mfi": 58.9,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.6,
+          "mfi": 53.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -658579,6 +658579,53 @@
         }
       }
     },
+    "6268": {
+      "category": "일본개별종목",
+      "symb": "6268",
+      "name": "나부테스코",
+      "currency": "JPY",
+      "date": "2026-11-06",
+      "close": 3729.0,
+      "pct_chg": -8.04,
+      "market_regime": "하락장",
+      "depth": -0.3593,
+      "rolling_high": 5820.0,
+      "stage": 1,
+      "percentiles": {
+        "count": 10,
+        "p50": -0.1901,
+        "p25": -0.424425,
+        "p10": -0.61061,
+        "recovery_days_min": 21,
+        "recovery_days_median": 45,
+        "recovery_days_max": 1189
+      },
+      "episode_count": 11,
+      "is_record_drawdown": false,
+      "timeframes": {
+        "daily": {
+          "rsi": 26.2,
+          "mfi": 24.4,
+          "divergence": true,
+          "rsi_oversold": true,
+          "mfi_oversold": false
+        },
+        "weekly": {
+          "rsi": 37.1,
+          "mfi": 43.4,
+          "divergence": true,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        },
+        "monthly": {
+          "rsi": 49.1,
+          "mfi": 46.1,
+          "divergence": false,
+          "rsi_oversold": false,
+          "mfi_oversold": false
+        }
+      }
+    },
     "7203": {
       "category": "일본개별종목",
       "symb": "7203",
@@ -658592,15 +658639,15 @@
       "rolling_high": 3821.1,
       "stage": 1,
       "percentiles": {
-        "count": 21,
-        "p50": -0.0988,
-        "p25": -0.1319,
-        "p10": -0.2529,
-        "recovery_days_min": 6,
-        "recovery_days_median": 31,
+        "count": 16,
+        "p50": -0.1056,
+        "p25": -0.130625,
+        "p10": -0.3356,
+        "recovery_days_min": 9,
+        "recovery_days_median": 34,
         "recovery_days_max": 1470
       },
-      "episode_count": 22,
+      "episode_count": 17,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -658639,15 +658686,15 @@
       "rolling_high": 87506.8,
       "stage": 1,
       "percentiles": {
-        "count": 28,
-        "p50": -0.08335000000000001,
-        "p25": -0.17275000000000001,
-        "p10": -0.34163,
-        "recovery_days_min": 4,
-        "recovery_days_median": 20,
+        "count": 23,
+        "p50": -0.0873,
+        "p25": -0.17645,
+        "p10": -0.38639999999999997,
+        "recovery_days_min": 7,
+        "recovery_days_median": 28,
         "recovery_days_max": 909
       },
-      "episode_count": 29,
+      "episode_count": 24,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -658720,53 +658767,6 @@
         }
       }
     },
-    "6501": {
-      "category": "일본개별종목",
-      "symb": "6501",
-      "name": "히타치",
-      "currency": "JPY",
-      "date": "2026-11-06",
-      "close": 4542.0,
-      "pct_chg": -4.82,
-      "market_regime": "하락장",
-      "depth": -0.2223,
-      "rolling_high": 5840.0,
-      "stage": 1,
-      "percentiles": {
-        "count": 30,
-        "p50": -0.11180000000000001,
-        "p25": -0.2303,
-        "p10": -0.38863,
-        "recovery_days_min": 3,
-        "recovery_days_median": 31,
-        "recovery_days_max": 762
-      },
-      "episode_count": 31,
-      "is_record_drawdown": false,
-      "timeframes": {
-        "daily": {
-          "rsi": 22.0,
-          "mfi": 26.3,
-          "divergence": false,
-          "rsi_oversold": true,
-          "mfi_oversold": false
-        },
-        "weekly": {
-          "rsi": 39.6,
-          "mfi": 53.1,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        },
-        "monthly": {
-          "rsi": 51.7,
-          "mfi": 64.6,
-          "divergence": false,
-          "rsi_oversold": false,
-          "mfi_oversold": false
-        }
-      }
-    },
     "9432": {
       "category": "일본개별종목",
       "symb": "9432",
@@ -658780,15 +658780,15 @@
       "rolling_high": 178.1,
       "stage": 1,
       "percentiles": {
-        "count": 21,
-        "p50": -0.0948,
-        "p25": -0.1414,
-        "p10": -0.2156,
+        "count": 17,
+        "p50": -0.0824,
+        "p25": -0.1495,
+        "p10": -0.22436,
         "recovery_days_min": 14,
-        "recovery_days_median": 69,
+        "recovery_days_median": 70,
         "recovery_days_max": 801
       },
-      "episode_count": 22,
+      "episode_count": 18,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -658827,15 +658827,15 @@
       "rolling_high": 5806.3,
       "stage": 1,
       "percentiles": {
-        "count": 25,
-        "p50": -0.1008,
-        "p25": -0.1684,
-        "p10": -0.2884999999999999,
+        "count": 24,
+        "p50": -0.08325,
+        "p25": -0.1591,
+        "p10": -0.30069999999999997,
         "recovery_days_min": 3,
-        "recovery_days_median": 28,
+        "recovery_days_median": 25,
         "recovery_days_max": 708
       },
-      "episode_count": 26,
+      "episode_count": 25,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -660714,15 +660714,15 @@
       "rolling_high": 4660.8,
       "stage": 0,
       "percentiles": {
-        "count": 28,
-        "p50": -0.1154,
-        "p25": -0.202525,
-        "p10": -0.33702,
-        "recovery_days_min": 2,
-        "recovery_days_median": 33,
+        "count": 24,
+        "p50": -0.11855,
+        "p25": -0.202675,
+        "p10": -0.32450999999999997,
+        "recovery_days_min": 14,
+        "recovery_days_median": 39,
         "recovery_days_max": 616
       },
-      "episode_count": 29,
+      "episode_count": 25,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
@@ -660761,15 +660761,15 @@
       "rolling_high": 1941.5,
       "stage": 0,
       "percentiles": {
-        "count": 12,
-        "p50": -0.1125,
-        "p25": -0.22445,
-        "p10": -0.33269,
+        "count": 11,
+        "p50": -0.1051,
+        "p25": -0.18080000000000002,
+        "p10": -0.3414,
         "recovery_days_min": 7,
-        "recovery_days_median": 31,
+        "recovery_days_median": 67,
         "recovery_days_max": 1909
       },
-      "episode_count": 13,
+      "episode_count": 12,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
