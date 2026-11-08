@@ -99,6 +99,116 @@ class WalkForwardTest(unittest.TestCase):
         self.assertIsNone(bv.pick_stats("unknown", own, grp, "usETF"))
 
 
+def _wave(seed: int, n: int = 2600, phase: float = 0.0) -> np.ndarray:
+    """약 1년 주기로 오르내리며 신고가를 갱신하는 가상 시계열(낙폭 국면이 충분히 쌓여 판단이 나온다)."""
+    t = np.arange(n)
+    return 100 * np.exp(0.0006 * t + 0.15 * np.sin(t / 40.0 + phase) + np.random.default_rng(seed).normal(0, 0.004, n))
+
+
+def _dates(n: int) -> list[str]:
+    return [d.strftime("%Y-%m-%d") for d in pd.bdate_range("2000-01-03", periods=n)]
+
+
+class PlanTest(unittest.TestCase):
+    def test_n_ep_excludes_episodes_without_outcome(self):
+        # 신고가 뒤 150봉 동안 -40% - 이 하락은 1년 뒤 결과가 없으니 어떤 판단의 사례에도 들어가면 안 된다
+        a = _wave(1)
+        c = np.concatenate([a, [a.max() * 1.05], a.max() * 1.05 * np.linspace(1, 0.6, 150)])
+        days = bv.walk_days(c, _depth(c), _dates(len(c)))
+        last = int(days["eps"][-1])
+        self.assertTrue(last > 0 and any(t is not None for t in days["tiers"][-150:]))
+        acc = bv.walk_forward(None, None, days=days)
+        for k in bv.TIERS:
+            self.assertNotIn(last, acc[k]["eps"])
+        self.assertTrue(any(acc[k]["eps"] for k in bv.TIERS))          # 결과가 있는 과거 하락은 그대로 센다
+
+    def test_first_buy_and_next_buy(self):
+        tiers = [None, "wait", "watch", "split", "strong", None, "watch", "hot", "watch"]
+        eps = np.array([0, 1, 1, 1, 1, 0, 2, 2, 2])
+        self.assertEqual(bv.anchor_indices(tiers, eps), [3])
+        self.assertIsNone(bv.first_buy_in_episode(tiers, eps))          # 마지막 하락(2)엔 매수 판단이 없음
+        self.assertEqual(bv.first_buy_in_episode(tiers, eps, 4), 3)
+        nxt = bv._next_buy(tiers, eps)
+        self.assertEqual((int(nxt[1]), int(nxt[4]), int(nxt[7])), (3, 4, -1))
+
+    def test_long_drawdown_restarts_plan_every_year(self):
+        # 하나의 하락이 3년 넘게 이어지고 매수 판단이 계속 나오면 1년마다 새 1차(3분할은 1년으로 끝난다)
+        n = 3 * bv.BARS_1Y + 40
+        tiers = [None] + ["split"] * (n - 1)
+        eps = np.array([0] + [1] * (n - 1))
+        self.assertEqual(bv.anchor_indices(tiers, eps), [1, 1 + bv.BARS_1Y, 1 + 2 * bv.BARS_1Y, 1 + 3 * bv.BARS_1Y])
+        self.assertEqual(bv.first_buy_in_episode(tiers, eps), 1 + 3 * bv.BARS_1Y)
+        # 1차 뒤 1년 넘게 매수 판단이 다시 안 나오면 그 3분할은 끝 - 기다리기
+        tiers2 = [None, "split"] + ["watch"] * (bv.BARS_1Y + 5)
+        eps2 = np.array([0] + [1] * (len(tiers2) - 1))
+        self.assertIsNone(bv.first_buy_in_episode(tiers2, eps2))
+        self.assertEqual(bv.first_buy_in_episode(tiers2, eps2, 100), 1)
+
+    def _plan(self, tier, px, anchor=(290, "split"), stats=None):
+        c = np.full(300, 100.0)
+        c[-1] = px
+        gplan = {"n": 20, "s2": -0.10, "s3": -0.20, "lump": {"med12": 0.15, "loss": 0.2}, "ladder": None, "hot": None}
+        pct = {"p50": -0.08, "p25": -0.15, "p10": -0.25, "count": 12}
+        gpool = {"tiers": {"watch": {"med12": 0.05}, "strong": {"med12": 0.2}, "split": {"med12": 0.13}},
+                 "base": {"med12": 0.12, "loss": 0.2}}
+        stats = stats or {"src": "group", "group": "usETF", "tier": {"n_ep": 30, "tickers": 10, "med12": 0.13,
+                          "loss": 0.21, "drop15": 0.3}, "base": {"med12": 0.12, "loss": 0.2, "drop15": 0.2}}
+        return bv.plan(tier, c, _dates(300), 120.0, pct, anchor, stats, gplan, gpool, None, "usETF")
+
+    def test_plan_states(self):
+        self.assertEqual(self._plan("split", 95)["state"], "t1")
+        p2 = self._plan("split", 89)
+        self.assertEqual((p2["state"], p2["lv"]["t2"], p2["lv"]["t3"]), ("t2", 90.0, 80.0))
+        self.assertEqual(self._plan("split", 79)["state"], "t3")
+        rb = self._plan("watch", 104)                                   # 1차가보다 3% 넘게 반등 + 지금은 매수 판단 아님
+        self.assertEqual((rb["state"], rb["why"], rb["cond"]["kind"], rb["cond"]["price"]), ("wait", "rebound", "rebound", 100.0))
+        near = self._plan("watch", 102)
+        self.assertEqual((near["state"], near["why"], near["ev"]["src"]), ("t1", "split", "anchor"))   # 근거 = 묶음 1차 신호 결과
+        hot = self._plan("hot", 100, anchor=(None, None))
+        self.assertEqual((hot["state"], hot["cond"]["kind"]), ("wait", "hot"))
+        w = self._plan("watch", 110, anchor=(None, None))
+        self.assertEqual((w["state"], w["cond"]["kind"], w["cond"]["price"]), ("wait", "stage2", 102.0))
+        self.assertIn("watch", w["notes"])                              # 묶음에서 관찰 단계가 아무 날보다 못했음
+        self.assertEqual(self._plan("unknown", 90)["state"], "unknown")
+
+    def test_aggr_needs_better_history(self):
+        good = {"src": "self", "group": "usStock", "tier": {"n_ep": 7, "med12": 0.31, "loss": 0.05, "drop15": 0.33},
+                "base": {"med12": 0.26, "loss": 0.17, "drop15": 0.2}}
+        self.assertTrue(self._plan("strong", 95, anchor=(290, "strong"), stats=good)["aggr"])
+        self.assertFalse(self._plan("split", 95, stats=good)["aggr"])     # 적극 매수 검토만
+        self.assertFalse(self._plan("strong", 95, anchor=(290, "strong"))["aggr"])   # 과거가 아무 날과 비슷하면 아님
+
+    def test_hot_release(self):
+        c = np.full(300, 100.0)
+        c[48:53] = [102, 104, 106, 107, 108]       # 1년 전 기준가(c[-253]=100)가 하루씩 밀리며 오른다
+        c[-1] = 140.0
+        hr = bv.hot_release(c)
+        self.assertAlmostEqual(hr["price"], 130.0)
+        self.assertAlmostEqual(hr["gap"], 130 / 140 - 1, places=4)
+        self.assertEqual(hr["days"], 5)                                 # 140/108 = 1.296 ≤ 1.30
+
+    def test_compare_boundaries(self):
+        self.assertEqual(bv.compare({"med12": 0.15, "loss": 0.20}, {"med12": 0.12, "loss": 0.23}),
+                         {"med": "better", "loss": "lower"})
+        self.assertEqual(bv.compare({"med12": 0.14, "loss": 0.21}, {"med12": 0.12, "loss": 0.20}),
+                         {"med": "same", "loss": "same"})
+        self.assertEqual(bv.compare({"med12": 0.08, "loss": 0.30}, {"med12": 0.12, "loss": 0.20}),
+                         {"med": "worse", "loss": "higher"})
+
+    def test_plan_stats_shapes(self):
+        walks = []
+        for seed in range(4):
+            c = _wave(seed, 3000, phase=seed * 1.3)
+            walks.append(bv.walk_days(c, _depth(c), _dates(len(c))))
+        p = bv.plan_stats(walks)
+        self.assertGreaterEqual(p["n"], 1)
+        self.assertLessEqual(p["s3"], p["s2"])
+        self.assertLessEqual(p["s2"], 0)
+        if p["ladder"]:
+            self.assertLessEqual(p["ladder"]["n"], p["n"])
+            self.assertLessEqual(p["ladder"]["f3"], p["ladder"]["f2"])
+
+
 class StageGuardTest(unittest.TestCase):
     def test_stage3_needs_10_episodes(self):
         pct = {"p50": -0.1, "p25": -0.2, "p10": -0.3, "count": 9}

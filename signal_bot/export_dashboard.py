@@ -159,24 +159,35 @@ def export_details(baseline: dict, sells: dict | None = None, frames_by: dict | 
     return count
 
 
+def _date_strs(uw: pd.DataFrame) -> list[str]:
+    return pd.to_datetime(uw["date"]).dt.strftime("%Y-%m-%d").tolist()
+
+
 def _attach_buy(tickers: list[dict], series_by: dict, baseline: dict) -> dict:
-    """종목마다 entry["buy"](판단·기간별 흐름·드문 깊이·과거 결과)를 붙이고, detail용 buy_perf를 돌려준다.
+    """종목마다 entry["buy"](판단·기간별 흐름·드문 깊이·과거 결과·3분할 의견)를 붙이고, detail용 buy_perf를 돌려준다.
     BASELINE_PROXY 종목(IBIT)은 드문 깊이·과거 결과를 원본 자산(BTC)의 긴 이력으로 계산하고 묶음 집계에서는 뺀다."""
-    walks: dict = {}
+    days: dict = {}
     for t in tickers:
         src = mdd.BASELINE_PROXY.get(t["symb"], t["symb"])
         uw = series_by.get(src)
-        if uw is None or src in walks:
+        if uw is None or src in days:
             continue
-        walks[src] = buy_view.walk_forward(uw["close"].to_numpy(), uw["depth"].to_numpy())
+        days[src] = buy_view.walk_days(uw["close"].to_numpy(), uw["depth"].to_numpy(), _date_strs(uw))
+    walks = {s: buy_view.walk_forward(None, None, days=d) for s, d in days.items()}
     by_group: dict = {}
+    days_by_group: dict = {}
     for t in tickers:
         if t["symb"] in mdd.BASELINE_PROXY or t["symb"] not in walks:
             continue
-        by_group.setdefault(buy_view.group_of(t["category"]), []).append(walks[t["symb"]])
+        g = buy_view.group_of(t["category"])
+        by_group.setdefault(g, []).append(walks[t["symb"]])
+        days_by_group.setdefault(g, []).append(days[t["symb"]])
     groups = {g: buy_view.pool(accs) for g, accs in by_group.items()}
+    # 3분할 간격·백테스트·기다린 비용: 묶음별(1차 신호가 MIN_ANCHORS개 미만인 묶음은 전체 묶음 값)
+    plans = {g: buy_view.plan_stats(ds) for g, ds in days_by_group.items()}
+    plan_all = buy_view.plan_stats([d for ds in days_by_group.values() for d in ds])
 
-    perfs: dict = {"_groups": groups}
+    perfs: dict = {"_groups": groups, "_plans": {**plans, "all": plan_all}}
     for t in tickers:
         symb = t["symb"]
         uw = series_by.get(symb)
@@ -200,10 +211,18 @@ def _attach_buy(tickers: list[dict], series_by: dict, baseline: dict) -> dict:
         group = buy_view.group_of(t["category"])
         own = buy_view.summarize_all(walks[src]) if src in walks else {"tiers": {}, "base": None}
         grp = groups.get(group, {"tiers": {}, "base": None})
+        stats = buy_view.pick_stats(tier, own, grp, group)
+        gplan = plans.get(group)
+        if not gplan or gplan["n"] < buy_view.MIN_ANCHORS:
+            gplan = {**plan_all, "src": "all"} if plan_all else None
+        own_dates = _date_strs(uw)
+        anchor = buy_view.current_anchor(days.get(src), own_dates, uw["depth"].to_numpy(), tier)
         t["buy"] = {
             "tier": tier, "days_deeper": share, "years": years, "moves": mv,
             "retrace_1y": buy_view.retrace(close),
-            "stats": buy_view.pick_stats(tier, own, grp, group),
+            "stats": stats,
+            "plan": buy_view.plan(tier, close, own_dates, float(t["rolling_high"]), t.get("percentiles"), anchor,
+                                  stats, gplan, grp, days.get(src), group),
         }
         if src != symb:
             t["buy"]["pct_from"] = src
@@ -290,6 +309,7 @@ def main():
         # 보유 종목 → 전략 종목 매칭 규칙: 포트폴리오 화면과 이 대시보드가 같은 목록을 읽는다(signal_bot/proxies.py)
         "proxies": {"prefix": proxies.ISSUER_PREFIX_RE, "rules": proxies.RULES},
         "buy_groups": buy_perfs.pop("_groups", {}),
+        "buy_plans": buy_perfs.pop("_plans", {}),
         "tickers": tickers,
     }
 
