@@ -107,6 +107,64 @@ class StageGuardTest(unittest.TestCase):
         self.assertEqual(mdd.classify_stage(-0.5, pct), 3)
 
 
+class SplitMismatchTest(unittest.TestCase):
+    def test_detects_split_but_not_dividend_adjustment(self):
+        import tempfile
+        from pathlib import Path
+        from unittest import mock
+
+        from signal_bot import baseline_fetch as bf
+        dates = pd.bdate_range("2026-01-01", periods=300)
+        close = pd.Series(np.linspace(100, 150, 300))
+        with tempfile.TemporaryDirectory() as tmp:
+            data, base = Path(tmp), Path(tmp) / "baseline"
+            base.mkdir()
+            # SPLT: 베이스라인은 분할 전 값(3배), 운영용은 수정주가 / DIVD: 배당 수정 0.5%만 차이 / NEWX: 베이스라인 없음
+            pd.DataFrame({"date": dates, "close": close * 3}).to_csv(base / "SPLT_daily.csv", index=False)
+            pd.DataFrame({"date": dates[-250:], "close": close[-250:]}).to_csv(data / "SPLT_daily.csv", index=False)
+            pd.DataFrame({"date": dates, "close": close}).to_csv(base / "DIVD_daily.csv", index=False)
+            pd.DataFrame({"date": dates[-250:], "close": close[-250:] * 0.995}).to_csv(data / "DIVD_daily.csv", index=False)
+            pd.DataFrame({"date": dates[-250:], "close": close[-250:]}).to_csv(data / "NEWX_daily.csv", index=False)
+            tickers = [("섹터ETF", "SPLT"), ("섹터ETF", "DIVD"), ("섹터ETF", "NEWX")]
+            with mock.patch.object(bf, "BASELINE_DIR", base), mock.patch.object(bf, "DATA_DIR", data), \
+                    mock.patch.object(bf, "TICKERS", tickers):
+                self.assertEqual(bf.split_mismatch_symbols(), [("섹터ETF", "SPLT")])
+                self.assertEqual(bf.missing_symbols(), [("섹터ETF", "NEWX")])
+
+
+class HistoryFixTest(unittest.TestCase):
+    def test_jp_trim_and_isrg_repair_are_idempotent(self):
+        import tempfile
+        from pathlib import Path
+        from unittest import mock
+
+        from signal_bot import baseline_fetch as bf
+        dates = pd.bdate_range("2013-01-01", "2018-12-31")
+        jp = pd.DataFrame({"date": dates, "close": np.linspace(0.1, 3000, len(dates))})
+        isrg_close = np.linspace(30, 60, len(dates))
+        isrg_close[dates >= pd.Timestamp("2017-10-06")] *= 3     # 그날 3배로 튐(이전 값이 1/3로 잘못 수정된 상태)
+        isrg = pd.DataFrame({"date": dates, "open": isrg_close, "high": isrg_close, "low": isrg_close,
+                             "close": isrg_close, "volume": np.full(len(dates), 300.0)})
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            jp.to_csv(base / "7203_daily.csv", index=False)
+            isrg.to_csv(base / "ISRG_daily.csv", index=False)
+            tickers = [("일본개별종목", "7203"), ("개별종목", "ISRG")]
+            with mock.patch.object(bf, "BASELINE_DIR", base), mock.patch.object(bf, "TICKERS", tickers):
+                jumps = bf.split_like_jumps()
+                self.assertEqual(list(jumps), ["ISRG"])
+                self.assertEqual(jumps["ISRG"][0][0], "2017-10-06")
+                self.assertEqual(bf.fix_history(), ["7203", "ISRG"])
+                self.assertEqual(bf.fix_history(), [])                  # 두 번째는 바꿀 것 없음
+                self.assertEqual(bf.split_like_jumps(), {})
+            out_jp = pd.read_csv(base / "7203_daily.csv", parse_dates=["date"])
+            self.assertEqual(out_jp["date"].min(), pd.Timestamp("2014-04-01"))
+            out = pd.read_csv(base / "ISRG_daily.csv", parse_dates=["date"])
+            i = int(out.index[out["date"] == pd.Timestamp("2017-10-06")][0])
+            self.assertAlmostEqual(out["close"][i] / out["close"][i - 1], 1.0, delta=0.01)
+            self.assertAlmostEqual(out["volume"][0], 100.0)
+
+
 class FoldWeekendsTest(unittest.TestCase):
     def test_weekend_into_monday_and_trailing_weekend_dropped(self):
         days = pd.date_range("2026-11-06", "2026-11-14")   # 금(6) ~ 토(14)
