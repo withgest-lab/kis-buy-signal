@@ -184,7 +184,7 @@
     "last_stage_notified": 2
   },
   "AAPL": {
-    "episode_start_date": "2026-11-05",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "MSFT": {
@@ -204,7 +204,7 @@
     "last_stage_notified": 0
   },
   "LLY": {
-    "episode_start_date": "2026-11-05",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "JPM": {
@@ -216,8 +216,8 @@
     "last_stage_notified": 0
   },
   "JNJ": {
-    "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "episode_start_date": null,
+    "last_stage_notified": 0
   },
   "XOM": {
     "episode_start_date": "2026-11-02",
