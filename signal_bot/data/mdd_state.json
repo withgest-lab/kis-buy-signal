@@ -136,7 +136,7 @@
     "last_stage_notified": 0
   },
   "XLV": {
-    "episode_start_date": "2026-11-05",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "XLI": {
@@ -181,10 +181,10 @@
   },
   "NVDA": {
     "episode_start_date": "2026-10-07",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "AAPL": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-10",
     "last_stage_notified": 0
   },
   "MSFT": {
@@ -200,7 +200,7 @@
     "last_stage_notified": 0
   },
   "BRK-B": {
-    "episode_start_date": "2026-11-05",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "LLY": {
@@ -228,7 +228,7 @@
     "last_stage_notified": 0
   },
   "ABBV": {
-    "episode_start_date": "2026-11-05",
+    "episode_start_date": null,
     "last_stage_notified": 0
   },
   "BAC": {
