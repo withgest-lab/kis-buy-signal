@@ -29088,8 +29088,8 @@
     "insufficient_data": false
   },
   "6861": {
-    "as_of_date": "2026-11-06",
-    "rolling_high": 87348.2,
+    "as_of_date": "2026-11-19",
+    "rolling_high": 17467.3,
     "episodes": [
       {
         "start_date": "2014-04-02",
@@ -29119,7 +29119,7 @@
         "start_date": "2014-11-05",
         "trough_date": "2015-01-06",
         "recovery_date": "2015-02-03",
-        "depth": -0.0862,
+        "depth": -0.0861,
         "recovery_days": 58,
         "is_complete": true
       },
