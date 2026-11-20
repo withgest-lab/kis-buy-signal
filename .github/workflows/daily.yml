@@ -2,7 +2,8 @@ name: KIS 매수신호 알림
 
 on:
   schedule:
-    # UTC 22:30 = KST 07:30 (다음날)
+    # 대체 실행(주말 비트코인·타이머가 못 돈 날): UTC 22:30 = KST 07:30 — 실제로는 몇 시간 밀려 시작한다.
+    # 평일 미국장 마감 직후 실행은 us-close-timer.yml이 16:02 ET에 workflow_dispatch로 시작한다.
     - cron: "30 22 * * *"
   workflow_dispatch: {}
 
@@ -57,6 +58,10 @@ jobs:
           my_token: ""
           my_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
           EOF
+
+      # 미국장 마감 직후(타이머) 실행이면 16:04 ET까지 기다리고 SPY 오늘 일봉을 확인한다(그 밖의 실행은 바로 통과)
+      - name: Wait for US close prices (마감 직후 실행만)
+        run: uv run python -m signal_bot.wait_us_close
 
       - name: Fetch latest prices (일봉)
         run: uv run python -m signal_bot.fetch_universe
