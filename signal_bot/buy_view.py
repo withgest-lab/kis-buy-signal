@@ -8,7 +8,7 @@
 → strong(2단계+ · 드문 깊이 ≤10%) → split(2단계+) → watch(1단계) → wait.
 
 같은 판단이 과거에 어땠는지는 워크포워드로 센다 - 과거 매일에 대해 그날까지의 국면·날짜만으로 판단을 다시 내리고
-(미래 정보 미사용), 그 뒤 1년 수익률·6개월 안 추가 하락을 모은다. 사례(하락 국면 수)는 1년 뒤 결과가 있는 하락만
+(미래 정보 미사용), 그 뒤 1년 수익률·6개월 안 추가 하락(drop15, 판단에는 쓰지 않음)을 모은다. 사례(하락 국면 수)는 1년 뒤 결과가 있는 하락만
 센다 - 진행 중이거나 1년이 안 지난 하락까지 세면 사례가 부풀어 '사례 적으면 묶음' 규칙을 피해 간다(SOXX 2026-11).
 
 3분할 매수 의견(plan): 이번 하락에서 매수 판단(BUY_TIERS)이 처음 나온 날이 1차(하락이 1년 넘게 이어지면 1년마다 새 1차),
@@ -31,12 +31,13 @@ MOVE_WINDOWS = (63, 126, 252, 756)      # 3개월·6개월·1년·3년(거래일
 HOT_NET_1Y = 0.30                       # 1년 전 대비 이보다 높으면 '급등 뒤 하락'
 RARE_DAYS = 0.10                        # 과거 날짜 중 이보다 적게 더 깊었으면 '드문 깊이'
 MIN_HIST_DAYS = 3 * BARS_1Y             # 드문 깊이 판단에 필요한 과거 날짜(지금 하락 전) - 3년
-DROP_FURTHER = -0.15                    # 6개월 안 이만큼 더 빠지면 '추가 하락'
+DROP_FURTHER = -0.15                    # 6개월 안 이만큼 더 빠지면 '추가 하락'(drop15 - 2026-11-21부터 판단·화면에 쓰지 않음)
 MIN_SELF_EPISODES = 5                   # 종목 자체 사례(하락 국면)가 이보다 적으면 묶음 통계로 대신(3~4번은 들쭉날쭉)
 TIERS = ("strong", "split", "hot", "watch", "wait", "record")
 
 # 3분할 매수 의견
 BUY_TIERS = ("strong", "split", "record")   # 1차 신호가 되는 판단: 2단계 이상이고 급등 뒤가 아님, 또는 사상 최대 낙폭
+WAIT_TIERS = ("hot", "watch", "wait")       # '더 기다리기'가 나올 수 있는 판단 - 지금 사기 vs 기다렸다 사기 통계(_wait_stats)
 REBOUND = 0.03                  # 1차 신호 뒤 1차가보다 이만큼 넘게 반등했고 지금 판단이 매수가 아니면 다시 '더 기다리기'
 MIN_ANCHORS = 10                # 2·3차 간격에 필요한 과거 1차 신호 수 - 묶음이 이보다 적으면 전체 묶음 값을 쓴다
 EDGE_MED = 0.03                 # 근거 비교어: 1년 뒤 중앙값 차이가 이 안이면 '비슷'
@@ -337,7 +338,8 @@ def _hot_stats(walks: list[dict]) -> Optional[dict]:
     """급등 뒤 하락 날(1년 뒤가 있는 날): 1년 안 최저점 분포와 '기다린 비용' - 같은 하락 안에서 매수 판단으로 바뀐 비율·
     걸린 거래일·그날 가격 차이(중앙값), 바뀌기 전에 신고가로 회복해 놓친 비율, 그리고 바로 산 1년 뒤 vs 바뀐 날 산 1년 뒤.
     (2026-11 점검: 기다려도 1년 수익은 나아지지 않았다 - 미국ETF +7.4%→+5.6%, 한국주식 +1.3%→-1.3%. 기다리라는 근거는
-    수익이 아니라 '산 뒤 6개월 안 15% 넘게 더 빠지는 일이 모든 묶음에서 아무 때나보다 잦았다'는 추가 하락 위험이다.)"""
+    수익이 아니라 추가 하락 위험이라고 봤으나, 2026-11-21 워크포워드로 급등 뒤 규칙은 '기다린 쪽이 실제로 나았나'(_wait_stats ·
+    wait_better)로 바꿨다. 이 함수는 옛 화면(notes.hot)이 남아 있는 동안만 쓴다.)"""
     m, days, px, sw, tot, now12, wait12 = [], [], [], 0, 0, [], []
     for w in walks:
         c, tiers, f12 = w["close"], w["tiers"], w["f12"]
@@ -365,6 +367,50 @@ def _hot_stats(walks: list[dict]) -> Optional[dict]:
             "wait12": _r(np.median(wt)) if len(wt) else None, "wait_loss": _r(np.mean(wt < 0)) if len(wt) else None}
 
 
+def _wait_stats(walks: list[dict], tier: str) -> Optional[dict]:
+    """tier 날(바로 산 1년 뒤와 기다린 1년 뒤가 모두 있는 날)에 '지금 사기' vs '기다렸다 사기'.
+    기다리기 = 같은 하락에서 매수 판단(1차 신호)이 처음 나온 날 산다. 그 전에 신고가로 회복하면(놓침) 그 신고가 날 산 것으로 센다 —
+    놓친 경우를 빼면 기다린 쪽이 좋아 보인다(2026-11-21 워크포워드: 이 정의로 정한 급등 뒤 규칙이 옛 규칙보다 +3%p·손해 -4%p,
+    1단계·얕은 조정은 모든 묶음에서 기다린 쪽이 나았음). sw_days·sw_px는 매수 판단으로 바뀐 경우만(걸린 거래일·그날 가격 차이)."""
+    now12, wait12, days, px, missed = [], [], [], [], 0
+    for w in walks:
+        c, tiers, eps, f12 = w["close"], w["tiers"], w["eps"], w["f12"]
+        n = len(c)
+        nxt = _next_buy(tiers, eps)
+        for i, t in enumerate(tiers):
+            if t != tier or np.isnan(f12[i]):
+                continue
+            j = int(nxt[i])
+            miss = j < 0
+            if miss:
+                j = i + 1
+                while j < n and eps[j] == eps[i]:
+                    j += 1
+            if j >= n or np.isnan(f12[j]):
+                continue
+            now12.append(f12[i])
+            wait12.append(f12[j])
+            if miss:
+                missed += 1
+            else:
+                days.append(j - i)
+                px.append(c[j] / c[i] - 1)
+    if not now12:
+        return None
+    nw_, wt = np.array(now12), np.array(wait12)
+    return {"n": len(nw_), "now12": _r(np.median(nw_)), "now_loss": _r(np.mean(nw_ < 0)),
+            "wait12": _r(np.median(wt)), "wait_loss": _r(np.mean(wt < 0)), "missed": _r(missed / len(nw_)),
+            "sw_days": int(np.median(days)) if days else None, "sw_px": _r(np.median(px)) if px else None}
+
+
+def wait_better(ws: Optional[dict]) -> bool:
+    """기다린 쪽이 지금 사는 쪽보다 나았나(compare 기준: 1년 뒤 나음, 또는 비슷한데 손해 적음). 자료가 없으면 True(기다리기 유지)."""
+    if not ws:
+        return True
+    c = compare({"med12": ws["wait12"], "loss": ws["wait_loss"]}, {"med12": ws["now12"], "loss": ws["now_loss"]})
+    return c["med"] == "better" or (c["med"] == "same" and c["loss"] == "lower")
+
+
 def ann_vol(close: np.ndarray, i: Optional[int] = None) -> Optional[float]:
     """i일(기본 마지막 날)까지 1년 일간 로그수익률 표준편차(연율). 1년이 안 되면 None."""
     c = np.asarray(close, dtype=float)
@@ -377,7 +423,7 @@ def ann_vol(close: np.ndarray, i: Optional[int] = None) -> Optional[float]:
 def plan_stats(walks: list[dict]) -> Optional[dict]:
     """묶음 3분할 통계(walk_days 목록, 날짜 필요). n=1년이 끝난 1차 신호 수, s2·s3=그 뒤 1년 안 최저점의 중앙값·하위 25%
     (= 오늘 쓰는 2·3차 간격), lump=1차 날 한 번에 산 1년 뒤 결과, ladder=한 번에 vs 3분할 워크포워드 백테스트,
-    hot=급등 뒤 하락 날의 추가 하락·기다린 비용."""
+    hot=급등 뒤 하락 날의 추가 하락·기다린 비용(옛 화면용), wait=판단별(급등 뒤·1단계·얕은 조정) 지금 사기 vs 기다렸다 사기."""
     rows, vols = [], []
     for w in walks:
         c, dates = w["close"], w["dates"]
@@ -394,7 +440,8 @@ def plan_stats(walks: list[dict]) -> Optional[dict]:
     return {"n": len(rows), "s2": _r(np.median(m)), "s3": _r(np.percentile(m, 25)),
             "vol_med": _r(np.median(vols)) if vols else None,
             "lump": {"med12": _r(np.median(f)), "loss": _r(np.mean(f < 0))},
-            "ladder": _ladder_backtest(rows), "hot": _hot_stats(walks)}
+            "ladder": _ladder_backtest(rows), "hot": _hot_stats(walks),
+            "wait": {t: _wait_stats(walks, t) for t in WAIT_TIERS}}
 
 
 def scale_for_vol(gplan: dict, vol: Optional[float], cap: float = 2.5) -> dict:
@@ -439,15 +486,6 @@ def weak_edge(cmp: dict) -> bool:
     워크포워드 검증(validate_buy_rules ②, 1차 신호 1073번, 그날까지 1년이 끝난 묶음 자료로 분류): 이런 신호는 1년 뒤
     +10.1%·손해 35%, 근거가 비슷·나았던 신호는 +16.0%·23%, +16.3%·27% — 그래서 이런 날은 1차 대신 '추가 매수 보류'."""
     return cmp.get("med") == "worse" or (cmp.get("med") == "same" and cmp.get("loss") == "higher")
-
-
-def hot_supported(stats: Optional[dict]) -> bool:
-    """급등 뒤 하락에서 1차를 미루는 규칙이 이 종목·묶음 자료로도 받쳐지는가: 산 뒤 6개월 안 추가 하락이 아무 때나보다
-    잦았거나(모든 큰 묶음이 그랬다) 1년 뒤가 나빴다. 둘 다 아니면 이 종목엔 급등 규칙을 적용하지 않는다(깊이 판단으로)."""
-    if not stats or not stats.get("tier") or not stats.get("base"):
-        return True
-    c = compare(stats["tier"], stats["base"])
-    return c.get("drop") == "more" or weak_edge(c)
 
 
 def tier_profile(walk: dict, tier: str) -> Optional[dict]:
@@ -502,8 +540,8 @@ def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[d
          hot_ok: bool = False, alt: Optional[dict] = None) -> dict:
     """3분할 매수 의견(카드 회색 박스). tier=오늘 판단, close·dates=이 종목, high=오늘 신고가, pct=단계 기준 백분위,
     anchor=current_anchor 결과, stats=pick_stats(오늘 판단의 과거 결과), gplan=plan_stats(묶음, 적으면 전체 + scale_for_vol),
-    gpool=pool(묶음 판단별 결과), walk=판단 일별 배열(사례 쏠림 확인용), hot_ok=급등 뒤 하락 규칙이 이 종목 자료로
-    받쳐지지 않음(hot_supported False → 급등 뒤도 매수 판단), alt=보류일 때 근거가 생기는 다음 깊이(드문 깊이 선 {price, gap}).
+    gpool=pool(묶음 판단별 결과), walk=판단 일별 배열(사례 쏠림 확인용), hot_ok=급등 뒤 하락인데 묶음 자료에서 기다린 쪽이
+    바로 산 쪽보다 낫지 않았음(wait_better False → 급등 뒤도 매수 판단), alt=보류일 때 근거가 생기는 다음 깊이(드문 깊이 선 {price, gap}).
     state: wait(더 기다리기) / t1(1차 매수 시작) / t2 / t3 / hold(추가 매수 보류 — 매수 판단이지만 근거가 아무 때나보다
     나빴음, weak_edge) / unknown(판단 보류). 칩이 3줄 근거와 반대로 말하지 않게 하는 것이 hold다(2026-11 점검: 23개 카드)."""
     if tier == "unknown" or pct is None or not gplan:
@@ -562,6 +600,13 @@ def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[d
     if buying and ev and weak_edge(ev["cmp"]):
         state, why, buying = "hold", "noedge", False
         out["cond"] = {"kind": "rare", **alt} if alt else None
+    # 기다리기 근거(화면 2칸 비교 '지금 사면 vs 기다렸다 1차 때'): 더 기다리기이거나, 급등 뒤인데 기다린 쪽이 못해 매수로 본 경우.
+    # 1차 신호 뒤 반등(rebound)은 이미 1차가 났으니 '1차 신호까지 기다리기' 통계가 맞지 않아 넣지 않는다.
+    if tier in WAIT_TIERS and ((state == "wait" and why != "rebound") or why == "hot"):
+        ws = (gplan.get("wait") or {}).get(tier)
+        if ws:
+            out["wv"] = {**ws, "cmp": compare({"med12": ws["wait12"], "loss": ws["wait_loss"]},
+                                              {"med12": ws["now12"], "loss": ws["now_loss"]})}
     out["aggr"] = bool(buying and tier == "strong" and ev and ev["cmp"]["med"] == "better" and ev["cmp"]["loss"] == "lower")
 
     # 알아두실 점(화면이 상태에 맞는 것만 골라 문장으로): 숫자는 모두 위 통계에서 나온 것

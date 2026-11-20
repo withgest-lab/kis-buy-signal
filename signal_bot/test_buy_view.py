@@ -147,7 +147,9 @@ class PlanTest(unittest.TestCase):
     def _plan(self, tier, px, anchor=(290, "split"), stats=None, hot_ok=False, alt=None):
         c = np.full(300, 100.0)
         c[-1] = px
-        gplan = {"n": 20, "s2": -0.10, "s3": -0.20, "lump": {"med12": 0.15, "loss": 0.2}, "ladder": None, "hot": None}
+        gplan = {"n": 20, "s2": -0.10, "s3": -0.20, "lump": {"med12": 0.15, "loss": 0.2}, "ladder": None, "hot": None,
+                 "wait": {"watch": {"n": 500, "now12": 0.10, "now_loss": 0.34, "wait12": 0.15, "wait_loss": 0.30,
+                                    "missed": 0.3, "sw_days": 20, "sw_px": -0.05}}}
         pct = {"p50": -0.08, "p25": -0.15, "p10": -0.25, "count": 12}
         gpool = {"tiers": {"watch": {"med12": 0.05}, "strong": {"med12": 0.2}, "split": {"med12": 0.13}},
                  "base": {"med12": 0.12, "loss": 0.2}}
@@ -175,11 +177,16 @@ class PlanTest(unittest.TestCase):
         self.assertEqual(p["t1"]["until"][4:], d1[4:])
 
     def test_hot_rule_follows_its_evidence(self):
-        risky = {"tier": {"med12": 0.20, "loss": 0.22, "drop15": 0.30}, "base": {"med12": 0.18, "loss": 0.22, "drop15": 0.24}}
-        calm = {"tier": {"med12": 0.20, "loss": 0.22, "drop15": 0.24}, "base": {"med12": 0.18, "loss": 0.22, "drop15": 0.24}}
-        self.assertTrue(bv.hot_supported(risky))       # 산 뒤 추가 하락이 더 잦았다 → 급등 뒤엔 기다리기
-        self.assertFalse(bv.hot_supported(calm))       # 추가 하락도 1년 뒤도 나쁘지 않았다 → 깊이 판단으로
-        self.assertTrue(bv.hot_supported(None))
+        # 기다린 쪽이 실제로 나았을 때만 기다리기(1년 뒤 +3%p 이상, 또는 비슷한데 손해 3%p 이상 적음)
+        better = {"now12": 0.10, "now_loss": 0.30, "wait12": 0.14, "wait_loss": 0.30}
+        safer = {"now12": 0.10, "now_loss": 0.30, "wait12": 0.11, "wait_loss": 0.26}
+        worse = {"now12": 0.34, "now_loss": 0.22, "wait12": 0.21, "wait_loss": 0.26}     # 미국주식 급등 뒤(2026-11)
+        same = {"now12": 0.10, "now_loss": 0.30, "wait12": 0.11, "wait_loss": 0.29}
+        self.assertTrue(bv.wait_better(better))
+        self.assertTrue(bv.wait_better(safer))
+        self.assertFalse(bv.wait_better(worse))        # 바로 산 게 나았다 → 급등 뒤도 매수 판단
+        self.assertFalse(bv.wait_better(same))
+        self.assertTrue(bv.wait_better(None))          # 자료가 없으면 기다리기 유지
         # hot_ok면 급등 뒤도 매수 판단: 오늘이 1차
         st = {"src": "self", "group": "crypto", "tier": {"n_ep": 4, "med12": 1.0, "loss": 0.4, "drop15": 0.33},
               "base": {"med12": 0.5, "loss": 0.32, "drop15": 0.55}}
@@ -204,6 +211,7 @@ class PlanTest(unittest.TestCase):
         self.assertEqual(self._plan("split", 79)["state"], "t3")
         rb = self._plan("watch", 104)                                   # 1차가보다 3% 넘게 반등 + 지금은 매수 판단 아님
         self.assertEqual((rb["state"], rb["why"], rb["cond"]["kind"], rb["cond"]["price"]), ("wait", "rebound", "rebound", 100.0))
+        self.assertNotIn("wv", rb)                                      # 1차가 이미 났으니 '1차까지 기다리기' 비교는 없음
         near = self._plan("watch", 102)
         self.assertEqual((near["state"], near["why"], near["ev"]["src"]), ("t1", "split", "anchor"))   # 근거 = 묶음 1차 신호 결과
         hot = self._plan("hot", 100, anchor=(None, None))
@@ -211,6 +219,10 @@ class PlanTest(unittest.TestCase):
         w = self._plan("watch", 110, anchor=(None, None))
         self.assertEqual((w["state"], w["cond"]["kind"], w["cond"]["price"]), ("wait", "stage2", 102.0))
         self.assertIn("watch", w["notes"])                              # 묶음에서 관찰 단계가 아무 날보다 못했음
+        # 기다리기 근거(지금 사면 vs 기다렸다 1차 때): 묶음 wait 통계가 있으면 wv로, 매수(깊은 조정)에는 없음
+        self.assertEqual(w["wv"]["cmp"], {"med": "better", "loss": "lower"})
+        self.assertEqual(w["wv"]["missed"], 0.3)
+        self.assertNotIn("wv", self._plan("split", 95))
         self.assertEqual(self._plan("unknown", 90)["state"], "unknown")
 
     def test_aggr_needs_better_history(self):
@@ -229,6 +241,25 @@ class PlanTest(unittest.TestCase):
         self.assertAlmostEqual(hr["gap"], 130 / 140 - 1, places=4)
         self.assertEqual(hr["days"], 5)                                 # 140/108 = 1.296 ≤ 1.30
 
+    def test_wait_stats_counts_missed_as_buy_at_new_high(self):
+        # 국면 1: 0·1일 watch → 2일 split(매수 판단)에서 삼 / 국면 2: 5·6일 watch → 매수 판단 없이 7일 신고가(놓침) → 7일에 삼
+        H = bv.BARS_1Y
+        n = 8 + H + 2
+        c = np.full(n, 100.0)
+        c[0], c[1], c[2], c[5], c[6], c[7] = 100.0, 100.0, 90.0, 95.0, 95.0, 105.0
+        tiers = ["watch", "watch", "split", None, None, "watch", "watch", None] + [None] * (n - 8)
+        eps = np.array([1, 1, 1, 0, 0, 2, 2, 0] + [0] * (n - 8))
+        f12 = np.full(n, np.nan)
+        f12[:8] = [0.10, 0.11, 0.30, 0, 0, 0.05, 0.06, -0.02]
+        w = {"close": c, "tiers": tiers, "eps": eps, "f12": f12}
+        s = bv._wait_stats([w], "watch")
+        self.assertEqual(s["n"], 4)
+        self.assertEqual(s["missed"], 0.5)                          # 5·6일은 매수 판단 전에 신고가
+        self.assertAlmostEqual(s["wait12"], round(float(np.median([0.30, 0.30, -0.02, -0.02])), 4))
+        self.assertAlmostEqual(s["now12"], round(float(np.median([0.10, 0.11, 0.05, 0.06])), 4))
+        self.assertEqual(s["sw_days"], 1)                           # 0→2일(2), 1→2일(1) 중앙 1.5 → int
+        self.assertAlmostEqual(s["sw_px"], -0.1, places=4)
+
     def test_compare_boundaries(self):
         self.assertEqual(bv.compare({"med12": 0.15, "loss": 0.20}, {"med12": 0.12, "loss": 0.23}),
                          {"med": "better", "loss": "lower"})
@@ -243,6 +274,7 @@ class PlanTest(unittest.TestCase):
             c = _wave(seed, 3000, phase=seed * 1.3)
             walks.append(bv.walk_days(c, _depth(c), _dates(len(c))))
         p = bv.plan_stats(walks)
+        self.assertEqual(set(p["wait"]), set(bv.WAIT_TIERS))
         self.assertGreaterEqual(p["n"], 1)
         self.assertLessEqual(p["s3"], p["s2"])
         self.assertLessEqual(p["s2"], 0)

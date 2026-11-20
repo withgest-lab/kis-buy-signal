@@ -219,8 +219,9 @@ def _attach_buy(tickers: list[dict], series_by: dict, baseline: dict) -> dict:
             gplan = buy_view.scale_for_vol({**plan_all, "src": "all"}, buy_view.ann_vol(close)) if plan_all else None
         own_dates = _date_strs(uw)
         depth_arr = uw["depth"].to_numpy()
-        # 급등 뒤 하락 규칙이 이 종목·묶음 자료로 받쳐지지 않으면(추가 하락도 잦지 않고 1년 뒤도 나쁘지 않음) 깊이 판단으로
-        hot_ok = tier == "hot" and not buy_view.hot_supported(stats)
+        # 급등 뒤 하락: 묶음 자료에서 기다렸다 산 쪽(놓치면 신고가 날)이 바로 산 쪽보다 낫지 않았으면 깊이 판단(매수)으로
+        # (2026-11-21 워크포워드: 옛 규칙(추가 하락 기준) +8.9%/손해 42% → 이 규칙 +11.9%/38%, 모든 묶음에서 같거나 나음)
+        hot_ok = tier == "hot" and not buy_view.wait_better(((gplan or {}).get("wait") or {}).get("hot"))
         anchor = buy_view.current_anchor(days.get(src), own_dates, depth_arr, tier, extra=("hot",) if hot_ok else ())
         # 깊은 조정인데 근거가 나빠 보류가 될 때, 근거가 괜찮았던 '드문 깊이'가 되는 가격(이 종목 지난 날 중 하위 10% 낙폭 선)
         alt = None

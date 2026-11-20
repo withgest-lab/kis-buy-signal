@@ -22,8 +22,13 @@
  ② 근거 확인(1073번): 그날까지 근거가 나빴던(weak_edge) 1차 신호 381번 +10.1%/손해 35%, 비슷 284번 +16.0%/23%,
     나았음 408번 +16.3%/27% → 근거가 나쁘면 '추가 매수 보류'(buy_view.plan hold).
  ③ 급등 뒤 하락: 바로 vs 기다렸다 매수 판단 날 — 미국ETF +7.4%/39% vs +5.6%/43%(놓침 10%), 한국주식 +1.3% vs -1.3%,
-    일본주식 -1.6% vs -11.3%, 미국주식 +34.4% vs +21.3%(놓침 43%). 기다려도 1년 수익은 안 나아짐 → 기다리는 근거는
-    6개월 안 15% 넘게 더 빠지는 일이 모든 큰 묶음에서 잦았다는 추가 하락 위험(hot_supported)으로만 쓴다.
+    일본주식 -1.6% vs -11.3%, 미국주식 +34.4% vs +21.3%(놓침 43%). 기다려도 1년 수익은 안 나아짐.
+ ④ 기다리기 규칙(2026-11-21, 놓치면 신고가 날 산 것으로 셈): 그날까지 결과가 끝난 묶음 자료로 '기다린 쪽이 나았나'(wait_better)를
+    정해 따른 결과 — 급등 뒤 13,600일 옛 규칙(6개월 안 추가 하락 기준 hot_supported) +8.9%/손해 42% → 새 규칙 +11.9%/38%
+    (항상 바로 +13.2%/38%, 항상 기다림 +9.4%/41%; 묶음별로도 모두 같거나 나음: 미국주식 +26.8→+32.8%, 일본 -10.1→-7.2%,
+    미국ETF +8.1→+10.7%) → 급등 뒤 규칙을 wait_better로 교체. 1단계(54,484일)·얕은 조정(151,431일)은 항상 기다림이
+    가장 좋았고(1단계 바로 +11.0%/34% vs 기다림 +14.7%/30%, 모든 묶음에서 기다림이 나음) 같은 규칙을 쓰면 나빠져
+    (+12.7%/32%) '더 기다리기'를 유지한다 — 화면은 이 비교(지금 사면 vs 기다렸다 1차 때)를 근거로 보여 준다.
  변동성 맞춤 간격은 묶음 안에서 체결률을 벌려(변동성 3분위별 2차 체결 묶음 간격 50/57/50% vs 맞춤 61/59/42%) 쓰지 않고,
  1차 신호가 적어 전체 간격을 쓰는 묶음(비트코인)만 scale_for_vol로 넓힌다.
 
@@ -172,6 +177,82 @@ def plan_checks(group_days: dict) -> None:
         nw_, wt = np.array(now), np.array(wait)
         print(f"   {g:8s} {tot:5d}일 바로 {np.median(nw_) * 100:+6.1f}%/{np.mean(nw_ < 0) * 100:3.0f}%  기다림 "
               f"{np.median(wt) * 100:+6.1f}%/{np.mean(wt < 0) * 100:3.0f}%  놓침 {missed / tot * 100:3.0f}%")
+    wait_rule_check(group_days)
+
+
+def wait_rule_check(group_days: dict, min_n: int = 200) -> None:
+    """④ 기다리기 규칙 워크포워드(2026-11-21): 급등 뒤·1단계·얕은 조정 날마다 그날까지 결과가 끝난 같은 묶음 자료로
+    새 규칙(wait_better: 기다린 쪽이 나았으면 기다림)과 옛 규칙(급등 뒤는 6개월 안 추가 하락 기준 hot_supported, 나머지는 항상
+    기다림)을 정해 따른 실제 1년 뒤. 기다리다 매수 판단 없이 신고가가 오면 그 신고가 날 산 것으로 센다(_wait_stats와 같은 정의)."""
+    H6 = buy_view.BARS_6M
+    ev: dict = {}
+    rows = []
+    for g, ds in group_days.items():
+        for w in ds:
+            c, tiers, eps, f12, fdd, dates = w["close"], w["tiers"], w["eps"], w["f12"], w["fdd"], w["dates"]
+            n = len(c)
+            nxt = buy_view._next_buy(tiers, eps)
+            for i, t in enumerate(tiers):
+                if i < H:
+                    continue
+                if i + H < n:
+                    ev.setdefault((g, "base12"), []).append((dates[i + H], f12[i]))
+                if i + H6 < n:
+                    ev.setdefault((g, "base_dd"), []).append((dates[i + H6], fdd[i] < buy_view.DROP_FURTHER))
+                if t not in buy_view.WAIT_TIERS:
+                    continue
+                if i + H6 < n:
+                    ev.setdefault((g, t + "_dd"), []).append((dates[i + H6], fdd[i] < buy_view.DROP_FURTHER))
+                j = int(nxt[i])
+                miss = j < 0
+                if miss:
+                    j = i + 1
+                    while j < n and eps[j] == eps[i]:
+                        j += 1
+                if i + H < n and j + H < n:
+                    ev.setdefault((g, t + "_now"), []).append((dates[i + H], f12[i]))
+                    ev.setdefault((g, t + "_wait"), []).append((dates[j + H], f12[j]))
+                    rows.append((g, t, dates[i], f12[i], f12[j]))
+    idx = {}
+    for k, v in ev.items():
+        v.sort(key=lambda x: x[0])
+        idx[k] = (np.array([x[0] for x in v]), np.array([x[1] for x in v], dtype=float))
+
+    def as_of(key, d, share=False):
+        if key not in idx:
+            return None
+        de, val = idx[key]
+        m = np.searchsorted(de, d, side="right")
+        if m < min_n:
+            return None
+        v = val[:m]
+        return float(np.mean(v)) if share else {"med12": float(np.median(v)), "loss": float(np.mean(v < 0))}
+
+    out: dict = {}
+    for g, t, d, now, wait in rows:
+        ns, ws = as_of((g, t + "_now"), d), as_of((g, t + "_wait"), d)
+        if not ns or not ws:
+            continue
+        new_wait = buy_view.wait_better({"now12": ns["med12"], "now_loss": ns["loss"], "wait12": ws["med12"], "wait_loss": ws["loss"]})
+        if t == "hot":
+            bs, dt, db = as_of((g, "base12"), d), as_of((g, "hot_dd"), d, True), as_of((g, "base_dd"), d, True)
+            if bs is None or dt is None or db is None:
+                continue
+            c2 = buy_view.compare({**ns, "drop15": dt}, {**bs, "drop15": db})
+            old_wait = c2.get("drop") == "more" or buy_view.weak_edge(c2)
+        else:
+            old_wait = True
+        for key in (t, f"{t}:{g}"):
+            o = out.setdefault(key, {"now": [], "wait": [], "old": [], "new": []})
+            o["now"].append(now)
+            o["wait"].append(wait)
+            o["old"].append(wait if old_wait else now)
+            o["new"].append(wait if new_wait else now)
+    pc = lambda a: f"{np.median(a) * 100:+6.1f}%/{np.mean(np.array(a) < 0) * 100:3.0f}%"
+    print("\n[3분할 ④ 기다리기 규칙 — 1년 뒤 중앙/손해: 항상 바로 | 항상 기다림 | 옛 규칙 | 새 규칙(wait_better)]")
+    for k in sorted(out, key=lambda k: (":" in k, k)):
+        o = out[k]
+        print(f"   {k:14s} {len(o['now']):6d}일  {pc(o['now'])} | {pc(o['wait'])} | {pc(o['old'])} | {pc(o['new'])}")
 
 
 def main(src: str = DEFAULT_BASE) -> None:
