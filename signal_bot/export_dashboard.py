@@ -19,6 +19,7 @@ from signal_bot import mdd
 from signal_bot import sell as sellmod
 from signal_bot import timeframe_signals as tf
 from signal_bot import proxies
+from signal_bot import rates
 from signal_bot.config import (JP_BENCH_TICKER, KR_BENCH_TICKER, MDD_ALERT_LEVELS, MDD_ALERT_TICKERS, TICKERS,
                                is_crypto, is_jp, is_kr)
 from signal_bot.pipeline import BASELINE_DIR, DATA_DIR, load_history
@@ -336,6 +337,13 @@ def main():
 
     detail_count = export_details(baseline, sells, frames_by, buy_perfs)
     print(f"상세 차트 데이터 저장 완료: {DETAIL_DIR}/ ({detail_count}개 종목)")
+
+    # 가격 그래프 아래 연준 기준금리 띠(FRED) — 받기 실패는 경고만(띠만 빠지고 나머지 데이터는 그대로 발행)
+    try:
+        n = rates.write()
+        print(f"연준 기준금리 저장 완료: {rates.OUTPUT_PATH} (금리가 바뀐 날 {n}개)")
+    except Exception as e:
+        print(f"::warning::연준 기준금리(FRED) 받기 실패 — 금리 띠 없이 발행: {e}")
 
 
 if __name__ == "__main__":
