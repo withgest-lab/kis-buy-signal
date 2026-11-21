@@ -5,7 +5,7 @@
 - 급등 뒤 하락: 1년 전 대비 수익률(net_1y)이 +30%를 넘으면 고점이 부풀려진 상태라 같은 낙폭이라도 위험이 크다.
 
 판단(verdict) 순서: unknown(과거 국면 5개 미만) → record(사상 최대 낙폭) → hot(2단계+ · 1년 +30% 초과)
-→ strong(2단계+ · 드문 깊이 ≤10%) → split(2단계+) → watch(1단계) → wait.
+→ strong(2단계+ · 드문 깊이 ≤10%) → split(2단계+ · 드문 편 ≤25%) → deep(2단계+지만 자주 있던 깊이) → watch(1단계) → wait.
 
 같은 판단이 과거에 어땠는지는 워크포워드로 센다 - 과거 매일에 대해 그날까지의 국면·날짜만으로 판단을 다시 내리고
 (미래 정보 미사용), 그 뒤 1년 수익률·6개월 안 추가 하락(drop15, 판단에는 쓰지 않음)을 모은다. 사례(하락 국면 수)는 1년 뒤 결과가 있는 하락만
@@ -29,15 +29,16 @@ BARS_1Y = 252
 BARS_6M = 126
 MOVE_WINDOWS = (63, 126, 252, 756)      # 3개월·6개월·1년·3년(거래일)
 HOT_NET_1Y = 0.30                       # 1년 전 대비 이보다 높으면 '급등 뒤 하락'
-RARE_DAYS = 0.10                        # 과거 날짜 중 이보다 적게 더 깊었으면 '드문 깊이'
+RARE_DAYS = 0.10                        # 과거 날짜 중 이보다 적게 더 깊었으면 '드문 깊이'(적극)
+SPLIT_DAYS = 0.25                       # 1차가 되려면 2단계 이상이면서 과거 날짜 중 이보다 깊었던 날이 이 비율 이하(2026-11-21 보수화)
 MIN_HIST_DAYS = 3 * BARS_1Y             # 드문 깊이 판단에 필요한 과거 날짜(지금 하락 전) - 3년
 DROP_FURTHER = -0.15                    # 6개월 안 이만큼 더 빠지면 '추가 하락'(drop15 - 2026-11-21부터 판단·화면에 쓰지 않음)
 MIN_SELF_EPISODES = 5                   # 종목 자체 사례(하락 국면)가 이보다 적으면 묶음 통계로 대신(3~4번은 들쭉날쭉)
-TIERS = ("strong", "split", "hot", "watch", "wait", "record")
+TIERS = ("strong", "split", "deep", "hot", "watch", "wait", "record")
 
 # 3분할 매수 의견
-BUY_TIERS = ("strong", "split", "record")   # 1차 신호가 되는 판단: 2단계 이상이고 급등 뒤가 아님, 또는 사상 최대 낙폭
-WAIT_TIERS = ("hot", "watch", "wait")       # '더 기다리기'가 나올 수 있는 판단 - 지금 사기 vs 기다렸다 사기 통계(_wait_stats)
+BUY_TIERS = ("strong", "split", "record")   # 1차 신호가 되는 판단: 2단계 이상·드문 편(지난 날 25% 이하)·급등 뒤 아님, 또는 사상 최대 낙폭
+WAIT_TIERS = ("hot", "deep", "watch", "wait")   # '더 기다리기'가 나올 수 있는 판단 - 지금 사기 vs 기다렸다 사기 통계(_wait_stats)
 REBOUND = 0.03                  # 1차 신호 뒤 1차가보다 이만큼 넘게 반등했고 지금 판단이 매수가 아니면 다시 '더 기다리기'
 MIN_ANCHORS = 10                # 2·3차 간격에 필요한 과거 1차 신호 수 - 묶음이 이보다 적으면 전체 묶음 값을 쓴다
 EDGE_MED = 0.03                 # 근거 비교어: 1년 뒤 중앙값 차이가 이 안이면 '비슷'
@@ -114,8 +115,14 @@ def verdict(stage: int, has_percentiles: bool, is_record: bool,
         return "hot"
     if stage >= 2 and deeper_share is not None and deeper_share <= RARE_DAYS:
         return "strong"
-    if stage >= 2:
+    # 2단계(과거 조정 바닥의 하위 25%)여도 시간상 자주 있던 깊이면 1차가 아니다 — 지난 날 25% 이하로 드물 때만 '깊은 조정'.
+    # 워크포워드(148종목, 1차 = 하락마다 처음 넘은 날): 2단계·급등 제외만 502번 1년 뒤 +13.4%·손해 27%(아무 때나 +13.4%·30%와
+    # 같음) → 드문 25% 이하를 더하면 310번 +17.2%·23%, 3분할 +8.4%·20% → +10.5%·15%(나쁜 10% -7.2% → -6.1%).
+    # 과거가 3년이 안 돼 드문 정도를 못 재면(deeper_share None) 예전처럼 2단계만으로 본다.
+    if stage >= 2 and (deeper_share is None or deeper_share <= SPLIT_DAYS):
         return "split"
+    if stage >= 2:
+        return "deep"
     if stage == 1:
         return "watch"
     return "wait"
@@ -537,7 +544,7 @@ def current_anchor(walk: Optional[dict], dates: list, depth: np.ndarray, tier: s
 def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[dict],
          anchor: tuple[Optional[int], Optional[str]], stats: Optional[dict], gplan: Optional[dict],
          gpool: Optional[dict], walk: Optional[dict], group: str,
-         hot_ok: bool = False, alt: Optional[dict] = None) -> dict:
+         hot_ok: bool = False, alt: Optional[dict] = None, first_line: Optional[dict] = None) -> dict:
     """3분할 매수 의견(카드 회색 박스). tier=오늘 판단, close·dates=이 종목, high=오늘 신고가, pct=단계 기준 백분위,
     anchor=current_anchor 결과, stats=pick_stats(오늘 판단의 과거 결과), gplan=plan_stats(묶음, 적으면 전체 + scale_for_vol),
     gpool=pool(묶음 판단별 결과), walk=판단 일별 배열(사례 쏠림 확인용), hot_ok=급등 뒤 하락인데 묶음 자료에서 기다린 쪽이
@@ -578,6 +585,9 @@ def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[d
         if tier == "hot":
             hr = hot_release(c)
             out["cond"] = {"kind": "hot", **hr} if hr else None
+        elif first_line:
+            # 1차 = 2단계 선과 '지난 날 25% 이하' 선 중 더 깊은 쪽(export_dashboard가 계산)
+            out["cond"] = {"kind": first_line["kind"], "price": _r(first_line["price"]), "gap": _r(first_line["price"] / px - 1)}
         else:
             line = high * (1 + pct["p25"])
             out["cond"] = {"kind": "stage2", "price": _r(line), "gap": _r(line / px - 1), "level": _r(pct["p25"])}
@@ -615,7 +625,7 @@ def plan(tier: str, close: np.ndarray, dates: list, high: float, pct: Optional[d
         notes["ladder"] = gplan["ladder"]
     if state == "wait" and why == "hot" and gplan.get("hot"):
         notes["hot"] = gplan["hot"]
-    if state == "wait" and why in ("watch", "wait"):
+    if state == "wait" and why in ("watch", "wait", "deep"):
         wt = ((gpool or {}).get("tiers") or {}).get("watch")
         b = (gpool or {}).get("base")
         if wt and b and wt["med12"] - b["med12"] <= -EDGE_MED:

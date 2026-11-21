@@ -29,6 +29,10 @@
     미국ETF +8.1→+10.7%) → 급등 뒤 규칙을 wait_better로 교체. 1단계(54,484일)·얕은 조정(151,431일)은 항상 기다림이
     가장 좋았고(1단계 바로 +11.0%/34% vs 기다림 +14.7%/30%, 모든 묶음에서 기다림이 나음) 같은 규칙을 쓰면 나빠져
     (+12.7%/32%) '더 기다리기'를 유지한다 — 화면은 이 비교(지금 사면 vs 기다렸다 1차 때)를 근거로 보여 준다.
+ ⑤ 1차 보수화(2026-11-21, SPLIT_DAYS): 2단계(과거 조정 바닥의 하위 25%)는 하락 한 번당 바닥 하나만 세서 오래 빠진 종목에선
+    흔한 가격대도 걸렸다 — 2단계·급등 제외만의 1차 날은 한 번에 1년 뒤 +13.4%·손해 27%로 아무 때나와 같았다. '지난 날 중 이보다
+    깊었던 날 25% 이하'를 더하자 1차 날 한 번에 +14.3% → +16.2%, 3분할 +8.1%·21% → +8.9%·20%(①). 2단계지만 흔한 날(deep)은
+    그날 사면 +11.2%·34%(아무 때나 +13.5%·30%), 기다렸다 1차 때 사면 +16.3%·28%(④ deep) → '더 기다리기'(조건부 아님).
  변동성 맞춤 간격은 묶음 안에서 체결률을 벌려(변동성 3분위별 2차 체결 묶음 간격 50/57/50% vs 맞춤 61/59/42%) 쓰지 않고,
  1차 신호가 적어 전체 간격을 쓰는 묶음(비트코인)만 scale_for_vol로 넓힌다.
 
@@ -56,7 +60,7 @@ import numpy as np
 from signal_bot import buy_view
 
 DEFAULT_BASE = "https://withgest-lab.github.io/portfolio-retirement-dashboard/signals/"
-NAMES = {"strong": "적극 매수 검토", "split": "분할 매수 검토", "hot": "신중·급등 뒤", "watch": "관찰(1단계)",
+NAMES = {"strong": "적극 매수 검토", "split": "분할 매수 검토", "deep": "깊지만 흔한 깊이", "hot": "신중·급등 뒤", "watch": "관찰(1단계)",
          "wait": "대기", "record": "주의·사상최대", "base": "평소(모든 날)"}
 
 
@@ -279,7 +283,7 @@ def main(src: str = DEFAULT_BASE) -> None:
     def table(title, accs):
         pooled = buy_view.pool(accs)
         print(f"\n[{title}]  {'판단':14s} {'일수':>7s} {'하락':>5s} {'1년뒤 중앙값':>11s} {'손실':>6s} {'6개월내 -15%↓':>12s}")
-        for k in ("base", "strong", "split", "hot", "watch", "wait", "record"):
+        for k in ("base", "strong", "split", "deep", "hot", "watch", "wait", "record"):
             s = pooled["base"] if k == "base" else pooled["tiers"].get(k)
             if not s:
                 continue

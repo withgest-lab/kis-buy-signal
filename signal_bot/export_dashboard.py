@@ -233,12 +233,22 @@ def _attach_buy(tickers: list[dict], series_by: dict, baseline: dict) -> dict:
             if (rare_price < close[-1] and s_st and s_st.get("tier") and s_st.get("base")
                     and not buy_view.weak_edge(buy_view.compare(s_st["tier"], s_st["base"]))):
                 alt = {"price": round(rare_price, 4), "gap": round(rare_price / close[-1] - 1, 4)}
+        # 1차가 되는 가격: 2단계 선(P25)과 '지난 날 중 이보다 깊었던 날 25%' 선 중 더 깊은 쪽(과거 3년 미만이면 2단계 선)
+        first_line = None
+        pct = t.get("percentiles")
+        if pct and tier in ("deep", "watch", "wait"):
+            stage2 = float(t["rolling_high"]) * (1 + pct["p25"])
+            first_line = {"kind": "stage2", "price": stage2}
+            if src == symb and start is not None and start >= buy_view.MIN_HIST_DAYS:
+                rare25 = float(t["rolling_high"]) * (1 + float(np.quantile(depth_arr[:start], buy_view.SPLIT_DAYS)))
+                if rare25 < stage2:
+                    first_line = {"kind": "rare25", "price": rare25}
         t["buy"] = {
             "tier": tier, "days_deeper": share, "years": years, "moves": mv,
             "retrace_1y": buy_view.retrace(close),
             "stats": stats,
             "plan": buy_view.plan(tier, close, own_dates, float(t["rolling_high"]), t.get("percentiles"), anchor,
-                                  stats, gplan, grp, days.get(src), group, hot_ok=hot_ok, alt=alt),
+                                  stats, gplan, grp, days.get(src), group, hot_ok=hot_ok, alt=alt, first_line=first_line),
         }
         if src != symb:
             t["buy"]["pct_from"] = src

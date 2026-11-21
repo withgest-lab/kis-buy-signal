@@ -57,7 +57,10 @@ class VerdictTest(unittest.TestCase):
         self.assertEqual(bv.verdict(2, True, False, 0.01, 0.31), "hot")
         self.assertEqual(bv.verdict(2, True, False, 0.10, 0.30), "strong")
         self.assertEqual(bv.verdict(2, True, False, 0.11, 0.0), "split")
-        self.assertEqual(bv.verdict(2, True, False, None, None), "split")
+        self.assertEqual(bv.verdict(2, True, False, 0.25, 0.0), "split")
+        self.assertEqual(bv.verdict(2, True, False, 0.26, 0.0), "deep")    # 2단계여도 자주 있던 깊이면 1차 아님
+        self.assertEqual(bv.verdict(3, True, False, 0.40, 0.0), "deep")
+        self.assertEqual(bv.verdict(2, True, False, None, None), "split")  # 과거 3년 미만이면 2단계만으로
         self.assertEqual(bv.verdict(1, True, False, 0.01, 0.0), "watch")
         self.assertEqual(bv.verdict(0, True, False, 0.5, 0.0), "wait")
 
@@ -203,6 +206,17 @@ class PlanTest(unittest.TestCase):
         s = bv.scale_for_vol(g, 2.8)                                         # 2.5배 한도, 3차 -80% 한도
         self.assertEqual((s["scaled"], s["s2"], s["s3"]), (2.5, -0.275, -0.575))
         self.assertEqual(bv.scale_for_vol(g, None), g)
+
+    def test_deep_waits_for_rarer_line(self):
+        # 2단계지만 자주 있던 깊이(deep): 1차가 아니고, 1차 조건은 '지난 날 25%' 선(export가 준 first_line)
+        c = np.full(300, 100.0)
+        gplan = {"n": 20, "s2": -0.10, "s3": -0.20, "lump": {"med12": 0.15, "loss": 0.2}, "ladder": None, "hot": None, "wait": {}}
+        pct = {"p50": -0.08, "p25": -0.15, "p10": -0.25, "count": 12}
+        p = bv.plan("deep", c, _dates(300), 120.0, pct, (None, None), None, gplan, None, None, "usETF",
+                    first_line={"kind": "rare25", "price": 90.0})
+        self.assertEqual((p["state"], p["why"], p["cond"]["kind"], p["cond"]["price"]), ("wait", "deep", "rare25", 90.0))
+        self.assertAlmostEqual(p["cond"]["gap"], -0.1, places=4)
+        self.assertEqual(bv.current_anchor(None, _dates(3), np.array([0, -0.2, -0.3]), "deep"), (None, None))
 
     def test_plan_states(self):
         self.assertEqual(self._plan("split", 95)["state"], "t1")
