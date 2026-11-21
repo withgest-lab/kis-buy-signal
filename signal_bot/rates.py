@@ -1,4 +1,4 @@
-"""연준 기준금리(FOMC 목표 범위) — 매매전략 가격 그래프 아래 '금리 띠'용 docs/rates.json.
+"""연준 기준금리(FOMC 목표 범위) — 매매전략 가격 그래프의 금리 추세 구간·계단·결정 표시용 docs/rates.json.
 
     uv run python -m signal_bot.rates            # 뉴욕 연은에서 새 결정만 받아 이력·docs/rates.json 갱신
     uv run python -m signal_bot.rates --fred     # FRED에서 1982년부터 이력 전체를 다시 만들기(로컬용)
@@ -23,6 +23,7 @@ FRED_CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv?id={}"
 NYFED = "https://markets.newyorkfed.org/api/rates/unsecured/effr/search.json?startDate={}&endDate={}"
 OUTPUT_PATH = Path("docs/rates.json")
 SEED_PATH = Path(__file__).parent / "data" / "fed_steps.json"
+MEETINGS_PATH = Path(__file__).parent / "data" / "fomc_meetings.json"   # 정례 회의 결정일(동결 표시용) — 매년 다음 해 일정 추가
 RANGE_START = "2008-12-16"      # 이날부터 목표 '범위'(상단·하단)
 UA = {"User-Agent": "Mozilla/5.0 (kis-buy-signal)"}
 
@@ -82,6 +83,14 @@ def _save_seed(steps: list[list]) -> None:
                                     ensure_ascii=False), encoding="utf-8")
 
 
+def load_meetings() -> list[str]:
+    """정례 FOMC 결정일(성명 발표일). 정례 밖 변경은 화면이 steps에서 찾는다. 파일이 없으면 빈 목록(화면은 변경만 표시)."""
+    try:
+        return sorted(json.loads(MEETINGS_PATH.read_text(encoding="utf-8"))["meetings"])
+    except Exception:
+        return []
+
+
 def write(path: Path = OUTPUT_PATH, full: bool = False) -> tuple[int, bool]:
     """docs/rates.json을 쓰고 (바뀐 날 수, 새로 받지 못해 저장 이력만 썼는지)를 돌려준다."""
     seed = _load_seed()
@@ -95,8 +104,14 @@ def write(path: Path = OUTPUT_PATH, full: bool = False) -> tuple[int, bool]:
             raise
         steps, stale = seed, True
         print(f"::warning::기준금리 받기 실패({e}) — 저장된 이력으로 발행(마지막 결정 {seed[-1][0]})")
+    meetings = load_meetings()
+    # 다음 해 일정이 아직 안 들어갔으면(60일 안에 목록이 끝남) 경고 — 화면은 목록이 끝난 뒤의 동결을 표시하지 못한다
+    meetings_stale = not meetings or meetings[-1] < (date.today() + timedelta(days=60)).isoformat()
+    if meetings_stale:
+        print(f"::warning::FOMC 회의 일정이 {meetings[-1] if meetings else '없음'}에서 끝남 — signal_bot/data/fomc_meetings.json에 다음 해 일정 추가")
     data = {"name": "미국 연준 기준금리(FOMC 목표 범위)", "source": "FRED·뉴욕 연은",
-            "fetched": date.today().isoformat(), "stale": stale, "steps": steps}
+            "fetched": date.today().isoformat(), "stale": stale, "steps": steps,
+            "meetings": meetings, "meetings_stale": meetings_stale}
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     return len(steps), stale
