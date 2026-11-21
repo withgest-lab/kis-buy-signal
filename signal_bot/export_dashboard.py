@@ -340,8 +340,8 @@ def main():
 
     # 가격 그래프 아래 연준 기준금리 띠(FRED) — 받기 실패는 경고만(띠만 빠지고 나머지 데이터는 그대로 발행)
     try:
-        n = rates.write()
-        print(f"연준 기준금리 저장 완료: {rates.OUTPUT_PATH} (금리가 바뀐 날 {n}개)")
+        n, stale = rates.write()
+        print(f"연준 기준금리 저장 완료: {rates.OUTPUT_PATH} (금리가 바뀐 날 {n}개{', 저장 이력' if stale else ''})")
     except Exception as e:
         print(f"::warning::연준 기준금리(FRED) 받기 실패 — 금리 띠 없이 발행: {e}")
 
