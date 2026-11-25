@@ -739016,10 +739016,10 @@
       "name": "Semiconductor ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 129.4,
-      "pct_chg": -7.72,
+      "close": 128.62,
+      "pct_chg": -8.27,
       "market_regime": "횡보장",
-      "depth": -0.4069,
+      "depth": -0.4105,
       "rolling_high": 218.19,
       "stage": 3,
       "percentiles": {
@@ -739035,22 +739035,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 37.7,
-          "mfi": 42.7,
+          "rsi": 37.4,
+          "mfi": 41.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 38.4,
-          "mfi": 37.8,
+          "rsi": 38.0,
+          "mfi": 39.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 52.0,
-          "mfi": 43.3,
+          "rsi": 51.8,
+          "mfi": 43.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739063,10 +739063,10 @@
       "name": "ARK Innovation ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 67.2,
-      "pct_chg": -3.11,
+      "close": 67.46,
+      "pct_chg": -2.74,
       "market_regime": "횡보장",
-      "depth": -0.5673,
+      "depth": -0.5656,
       "rolling_high": 155.3,
       "stage": 3,
       "percentiles": {
@@ -739082,22 +739082,22 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 35.3,
-          "mfi": 30.1,
+          "rsi": 35.6,
+          "mfi": 29.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 37.0,
-          "mfi": 32.6,
+          "rsi": 37.4,
+          "mfi": 32.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 47.8,
-          "mfi": 35.0,
+          "rsi": 47.9,
+          "mfi": 34.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739110,10 +739110,10 @@
       "name": "Aerospace & Defense ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 67.8,
-      "pct_chg": -0.99,
+      "close": 68.12,
+      "pct_chg": -0.53,
       "market_regime": "횡보장",
-      "depth": -0.1958,
+      "depth": -0.192,
       "rolling_high": 84.31,
       "stage": 3,
       "percentiles": {
@@ -739129,22 +739129,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 43.3,
-          "mfi": 24.6,
+          "rsi": 44.2,
+          "mfi": 23.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 41.2,
-          "mfi": 31.5,
+          "rsi": 41.9,
+          "mfi": 32.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 52.8,
-          "mfi": 44.2,
+          "rsi": 53.2,
+          "mfi": 56.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739157,10 +739157,10 @@
       "name": "Metals & Mining ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 83.3,
-      "pct_chg": -2.07,
+      "close": 83.36,
+      "pct_chg": -2.0,
       "market_regime": "횡보장",
-      "depth": -0.3721,
+      "depth": -0.3716,
       "rolling_high": 132.65,
       "stage": 3,
       "percentiles": {
@@ -739176,22 +739176,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 33.2,
-          "mfi": 33.0,
+          "rsi": 33.3,
+          "mfi": 31.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 30.8,
-          "mfi": 30.1,
+          "mfi": 29.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 46.7,
-          "mfi": 50.5,
+          "mfi": 50.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739204,10 +739204,10 @@
       "name": "Semiconductor ETF(SMH)",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 429.19,
-      "pct_chg": -6.73,
+      "close": 426.75,
+      "pct_chg": -7.26,
       "market_regime": "횡보장",
-      "depth": -0.3584,
+      "depth": -0.362,
       "rolling_high": 668.91,
       "stage": 3,
       "percentiles": {
@@ -739223,22 +739223,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 37.9,
-          "mfi": 43.0,
+          "rsi": 37.5,
+          "mfi": 41.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 37.9,
-          "mfi": 35.1,
+          "rsi": 37.5,
+          "mfi": 35.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 52.5,
-          "mfi": 51.7,
+          "rsi": 52.3,
+          "mfi": 51.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739251,10 +739251,10 @@
       "name": "Gold ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 325.99,
-      "pct_chg": -2.11,
+      "close": 325.45,
+      "pct_chg": -2.27,
       "market_regime": "횡보장",
-      "depth": -0.3426,
+      "depth": -0.3437,
       "rolling_high": 495.9,
       "stage": 3,
       "percentiles": {
@@ -739270,21 +739270,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 30.2,
-          "mfi": 30.2,
+          "rsi": 30.0,
+          "mfi": 29.3,
           "divergence": false,
-          "rsi_oversold": false,
+          "rsi_oversold": true,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 31.8,
-          "mfi": 12.8,
+          "rsi": 31.6,
+          "mfi": 12.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": true
         },
         "monthly": {
-          "rsi": 46.9,
+          "rsi": 46.8,
           "mfi": 58.9,
           "divergence": false,
           "rsi_oversold": false,
@@ -739486,10 +739486,10 @@
       "name": "Nvidia Corp",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 153.6,
-      "pct_chg": -6.94,
+      "close": 155.38,
+      "pct_chg": -5.86,
       "market_regime": "횡보장",
-      "depth": -0.358,
+      "depth": -0.3505,
       "rolling_high": 239.24,
       "stage": 3,
       "percentiles": {
@@ -739505,22 +739505,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 38.9,
-          "mfi": 29.5,
+          "rsi": 39.5,
+          "mfi": 28.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 36.9,
-          "mfi": 30.2,
+          "rsi": 37.5,
+          "mfi": 30.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 46.7,
-          "mfi": 40.6,
+          "rsi": 47.1,
+          "mfi": 40.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739533,10 +739533,10 @@
       "name": "Alphabet Inc. Class A Common Stock",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 279.5,
-      "pct_chg": -0.92,
+      "close": 279.05,
+      "pct_chg": -1.08,
       "market_regime": "횡보장",
-      "depth": -0.3049,
+      "depth": -0.3061,
       "rolling_high": 402.12,
       "stage": 3,
       "percentiles": {
@@ -739552,15 +739552,15 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 39.8,
-          "mfi": 40.2,
+          "rsi": 39.6,
+          "mfi": 39.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 37.9,
-          "mfi": 29.4,
+          "rsi": 37.8,
+          "mfi": 29.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739580,10 +739580,10 @@
       "name": "Broadcom Inc. Common Stock",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 305.2,
-      "pct_chg": -2.66,
+      "close": 301.08,
+      "pct_chg": -3.98,
       "market_regime": "횡보장",
-      "depth": -0.3641,
+      "depth": -0.3727,
       "rolling_high": 479.94,
       "stage": 3,
       "percentiles": {
@@ -739599,21 +739599,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 41.7,
-          "mfi": 47.3,
+          "rsi": 40.8,
+          "mfi": 46.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 41.2,
-          "mfi": 36.5,
+          "rsi": 40.6,
+          "mfi": 36.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 51.2,
+          "rsi": 50.7,
           "mfi": 24.9,
           "divergence": false,
           "rsi_oversold": false,
@@ -739627,10 +739627,10 @@
       "name": "ASML Holding NV",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 1337.06,
-      "pct_chg": -3.38,
+      "close": 1336.06,
+      "pct_chg": -3.45,
       "market_regime": "횡보장",
-      "depth": -0.3262,
+      "depth": -0.3267,
       "rolling_high": 1984.22,
       "stage": 3,
       "percentiles": {
@@ -739646,22 +739646,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 38.2,
-          "mfi": 39.2,
+          "rsi": 38.1,
+          "mfi": 38.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 39.0,
-          "mfi": 29.2,
+          "rsi": 38.9,
+          "mfi": 29.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 52.8,
-          "mfi": 67.8,
+          "mfi": 67.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739674,10 +739674,10 @@
       "name": "Intel Corp",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 55.05,
-      "pct_chg": -7.73,
+      "close": 54.8,
+      "pct_chg": -8.15,
       "market_regime": "횡보장",
-      "depth": -0.6094,
+      "depth": -0.6112,
       "rolling_high": 140.94,
       "stage": 3,
       "percentiles": {
@@ -739693,22 +739693,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 36.3,
-          "mfi": 50.4,
+          "rsi": 36.2,
+          "mfi": 49.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 36.9,
-          "mfi": 40.0,
+          "rsi": 36.8,
+          "mfi": 40.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 48.7,
-          "mfi": 61.6,
+          "mfi": 61.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739722,7 +739722,7 @@
       "currency": "USD",
       "date": "2026-11-24",
       "close": 58.87,
-      "pct_chg": 1.32,
+      "pct_chg": 1.33,
       "market_regime": "횡보장",
       "depth": -0.5604,
       "rolling_high": 133.91,
@@ -739741,21 +739741,21 @@
       "timeframes": {
         "daily": {
           "rsi": 36.6,
-          "mfi": 29.7,
+          "mfi": 31.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 32.2,
-          "mfi": 28.7,
+          "mfi": 28.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 37.3,
-          "mfi": 34.2,
+          "mfi": 34.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739768,10 +739768,10 @@
       "name": "UNITEDHEALTH GROUP INCORPORATED (Delaware)",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 341.21,
-      "pct_chg": 1.53,
+      "close": 341.88,
+      "pct_chg": 1.73,
       "market_regime": "횡보장",
-      "depth": -0.4276,
+      "depth": -0.4265,
       "rolling_high": 596.11,
       "stage": 3,
       "percentiles": {
@@ -739787,21 +739787,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 31.9,
-          "mfi": 35.4,
+          "rsi": 32.2,
+          "mfi": 36.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 38.9,
-          "mfi": 36.5,
+          "rsi": 39.2,
+          "mfi": 36.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 45.5,
+          "rsi": 45.6,
           "mfi": 53.2,
           "divergence": false,
           "rsi_oversold": false,
@@ -739815,10 +739815,10 @@
       "name": "Oracle Corp",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 109.75,
-      "pct_chg": -3.46,
+      "close": 109.5,
+      "pct_chg": -3.68,
       "market_regime": "횡보장",
-      "depth": -0.6607,
+      "depth": -0.6614,
       "rolling_high": 323.43,
       "stage": 3,
       "percentiles": {
@@ -739834,15 +739834,15 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 41.1,
-          "mfi": 25.7,
+          "rsi": 40.9,
+          "mfi": 25.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 38.3,
-          "mfi": 44.0,
+          "rsi": 38.2,
+          "mfi": 44.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739862,10 +739862,10 @@
       "name": "Salesforce",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 194.14,
-      "pct_chg": 4.68,
+      "close": 193.26,
+      "pct_chg": 4.21,
       "market_regime": "횡보장",
-      "depth": -0.4646,
+      "depth": -0.467,
       "rolling_high": 362.58,
       "stage": 3,
       "percentiles": {
@@ -739881,22 +739881,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 35.6,
-          "mfi": 32.4,
+          "rsi": 34.8,
+          "mfi": 34.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 44.6,
-          "mfi": 42.0,
+          "rsi": 44.3,
+          "mfi": 41.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 44.7,
-          "mfi": 48.3,
+          "rsi": 44.6,
+          "mfi": 48.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739909,10 +739909,10 @@
       "name": "Adobe",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 232.0,
-      "pct_chg": 3.58,
+      "close": 232.08,
+      "pct_chg": 3.62,
       "market_regime": "횡보장",
-      "depth": -0.663,
+      "depth": -0.6629,
       "rolling_high": 688.37,
       "stage": 3,
       "percentiles": {
@@ -739928,15 +739928,15 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 44.8,
-          "mfi": 31.9,
+          "rsi": 44.9,
+          "mfi": 32.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 45.0,
-          "mfi": 39.3,
+          "mfi": 39.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -739956,10 +739956,10 @@
       "name": "ServiceNow",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 91.49,
-      "pct_chg": -0.25,
+      "close": 91.74,
+      "pct_chg": 0.02,
       "market_regime": "횡보장",
-      "depth": -0.6091,
+      "depth": -0.6081,
       "rolling_high": 234.08,
       "stage": 3,
       "percentiles": {
@@ -739975,21 +739975,21 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 30.2,
-          "mfi": 23.5,
+          "rsi": 30.3,
+          "mfi": 22.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 38.6,
-          "mfi": 46.6,
+          "rsi": 38.8,
+          "mfi": 46.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 39.5,
+          "rsi": 39.6,
           "mfi": 28.5,
           "divergence": false,
           "rsi_oversold": false,
@@ -740003,10 +740003,10 @@
       "name": "T-Mobile US",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 167.5,
-      "pct_chg": 0.69,
+      "close": 167.3,
+      "pct_chg": 0.57,
       "market_regime": "횡보장",
-      "depth": -0.3686,
+      "depth": -0.3693,
       "rolling_high": 265.27,
       "stage": 3,
       "percentiles": {
@@ -740022,22 +740022,22 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 55.7,
-          "mfi": 54.0,
+          "rsi": 55.4,
+          "mfi": 55.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 46.6,
-          "mfi": 43.4,
+          "rsi": 46.5,
+          "mfi": 43.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 42.2,
-          "mfi": 29.3,
+          "mfi": 29.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -740050,10 +740050,10 @@
       "name": "American Tower",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 182.49,
-      "pct_chg": 1.77,
+      "close": 182.83,
+      "pct_chg": 1.96,
       "market_regime": "횡보장",
-      "depth": -0.2897,
+      "depth": -0.2884,
       "rolling_high": 256.92,
       "stage": 3,
       "percentiles": {
@@ -740069,22 +740069,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 47.3,
-          "mfi": 42.0,
+          "rsi": 47.8,
+          "mfi": 43.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 53.2,
-          "mfi": 48.1,
+          "rsi": 53.5,
+          "mfi": 47.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 50.4,
-          "mfi": 47.8,
+          "rsi": 50.6,
+          "mfi": 47.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -740942,11 +740942,11 @@
       "symb": "BTC",
       "name": "Bitcoin 현물(USD)",
       "currency": "USD",
-      "date": "2026-11-23",
-      "close": 61189.97,
-      "pct_chg": 4.04,
+      "date": "2026-11-24",
+      "close": 59740.87,
+      "pct_chg": -2.37,
       "market_regime": "하락장",
-      "depth": -0.5094,
+      "depth": -0.521,
       "rolling_high": 124720.09,
       "stage": 3,
       "percentiles": {
@@ -740962,22 +740962,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 25.1,
-          "mfi": 25.3,
+          "rsi": 23.5,
+          "mfi": 19.3,
           "divergence": false,
           "rsi_oversold": true,
-          "mfi_oversold": false
+          "mfi_oversold": true
         },
         "weekly": {
-          "rsi": 35.8,
-          "mfi": 43.0,
+          "rsi": 33.8,
+          "mfi": 42.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 43.3,
-          "mfi": 33.7,
+          "rsi": 42.8,
+          "mfi": 33.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -740990,10 +740990,10 @@
       "name": "iShares Bitcoin Trust ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 33.92,
-      "pct_chg": -2.02,
+      "close": 33.76,
+      "pct_chg": -2.48,
       "market_regime": "하락장",
-      "depth": -0.5242,
+      "depth": -0.5264,
       "rolling_high": 71.29,
       "stage": 3,
       "percentiles": {
@@ -741005,25 +741005,25 @@
         "recovery_days_median": 20,
         "recovery_days_max": 765
       },
-      "episode_count": 12,
+      "episode_count": 10,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 25.4,
-          "mfi": 15.0,
+          "rsi": 25.2,
+          "mfi": 14.5,
           "divergence": false,
           "rsi_oversold": true,
           "mfi_oversold": true
         },
         "weekly": {
-          "rsi": 34.4,
-          "mfi": 46.3,
+          "rsi": 34.0,
+          "mfi": 46.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 40.9,
+          "rsi": 51.3,
           "mfi": 30.1,
           "divergence": false,
           "rsi_oversold": false,
@@ -741037,10 +741037,10 @@
       "name": "Nasdaq 100 ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 638.23,
-      "pct_chg": -1.97,
+      "close": 638.1,
+      "pct_chg": -1.99,
       "market_regime": "횡보장",
-      "depth": -0.1598,
+      "depth": -0.16,
       "rolling_high": 759.66,
       "stage": 2,
       "percentiles": {
@@ -741057,21 +741057,21 @@
       "timeframes": {
         "daily": {
           "rsi": 39.5,
-          "mfi": 26.3,
+          "mfi": 25.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 41.0,
-          "mfi": 36.4,
+          "rsi": 40.9,
+          "mfi": 37.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 55.0,
-          "mfi": 53.6,
+          "mfi": 53.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741131,10 +741131,10 @@
       "name": "Technology ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 157.28,
-      "pct_chg": -3.14,
+      "close": 157.09,
+      "pct_chg": -3.26,
       "market_regime": "횡보장",
-      "depth": -0.2214,
+      "depth": -0.2223,
       "rolling_high": 202.0,
       "stage": 2,
       "percentiles": {
@@ -741150,22 +741150,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 37.9,
-          "mfi": 27.8,
+          "rsi": 37.8,
+          "mfi": 27.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 39.8,
-          "mfi": 45.9,
+          "rsi": 39.7,
+          "mfi": 46.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 54.3,
-          "mfi": 52.4,
+          "mfi": 52.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741178,10 +741178,10 @@
       "name": "Cybersecurity ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 94.0,
-      "pct_chg": -0.93,
+      "close": 94.36,
+      "pct_chg": -0.55,
       "market_regime": "횡보장",
-      "depth": -0.1455,
+      "depth": -0.1422,
       "rolling_high": 110.0,
       "stage": 2,
       "percentiles": {
@@ -741197,22 +741197,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 44.3,
-          "mfi": 49.4,
+          "rsi": 44.8,
+          "mfi": 48.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 51.0,
-          "mfi": 60.0,
+          "rsi": 51.3,
+          "mfi": 60.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 66.3,
-          "mfi": 65.6,
+          "rsi": 66.7,
+          "mfi": 65.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741225,10 +741225,10 @@
       "name": "Robotics&AI ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 29.69,
-      "pct_chg": 0.95,
+      "close": 29.47,
+      "pct_chg": 0.2,
       "market_regime": "횡보장",
-      "depth": -0.2865,
+      "depth": -0.2917,
       "rolling_high": 41.61,
       "stage": 2,
       "percentiles": {
@@ -741244,22 +741244,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 40.5,
-          "mfi": 30.1,
+          "rsi": 39.2,
+          "mfi": 31.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 36.0,
-          "mfi": 17.0,
+          "rsi": 35.1,
+          "mfi": 17.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": true
         },
         "monthly": {
-          "rsi": 42.3,
-          "mfi": 50.0,
+          "rsi": 41.9,
+          "mfi": 49.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741272,10 +741272,10 @@
       "name": "Robotics ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 66.5,
-      "pct_chg": -0.31,
+      "close": 65.89,
+      "pct_chg": -1.23,
       "market_regime": "횡보장",
-      "depth": -0.2639,
+      "depth": -0.2706,
       "rolling_high": 90.34,
       "stage": 2,
       "percentiles": {
@@ -741291,21 +741291,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 37.3,
-          "mfi": 19.5,
+          "rsi": 36.3,
+          "mfi": 19.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": true
         },
         "weekly": {
-          "rsi": 36.7,
-          "mfi": 27.9,
+          "rsi": 35.7,
+          "mfi": 28.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 47.4,
+          "rsi": 46.9,
           "mfi": 51.1,
           "divergence": false,
           "rsi_oversold": false,
@@ -741319,10 +741319,10 @@
       "name": "AI Infra ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 22.0,
-      "pct_chg": -0.72,
+      "close": 21.21,
+      "pct_chg": -4.29,
       "market_regime": "횡보장",
-      "depth": -0.3673,
+      "depth": -0.39,
       "rolling_high": 34.77,
       "stage": 2,
       "percentiles": {
@@ -741338,21 +741338,21 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 40.5,
-          "mfi": 32.4,
+          "rsi": 37.7,
+          "mfi": 31.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 35.5,
-          "mfi": 37.4,
+          "rsi": 32.4,
+          "mfi": 37.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 39.5,
+          "rsi": 38.2,
           "mfi": 40.6,
           "divergence": false,
           "rsi_oversold": false,
@@ -741366,10 +741366,10 @@
       "name": "Quantum ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 118.0,
-      "pct_chg": -2.75,
+      "close": 116.11,
+      "pct_chg": -4.3,
       "market_regime": "횡보장",
-      "depth": -0.2975,
+      "depth": -0.3088,
       "rolling_high": 167.97,
       "stage": 2,
       "percentiles": {
@@ -741385,22 +741385,22 @@
       "is_record_drawdown": true,
       "timeframes": {
         "daily": {
-          "rsi": 38.5,
-          "mfi": 38.6,
+          "rsi": 37.2,
+          "mfi": 38.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 38.3,
-          "mfi": 28.3,
+          "rsi": 36.9,
+          "mfi": 28.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 52.6,
-          "mfi": 66.8,
+          "rsi": 51.8,
+          "mfi": 66.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741433,21 +741433,21 @@
       "timeframes": {
         "daily": {
           "rsi": 41.5,
-          "mfi": 28.5,
+          "mfi": 27.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 38.4,
-          "mfi": 33.3,
+          "mfi": 34.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 52.4,
-          "mfi": 49.6,
+          "mfi": 49.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741480,21 +741480,21 @@
       "timeframes": {
         "daily": {
           "rsi": 56.2,
-          "mfi": 54.4,
+          "mfi": 55.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 53.0,
-          "mfi": 47.5,
+          "mfi": 47.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 50.1,
-          "mfi": 48.0,
+          "mfi": 48.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741507,10 +741507,10 @@
       "name": "Gold Miners ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 71.6,
-      "pct_chg": -1.65,
+      "close": 71.37,
+      "pct_chg": -1.96,
       "market_regime": "횡보장",
-      "depth": -0.3819,
+      "depth": -0.3839,
       "rolling_high": 115.84,
       "stage": 2,
       "percentiles": {
@@ -741526,22 +741526,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 36.8,
-          "mfi": 38.2,
+          "rsi": 36.6,
+          "mfi": 37.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 40.5,
-          "mfi": 26.8,
+          "rsi": 40.3,
+          "mfi": 26.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 50.7,
-          "mfi": 47.2,
+          "rsi": 50.6,
+          "mfi": 47.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741574,21 +741574,21 @@
       "timeframes": {
         "daily": {
           "rsi": 38.3,
-          "mfi": 33.9,
+          "mfi": 33.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 46.3,
-          "mfi": 45.6,
+          "mfi": 45.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 49.8,
-          "mfi": 39.5,
+          "mfi": 39.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741601,10 +741601,10 @@
       "name": "Oil & Gas Exploration ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 166.3,
-      "pct_chg": 0.62,
+      "close": 166.26,
+      "pct_chg": 0.6,
       "market_regime": "횡보장",
-      "depth": -0.3766,
+      "depth": -0.3768,
       "rolling_high": 266.77,
       "stage": 2,
       "percentiles": {
@@ -741620,22 +741620,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 31.5,
-          "mfi": 33.6,
+          "rsi": 31.4,
+          "mfi": 32.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 44.5,
-          "mfi": 38.5,
+          "mfi": 38.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 54.2,
-          "mfi": 60.9,
+          "mfi": 60.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741648,10 +741648,10 @@
       "name": "China ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 46.62,
-      "pct_chg": -0.93,
+      "close": 46.61,
+      "pct_chg": -0.96,
       "market_regime": "횡보장",
-      "depth": -0.4616,
+      "depth": -0.4617,
       "rolling_high": 86.59,
       "stage": 2,
       "percentiles": {
@@ -741668,14 +741668,14 @@
       "timeframes": {
         "daily": {
           "rsi": 31.3,
-          "mfi": 36.6,
+          "mfi": 35.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 34.4,
-          "mfi": 28.3,
+          "mfi": 28.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741883,10 +741883,10 @@
       "name": "Meta Platforms, Inc. Class A Common Stock",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 592.0,
-      "pct_chg": -0.94,
+      "close": 589.82,
+      "pct_chg": -1.3,
       "market_regime": "횡보장",
-      "depth": -0.2481,
+      "depth": -0.2509,
       "rolling_high": 787.33,
       "stage": 2,
       "percentiles": {
@@ -741902,22 +741902,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 40.7,
-          "mfi": 37.7,
+          "rsi": 40.2,
+          "mfi": 37.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 45.7,
-          "mfi": 53.6,
+          "rsi": 45.5,
+          "mfi": 53.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 49.9,
-          "mfi": 44.6,
+          "rsi": 49.8,
+          "mfi": 44.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741930,10 +741930,10 @@
       "name": "Micron Technology, Inc.",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 632.46,
-      "pct_chg": -10.63,
+      "close": 629.79,
+      "pct_chg": -11.01,
       "market_regime": "횡보장",
-      "depth": -0.4787,
+      "depth": -0.4809,
       "rolling_high": 1213.18,
       "stage": 2,
       "percentiles": {
@@ -741949,22 +741949,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 37.5,
-          "mfi": 48.6,
+          "rsi": 37.4,
+          "mfi": 47.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 40.3,
-          "mfi": 38.4,
+          "rsi": 40.2,
+          "mfi": 38.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 54.7,
-          "mfi": 67.1,
+          "mfi": 67.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -741977,10 +741977,10 @@
       "name": "Advanced Micro Devices",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 416.69,
-      "pct_chg": -8.11,
+      "close": 413.27,
+      "pct_chg": -8.86,
       "market_regime": "횡보장",
-      "depth": -0.3584,
+      "depth": -0.3636,
       "rolling_high": 649.42,
       "stage": 2,
       "percentiles": {
@@ -741996,22 +741996,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 39.0,
-          "mfi": 49.3,
+          "rsi": 38.7,
+          "mfi": 48.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 44.0,
-          "mfi": 46.7,
+          "rsi": 43.8,
+          "mfi": 46.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 57.3,
-          "mfi": 49.6,
+          "rsi": 57.0,
+          "mfi": 49.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -742024,10 +742024,10 @@
       "name": "Cisco Systems, Inc. Common Stock (DE)",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 94.03,
-      "pct_chg": -2.86,
+      "close": 93.99,
+      "pct_chg": -2.9,
       "market_regime": "횡보장",
-      "depth": -0.2712,
+      "depth": -0.2715,
       "rolling_high": 129.02,
       "stage": 2,
       "percentiles": {
@@ -742043,15 +742043,15 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 41.1,
-          "mfi": 46.9,
+          "rsi": 41.0,
+          "mfi": 46.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 41.5,
-          "mfi": 37.8,
+          "mfi": 38.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -742071,10 +742071,10 @@
       "name": "Palantir Technologies Inc. Class A Common Stock",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 161.8,
-      "pct_chg": 1.53,
+      "close": 161.18,
+      "pct_chg": 1.14,
       "market_regime": "횡보장",
-      "depth": -0.226,
+      "depth": -0.229,
       "rolling_high": 209.05,
       "stage": 2,
       "percentiles": {
@@ -742090,21 +742090,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 43.7,
-          "mfi": 49.0,
+          "rsi": 43.2,
+          "mfi": 49.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 49.1,
-          "mfi": 54.2,
+          "rsi": 48.9,
+          "mfi": 54.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 57.6,
+          "rsi": 57.4,
           "mfi": 51.3,
           "divergence": false,
           "rsi_oversold": false,
@@ -742138,14 +742138,14 @@
       "timeframes": {
         "daily": {
           "rsi": 51.2,
-          "mfi": 25.0,
+          "mfi": 26.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 52.9,
-          "mfi": 62.7,
+          "mfi": 62.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -742165,10 +742165,10 @@
       "name": "McDonald's",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 280.5,
-      "pct_chg": 1.49,
+      "close": 280.7,
+      "pct_chg": 1.56,
       "market_regime": "횡보장",
-      "depth": -0.1614,
+      "depth": -0.1608,
       "rolling_high": 334.5,
       "stage": 2,
       "percentiles": {
@@ -742184,22 +742184,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 67.4,
-          "mfi": 48.0,
+          "rsi": 67.5,
+          "mfi": 49.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 58.5,
-          "mfi": 48.8,
+          "rsi": 58.6,
+          "mfi": 49.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 50.7,
-          "mfi": 41.9,
+          "rsi": 50.8,
+          "mfi": 42.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -742212,10 +742212,10 @@
       "name": "PepsiCo",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 142.15,
-      "pct_chg": 1.38,
+      "close": 142.68,
+      "pct_chg": 1.76,
       "market_regime": "횡보장",
-      "depth": -0.181,
+      "depth": -0.1779,
       "rolling_high": 173.55,
       "stage": 2,
       "percentiles": {
@@ -742231,21 +742231,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 56.2,
-          "mfi": 67.8,
+          "rsi": 57.2,
+          "mfi": 68.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 54.4,
-          "mfi": 44.9,
+          "rsi": 54.9,
+          "mfi": 44.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 49.9,
+          "rsi": 50.2,
           "mfi": 60.0,
           "divergence": false,
           "rsi_oversold": false,
@@ -742259,10 +742259,10 @@
       "name": "Goldman Sachs",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 805.99,
+      "close": 806.02,
       "pct_chg": -2.14,
       "market_regime": "횡보장",
-      "depth": -0.297,
+      "depth": -0.2969,
       "rolling_high": 1146.45,
       "stage": 2,
       "percentiles": {
@@ -742279,21 +742279,21 @@
       "timeframes": {
         "daily": {
           "rsi": 35.3,
-          "mfi": 25.7,
+          "mfi": 24.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 34.6,
-          "mfi": 33.3,
+          "mfi": 33.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 52.8,
-          "mfi": 50.4,
+          "mfi": 50.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -742306,10 +742306,10 @@
       "name": "Morgan Stanley",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 169.09,
-      "pct_chg": -2.03,
+      "close": 168.79,
+      "pct_chg": -2.21,
       "market_regime": "횡보장",
-      "depth": -0.2516,
+      "depth": -0.2529,
       "rolling_high": 225.92,
       "stage": 2,
       "percentiles": {
@@ -742325,22 +742325,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 36.4,
-          "mfi": 34.3,
+          "rsi": 36.2,
+          "mfi": 32.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 36.7,
-          "mfi": 35.2,
+          "rsi": 36.5,
+          "mfi": 34.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 54.2,
-          "mfi": 57.0,
+          "rsi": 54.1,
+          "mfi": 56.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -742353,10 +742353,10 @@
       "name": "Qualcomm",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 165.69,
-      "pct_chg": 0.19,
+      "close": 164.96,
+      "pct_chg": -0.25,
       "market_regime": "횡보장",
-      "depth": -0.3339,
+      "depth": -0.3368,
       "rolling_high": 248.74,
       "stage": 2,
       "percentiles": {
@@ -742372,21 +742372,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 47.5,
-          "mfi": 53.2,
+          "rsi": 47.0,
+          "mfi": 53.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 47.9,
-          "mfi": 55.8,
+          "rsi": 47.7,
+          "mfi": 56.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 50.7,
+          "rsi": 50.6,
           "mfi": 44.4,
           "divergence": false,
           "rsi_oversold": false,
@@ -742400,10 +742400,10 @@
       "name": "Texas Instruments",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 260.43,
-      "pct_chg": -10.56,
+      "close": 258.44,
+      "pct_chg": -11.25,
       "market_regime": "횡보장",
-      "depth": -0.2084,
+      "depth": -0.2144,
       "rolling_high": 328.98,
       "stage": 2,
       "percentiles": {
@@ -742419,22 +742419,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 39.7,
-          "mfi": 39.3,
+          "rsi": 39.1,
+          "mfi": 38.4,
           "divergence": true,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 46.9,
-          "mfi": 43.6,
+          "rsi": 46.5,
+          "mfi": 43.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 56.9,
-          "mfi": 48.1,
+          "rsi": 56.5,
+          "mfi": 48.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -742447,10 +742447,10 @@
       "name": "NextEra Energy",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 84.96,
-      "pct_chg": 1.18,
+      "close": 84.58,
+      "pct_chg": 0.73,
       "market_regime": "횡보장",
-      "depth": -0.1191,
+      "depth": -0.123,
       "rolling_high": 96.44,
       "stage": 2,
       "percentiles": {
@@ -742466,21 +742466,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 56.1,
-          "mfi": 38.5,
+          "rsi": 54.5,
+          "mfi": 39.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 52.5,
-          "mfi": 55.2,
+          "rsi": 51.8,
+          "mfi": 52.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 55.5,
+          "rsi": 55.2,
           "mfi": 62.6,
           "divergence": false,
           "rsi_oversold": false,
@@ -742494,10 +742494,10 @@
       "name": "Freeport-McMoRan",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 48.05,
-      "pct_chg": -3.34,
+      "close": 47.73,
+      "pct_chg": -3.98,
       "market_regime": "횡보장",
-      "depth": -0.3974,
+      "depth": -0.4014,
       "rolling_high": 79.74,
       "stage": 2,
       "percentiles": {
@@ -742513,22 +742513,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 29.5,
-          "mfi": 24.8,
+          "rsi": 29.1,
+          "mfi": 24.0,
           "divergence": false,
           "rsi_oversold": true,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 33.1,
-          "mfi": 24.5,
+          "rsi": 32.7,
+          "mfi": 24.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 46.8,
-          "mfi": 65.3,
+          "rsi": 46.6,
+          "mfi": 65.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -742541,10 +742541,10 @@
       "name": "Prologis",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 128.35,
-      "pct_chg": 2.56,
+      "close": 127.32,
+      "pct_chg": 1.74,
       "market_regime": "횡보장",
-      "depth": -0.1482,
+      "depth": -0.155,
       "rolling_high": 150.68,
       "stage": 2,
       "percentiles": {
@@ -742560,22 +742560,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 51.7,
-          "mfi": 27.1,
+          "rsi": 49.3,
+          "mfi": 29.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 44.6,
-          "mfi": 41.6,
+          "rsi": 43.1,
+          "mfi": 42.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 52.9,
-          "mfi": 54.6,
+          "rsi": 52.3,
+          "mfi": 54.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743199,10 +743199,10 @@
       "name": "Dow Jones ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 499.4,
-      "pct_chg": 0.73,
+      "close": 499.74,
+      "pct_chg": 0.79,
       "market_regime": "횡보장",
-      "depth": -0.0769,
+      "depth": -0.0763,
       "rolling_high": 540.99,
       "stage": 1,
       "percentiles": {
@@ -743218,22 +743218,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 42.4,
-          "mfi": 24.4,
+          "rsi": 42.6,
+          "mfi": 26.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 45.3,
-          "mfi": 36.4,
+          "rsi": 45.5,
+          "mfi": 36.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 60.9,
-          "mfi": 73.6,
+          "rsi": 61.0,
+          "mfi": 73.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743246,10 +743246,10 @@
       "name": "Russell 2000 ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 267.21,
-      "pct_chg": 0.55,
+      "close": 267.14,
+      "pct_chg": 0.53,
       "market_regime": "횡보장",
-      "depth": -0.1219,
+      "depth": -0.1221,
       "rolling_high": 304.29,
       "stage": 1,
       "percentiles": {
@@ -743265,22 +743265,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 43.2,
-          "mfi": 28.5,
+          "rsi": 43.1,
+          "mfi": 31.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 42.9,
-          "mfi": 22.3,
+          "mfi": 23.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 57.1,
-          "mfi": 62.2,
+          "rsi": 57.0,
+          "mfi": 62.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743313,21 +743313,21 @@
       "timeframes": {
         "daily": {
           "rsi": 36.1,
-          "mfi": 24.2,
+          "mfi": 26.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 48.6,
-          "mfi": 41.7,
+          "mfi": 41.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 59.7,
-          "mfi": 66.9,
+          "mfi": 66.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743360,21 +743360,21 @@
       "timeframes": {
         "daily": {
           "rsi": 42.5,
-          "mfi": 24.8,
+          "mfi": 24.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 41.7,
-          "mfi": 30.5,
+          "mfi": 31.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 55.3,
-          "mfi": 56.4,
+          "mfi": 56.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743407,21 +743407,21 @@
       "timeframes": {
         "daily": {
           "rsi": 46.7,
-          "mfi": 51.3,
+          "mfi": 52.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 44.7,
-          "mfi": 49.1,
+          "mfi": 49.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 51.5,
-          "mfi": 43.4,
+          "mfi": 43.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743434,10 +743434,10 @@
       "name": "Biotech ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 156.31,
-      "pct_chg": 6.22,
+      "close": 156.82,
+      "pct_chg": 6.56,
       "market_regime": "횡보장",
-      "depth": -0.0957,
+      "depth": -0.0927,
       "rolling_high": 172.85,
       "stage": 1,
       "percentiles": {
@@ -743453,22 +743453,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 56.2,
-          "mfi": 33.9,
+          "rsi": 56.6,
+          "mfi": 39.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 55.5,
-          "mfi": 33.6,
+          "rsi": 55.8,
+          "mfi": 34.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 70.6,
-          "mfi": 77.0,
+          "rsi": 70.8,
+          "mfi": 76.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743481,10 +743481,10 @@
       "name": "Transportation ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 81.54,
-      "pct_chg": 1.51,
+      "close": 80.49,
+      "pct_chg": 0.2,
       "market_regime": "횡보장",
-      "depth": -0.0921,
+      "depth": -0.1037,
       "rolling_high": 89.81,
       "stage": 1,
       "percentiles": {
@@ -743500,21 +743500,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 49.1,
-          "mfi": 39.5,
+          "rsi": 45.6,
+          "mfi": 36.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 49.5,
-          "mfi": 46.8,
+          "rsi": 47.1,
+          "mfi": 44.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 59.0,
+          "rsi": 57.5,
           "mfi": 72.9,
           "divergence": false,
           "rsi_oversold": false,
@@ -743528,10 +743528,10 @@
       "name": "Japan ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 86.4,
-      "pct_chg": -0.58,
+      "close": 86.64,
+      "pct_chg": -0.3,
       "market_regime": "횡보장",
-      "depth": -0.1301,
+      "depth": -0.1277,
       "rolling_high": 99.32,
       "stage": 1,
       "percentiles": {
@@ -743547,22 +743547,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 37.5,
-          "mfi": 23.8,
+          "rsi": 38.0,
+          "mfi": 23.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 41.5,
-          "mfi": 47.8,
+          "rsi": 41.9,
+          "mfi": 48.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 56.7,
-          "mfi": 69.1,
+          "rsi": 57.0,
+          "mfi": 69.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743575,10 +743575,10 @@
       "name": "Microsoft Corp",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 497.65,
-      "pct_chg": 1.04,
+      "close": 496.13,
+      "pct_chg": 0.74,
       "market_regime": "횡보장",
-      "depth": -0.1046,
+      "depth": -0.1074,
       "rolling_high": 555.8,
       "stage": 1,
       "percentiles": {
@@ -743594,22 +743594,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 42.0,
-          "mfi": 26.6,
+          "rsi": 41.3,
+          "mfi": 26.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 54.0,
-          "mfi": 66.5,
+          "rsi": 53.7,
+          "mfi": 66.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 57.0,
-          "mfi": 49.1,
+          "rsi": 56.8,
+          "mfi": 49.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743622,10 +743622,10 @@
       "name": "Amazon.Com Inc",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 252.48,
-      "pct_chg": -1.14,
+      "close": 252.29,
+      "pct_chg": -1.21,
       "market_regime": "횡보장",
-      "depth": -0.111,
+      "depth": -0.1117,
       "rolling_high": 284.02,
       "stage": 1,
       "percentiles": {
@@ -743641,15 +743641,15 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 46.6,
-          "mfi": 33.9,
+          "rsi": 46.5,
+          "mfi": 33.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 50.5,
-          "mfi": 40.1,
+          "rsi": 50.4,
+          "mfi": 40.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743669,10 +743669,10 @@
       "name": "Tesla, Inc. Common Stock",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 384.76,
-      "pct_chg": -0.18,
+      "close": 384.68,
+      "pct_chg": -0.2,
       "market_regime": "횡보장",
-      "depth": -0.2146,
+      "depth": -0.2147,
       "rolling_high": 489.88,
       "stage": 1,
       "percentiles": {
@@ -743688,15 +743688,15 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 51.9,
-          "mfi": 47.5,
+          "rsi": 51.8,
+          "mfi": 46.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 51.9,
-          "mfi": 56.5,
+          "mfi": 56.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743716,10 +743716,10 @@
       "name": "JPMorgan Chase & Co.",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 317.13,
-      "pct_chg": 0.15,
+      "close": 317.1,
+      "pct_chg": 0.14,
       "market_regime": "횡보장",
-      "depth": -0.1272,
+      "depth": -0.1273,
       "rolling_high": 363.37,
       "stage": 1,
       "percentiles": {
@@ -743736,14 +743736,14 @@
       "timeframes": {
         "daily": {
           "rsi": 37.3,
-          "mfi": 34.2,
+          "mfi": 33.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 43.6,
-          "mfi": 42.1,
+          "mfi": 41.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743763,10 +743763,10 @@
       "name": "ExxonMobil Holdings Corporation",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 158.39,
-      "pct_chg": 0.95,
+      "close": 158.23,
+      "pct_chg": 0.85,
       "market_regime": "횡보장",
-      "depth": -0.1541,
+      "depth": -0.155,
       "rolling_high": 187.25,
       "stage": 1,
       "percentiles": {
@@ -743782,22 +743782,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 36.7,
-          "mfi": 31.5,
+          "rsi": 36.4,
+          "mfi": 33.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 49.2,
-          "mfi": 57.9,
+          "rsi": 49.1,
+          "mfi": 57.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 59.3,
-          "mfi": 70.1,
+          "mfi": 70.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743810,10 +743810,10 @@
       "name": "Palo Alto Networks, Inc. Common Stock",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 352.61,
-      "pct_chg": -0.23,
+      "close": 352.99,
+      "pct_chg": -0.12,
       "market_regime": "횡보장",
-      "depth": -0.1603,
+      "depth": -0.1594,
       "rolling_high": 419.91,
       "stage": 1,
       "percentiles": {
@@ -743829,22 +743829,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 51.5,
-          "mfi": 52.3,
+          "rsi": 51.7,
+          "mfi": 51.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 54.0,
-          "mfi": 59.4,
+          "rsi": 54.1,
+          "mfi": 59.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 67.9,
-          "mfi": 68.6,
+          "mfi": 68.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743857,10 +743857,10 @@
       "name": "Merck & Co., Inc.",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 141.01,
-      "pct_chg": 4.09,
+      "close": 141.57,
+      "pct_chg": 4.5,
       "market_regime": "횡보장",
-      "depth": -0.0934,
+      "depth": -0.0898,
       "rolling_high": 155.53,
       "stage": 1,
       "percentiles": {
@@ -743876,22 +743876,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 47.0,
-          "mfi": 47.0,
+          "rsi": 47.8,
+          "mfi": 49.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 54.0,
-          "mfi": 53.1,
+          "rsi": 54.4,
+          "mfi": 53.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 66.7,
-          "mfi": 81.7,
+          "rsi": 67.2,
+          "mfi": 81.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743904,10 +743904,10 @@
       "name": "Home Depot, Inc.",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 353.11,
-      "pct_chg": 2.04,
+      "close": 353.69,
+      "pct_chg": 2.2,
       "market_regime": "횡보장",
-      "depth": -0.1428,
+      "depth": -0.1414,
       "rolling_high": 411.93,
       "stage": 1,
       "percentiles": {
@@ -743923,22 +743923,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 64.3,
-          "mfi": 59.6,
+          "rsi": 64.6,
+          "mfi": 61.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 59.3,
-          "mfi": 48.8,
+          "rsi": 59.5,
+          "mfi": 49.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 52.6,
-          "mfi": 44.9,
+          "rsi": 52.7,
+          "mfi": 45.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -743951,10 +743951,10 @@
       "name": "Wells Fargo",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 81.02,
-      "pct_chg": 1.27,
+      "close": 81.19,
+      "pct_chg": 1.49,
       "market_regime": "횡보장",
-      "depth": -0.1406,
+      "depth": -0.1387,
       "rolling_high": 94.27,
       "stage": 1,
       "percentiles": {
@@ -743970,21 +743970,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 43.4,
-          "mfi": 38.6,
+          "rsi": 44.0,
+          "mfi": 40.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 46.7,
-          "mfi": 56.0,
+          "rsi": 46.9,
+          "mfi": 55.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 56.0,
+          "rsi": 56.2,
           "mfi": 62.9,
           "divergence": false,
           "rsi_oversold": false,
@@ -743998,10 +743998,10 @@
       "name": "GE Aerospace",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 317.6,
-      "pct_chg": -1.14,
+      "close": 318.03,
+      "pct_chg": -1.01,
       "market_regime": "횡보장",
-      "depth": -0.1656,
+      "depth": -0.1645,
       "rolling_high": 380.64,
       "stage": 1,
       "percentiles": {
@@ -744017,22 +744017,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 48.8,
-          "mfi": 41.6,
+          "rsi": 49.1,
+          "mfi": 39.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 48.7,
-          "mfi": 41.0,
+          "rsi": 48.8,
+          "mfi": 41.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 59.6,
-          "mfi": 56.9,
+          "rsi": 59.7,
+          "mfi": 57.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744045,10 +744045,10 @@
       "name": "RTX Corp",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 196.94,
-      "pct_chg": 1.11,
+      "close": 195.33,
+      "pct_chg": 0.29,
       "market_regime": "횡보장",
-      "depth": -0.1266,
+      "depth": -0.1338,
       "rolling_high": 225.49,
       "stage": 1,
       "percentiles": {
@@ -744064,22 +744064,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 52.8,
-          "mfi": 39.6,
+          "rsi": 50.9,
+          "mfi": 41.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 52.0,
-          "mfi": 39.3,
+          "rsi": 51.1,
+          "mfi": 39.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 62.7,
-          "mfi": 71.3,
+          "rsi": 61.9,
+          "mfi": 71.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744280,10 +744280,10 @@
       "name": "S&P 500 ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 717.97,
-      "pct_chg": -0.6,
+      "close": 718.78,
+      "pct_chg": -0.49,
       "market_regime": "횡보장",
-      "depth": -0.0785,
+      "depth": -0.0774,
       "rolling_high": 779.09,
       "stage": 0,
       "percentiles": {
@@ -744299,22 +744299,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 40.3,
-          "mfi": 19.1,
+          "rsi": 40.5,
+          "mfi": 18.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": true
         },
         "weekly": {
-          "rsi": 44.1,
-          "mfi": 28.8,
+          "rsi": 44.4,
+          "mfi": 29.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 62.6,
-          "mfi": 53.4,
+          "rsi": 62.8,
+          "mfi": 53.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744327,10 +744327,10 @@
       "name": "Financials ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 56.08,
-      "pct_chg": 0.76,
+      "close": 56.11,
+      "pct_chg": 0.83,
       "market_regime": "횡보장",
-      "depth": -0.0528,
+      "depth": -0.0522,
       "rolling_high": 59.2,
       "stage": 0,
       "percentiles": {
@@ -744346,22 +744346,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 47.0,
-          "mfi": 37.3,
+          "rsi": 47.2,
+          "mfi": 39.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 52.7,
-          "mfi": 48.7,
+          "rsi": 52.8,
+          "mfi": 48.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 61.7,
-          "mfi": 57.1,
+          "rsi": 61.8,
+          "mfi": 57.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744374,10 +744374,10 @@
       "name": "Health Care ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 184.38,
-      "pct_chg": 2.76,
+      "close": 184.72,
+      "pct_chg": 2.95,
       "market_regime": "횡보장",
-      "depth": -0.0278,
+      "depth": -0.026,
       "rolling_high": 189.66,
       "stage": 0,
       "percentiles": {
@@ -744393,21 +744393,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 55.0,
-          "mfi": 36.2,
+          "rsi": 55.5,
+          "mfi": 39.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 63.6,
-          "mfi": 70.0,
+          "rsi": 63.8,
+          "mfi": 70.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 72.5,
+          "rsi": 72.8,
           "mfi": 84.5,
           "divergence": false,
           "rsi_oversold": false,
@@ -744421,10 +744421,10 @@
       "name": "Consumer Staples ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 91.92,
-      "pct_chg": 1.7,
+      "close": 91.88,
+      "pct_chg": 1.66,
       "market_regime": "횡보장",
-      "depth": -0.0074,
+      "depth": -0.0078,
       "rolling_high": 92.6,
       "stage": 0,
       "percentiles": {
@@ -744440,22 +744440,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 60.1,
-          "mfi": 59.7,
+          "rsi": 60.0,
+          "mfi": 61.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 67.3,
-          "mfi": 61.4,
+          "rsi": 67.2,
+          "mfi": 61.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 65.9,
-          "mfi": 61.4,
+          "mfi": 61.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744488,21 +744488,21 @@
       "timeframes": {
         "daily": {
           "rsi": 52.0,
-          "mfi": 28.2,
+          "mfi": 30.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 53.9,
-          "mfi": 60.9,
+          "mfi": 61.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 57.8,
-          "mfi": 53.9,
+          "mfi": 54.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744515,10 +744515,10 @@
       "name": "Utilities ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 43.29,
-      "pct_chg": -0.07,
+      "close": 43.4,
+      "pct_chg": 0.18,
       "market_regime": "횡보장",
-      "depth": -0.0741,
+      "depth": -0.0717,
       "rolling_high": 46.75,
       "stage": 0,
       "percentiles": {
@@ -744534,22 +744534,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 53.1,
-          "mfi": 55.8,
+          "rsi": 54.3,
+          "mfi": 57.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 51.3,
-          "mfi": 53.7,
+          "rsi": 51.8,
+          "mfi": 54.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 56.1,
-          "mfi": 62.6,
+          "rsi": 56.3,
+          "mfi": 62.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744562,10 +744562,10 @@
       "name": "Materials ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 50.06,
-      "pct_chg": 0.32,
+      "close": 50.17,
+      "pct_chg": 0.54,
       "market_regime": "횡보장",
-      "depth": -0.0712,
+      "depth": -0.0692,
       "rolling_high": 53.9,
       "stage": 0,
       "percentiles": {
@@ -744581,22 +744581,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 43.5,
-          "mfi": 21.5,
+          "rsi": 44.2,
+          "mfi": 23.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 48.0,
-          "mfi": 48.6,
+          "rsi": 48.3,
+          "mfi": 48.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 55.9,
-          "mfi": 57.8,
+          "rsi": 56.2,
+          "mfi": 57.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744629,21 +744629,21 @@
       "timeframes": {
         "daily": {
           "rsi": 51.4,
-          "mfi": 26.8,
+          "mfi": 30.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 52.0,
-          "mfi": 52.7,
+          "mfi": 52.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 57.1,
-          "mfi": 55.7,
+          "mfi": 55.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744656,32 +744656,32 @@
       "name": "Clean Energy ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 14.0,
-      "pct_chg": -1.62,
+      "close": 14.06,
+      "pct_chg": -1.19,
       "market_regime": "횡보장",
       "depth": 0.0,
-      "rolling_high": 14.0,
+      "rolling_high": 14.06,
       "stage": 0,
       "percentiles": null,
       "episode_count": 0,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 30.5,
-          "mfi": 30.3,
+          "rsi": 30.9,
+          "mfi": 29.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 30.2,
-          "mfi": 27.4,
+          "rsi": 30.7,
+          "mfi": 27.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 42.5,
+          "rsi": 42.7,
           "mfi": 43.1,
           "divergence": false,
           "rsi_oversold": false,
@@ -744695,10 +744695,10 @@
       "name": "Regional Banks ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 69.75,
-      "pct_chg": 0.3,
+      "close": 69.76,
+      "pct_chg": 0.32,
       "market_regime": "횡보장",
-      "depth": -0.0999,
+      "depth": -0.0997,
       "rolling_high": 77.49,
       "stage": 0,
       "percentiles": {
@@ -744714,15 +744714,15 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 41.9,
-          "mfi": 19.4,
+          "rsi": 42.0,
+          "mfi": 22.4,
           "divergence": false,
           "rsi_oversold": false,
-          "mfi_oversold": true
+          "mfi_oversold": false
         },
         "weekly": {
           "rsi": 45.9,
-          "mfi": 31.2,
+          "mfi": 30.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744742,10 +744742,10 @@
       "name": "Retail ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 89.11,
-      "pct_chg": 1.65,
+      "close": 89.7,
+      "pct_chg": 2.33,
       "market_regime": "횡보장",
-      "depth": -0.075,
+      "depth": -0.0688,
       "rolling_high": 96.33,
       "stage": 0,
       "percentiles": {
@@ -744761,22 +744761,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 51.2,
-          "mfi": 33.4,
+          "rsi": 52.6,
+          "mfi": 35.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 55.3,
-          "mfi": 53.4,
+          "rsi": 56.3,
+          "mfi": 53.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 58.8,
-          "mfi": 48.0,
+          "rsi": 59.3,
+          "mfi": 48.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744789,33 +744789,33 @@
       "name": "Uranium ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 27.39,
-      "pct_chg": -3.44,
+      "close": 27.6,
+      "pct_chg": -2.71,
       "market_regime": "횡보장",
       "depth": 0.0,
-      "rolling_high": 27.395,
+      "rolling_high": 27.6,
       "stage": 0,
       "percentiles": null,
       "episode_count": 0,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 31.0,
-          "mfi": 30.4,
+          "rsi": 31.4,
+          "mfi": 29.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 24.3,
-          "mfi": 21.8,
+          "rsi": 25.0,
+          "mfi": 21.6,
           "divergence": false,
           "rsi_oversold": true,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 41.5,
-          "mfi": 39.5,
+          "rsi": 41.7,
+          "mfi": 39.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744828,33 +744828,33 @@
       "name": "US Treasury 7-10Y ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 91.62,
-      "pct_chg": -0.02,
+      "close": 91.64,
+      "pct_chg": 0.0,
       "market_regime": "횡보장",
       "depth": 0.0,
-      "rolling_high": 91.623,
+      "rolling_high": 91.64,
       "stage": 0,
       "percentiles": null,
       "episode_count": 0,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 61.0,
-          "mfi": 68.7,
+          "rsi": 61.3,
+          "mfi": 69.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 51.7,
-          "mfi": 60.5,
+          "rsi": 51.8,
+          "mfi": 60.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 52.4,
-          "mfi": 45.0,
+          "mfi": 45.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744867,33 +744867,33 @@
       "name": "US Treasury 20Y+ ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 81.33,
-      "pct_chg": -0.44,
+      "close": 81.49,
+      "pct_chg": -0.24,
       "market_regime": "횡보장",
       "depth": 0.0,
-      "rolling_high": 81.3315,
+      "rolling_high": 81.49,
       "stage": 0,
       "percentiles": null,
       "episode_count": 0,
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 56.9,
-          "mfi": 73.5,
+          "rsi": 58.5,
+          "mfi": 74.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 49.8,
-          "mfi": 45.9,
+          "rsi": 50.4,
+          "mfi": 46.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 45.9,
-          "mfi": 35.9,
+          "rsi": 46.2,
+          "mfi": 36.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744906,10 +744906,10 @@
       "name": "US Dividend Equity ETF",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 34.87,
-      "pct_chg": 1.4,
+      "close": 34.89,
+      "pct_chg": 1.45,
       "market_regime": "횡보장",
-      "depth": -0.037,
+      "depth": -0.0365,
       "rolling_high": 36.21,
       "stage": 0,
       "percentiles": {
@@ -744925,22 +744925,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 49.1,
-          "mfi": 39.9,
+          "rsi": 49.4,
+          "mfi": 41.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 57.9,
-          "mfi": 44.4,
+          "rsi": 58.0,
+          "mfi": 44.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 68.1,
-          "mfi": 69.7,
+          "rsi": 68.2,
+          "mfi": 69.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -744953,10 +744953,10 @@
       "name": "Apple Inc.",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 353.86,
-      "pct_chg": 1.37,
+      "close": 354.07,
+      "pct_chg": 1.43,
       "market_regime": "횡보장",
-      "depth": -0.0068,
+      "depth": -0.0062,
       "rolling_high": 356.27,
       "stage": 0,
       "percentiles": {
@@ -744972,21 +744972,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 56.7,
-          "mfi": 48.6,
+          "rsi": 56.9,
+          "mfi": 49.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 64.0,
-          "mfi": 64.4,
+          "rsi": 64.1,
+          "mfi": 64.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 73.9,
+          "rsi": 74.0,
           "mfi": 70.5,
           "divergence": false,
           "rsi_oversold": false,
@@ -745000,10 +745000,10 @@
       "name": "BERKSHIRE HATHAWAY Class B",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 577.45,
-      "pct_chg": 0.89,
+      "close": 577.21,
+      "pct_chg": 0.85,
       "market_regime": "횡보장",
-      "depth": -0.0261,
+      "depth": -0.0265,
       "rolling_high": 592.94,
       "stage": 0,
       "percentiles": {
@@ -745019,15 +745019,15 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 61.5,
-          "mfi": 66.2,
+          "rsi": 61.4,
+          "mfi": 67.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 68.9,
-          "mfi": 75.1,
+          "rsi": 68.8,
+          "mfi": 74.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745047,10 +745047,10 @@
       "name": "Eli Lilly & Co.",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 1409.18,
-      "pct_chg": 3.27,
+      "close": 1407.59,
+      "pct_chg": 3.15,
       "market_regime": "횡보장",
-      "depth": -0.0238,
+      "depth": -0.0249,
       "rolling_high": 1443.5,
       "stage": 0,
       "percentiles": {
@@ -745066,21 +745066,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 59.6,
-          "mfi": 50.9,
+          "rsi": 59.4,
+          "mfi": 52.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 63.6,
-          "mfi": 66.2,
+          "rsi": 63.5,
+          "mfi": 66.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 73.2,
+          "rsi": 73.1,
           "mfi": 74.0,
           "divergence": false,
           "rsi_oversold": false,
@@ -745094,10 +745094,10 @@
       "name": "Walmart Inc. Common Stock",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 132.25,
-      "pct_chg": 2.06,
+      "close": 132.31,
+      "pct_chg": 2.11,
       "market_regime": "횡보장",
-      "depth": -0.0122,
+      "depth": -0.0117,
       "rolling_high": 133.88,
       "stage": 0,
       "percentiles": {
@@ -745113,15 +745113,15 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 71.5,
-          "mfi": 56.7,
+          "rsi": 71.6,
+          "mfi": 57.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 68.2,
-          "mfi": 77.4,
+          "mfi": 77.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745141,10 +745141,10 @@
       "name": "VISA Inc.",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 416.53,
-      "pct_chg": 1.74,
+      "close": 416.78,
+      "pct_chg": 1.8,
       "market_regime": "횡보장",
-      "depth": -0.0459,
+      "depth": -0.0453,
       "rolling_high": 436.57,
       "stage": 0,
       "percentiles": {
@@ -745160,22 +745160,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 54.6,
-          "mfi": 46.4,
+          "rsi": 54.8,
+          "mfi": 48.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 66.1,
-          "mfi": 61.6,
+          "rsi": 66.2,
+          "mfi": 61.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 69.7,
-          "mfi": 65.7,
+          "mfi": 65.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745188,11 +745188,11 @@
       "name": "Costco Wholesale Corp",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 1089.6,
-      "pct_chg": 2.03,
+      "close": 1091.71,
+      "pct_chg": 2.23,
       "market_regime": "횡보장",
-      "depth": -0.0013,
-      "rolling_high": 1090.97,
+      "depth": 0.0,
+      "rolling_high": 1091.71,
       "stage": 0,
       "percentiles": {
         "count": 37,
@@ -745207,22 +745207,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 72.3,
-          "mfi": 73.2,
+          "rsi": 72.6,
+          "mfi": 73.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 74.0,
-          "mfi": 81.1,
+          "rsi": 74.2,
+          "mfi": 81.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 66.1,
-          "mfi": 46.8,
+          "rsi": 66.2,
+          "mfi": 46.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745235,10 +745235,10 @@
       "name": "Johnson & Johnson",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 276.68,
-      "pct_chg": 2.97,
+      "close": 276.46,
+      "pct_chg": 2.88,
       "market_regime": "횡보장",
-      "depth": -0.0269,
+      "depth": -0.0277,
       "rolling_high": 284.33,
       "stage": 0,
       "percentiles": {
@@ -745254,22 +745254,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 55.5,
-          "mfi": 48.2,
+          "rsi": 55.3,
+          "mfi": 49.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 59.5,
-          "mfi": 50.5,
+          "rsi": 59.4,
+          "mfi": 50.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 79.4,
-          "mfi": 78.6,
+          "rsi": 79.3,
+          "mfi": 78.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745282,10 +745282,10 @@
       "name": "Mastercard Incorporated",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 647.72,
-      "pct_chg": 1.93,
+      "close": 647.44,
+      "pct_chg": 1.88,
       "market_regime": "횡보장",
-      "depth": -0.0371,
+      "depth": -0.0375,
       "rolling_high": 672.68,
       "stage": 0,
       "percentiles": {
@@ -745301,22 +745301,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 56.0,
-          "mfi": 41.3,
+          "rsi": 55.9,
+          "mfi": 43.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
           "rsi": 65.7,
-          "mfi": 60.3,
+          "mfi": 60.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 67.0,
-          "mfi": 50.4,
+          "mfi": 50.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745329,11 +745329,11 @@
       "name": "ABBVIE INC.",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 299.77,
-      "pct_chg": 3.92,
+      "close": 300.28,
+      "pct_chg": 4.1,
       "market_regime": "횡보장",
       "depth": 0.0,
-      "rolling_high": 299.77,
+      "rolling_high": 300.28,
       "stage": 0,
       "percentiles": {
         "count": 27,
@@ -745348,22 +745348,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 63.9,
-          "mfi": 69.4,
+          "rsi": 64.3,
+          "mfi": 70.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 70.2,
-          "mfi": 67.6,
+          "rsi": 70.3,
+          "mfi": 67.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 79.3,
-          "mfi": 76.7,
+          "rsi": 79.4,
+          "mfi": 76.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745376,10 +745376,10 @@
       "name": "Chevron Corporation",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 209.05,
-      "pct_chg": 1.4,
+      "close": 208.73,
+      "pct_chg": 1.24,
       "market_regime": "횡보장",
-      "depth": -0.1124,
+      "depth": -0.1137,
       "rolling_high": 235.52,
       "stage": 0,
       "percentiles": {
@@ -745395,22 +745395,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 43.8,
-          "mfi": 32.6,
+          "rsi": 43.3,
+          "mfi": 34.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 53.8,
-          "mfi": 46.4,
+          "rsi": 53.6,
+          "mfi": 46.2,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 60.9,
-          "mfi": 56.6,
+          "rsi": 60.8,
+          "mfi": 56.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745423,10 +745423,10 @@
       "name": "Coca-Cola Company",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 97.68,
-      "pct_chg": 1.88,
+      "close": 97.62,
+      "pct_chg": 1.81,
       "market_regime": "횡보장",
-      "depth": -0.0181,
+      "depth": -0.0187,
       "rolling_high": 99.48,
       "stage": 0,
       "percentiles": {
@@ -745442,21 +745442,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 59.2,
-          "mfi": 61.5,
+          "rsi": 59.0,
+          "mfi": 62.7,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 69.2,
-          "mfi": 53.4,
+          "rsi": 69.1,
+          "mfi": 52.9,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 77.3,
+          "rsi": 77.2,
           "mfi": 79.4,
           "divergence": false,
           "rsi_oversold": false,
@@ -745470,10 +745470,10 @@
       "name": "Procter & Gamble Company",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 172.25,
-      "pct_chg": 1.56,
+      "close": 172.47,
+      "pct_chg": 1.69,
       "market_regime": "횡보장",
-      "depth": -0.0045,
+      "depth": -0.0032,
       "rolling_high": 173.02,
       "stage": 0,
       "percentiles": {
@@ -745489,22 +745489,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 66.0,
-          "mfi": 60.2,
+          "rsi": 66.3,
+          "mfi": 61.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 77.6,
-          "mfi": 87.9,
+          "rsi": 77.8,
+          "mfi": 88.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 62.9,
-          "mfi": 51.9,
+          "rsi": 63.0,
+          "mfi": 52.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745517,10 +745517,10 @@
       "name": "Union Pacific",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 290.62,
-      "pct_chg": 0.6,
+      "close": 290.83,
+      "pct_chg": 0.67,
       "market_regime": "횡보장",
-      "depth": -0.06,
+      "depth": -0.0594,
       "rolling_high": 309.19,
       "stage": 0,
       "percentiles": {
@@ -745536,21 +745536,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 45.7,
-          "mfi": 36.7,
+          "rsi": 46.0,
+          "mfi": 35.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 53.7,
-          "mfi": 48.4,
+          "rsi": 53.8,
+          "mfi": 48.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 60.1,
+          "rsi": 60.2,
           "mfi": 72.2,
           "divergence": false,
           "rsi_oversold": false,
@@ -745564,10 +745564,10 @@
       "name": "Honeywell",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 224.07,
-      "pct_chg": 0.95,
+      "close": 224.82,
+      "pct_chg": 1.28,
       "market_regime": "횡보장",
-      "depth": -0.1309,
+      "depth": -0.128,
       "rolling_high": 257.81,
       "stage": 0,
       "percentiles": {
@@ -745583,22 +745583,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 55.1,
-          "mfi": 38.0,
+          "rsi": 55.7,
+          "mfi": 40.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 52.1,
-          "mfi": 65.8,
+          "rsi": 52.4,
+          "mfi": 66.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 52.3,
-          "mfi": 55.9,
+          "rsi": 52.5,
+          "mfi": 56.0,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745611,10 +745611,10 @@
       "name": "Southern Company",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 94.3,
-      "pct_chg": 1.28,
+      "close": 94.11,
+      "pct_chg": 1.07,
       "market_regime": "횡보장",
-      "depth": -0.0327,
+      "depth": -0.0347,
       "rolling_high": 97.49,
       "stage": 0,
       "percentiles": {
@@ -745630,21 +745630,21 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 60.4,
-          "mfi": 65.7,
+          "rsi": 59.7,
+          "mfi": 66.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 59.1,
-          "mfi": 48.9,
+          "rsi": 58.8,
+          "mfi": 49.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 59.1,
+          "rsi": 58.9,
           "mfi": 60.1,
           "divergence": false,
           "rsi_oversold": false,
@@ -745658,10 +745658,10 @@
       "name": "Linde",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 521.76,
-      "pct_chg": 0.92,
+      "close": 516.83,
+      "pct_chg": -0.03,
       "market_regime": "횡보장",
-      "depth": -0.0424,
+      "depth": -0.0514,
       "rolling_high": 544.85,
       "stage": 0,
       "percentiles": {
@@ -745677,22 +745677,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 57.8,
-          "mfi": 63.9,
+          "rsi": 54.7,
+          "mfi": 64.8,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 58.5,
-          "mfi": 71.2,
+          "rsi": 57.1,
+          "mfi": 71.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 60.9,
-          "mfi": 67.0,
+          "rsi": 60.2,
+          "mfi": 67.1,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -745705,10 +745705,10 @@
       "name": "ConocoPhillips",
       "currency": "USD",
       "date": "2026-11-24",
-      "close": 134.78,
-      "pct_chg": 1.96,
+      "close": 134.64,
+      "pct_chg": 1.85,
       "market_regime": "횡보장",
-      "depth": -0.125,
+      "depth": -0.1259,
       "rolling_high": 154.03,
       "stage": 0,
       "percentiles": {
@@ -745724,22 +745724,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 44.8,
-          "mfi": 34.6,
+          "rsi": 44.6,
+          "mfi": 36.6,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 54.0,
-          "mfi": 39.7,
+          "rsi": 53.9,
+          "mfi": 39.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 59.3,
-          "mfi": 60.7,
+          "rsi": 59.2,
+          "mfi": 60.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
