@@ -48,6 +48,16 @@ def trim_history(history: dict, max_days: int = HISTORY_MAX_DAYS) -> dict:
     return {d: rec for d, rec in history.items() if d in keep}
 
 
+def drop_later_than(history: dict, today: str) -> list[str]:
+    """기준일(끝난 봉 중 가장 늦은 날)보다 늦은 날짜 기록을 지운다 — 장중 값으로 만든 기록이다(끝나지 않은 장의 오늘 봉을
+    버리기 전 실행이나 장중 실행). 화면(export_dashboard)은 가장 늦은 날짜 기록을 쓰므로 남아 있으면 옛 장중 값이 계속 보인다
+    (2026-11-25: 11:45 KST 실행의 한국 장중 11-25 기록이 12:02 실행 뒤에도 화면에 남음). 지운 날짜 목록 반환."""
+    stale = sorted(d for d in history if d > today)
+    for d in stale:
+        del history[d]
+    return stale
+
+
 def _read_daily(symb: str) -> pd.DataFrame:
     return pd.read_csv(DATA_DIR / f"{symb}_daily.csv", parse_dates=["date"])
 
@@ -172,6 +182,9 @@ def main():
     # 시장마다 마지막 봉 날짜가 하루씩 다를 수 있어(비트코인은 UTC 일봉이라 하루 늦음) 가장 늦은 날짜를 기준일로 쓴다.
     today = max(r["date"] for r in results)
     history = load_history()
+    stale = drop_later_than(history, today)
+    if stale:
+        print(f"장중 값으로 만든 늦은 날짜 기록 제거: {stale}")
     history[today] = {r["symb"]: r for r in results}
     history = trim_history(history)
     save_history(history)

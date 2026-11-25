@@ -428,6 +428,13 @@ class UnfinishedBarTest(unittest.TestCase):
         self.assertEqual((market_of("비트코인", "BTC"), market_of("한국ETF", "069500"), market_of("일본개별종목", "7203"), market_of("미국지수", "SPY")),
                          (None, "KR", "JP", "US"))
 
+    def test_history_drops_records_later_than_today(self):
+        from signal_bot.pipeline import drop_later_than
+        h = {"2026-11-23": {"SPY": 1}, "2026-11-24": {"SPY": 2}, "2026-11-25": {"069500": "장중"}}
+        self.assertEqual(drop_later_than(h, "2026-11-24"), ["2026-11-25"])
+        self.assertEqual(sorted(h), ["2026-11-23", "2026-11-24"])
+        self.assertEqual(drop_later_than(h, "2026-11-24"), [])          # 두 번째는 지울 것 없음
+
 
 if __name__ == "__main__":
     unittest.main()
