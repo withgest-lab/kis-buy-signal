@@ -9,19 +9,51 @@ MDD는 일봉 종가만 필요하고 주/월봉 RSI/MFI/다이버전스는 일�
 kis_client_kr, 비트코인 현물(CRYPTO_SPOT)은 crypto_client(코인베이스)로 분기.
 """
 
+import datetime as dt
 import logging
+import zoneinfo
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+
+import pandas as pd
 
 from signal_bot import crypto_client as cc
 from signal_bot import kis_client as kc
 from signal_bot import kis_client_kr as kc_kr
-from signal_bot.config import CRYPTO_SPOT, TICKERS, DAILY_MIN_ROWS, is_kr, kr_kind
+from signal_bot.config import CRYPTO_SPOT, TICKERS, DAILY_MIN_ROWS, is_jp, is_kr, kr_kind
 from signal_bot.notifier import send_telegram_message
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s - %(message)s")
 
 DATA_DIR = Path(__file__).parent / "data"
+
+# 아직 열려 있는 장의 '오늘' 봉(장중 값)은 버린다 — 신호·화면은 끝난 날의 종가로만 계산한다(2026-11-25).
+# 미국 종가 확정 보정 실행(20:30 ET = 한국 10:30, 여름 09:30)이 한국·일본 장중 값을 끌어오지 않게 하려는 것.
+# 미국은 16:00 ET 전이면 오늘 봉을 뺀다(마감 직후 실행은 wait_us_close가 16:04 ET 뒤에 시작). 비트코인(24시간)은 그대로.
+MARKET_CLOSE = {
+    "US": ("America/New_York", dt.time(16, 0)),
+    "KR": ("Asia/Seoul", dt.time(15, 30)),
+    "JP": ("Asia/Tokyo", dt.time(15, 30)),
+}
+
+
+def market_of(category: str, symb: str) -> str | None:
+    if symb in CRYPTO_SPOT:
+        return None
+    return "KR" if is_kr(category) else "JP" if is_jp(category) else "US"
+
+
+def drop_unfinished_bar(daily: pd.DataFrame, market: str | None, now: dt.datetime | None = None) -> pd.DataFrame:
+    """그 장이 아직 안 끝났으면(현지 오늘 날짜 봉 + 마감 전) 오늘 봉을 뺀다. now는 시험용(시간대 있는 시각)."""
+    if market is None or daily.empty:
+        return daily
+    tz_name, close = MARKET_CLOSE[market]
+    local = (now or dt.datetime.now(dt.timezone.utc)).astimezone(zoneinfo.ZoneInfo(tz_name))
+    today = pd.Timestamp(local.date())
+    dates = pd.to_datetime(daily["date"])
+    if dates.max().normalize() == today and local.time() < close:
+        return daily[dates < today].reset_index(drop=True)
+    return daily
 
 # 종목 수가 늘수록 일시적 조회 실패 확률이 통계적으로 올라가므로, 1차 실패분만
 # 모아 2차로 재시도한다. 그래도 전체 성공률이 이 아래로 떨어지면 "조용히 며칠
@@ -40,6 +72,7 @@ def _fetch_one(category: str, symb: str) -> dict:
         else:
             daily = kc.fetch_ohlcv(symb, gubn="0", min_rows=DAILY_MIN_ROWS)
             excd = kc.exchange_of(symb)
+        daily = drop_unfinished_bar(daily, market_of(category, symb))
         daily.to_csv(DATA_DIR / f"{symb}_daily.csv", index=False)
         return {
             "category": category,

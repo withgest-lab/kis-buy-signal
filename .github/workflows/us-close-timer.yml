@@ -1,12 +1,15 @@
 name: 미국장 마감 타이머
 
-# 미국 정규장 마감 직후(16:02 ET — 겨울 06:02 KST, 여름 05:02 KST) daily.yml을 바로 실행한다.
+# 미국 정규장 마감 직후(16:02 ET — 겨울 06:02 KST, 여름 05:02 KST) daily.yml을 바로 실행하고,
+# 20:30 ET(겨울 10:30·여름 09:30 KST)에 한 번 더 실행해 확정 종가로 보정한다 — KIS 미국 일봉 종가는 마감 뒤 몇 시간 동안
+# 시간외 거래 가격이 섞여 움직이다 19~22시 ET쯤 공식 종가로 바뀐다(2026-11 실측: 11-20 SPY 19:12 ET 696.88 → 19:22 ET 689.81 공식).
+# 보정 실행 때 한국·일본은 장중이지만 fetch_universe가 끝나지 않은 오늘 봉을 빼므로 전날 종가 그대로다.
 #
 # 왜 '스스로 잇는 시계'인가: GitHub 예약(schedule)은 이 저장소에서 하루 1번꼴, 몇 시간 늦게만 돈다
 # (2026-11: 매시 예약 9번 → 실제 1번, 마감 1~3시간 뒤). 그래서 예약으로 정시를 맞출 수 없다.
 # 대신 GitHub 환경(Environment) `clock-4h`의 대기 타이머(240분 — 러너 없이 기다림, 요금·러너 점유 없음)로 한 칸을 기다리고,
 # 칸이 끝나면 이 워크플로를 workflow_dispatch로 다시 실행해(GITHUB_TOKEN으로 즉시 생성) 사슬을 잇는다.
-#   plan  — 다음 목표(다음 평일 16:02 ET)까지 남은 시간 계산. 이미 도는 사슬이 있으면 stop.
+#   plan  — 다음 목표(평일 16:02·20:30 ET)까지 남은 시간 계산. 이미 도는 사슬이 있으면 stop.
 #   wait  — 남은 시간이 대기 한 칸 + 10분보다 길면: 환경 대기 타이머로 기다림(러너 없음)
 #   fire  — 그 안이면: 목표 시각까지 sleep → daily.yml 실행
 #   relay — wait가 끝났거나 fire가 성공했으면 다음 칸 실행(시험 실행은 fire 뒤 잇지 않음)
@@ -63,7 +66,7 @@ jobs:
           NY = zoneinfo.ZoneInfo("America/New_York")
           UTC = dt.timezone.utc
           WF = "us-close-timer.yml"
-          FIRE_AT = dt.time(16, 2)     # 평일 이 시각(ET)에 daily.yml 시작
+          FIRE_TIMES = (dt.time(16, 2), dt.time(20, 30))   # 평일 이 시각(ET)에 daily.yml 시작 — 마감 직후 + 확정 종가 보정
           MARGIN = 10                  # 대기 한 칸 뒤에도 목표까지 이만큼(분) 남을 때만 한 칸 더 기다린다
           FIRE_MAX = 250               # fire가 sleep할 수 있는 최대(분) — job 한도 안
           RUNAWAY = 30                 # 최근 1시간 이 워크플로 실행이 이보다 많으면 멈춤(폭주 차단)
@@ -91,14 +94,15 @@ jobs:
               return (int(fr) if fr else None), t, dry == "true"
 
           def next_target(now, done):
-              """다음 목표(뉴욕 평일 FIRE_AT). 오늘 목표가 지났는데 아직 안 했으면 오늘 목표(늦음 → 바로 실행)."""
+              """다음 목표(뉴욕 평일 FIRE_TIMES 중). 오늘 목표가 지났는데 아직 안 했으면 그 목표(늦음 → 바로 실행)."""
               for i in range(8):
                   day = now.date() + dt.timedelta(days=i)
                   if day.weekday() >= 5:
                       continue
-                  t = dt.datetime.combine(day, FIRE_AT, NY)
-                  if t > now or (i == 0 and not done(t)):
-                      return t
+                  for ft in FIRE_TIMES:
+                      t = dt.datetime.combine(day, ft, NY)
+                      if t > now or (i == 0 and not done(t)):
+                          return t
               raise RuntimeError("다음 평일을 찾지 못함")
 
           def decide(now, target, hop):

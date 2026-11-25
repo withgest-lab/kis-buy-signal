@@ -404,5 +404,30 @@ class FoldWeekendsTest(unittest.TestCase):
         self.assertEqual(mon["high"], 23.0)
 
 
+class UnfinishedBarTest(unittest.TestCase):
+    def test_drops_today_bar_only_while_market_open(self):
+        import datetime as dt
+        import zoneinfo
+
+        from signal_bot.fetch_universe import drop_unfinished_bar, market_of
+        kst, ny = zoneinfo.ZoneInfo("Asia/Seoul"), zoneinfo.ZoneInfo("America/New_York")
+        kr = pd.DataFrame({"date": pd.to_datetime(["2026-11-24", "2026-11-25"]), "close": [100.0, 103.0]})
+        us = pd.DataFrame({"date": pd.to_datetime(["2026-11-23", "2026-11-24"]), "close": [722.29, 718.78]})
+        # 한국 10:30(장중) → 오늘 봉 제외, 15:40(마감 뒤) → 그대로. 미국 보정 실행(20:30 ET = 한국 10:30) 상황.
+        self.assertEqual(len(drop_unfinished_bar(kr, "KR", dt.datetime(2026, 11, 25, 10, 30, tzinfo=kst))), 1)
+        self.assertEqual(len(drop_unfinished_bar(kr, "KR", dt.datetime(2026, 11, 25, 15, 40, tzinfo=kst))), 2)
+        # 일본(도쿄 15:30 마감 = 한국 15:30)도 같은 규칙
+        self.assertEqual(len(drop_unfinished_bar(kr, "JP", dt.datetime(2026, 11, 25, 14, 0, tzinfo=kst))), 1)
+        # 미국: 16:04 ET 뒤(마감 직후 실행) 그대로, 15:00 ET(장중) 오늘 봉 제외, 다음 날 한국 06:02(=16:02 ET 전날)도 그대로
+        self.assertEqual(len(drop_unfinished_bar(us, "US", dt.datetime(2026, 11, 24, 16, 4, tzinfo=ny))), 2)
+        self.assertEqual(len(drop_unfinished_bar(us, "US", dt.datetime(2026, 11, 24, 15, 0, tzinfo=ny))), 1)
+        self.assertEqual(len(drop_unfinished_bar(us, "US", dt.datetime(2026, 11, 25, 6, 2, tzinfo=kst))), 2)
+        # 비트코인(None)·어제 봉뿐이면 그대로
+        self.assertEqual(len(drop_unfinished_bar(kr, None, dt.datetime(2026, 11, 25, 10, 30, tzinfo=kst))), 2)
+        self.assertEqual(len(drop_unfinished_bar(kr.iloc[:1], "KR", dt.datetime(2026, 11, 25, 10, 30, tzinfo=kst))), 1)
+        self.assertEqual((market_of("비트코인", "BTC"), market_of("한국ETF", "069500"), market_of("일본개별종목", "7203"), market_of("미국지수", "SPY")),
+                         (None, "KR", "JP", "US"))
+
+
 if __name__ == "__main__":
     unittest.main()
