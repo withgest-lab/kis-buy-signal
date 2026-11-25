@@ -291,7 +291,7 @@
   "ROBO": {
     "daily": {
       "rsi_oversold": false,
-      "mfi_oversold": true,
+      "mfi_oversold": false,
       "divergence": false
     },
     "weekly": {
@@ -461,7 +461,7 @@
   "SPY": {
     "daily": {
       "rsi_oversold": false,
-      "mfi_oversold": true,
+      "mfi_oversold": false,
       "divergence": false
     },
     "weekly": {
@@ -1101,7 +1101,7 @@
     "monthly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     }
   },
   "051910": {
@@ -1140,7 +1140,7 @@
   },
   "329180": {
     "daily": {
-      "rsi_oversold": true,
+      "rsi_oversold": false,
       "mfi_oversold": false,
       "divergence": false
     },
@@ -1176,7 +1176,7 @@
     "daily": {
       "rsi_oversold": true,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     },
     "weekly": {
       "rsi_oversold": false,
@@ -1606,12 +1606,12 @@
     "weekly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     },
     "monthly": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     }
   },
   "KRE": {
@@ -1668,7 +1668,7 @@
   "373220": {
     "daily": {
       "rsi_oversold": false,
-      "mfi_oversold": false,
+      "mfi_oversold": true,
       "divergence": false
     },
     "weekly": {
@@ -1958,7 +1958,7 @@
     "daily": {
       "rsi_oversold": false,
       "mfi_oversold": false,
-      "divergence": true
+      "divergence": false
     },
     "weekly": {
       "rsi_oversold": false,
@@ -2194,7 +2194,7 @@
   },
   "FCX": {
     "daily": {
-      "rsi_oversold": true,
+      "rsi_oversold": false,
       "mfi_oversold": false,
       "divergence": false
     },
@@ -2229,7 +2229,7 @@
   "MCHI": {
     "daily": {
       "rsi_oversold": false,
-      "mfi_oversold": false,
+      "mfi_oversold": true,
       "divergence": false
     },
     "weekly": {
@@ -2279,7 +2279,7 @@
   },
   "GLD": {
     "daily": {
-      "rsi_oversold": true,
+      "rsi_oversold": false,
       "mfi_oversold": false,
       "divergence": false
     },
