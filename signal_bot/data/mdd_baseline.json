@@ -32276,43 +32276,27 @@
     "rolling_high": 71.29,
     "episodes": [
       {
-        "start_date": "2022-09-09",
-        "trough_date": "2022-09-12",
-        "recovery_date": "2022-09-15",
-        "depth": -0.063,
-        "recovery_days": 4,
-        "is_complete": true
-      },
-      {
-        "start_date": "2022-09-27",
-        "trough_date": "2022-10-04",
-        "recovery_date": "2022-10-14",
-        "depth": -0.0915,
-        "recovery_days": 13,
-        "is_complete": true
-      },
-      {
-        "start_date": "2022-10-17",
-        "trough_date": "2022-10-28",
-        "recovery_date": "2022-11-08",
-        "depth": -0.111,
-        "recovery_days": 15,
-        "is_complete": true
-      },
-      {
-        "start_date": "2022-11-10",
-        "trough_date": "2022-11-11",
-        "recovery_date": "2022-12-15",
-        "depth": -0.0891,
-        "recovery_days": 24,
-        "is_complete": true
-      },
-      {
-        "start_date": "2022-12-22",
+        "start_date": "2024-01-12",
         "trough_date": "2024-01-23",
+        "recovery_date": "2024-02-09",
+        "depth": -0.1618,
+        "recovery_days": 19,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-03-05",
+        "trough_date": "2024-03-05",
+        "recovery_date": "2024-03-08",
+        "depth": -0.0862,
+        "recovery_days": 3,
+        "is_complete": true
+      },
+      {
+        "start_date": "2024-03-14",
+        "trough_date": "2024-09-06",
         "recovery_date": "2024-11-06",
-        "depth": -0.4825,
-        "recovery_days": 284,
+        "depth": -0.2751,
+        "recovery_days": 164,
         "is_complete": true
       },
       {
