@@ -44,8 +44,8 @@
     "last_stage_notified": 2
   },
   "COST": {
-    "episode_start_date": "2026-09-04",
-    "last_stage_notified": 2
+    "episode_start_date": null,
+    "last_stage_notified": 0
   },
   "LRCX": {
     "episode_start_date": "2026-09-04",
@@ -109,7 +109,7 @@
   },
   "SPY": {
     "episode_start_date": "2026-10-14",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "QQQ": {
     "episode_start_date": "2026-10-08",
@@ -117,7 +117,7 @@
   },
   "DIA": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "IWM": {
     "episode_start_date": "2026-09-04",
@@ -125,7 +125,7 @@
   },
   "XLK": {
     "episode_start_date": "2026-10-08",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "XLF": {
     "episode_start_date": "2026-11-05",
@@ -133,18 +133,18 @@
   },
   "XLE": {
     "episode_start_date": "2026-11-02",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "XLV": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-16",
     "last_stage_notified": 0
   },
   "XLI": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "XLP": {
-    "episode_start_date": "2026-11-05",
+    "episode_start_date": "2026-11-17",
     "last_stage_notified": 0
   },
   "XLY": {
@@ -184,12 +184,12 @@
     "last_stage_notified": 3
   },
   "AAPL": {
-    "episode_start_date": "2026-11-10",
+    "episode_start_date": "2026-11-16",
     "last_stage_notified": 0
   },
   "MSFT": {
     "episode_start_date": "2026-11-05",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "AMZN": {
     "episode_start_date": "2026-09-04",
@@ -200,23 +200,23 @@
     "last_stage_notified": 0
   },
   "BRK-B": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-17",
     "last_stage_notified": 0
   },
   "LLY": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-16",
     "last_stage_notified": 0
   },
   "JPM": {
     "episode_start_date": "2026-09-04",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "V": {
     "episode_start_date": "2026-11-05",
     "last_stage_notified": 0
   },
   "JNJ": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-16",
     "last_stage_notified": 0
   },
   "XOM": {
@@ -240,7 +240,7 @@
     "last_stage_notified": 0
   },
   "KO": {
-    "episode_start_date": null,
+    "episode_start_date": "2026-11-17",
     "last_stage_notified": 0
   },
   "207940": {
@@ -317,7 +317,7 @@
   },
   "006400": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "012450": {
     "episode_start_date": "2026-09-23",
@@ -401,7 +401,7 @@
   },
   "055550": {
     "episode_start_date": "2026-09-23",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "086790": {
     "episode_start_date": "2026-09-23",
@@ -468,12 +468,12 @@
     "last_stage_notified": 2
   },
   "PG": {
-    "episode_start_date": "2026-09-24",
-    "last_stage_notified": 2
+    "episode_start_date": null,
+    "last_stage_notified": 0
   },
   "MS": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "WFC": {
     "episode_start_date": "2026-09-24",
@@ -509,15 +509,15 @@
   },
   "PLD": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 2
+    "last_stage_notified": 3
   },
   "MRK": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "FCX": {
     "episode_start_date": "2026-09-24",
-    "last_stage_notified": 1
+    "last_stage_notified": 2
   },
   "COP": {
     "episode_start_date": "2026-11-02",
@@ -592,7 +592,7 @@
     "last_stage_notified": 0
   },
   "SCHD": {
-    "episode_start_date": "2026-11-05",
+    "episode_start_date": "2026-11-16",
     "last_stage_notified": 0
   },
   "EWJ": {
@@ -605,7 +605,7 @@
   },
   "7267": {
     "episode_start_date": "2026-11-06",
-    "last_stage_notified": 0
+    "last_stage_notified": 1
   },
   "6861": {
     "episode_start_date": "2026-10-02",
