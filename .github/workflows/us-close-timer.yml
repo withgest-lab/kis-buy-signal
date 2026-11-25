@@ -1,59 +1,240 @@
 name: 미국장 마감 타이머
 
 # 미국 정규장 마감 직후(16:02 ET — 겨울 06:02 KST, 여름 05:02 KST) daily.yml을 바로 실행한다.
-# GitHub 예약 실행은 몇 시간씩 밀린다(2026-11: daily.yml의 22:30 UTC 예약이 실제로는 02:00~04:45 UTC에 시작,
-# 포털 배포의 2시간 간격 예약은 하루 3번꼴). 그래서 마감 몇 시간 전부터 여러 번 깨워 두고, 먼저 깨어난 타이머가
-# 16:02 ET까지 기다렸다가 daily.yml을 실행한다. 늦게 깨어났으면 바로 실행하고, 이미 실행됐으면 그냥 끝낸다.
-# 같은 저장소의 workflow_dispatch는 GITHUB_TOKEN으로도 새 실행을 만든다(비밀값 불필요). 공개 저장소라 대기 비용 없음.
+#
+# 왜 '스스로 잇는 시계'인가: GitHub 예약(schedule)은 이 저장소에서 하루 1번꼴, 몇 시간 늦게만 돈다
+# (2026-11: 매시 예약 9번 → 실제 1번, 마감 1~3시간 뒤). 그래서 예약으로 정시를 맞출 수 없다.
+# 대신 GitHub 환경(Environment) `clock-4h`의 대기 타이머(240분 — 러너 없이 기다림, 요금·러너 점유 없음)로 한 칸을 기다리고,
+# 칸이 끝나면 이 워크플로를 workflow_dispatch로 다시 실행해(GITHUB_TOKEN으로 즉시 생성) 사슬을 잇는다.
+#   plan  — 다음 목표(다음 평일 16:02 ET)까지 남은 시간 계산. 이미 도는 사슬이 있으면 stop.
+#   wait  — 남은 시간이 대기 한 칸 + 10분보다 길면: 환경 대기 타이머로 기다림(러너 없음)
+#   fire  — 그 안이면: 목표 시각까지 sleep → daily.yml 실행
+#   relay — wait가 끝났거나 fire가 성공했으면 다음 칸 실행(시험 실행은 fire 뒤 잇지 않음)
+# 예약(schedule)은 사슬이 끊겼을 때 다시 잇는 대체일 뿐이다(몇 시간 밀려도 됨 — 늦게 깨면 바로 실행).
+# 끄려면: Actions → 이 워크플로 → Disable workflow(다음 칸 실행이 실패해 사슬이 멈춘다).
+# 보안: 비밀값·checkout·제3자 액션 없음, 권한은 job별 최소(actions만), 입력값은 env로만 받아 형식 검사.
 # 종가 확정 대기(16:04 ET)·SPY 날짜 확인은 daily.yml의 signal_bot.wait_us_close가 맡는다.
 on:
   schedule:
-    # 평일(UTC) 12~20시 매시 13분 — 마감(겨울 21:00·여름 20:00 UTC) 5.5시간 안에 깨어난 것만 기다린다
-    - cron: "13 12-20 * * 1-5"
-  workflow_dispatch: {}
+    - cron: "23 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      from_run:
+        description: "(사슬 내부용 — 비워 두세요) 이 실행을 부른 앞 칸 run id"
+        required: false
+        default: ""
+      target:
+        description: "(시험용) 목표 시각 ISO, 예 2026-11-25T03:10:00Z — 지정하면 시험 실행(환경 clock-test, fire 뒤 사슬을 잇지 않음)"
+        required: false
+        default: ""
+      dry:
+        description: "(시험용) true면 daily.yml을 실행하지 않고 '실행했을 것'만 기록"
+        required: false
+        default: "false"
 
-permissions:
-  actions: write
-  contents: read
-
-# 한 번에 하나만 기다린다. 뒤에 깨어난 타이머는 대기열에서 기다리다 '이미 실행됨'을 보고 끝난다.
-concurrency:
-  group: us-close-timer
-  cancel-in-progress: false
+permissions: {}
 
 jobs:
-  timer:
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 350
+    timeout-minutes: 5
+    permissions:
+      actions: read
+    outputs:
+      next: ${{ steps.p.outputs.next }}
+      target: ${{ steps.p.outputs.target }}
+      env: ${{ steps.p.outputs.env }}
+      test: ${{ steps.p.outputs.test }}
+      dry: ${{ steps.p.outputs.dry }}
     steps:
-      - name: Wait until 16:02 ET and start daily.yml once
+      - name: Plan the next step of the clock
+        id: p
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          IN_FROM_RUN: ${{ inputs.from_run }}
+          IN_TARGET: ${{ inputs.target }}
+          IN_DRY: ${{ inputs.dry }}
+        run: |
+          python3 - <<'EOF'
+          import datetime as dt, json, os, re, subprocess, sys, zoneinfo
+
+          NY = zoneinfo.ZoneInfo("America/New_York")
+          UTC = dt.timezone.utc
+          WF = "us-close-timer.yml"
+          FIRE_AT = dt.time(16, 2)     # 평일 이 시각(ET)에 daily.yml 시작
+          MARGIN = 10                  # 대기 한 칸 뒤에도 목표까지 이만큼(분) 남을 때만 한 칸 더 기다린다
+          FIRE_MAX = 250               # fire가 sleep할 수 있는 최대(분) — job 한도 안
+          RUNAWAY = 30                 # 최근 1시간 이 워크플로 실행이 이보다 많으면 멈춤(폭주 차단)
+          ALIVE = {"queued", "in_progress", "waiting", "pending", "requested"}
+
+          def gh(*a):
+              return subprocess.run(["gh", *a], check=True, capture_output=True, text=True).stdout
+
+          def utc(s):
+              return dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
+
+          def parse_inputs(e):
+              fr = (e.get("IN_FROM_RUN") or "").strip()
+              tg = (e.get("IN_TARGET") or "").strip()
+              dry = (e.get("IN_DRY") or "false").strip().lower()
+              if fr and not re.fullmatch(r"\d{1,20}", fr):
+                  raise ValueError("from_run은 숫자만")
+              if dry not in ("true", "false"):
+                  raise ValueError("dry는 true/false만")
+              t = None
+              if tg:
+                  if not re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d(:\d\d)?(Z|[+-]\d\d:\d\d)", tg):
+                      raise ValueError("target 형식 오류(예: 2026-11-25T03:10:00Z)")
+                  t = utc(tg)
+              return (int(fr) if fr else None), t, dry == "true"
+
+          def next_target(now, done):
+              """다음 목표(뉴욕 평일 FIRE_AT). 오늘 목표가 지났는데 아직 안 했으면 오늘 목표(늦음 → 바로 실행)."""
+              for i in range(8):
+                  day = now.date() + dt.timedelta(days=i)
+                  if day.weekday() >= 5:
+                      continue
+                  t = dt.datetime.combine(day, FIRE_AT, NY)
+                  if t > now or (i == 0 and not done(t)):
+                      return t
+              raise RuntimeError("다음 평일을 찾지 못함")
+
+          def decide(now, target, hop):
+              """wait(대기 한 칸) 또는 fire(목표까지 sleep 후 실행). hop=None이면 대기 타이머를 쓸 수 없음."""
+              left = (target - now).total_seconds() / 60
+              if hop is not None and left > hop + MARGIN:
+                  return "wait"
+              if left > FIRE_MAX:
+                  raise RuntimeError("환경 대기 타이머를 확인하지 못해 기다릴 수 없음 — 환경 clock-4h(wait_timer 240)를 확인하세요")
+              return "fire"
+
+          def older_alive(runs, me, prev):
+              return [r for r in runs if r["status"] in ALIVE and r["databaseId"] not in (me, prev) and r["databaseId"] < me]
+
+          def runaway(runs, now_utc):
+              return sum(1 for r in runs if now_utc - utc(r["createdAt"]) < dt.timedelta(hours=1)) > RUNAWAY
+
+          def env_wait(repo, name):
+              try:
+                  j = json.loads(gh("api", f"repos/{repo}/environments/{name}"))
+              except Exception as ex:
+                  print(f"::warning::환경 {name} 확인 실패({ex})"); return None
+              w = [r.get("wait_timer") for r in j.get("protection_rules") or [] if r.get("type") == "wait_timer"]
+              return w[0] if w and isinstance(w[0], int) and 1 <= w[0] <= FIRE_MAX - MARGIN else None
+
+          def started_since(repo, t):
+              runs = json.loads(gh("run", "list", "-R", repo, "--workflow", "daily.yml", "-L", "20", "--json", "createdAt"))
+              return any(utc(r["createdAt"]) >= t for r in runs)
+
+          def out(**kv):
+              with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+                  for k, v in kv.items():
+                      f.write(f"{k}={v}\n")
+
+          def main():
+              e = os.environ
+              repo, me = e["REPO"], int(e["RUN_ID"])
+              try:
+                  prev, test_target, dry = parse_inputs(e)
+              except ValueError as ex:
+                  print(f"::error::입력값 오류: {ex}"); sys.exit(1)
+              runs = json.loads(gh("run", "list", "-R", repo, "--workflow", WF, "-L", "60", "--json", "databaseId,status,createdAt"))
+              if runaway(runs, dt.datetime.now(UTC)):
+                  print(f"::error::최근 1시간 실행이 {RUNAWAY}개를 넘음 — 폭주 차단으로 멈춤(환경 대기 타이머 확인)"); sys.exit(1)
+              if older_alive(runs, me, prev):
+                  print("이미 도는 사슬이 있음 → 이 실행은 여기서 끝"); out(next="stop"); return
+              test = test_target is not None
+              env_name = "clock-test" if test else "clock-4h"
+              hop = env_wait(repo, env_name)
+              now = dt.datetime.now(NY)
+              target = test_target.astimezone(NY) if test else next_target(now, lambda t: started_since(repo, t))
+              nxt = decide(now, target, hop)
+              left = (target - now).total_seconds() / 60
+              print(f"뉴욕 {now:%a %H:%M:%S} · 목표 {target:%a %m-%d %H:%M} ET(한국 {target.astimezone(zoneinfo.ZoneInfo('Asia/Seoul')):%m-%d %H:%M}) · "
+                    f"남은 {left:.0f}분 · 대기 칸 {hop}분 → {nxt}{' (시험)' if test else ''}{' (dry)' if dry else ''}")
+              out(next=nxt, target=target.isoformat(), env=env_name, test=str(test).lower(), dry=str(dry).lower())
+
+          if __name__ == "__main__":
+              main()
+          EOF
+
+  wait:
+    needs: plan
+    if: needs.plan.outputs.next == 'wait'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    # 환경의 대기 타이머(clock-4h 240분 / clock-test 1분)만큼 이 job 시작이 늦춰진다 — 그동안 러너를 쓰지 않는다.
+    environment: ${{ needs.plan.outputs.env }}
+    steps:
+      - name: Waited one hop
+        run: echo "대기 한 칸 끝 → 다음 칸"
+
+  fire:
+    needs: plan
+    if: needs.plan.outputs.next == 'fire'
+    runs-on: ubuntu-latest
+    timeout-minutes: 270
+    permissions:
+      actions: write
+    steps:
+      - name: Sleep until the target and start daily.yml once
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TARGET: ${{ needs.plan.outputs.target }}
+          DRY: ${{ needs.plan.outputs.dry }}
         run: |
           python3 - <<'EOF'
           import datetime as dt, json, os, subprocess, time, zoneinfo
-          ny = zoneinfo.ZoneInfo("America/New_York")
-          now = dt.datetime.now(ny)
-          target = now.replace(hour=16, minute=2, second=0, microsecond=0)
-          repo = os.environ["REPO"]
+          NY = zoneinfo.ZoneInfo("America/New_York")
+          repo, dry = os.environ["REPO"], os.environ["DRY"] == "true"
+          target = dt.datetime.fromisoformat(os.environ["TARGET"])
+
+          def gh(*a):
+              return subprocess.run(["gh", *a], check=True, capture_output=True, text=True).stdout
 
           def started_since(t):
-              out = subprocess.run(["gh", "run", "list", "-R", repo, "--workflow", "daily.yml", "-L", "20",
-                                    "--json", "createdAt"], check=True, capture_output=True, text=True).stdout
-              return any(dt.datetime.fromisoformat(r["createdAt"].replace("Z", "+00:00")) >= t for r in json.loads(out))
+              runs = json.loads(gh("run", "list", "-R", repo, "--workflow", "daily.yml", "-L", "20", "--json", "createdAt"))
+              return any(dt.datetime.fromisoformat(r["createdAt"].replace("Z", "+00:00")) >= t for r in runs)
 
-          if now.weekday() >= 5:
-              print(f"뉴욕 {now:%a} — 장 없는 날"); raise SystemExit
-          wait = (target - now).total_seconds()
-          if wait > 5.6 * 3600:
-              print(f"뉴욕 {now:%H:%M} — 마감까지 {wait / 3600:.1f}시간, 나중에 깨어나는 타이머가 맡음"); raise SystemExit
-          if started_since(target):
-              print("오늘 마감 뒤 daily.yml이 이미 실행됨"); raise SystemExit
+          wait = (target - dt.datetime.now(NY)).total_seconds()
           if wait > 0:
-              print(f"뉴욕 {now:%H:%M:%S} — 16:02 ET까지 {wait / 60:.0f}분 대기"); time.sleep(wait)
-              if started_since(target):
-                  print("기다리는 사이 daily.yml이 이미 실행됨"); raise SystemExit
-          subprocess.run(["gh", "workflow", "run", "daily.yml", "-R", repo, "--ref", "main"], check=True)
-          print(f"daily.yml 실행 요청 — 뉴욕 {dt.datetime.now(ny):%H:%M:%S}")
+              print(f"목표 {target.astimezone(NY):%H:%M:%S} ET까지 {wait / 60:.1f}분 대기"); time.sleep(wait)
+          if started_since(target):
+              print("목표 뒤 daily.yml이 이미 실행됨 → 할 일 없음"); raise SystemExit
+          if dry:
+              print("(dry) daily.yml을 실행했을 것")
+          else:
+              gh("workflow", "run", "daily.yml", "-R", repo, "--ref", "main")
+          now = dt.datetime.now(NY)
+          print(f"daily.yml 실행 요청 — 뉴욕 {now:%H:%M:%S} (목표보다 {(now - target).total_seconds():+.0f}초)")
           EOF
+
+  relay:
+    needs: [plan, wait, fire]
+    if: >-
+      always() && needs.plan.result == 'success' && (
+        (needs.plan.outputs.next == 'wait' && needs.wait.result == 'success') ||
+        (needs.plan.outputs.next == 'fire' && needs.fire.result == 'success' && needs.plan.outputs.test != 'true'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions:
+      actions: write
+    steps:
+      - name: Start the next hop of the clock
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          TEST: ${{ needs.plan.outputs.test }}
+          IN_TARGET: ${{ inputs.target }}
+          DRY: ${{ needs.plan.outputs.dry }}
+        run: |
+          set -euo pipefail
+          args=(-f from_run="$RUN_ID")
+          if [ "$TEST" = "true" ]; then args+=(-f target="$IN_TARGET" -f dry="$DRY"); fi
+          gh workflow run us-close-timer.yml -R "$REPO" --ref main "${args[@]}"
+          echo "다음 칸 실행 요청"
