@@ -331,6 +331,32 @@ class SplitMismatchTest(unittest.TestCase):
 
 
 class HistoryFixTest(unittest.TestCase):
+    def test_listing_gap_drops_pre_listing_segment(self):
+        import tempfile
+        from pathlib import Path
+        from unittest import mock
+
+        from signal_bot import baseline_fetch as bf
+        # IBIT 모양: 다른 증권 149일 → 258일 공백 → 진짜 상장. 미국 휴장(최대 4일)·9·11(6일)은 공백이 아니다.
+        fake = pd.bdate_range("2022-09-08", periods=149)
+        real = pd.bdate_range("2024-01-11", "2024-12-31")
+        dates = fake.append(real)
+        ibit = pd.DataFrame({"date": dates, "close": np.r_[np.full(len(fake), 7.0), np.linspace(46, 90, len(real))]})
+        spy_d = pd.bdate_range("2001-09-04", "2001-10-31").drop(pd.bdate_range("2001-09-11", "2001-09-14"))
+        spy = pd.DataFrame({"date": spy_d, "close": np.linspace(110, 105, len(spy_d))})
+        self.assertIsNone(bf.cut_before_listing_gap(spy))
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp)
+            ibit.to_csv(base / "IBIT_daily.csv", index=False)
+            spy.to_csv(base / "SPY_daily.csv", index=False)
+            with mock.patch.object(bf, "BASELINE_DIR", base), mock.patch.object(bf, "TICKERS", [("섹터ETF", "IBIT"), ("미국지수", "SPY")]):
+                self.assertEqual(bf.fix_history(), ["IBIT"])
+                self.assertEqual(bf.fix_history(), [])                  # 두 번째는 바꿀 것 없음
+            out = pd.read_csv(base / "IBIT_daily.csv", parse_dates=["date"])
+            self.assertEqual(out["date"].min(), pd.Timestamp("2024-01-11"))
+            self.assertEqual(len(out), len(real))
+            self.assertEqual(len(pd.read_csv(base / "SPY_daily.csv")), len(spy))
+
     def test_jp_trim_and_isrg_repair_are_idempotent(self):
         import tempfile
         from pathlib import Path

@@ -83,6 +83,12 @@ JP_HISTORY_START = "2014-04-01"
 PRICE_BREAKS = {"ISRG": [("2017-10-06", 3.0)]}
 SPLIT_FACTORS = (2, 3, 4, 5, 10, 1 / 2, 1 / 3, 1 / 4, 1 / 5, 1 / 10)
 
+# 상장 전·다른 증권의 시세가 앞에 붙은 종목: KIS가 그 기호를 예전에 쓰던 다른 증권(또는 상장 전 값)을 돌려주면 진짜 상장일
+# 앞에 긴 공백을 두고 짧은 가짜 구간이 생긴다(2026-11-25 확인: IBIT 2022-09~2023-04 149일 → 258일 공백 → 2024-01-11 상장,
+# NOW 2010-05~2011-01 56일 → 542일 공백 → 2012-06-29 상장). 그대로 두면 3Y·ALL 기간 수익률과 낙폭 국면·백분위가 가짜 값에서
+# 시작한다. 상장 종목이 이만큼(달력일) 넘게 거래가 없는 일은 없으므로, 이보다 긴 공백이 있으면 마지막 공백 앞을 모두 버린다.
+LISTING_GAP_DAYS = 90
+
 
 def _history_start(category: str, symb: str) -> str | None:
     if is_kr(category) and kr_kind(symb) == "item":
@@ -105,6 +111,35 @@ def trim_history() -> list[str]:
         if df.empty or df["date"].min() >= pd.Timestamp(start):
             continue
         df[df["date"] >= pd.Timestamp(start)].to_csv(path, index=False)
+        changed.append(symb)
+    return changed
+
+
+def cut_before_listing_gap(df: pd.DataFrame, gap_days: int = LISTING_GAP_DAYS) -> pd.DataFrame | None:
+    """date 오름차순 일봉에서 gap_days(달력일)보다 긴 공백이 있으면 마지막 공백 뒤만 돌려준다. 공백이 없으면 None."""
+    if len(df) < 2:
+        return None
+    d = df["date"].sort_values().reset_index(drop=True)
+    gaps = d.diff().dt.days
+    big = gaps.index[gaps > gap_days]
+    if not len(big):
+        return None
+    start = d.iloc[big[-1]]
+    return df[df["date"] >= start].reset_index(drop=True)
+
+
+def trim_listing_gaps() -> list[str]:
+    """모든 종목 베이스라인 CSV에서 상장 전·다른 증권 구간(LISTING_GAP_DAYS 넘는 공백 앞)을 버린다. 바뀐 종목 목록 반환."""
+    changed = []
+    for _category, symb in TICKERS:
+        path = BASELINE_DIR / f"{symb}_daily.csv"
+        if not path.exists():
+            continue
+        df = pd.read_csv(path, parse_dates=["date"])
+        out = cut_before_listing_gap(df)
+        if out is None:
+            continue
+        out.to_csv(path, index=False)
         changed.append(symb)
     return changed
 
@@ -155,16 +190,18 @@ def split_like_jumps() -> dict[str, list[tuple[str, float]]]:
 
 
 def fix_history() -> list[str]:
-    """시작일 자르기 + 수정주가 오류 고치기. 바뀐 종목이 있으면 호출부가 MDD 베이스라인을 다시 계산한다."""
-    trimmed, repaired = trim_history(), repair_price_breaks()
+    """시작일 자르기 + 상장 전 구간 버리기 + 수정주가 오류 고치기. 바뀐 종목이 있으면 호출부가 MDD 베이스라인을 다시 계산한다."""
+    trimmed, gapped, repaired = trim_history(), trim_listing_gaps(), repair_price_breaks()
     if trimmed:
         print(f"과거 시작일 보정(한국 {KR_HISTORY_START}·일본 {JP_HISTORY_START} 이후) {len(trimmed)}종목: {trimmed}")
+    if gapped:
+        print(f"상장 전·다른 증권 구간 제거({LISTING_GAP_DAYS}일 넘는 공백 앞) {len(gapped)}종목: {gapped}")
     if repaired:
         print(f"수정주가 오류 보정 {len(repaired)}종목: {repaired}")
     jumps = split_like_jumps()
     if jumps:
         print(f"⚠ 분할 배수와 같은 하루 변화가 남은 종목(확인 필요, PRICE_BREAKS 후보): {jumps}")
-    return sorted(set(trimmed + repaired))
+    return sorted(set(trimmed + gapped + repaired))
 
 
 def missing_symbols() -> list[tuple[str, str]]:
