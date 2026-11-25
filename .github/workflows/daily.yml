@@ -1,4 +1,4 @@
-name: KIS 매수신호 알림
+name: KIS 매수신호 일일 실행
 
 on:
   schedule:
@@ -82,10 +82,7 @@ jobs:
       - name: Refresh MDD baseline (내부 staleness 체크로 보통 30일에 1번만 실수집)
         run: uv run python -m signal_bot.baseline_fetch
 
-      - name: Score(MDD+RSI/MFI/다이버전스) + notify
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Score(MDD+RSI/MFI/다이버전스) + 신규 신호(NEW) 기록
         run: uv run python main.py
 
       - name: Build dashboard data
@@ -96,7 +93,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add signal_bot/data/history.json
-          for f in notified.json mdd_state.json indicator_state.json mdd_alert_state.json mdd_baseline.json baseline_meta.json universe_cache.json fed_steps.json fng_history.json; do
+          for f in notified.json mdd_state.json indicator_state.json mdd_baseline.json baseline_meta.json universe_cache.json fed_steps.json fng_history.json; do
             if [ -f "signal_bot/data/$f" ]; then
               git add "signal_bot/data/$f"
             fi
@@ -121,17 +118,3 @@ jobs:
           COMMIT_SHA=$(git commit-tree "$TREE_SHA" -m "data: dashboard snapshot $(date -u +%Y-%m-%d)")
           git push origin "$COMMIT_SHA:refs/heads/data" --force
           rm -f "$TMP_INDEX"
-
-      # 일일 실행이 어느 단계에서든 실패하면 텔레그램으로 알린다(조용히 멈춰 있다가 며칠 뒤 알게 되는 것을 막는다).
-      # 알림 자체가 실패해도 원래 실패 상태는 그대로 유지한다.
-      - name: Notify failure (Telegram)
-        if: failure()
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          curl -sS -m 15 "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=KIS 매수신호 일일 실행이 실패했습니다. 실행 기록: ${RUN_URL}" > /dev/null \
-            || echo "실패 알림 발송 실패(원래 실패 상태는 유지)"

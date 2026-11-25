@@ -265,9 +265,9 @@ def main():
     today = dates[-1]
 
     baseline = mdd.load_baseline()
-    # 오늘 신규 알림이 나갔는지는 notified.json으로 판단한다(pipeline.main()이
-    # 알림 발송 시 이미 기록해둠) - find_stage_upgrades/find_indicator_events는
-    # 상태를 변경(mutate)하는 함수라 여기서 다시 호출하면 실제 알림 상태가
+    # 오늘 신규 신호(NEW)는 notified.json으로 판단한다(pipeline.main()이
+    # 감지해 기록해둠) - find_stage_upgrades/find_indicator_events는
+    # 상태를 변경(mutate)하는 함수라 여기서 다시 호출하면 실제 감지 상태가
     # 오염되므로 호출하지 않는다.
     notified = alerts.load_notified()
     new_symbs = set(notified.get(today, []))
@@ -310,9 +310,7 @@ def main():
         if entry["is_new"]:
             entry["business_summary"] = company_info.get_business_summary(symb, entry["name"])
         if symb in MDD_ALERT_TICKERS:
-            # 텔레그램 발송 이력(mdd_alert_state.json)과 무관하게, "지금 depth 기준
-            # 현재 상태"를 대시보드에는 항상 정확하게 보여준다(알림은 이미 보낸
-            # 구간이라도 화면에는 계속 표시돼야 하므로).
+            # 지수성 ETF는 "지금 depth 기준 낙폭 구간"을 대시보드에 항상 보여준다.
             depth = entry["depth"]
             level = next(((t, label) for t, label in MDD_ALERT_LEVELS if depth <= -t), None)
             entry["mdd_alert"] = (
@@ -343,7 +341,7 @@ def main():
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    print(f"대시보드 데이터 저장 완료: {OUTPUT_PATH} ({len(tickers)}종목, 신규 알림 {len(new_symbs)}개)")
+    print(f"대시보드 데이터 저장 완료: {OUTPUT_PATH} ({len(tickers)}종목, 신규 신호(NEW) {len(new_symbs)}개)")
 
     detail_count = export_details(baseline, sells, frames_by, buy_perfs)
     print(f"상세 차트 데이터 저장 완료: {DETAIL_DIR}/ ({detail_count}개 종목)")

@@ -6,7 +6,7 @@
 제거, 운영용이 있으면 그쪽을 우선) 리샘플링한다 - 추가 API 호출 없음.
 
 `compute_timeframe_frames()`는 전체 시계열(대시보드 차트용)을, 그 위의
-`compute_multi_timeframe_signals()`는 오늘자 스냅샷 값만(운영 파이프라인/알림용)
+`compute_multi_timeframe_signals()`는 오늘자 스냅샷 값만(운영 파이프라인용)
 반환한다 - 지표 계산 로직은 한 곳(`_indicator_frame`)에서만 수행.
 """
 
@@ -87,7 +87,7 @@ def compute_timeframe_frames(recent_daily: pd.DataFrame,
 
 def compute_multi_timeframe_signals(recent_daily: pd.DataFrame,
                                      baseline_daily: Optional[pd.DataFrame]) -> dict:
-    """운영 파이프라인/알림용 - 오늘자 스냅샷만.
+    """운영 파이프라인용 - 오늘자 스냅샷만.
     Returns: {"daily": {...}, "weekly": {...}, "monthly": {...}} (각 항목은
     rsi/mfi/divergence/rsi_oversold/mfi_oversold)."""
     frames = compute_timeframe_frames(recent_daily, baseline_daily)

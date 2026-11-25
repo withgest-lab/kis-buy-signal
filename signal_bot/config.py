@@ -171,7 +171,7 @@ MDD_ALERT_LEVELS = [
 
 # 시장 전체를 대표하는 지수성 ETF만 따로 - 개별 기업 리스크가 아니라 "지금 시장이
 # 조정/약세장/폭락 중 어디쯤인지"를 절대 낙폭(%) 기준으로 감시해서 매도 등 매매판단
-# 참고용으로 텔레그램+대시보드에 하이라이트한다(기존 MDD 0~3단계는 종목별 과거
+# 참고용으로 대시보드에 하이라이트한다(기존 MDD 0~3단계는 종목별 과거
 # 백분위 기반 상대평가라 이것과는 별개).
 MDD_ALERT_TICKERS = ["SPY", "QQQ", "DIA", "SOXX"]
 
@@ -269,7 +269,7 @@ KR_NAMES = {
     "102970": "KODEX 증권",
 }
 
-# 한국 ETF 사업요약(알림/카드 설명용) - company_info가 CURATED_ETF_DESCRIPTIONS에서 읽는다.
+# 한국 ETF 사업요약(카드 설명용) - company_info가 CURATED_ETF_DESCRIPTIONS에서 읽는다.
 KR_ETF_DESCRIPTIONS = {
     "069500": "코스피200 지수를 추종하는 국내 대표 ETF(KODEX 200)",
     "229200": "코스닥150 지수를 추종하는 ETF",

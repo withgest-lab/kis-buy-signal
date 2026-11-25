@@ -1,9 +1,9 @@
-# KIS 매수신호 알림 시스템
+# KIS 매수신호 시스템
 
 한국투자증권(KIS) Open API로 시세를 수집해 **MDD 단계 + 일/주/월 RSI·MFI·다이버전스**로
-매수 후보를 스코어링하고, 매일 자동으로 텔레그램 알림과 대시보드를 발행하는 개인용
-시스템입니다. **조회·알림만 하며 실제 매수/매도 주문은 하지 않습니다** — 알림을 받으면
-MTS 앱에서 직접 수동으로 매매합니다.
+매수 후보를 스코어링하고, 매일 자동으로 대시보드 데이터를 발행하는 개인용
+시스템입니다. **조회만 하며 실제 매수/매도 주문은 하지 않습니다** — 화면을 보고
+MTS 앱에서 직접 수동으로 매매합니다. (텔레그램 알림은 2026-11-25 삭제)
 
 ## 무엇을 하는가
 
@@ -13,14 +13,14 @@ MTS 앱에서 직접 수동으로 매매합니다.
 2. `signal_bot/baseline_fetch.py` — 20년치 MDD 계산용 베이스라인 갱신(보통 이미 최신이라 생략)
 3. `signal_bot/pipeline.py` — MDD 단계 판정 + 일/주/월봉 RSI·MFI·다이버전스 계산,
    결과를 `signal_bot/data/history.json`에 누적 저장하고 `signal_bot/alerts.py`로
-   텔레그램 알림 발송
+   오늘 새로 생긴 신호(화면 NEW 표시)를 `notified.json`에 기록
 4. `signal_bot/export_dashboard.py` — 화면 표시에 필요한 필드만(종목코드·MDD상태·
    RSI/MFI/다이버전스·현재가·타임스탬프) 골라 `docs/scores.json` + `docs/detail/*.json`
    생성 — **API 키·계좌정보는 절대 포함하지 않습니다.**
 
 ## 라이브 대시보드
 
-이 저장소는 **데이터 엔진**입니다 — 매일 GitHub 서버에서 시세→신호 계산→텔레그램 알림을 돌리고, 결과
+이 저장소는 **데이터 엔진**입니다 — 매일 GitHub 서버에서 시세→신호 계산을 돌리고, 결과
 `scores.json`/`detail/*.json`을 `data` 브랜치에 발행합니다. **화면은
 [`portfolio-retirement-dashboard`](https://github.com/withgest-lab/portfolio-retirement-dashboard)의
 `signals/`** 에 있고, 그 저장소의 배포가 2시간마다 `data` 브랜치를 확인해 바뀌었을 때 가져갑니다.
@@ -129,7 +129,7 @@ README를 참고하세요. LLM 에이전트용 목차는 [`llms.txt`](./llms.txt
 
 ## 보안 메모
 
-- KIS 앱키/앱시크릿/계좌번호/텔레그램 봇 토큰은 GitHub Secrets에만 존재하며 코드에
+- KIS 앱키/앱시크릿/계좌번호는 GitHub Secrets에만 존재하며 코드에
   하드코딩돼 있지 않습니다.
 - `docs/scores.json`·`docs/detail/*.json`(공개 대시보드 데이터)에는 화면 표시용 필드만
   들어가고 계좌·인증 정보는 절대 포함되지 않습니다(`signal_bot/export_dashboard.py`).

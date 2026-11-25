@@ -1,4 +1,4 @@
-"""MDD 단계 + 일/주/월 RSI/MFI/다이버전스 계산 → 이력 저장 → 텔레그램 알림.
+"""MDD 단계 + 일/주/월 RSI/MFI/다이버전스 계산 → 이력 저장 → 오늘 신규 신호(화면 NEW) 기록.
 
 실행 전 signal_bot/fetch_universe.py(운영용 일봉)와 signal_bot/baseline_fetch.py
 (20년치 베이스라인, 월 1회 정도만 실제 수집)를 먼저 실행해둬야 한다.
@@ -10,7 +10,6 @@ from pathlib import Path
 import pandas as pd
 
 from signal_bot import alerts
-from signal_bot import company_info
 from signal_bot import mdd
 from signal_bot import timeframe_signals as tf
 from signal_bot.config import (HISTORY_MAX_DAYS, JP_BENCH_TICKER, KR_BENCH_TICKER, TICKER_NAMES, TICKERS,
@@ -21,7 +20,7 @@ BASELINE_DIR = DATA_DIR / "baseline"
 HISTORY_PATH = DATA_DIR / "history.json"
 
 # 시장국면 참고정보용 지수 - 미국은 SPY, 한국은 KODEX 200(코스피200), 일본은 EWJ, 비트코인은 BTC 자신.
-# 신호를 차단하지 않고 알림/대시보드에 참고정보로만 쓴다.
+# 신호를 차단하지 않고 대시보드에 참고정보로만 쓴다.
 US_REGIME_TICKER = "SPY"
 KR_REGIME_TICKER = KR_BENCH_TICKER
 CRYPTO_REGIME_TICKER = "BTC"
@@ -171,8 +170,6 @@ def print_report(results: list[dict], errors: list[tuple]) -> None:
 
 
 def main():
-    from signal_bot.notifier import send_telegram_message
-
     results, errors = run()
     print_report(results, errors)
 
@@ -190,59 +187,23 @@ def main():
     save_history(history)
     print(f"\nJSON 이력 저장 완료: {HISTORY_PATH} (기준일 {today}, 최근 {HISTORY_MAX_DAYS}거래일 유지)")
 
-    # 지수성 ETF(SPY/QQQ/DIA/SOXX) 절대 낙폭 구간 경보 - 기존 MDD단계/RSI·MFI
-    # 알림과는 완전히 별개 트리거라 독립적으로 판정하고 별도 메시지로 발송한다
-    # (아래 candidates가 없어도 이건 그대로 확인해야 하므로 먼저 처리).
-    baseline = mdd.load_baseline()
-    mdd_alert_state = alerts.load_mdd_alert_state()
-    mdd_level_events = alerts.find_mdd_level_events(results, baseline, mdd_alert_state)
-    if mdd_level_events:
-        level_message = alerts.format_mdd_level_message(mdd_level_events, today)
-        try:
-            send_telegram_message(level_message)
-            alerts.save_mdd_alert_state(mdd_alert_state)
-            print(f"\n지수 낙폭 경보 발송 완료: {[e['symb'] for e in mdd_level_events]}")
-        except Exception as e:
-            print(f"\n지수 낙폭 경보 발송 실패 - 상태 저장 안 함(다음 실행에서 재시도): {e}")
-    else:
-        alerts.save_mdd_alert_state(mdd_alert_state)
-
+    # 오늘 새로 생긴 신호(MDD 단계 상승·RSI/MFI 과매도 진입·다이버전스)를 찾아 화면의 NEW 표시용으로 남긴다.
+    # 텔레그램 알림은 2026-11-25 삭제 — 예전엔 발송이 성공해야만 상태를 저장해서, 토큰이 무효였던 11-12 이후
+    # NEW 표시도 함께 멈춰 있었다. 이제는 감지 결과를 그대로 저장한다.
     mdd_state = alerts.load_mdd_state()
     indicator_state = alerts.load_indicator_state()
-    # 유니버스에 새로 들어온 종목은 이미 낙폭/과매도 상태여도 알림이 쏟아지지 않게 현재 상태로 조용히 시드한다.
+    # 유니버스에 새로 들어온 종목은 이미 낙폭/과매도 상태여도 NEW가 쏟아지지 않게 현재 상태로 조용히 시드한다.
     seeded = alerts.seed_new_symbols(results, mdd_state, indicator_state)
     if seeded:
-        print(f"\n처음 보는 종목 {len(seeded)}개는 알림 없이 현재 상태로 초기화: {seeded}")
-    # find_alert_candidates가 mdd_state/indicator_state를 in-place로 갱신하지만,
-    # 발송이 실패하면 다음 실행에서 같은 이벤트를 재시도할 수 있도록 실제
-    # 발송(텔레그램 API 호출)이 성공한 뒤에만 디스크에 저장한다(아래).
+        print(f"\n처음 보는 종목 {len(seeded)}개는 NEW 없이 현재 상태로 초기화: {seeded}")
     candidates = alerts.find_alert_candidates(results, mdd_state, indicator_state)
-
     notified = alerts.load_notified()
-    to_send = alerts.filter_unnotified(candidates, today, notified)
-
-    if not to_send:
-        alerts.save_mdd_state(mdd_state)
-        alerts.save_indicator_state(indicator_state)
-        print("신규 알림 대상 없음 (발송 안 함)")
-        return
-
-    for r in to_send:
-        r["business_summary"] = company_info.get_business_summary(r["symb"], r["name"])
-
-    messages = alerts.format_alert_messages(to_send, today)
-    try:
-        for msg in messages:
-            send_telegram_message(msg)
-    except Exception as e:
-        print(f"\n텔레그램 발송 실패 - 상태 저장 안 함(다음 실행에서 재시도): {e}")
-        return
-
+    new_symbs = [r["symb"] for r in alerts.filter_unnotified(candidates, today, notified)]
+    alerts.mark_notified(notified, today, new_symbs)
     alerts.save_mdd_state(mdd_state)
     alerts.save_indicator_state(indicator_state)
-    alerts.mark_notified(notified, today, [r["symb"] for r in to_send])
     alerts.save_notified(notified)
-    print(f"\n텔레그램 알림 발송 완료({len(messages)}건): {[r['symb'] for r in to_send]}")
+    print(f"\n오늘 신규 신호(NEW) {len(new_symbs)}종목: {new_symbs}" if new_symbs else "\n오늘 신규 신호 없음")
 
 
 if __name__ == "__main__":
