@@ -755174,22 +755174,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 27.2,
-          "mfi": 22.2,
+          "rsi": 26.1,
+          "mfi": 22.1,
           "divergence": false,
           "rsi_oversold": true,
           "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 35.1,
-          "mfi": 41.4,
+          "rsi": 34.9,
+          "mfi": 41.3,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 43.1,
-          "mfi": 33.4,
+          "mfi": 33.5,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
