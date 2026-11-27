@@ -755154,11 +755154,11 @@
       "symb": "BTC",
       "name": "Bitcoin 현물(USD)",
       "currency": "USD",
-      "date": "2026-11-25",
-      "close": 60383.51,
-      "pct_chg": 1.08,
+      "date": "2026-11-26",
+      "close": 60495.57,
+      "pct_chg": 0.19,
       "market_regime": "하락장",
-      "depth": -0.5158,
+      "depth": -0.5149,
       "rolling_high": 124720.09,
       "stage": 3,
       "percentiles": {
@@ -755174,22 +755174,22 @@
       "is_record_drawdown": false,
       "timeframes": {
         "daily": {
-          "rsi": 25.7,
-          "mfi": 19.6,
+          "rsi": 27.2,
+          "mfi": 22.2,
           "divergence": false,
           "rsi_oversold": true,
-          "mfi_oversold": true
+          "mfi_oversold": false
         },
         "weekly": {
-          "rsi": 34.7,
-          "mfi": 41.6,
+          "rsi": 35.1,
+          "mfi": 41.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
         },
         "monthly": {
           "rsi": 43.1,
-          "mfi": 33.5,
+          "mfi": 33.4,
           "divergence": false,
           "rsi_oversold": false,
           "mfi_oversold": false
@@ -755954,10 +755954,10 @@
       "name": "KODEX 은행",
       "currency": "KRW",
       "date": "2026-11-26",
-      "close": 14115.0,
-      "pct_chg": -0.95,
+      "close": 14065.0,
+      "pct_chg": -0.94,
       "market_regime": "하락장",
-      "depth": -0.173,
+      "depth": -0.1759,
       "rolling_high": 17067.0,
       "stage": 2,
       "percentiles": {
@@ -755987,7 +755987,7 @@
           "mfi_oversold": false
         },
         "monthly": {
-          "rsi": 59.7,
+          "rsi": 59.6,
           "mfi": 81.2,
           "divergence": false,
           "rsi_oversold": false,
