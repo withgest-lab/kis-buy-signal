@@ -32,8 +32,8 @@
     "last_stage_notified": 2
   },
   "WMT": {
-    "episode_start_date": "2026-09-04",
-    "last_stage_notified": 2
+    "episode_start_date": null,
+    "last_stage_notified": 0
   },
   "INTC": {
     "episode_start_date": "2026-09-04",
